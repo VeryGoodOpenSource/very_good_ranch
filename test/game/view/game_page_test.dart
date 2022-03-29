@@ -6,13 +6,15 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_ranch/app/app.dart';
+
 import 'package:very_good_ranch/game/game.dart';
 
+import '../../helpers/helpers.dart';
+
 void main() {
-  group('App', () {
+  group('GamePage', () {
     testWidgets('renders GamePage', (tester) async {
-      await tester.pumpWidget(const App());
+      await tester.pumpApp(const GamePage());
       expect(find.byType(GamePage), findsOneWidget);
     });
   });

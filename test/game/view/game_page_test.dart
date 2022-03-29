@@ -7,15 +7,18 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flame/game.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_ranch/app/app.dart';
+
 import 'package:very_good_ranch/game/game.dart';
 
+import '../../helpers/helpers.dart';
+
 void main() {
-  group('App', () {
-    testWidgets('renders GamePage', (tester) async {
-      await tester.pumpWidget(App());
-      expect(find.byType(GamePage), findsOneWidget);
+  group('GamePage', () {
+    testWidgets('renders GameWidget', (tester) async {
+      await tester.pumpApp(GamePage());
+      expect(find.byType(GameWidget<VeryGoodRanchGame>), findsOneWidget);
     });
   });
 }

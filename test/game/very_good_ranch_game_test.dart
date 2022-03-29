@@ -5,18 +5,14 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:flame/game.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:very_good_ranch/game/game.dart';
 
-import '../../helpers/helpers.dart';
-
 void main() {
-  group('GamePage', () {
-    testWidgets('renders GameWidget', (tester) async {
-      await tester.pumpApp(const GamePage());
-      expect(find.byType(GameWidget<VeryGoodRanchGame>), findsOneWidget);
+  group('VeryGoodRanchGame', () {
+    test('can be instantiated', () {
+      expect(VeryGoodRanchGame(), isA<VeryGoodRanchGame>());
     });
   });
 }

@@ -5,6 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flame/game.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -15,7 +17,7 @@ import '../../helpers/helpers.dart';
 void main() {
   group('GamePage', () {
     testWidgets('renders GameWidget', (tester) async {
-      await tester.pumpApp(const GamePage());
+      await tester.pumpApp(GamePage());
       expect(find.byType(GameWidget<VeryGoodRanchGame>), findsOneWidget);
     });
   });

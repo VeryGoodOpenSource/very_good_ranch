@@ -7,8 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
+import 'package:very_good_ranch/title/title.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const GamePage(),
+      home: const TitlePage(),
     );
   }
 }

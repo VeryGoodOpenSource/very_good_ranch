@@ -1,7 +1,19 @@
 {
     "@@locale": "en",
-    "gameAppBarTitle": "Very Good Ranch",
-    "@gameAppBarTitle": {
-        "description": "Text shown in the AppBar of the Game Page"
+    "gameTitle": "Very Good Ranch",
+    "@gameTitle": {
+        "description": "Title of the game"
+    },
+    "play": "Play",
+    "@play": {
+        "description": "Text for Play button"
+    },
+    "credits": "Credits",
+    "@credits": {
+        "description": "Text for Credits button"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Text for Settings button"
     }
 }

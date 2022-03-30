@@ -9,13 +9,13 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_ranch/app/app.dart';
-import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/title/title.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders GamePage', (tester) async {
+    testWidgets('renders TitlePage', (tester) async {
       await tester.pumpWidget(App());
-      expect(find.byType(GamePage), findsOneWidget);
+      expect(find.byType(TitlePage), findsOneWidget);
     });
   });
 }

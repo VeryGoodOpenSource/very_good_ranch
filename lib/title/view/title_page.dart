@@ -13,7 +13,6 @@ class TitlePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            // Placeholder for title
             Expanded(
               child: Center(
                 child: Text(

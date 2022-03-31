@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';

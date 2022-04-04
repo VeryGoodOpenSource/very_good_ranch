@@ -41,7 +41,7 @@ class SettingsDialog extends StatelessWidget {
                   key: const Key('gameplayVolumeSlider'),
                   value: state.gameplayVolume,
                   onChanged: (v) {
-                    BlocProvider.of<SettingsBloc>(context)
+                    context.read<SettingsBloc>()
                         .add(GameplayVolumeChanged(v));
                   },
                 ),

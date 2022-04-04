@@ -10,7 +10,7 @@ class MusicVolumeChanged extends SettingsEvent {
   final double volume;
 
   @override
-  List<Object?> get props => [volume];
+  List<Object> get props => [volume];
 }
 
 class GameplayVolumeChanged extends SettingsEvent {
@@ -19,5 +19,5 @@ class GameplayVolumeChanged extends SettingsEvent {
   final double volume;
 
   @override
-  List<Object?> get props => [volume];
+  List<Object> get props => [volume];
 }

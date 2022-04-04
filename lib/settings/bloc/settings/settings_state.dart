@@ -28,5 +28,5 @@ class SettingsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [musicVolume, gameplayVolume];
+  List<Object> get props => [musicVolume, gameplayVolume];
 }

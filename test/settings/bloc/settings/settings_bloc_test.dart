@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_ranch/settings/bloc/settings/settings_bloc.dart';
+import 'package:very_good_ranch/settings/settings.dart';
 
 void main() {
   group('SettingsBloc', () {

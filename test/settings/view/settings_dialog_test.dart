@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -15,11 +14,7 @@ void main() {
 
     setUp(() {
       settingsBloc = MockSettingsBloc();
-      whenListen(
-        settingsBloc,
-        const Stream<SettingsState>.empty(),
-        initialState: SettingsState(),
-      );
+      when(() => settingsBloc.state).thenReturn(SettingsState());
     });
 
     testWidgets('renders correctly', (tester) async {

@@ -38,9 +38,7 @@ class TitlePage extends StatelessWidget {
                     onPressed: () {
                       showDialog<void>(
                         context: context,
-                        builder: (_) => const _WrappedDialog(
-                          child: CreditsPage(),
-                        ),
+                        builder: (_) => const CreditsDialog(),
                       );
                     },
                     child: Text(context.l10n.credits),
@@ -49,9 +47,7 @@ class TitlePage extends StatelessWidget {
                     onPressed: () {
                       showDialog<void>(
                         context: context,
-                        builder: (_) => const _WrappedDialog(
-                          child: SettingsPage(),
-                        ),
+                        builder: (_) => const SettingsDialog(),
                       );
                     },
                     child: Text(context.l10n.settings),
@@ -61,24 +57,6 @@ class TitlePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _WrappedDialog extends StatelessWidget {
-  const _WrappedDialog({
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: child,
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
-import 'package:very_good_ranch/settings/bloc/settings/settings_bloc.dart';
+import 'package:very_good_ranch/settings/settings.dart';
 
 class SettingsDialog extends StatelessWidget {
   const SettingsDialog({Key? key}) : super(key: key);

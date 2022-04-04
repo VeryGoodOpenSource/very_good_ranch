@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_ranch/settings/settings.dart';
-
-// ignore_for_file: prefer_const_constructors
 
 void main() {
   group('SettingsState', () {

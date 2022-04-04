@@ -38,10 +38,6 @@ void main() {
       await tester.pumpApp(SettingsDialog(), settingsBloc: settingsBloc);
 
       await tester.tap(find.byKey(const Key('musicVolumeSlider')));
-      // await tester.drag(
-      //   find.byKey(const Key('musicVolumeSlider')),
-      //   Offset(-500, 0),
-      // );
 
       verify(() => settingsBloc.add(const MusicVolumeChanged(0.5))).called(1);
     });

@@ -11,12 +11,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   void _onMusicVolumeChanged(
-      MusicVolumeChanged event, Emitter<SettingsState> emit) {
+    MusicVolumeChanged event,
+    Emitter<SettingsState> emit,
+  ) {
     emit(state.copyWith(musicVolume: event.volume));
   }
 
   void _onGameplayVolumeChanged(
-      GameplayVolumeChanged event, Emitter<SettingsState> emit) {
+    GameplayVolumeChanged event,
+    Emitter<SettingsState> emit,
+  ) {
     emit(state.copyWith(gameplayVolume: event.volume));
   }
 }

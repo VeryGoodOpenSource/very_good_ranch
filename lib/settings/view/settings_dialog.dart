@@ -32,7 +32,7 @@ class SettingsDialog extends StatelessWidget {
                   key: const Key('musicVolumeSlider'),
                   value: state.musicVolume,
                   onChanged: (v) {
-                    BlocProvider.of<SettingsBloc>(context)
+                    context.read<SettingsBloc>()
                         .add(MusicVolumeChanged(v));
                   },
                 ),

@@ -13,8 +13,15 @@ import 'package:very_good_ranch/title/title.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders TitlePage', (tester) async {
+    testWidgets('renders AppView', (tester) async {
       await tester.pumpWidget(App());
+      expect(find.byType(AppView), findsOneWidget);
+    });
+  });
+
+  group('AppView', () {
+    testWidgets('renders TitlePage', (tester) async {
+      await tester.pumpWidget(AppView());
       expect(find.byType(TitlePage), findsOneWidget);
     });
   });

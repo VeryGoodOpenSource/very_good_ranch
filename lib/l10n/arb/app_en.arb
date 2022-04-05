@@ -27,7 +27,7 @@
             "volume": {
                 "type": "int",
                 "example": "100%",
-               "description": "Volume of the music"
+                "description": "Volume of the music"
             }
         }
     },
@@ -38,7 +38,7 @@
             "volume": {
                 "type": "int",
                 "example": "100%",
-               "description": "Volume of the gameplay"
+                "description": "Volume of the gameplay"
             }
         }
     }

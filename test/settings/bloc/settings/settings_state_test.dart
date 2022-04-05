@@ -22,11 +22,19 @@ void main() {
         expect(() => SettingsState(musicVolume: 1.1), throwsAssertionError);
       });
 
-      test('throws AssertionError if gameplayVolume is not between 0 and 1',
-          () {
-        expect(() => SettingsState(gameplayVolume: -0.1), throwsAssertionError);
-        expect(() => SettingsState(gameplayVolume: 1.1), throwsAssertionError);
-      });
+      test(
+        'throws AssertionError if gameplayVolume is not between 0 and 1',
+        () {
+          expect(
+            () => SettingsState(gameplayVolume: -0.1),
+            throwsAssertionError,
+          );
+          expect(
+            () => SettingsState(gameplayVolume: 1.1),
+            throwsAssertionError,
+          );
+        },
+      );
     });
 
     group('copyWith', () {

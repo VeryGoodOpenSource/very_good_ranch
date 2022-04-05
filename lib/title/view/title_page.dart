@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_ranch/credits/credits.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
@@ -11,21 +12,36 @@ class TitlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
+        child: Stack(
           children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  context.l10n.gameTitle,
-                  style: Theme.of(context).textTheme.headline2,
-                  textAlign: TextAlign.center,
+            const Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF4776F7), Color(0xFFFFFFFF)],
+                    begin: Alignment.center,
+                    end: Alignment.topCenter,
+                  ),
                 ),
               ),
             ),
-            Expanded(
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                Assets.images.titleHills.path,
+              ),
+            ),
+            Positioned.fill(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Image.asset(
+                    Assets.images.titleHeader.path,
+                    semanticLabel: context.l10n.gameTitle,
+                  ),
+                  const SizedBox(height: 64),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement<void, void>(

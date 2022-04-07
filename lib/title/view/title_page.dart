@@ -85,21 +85,3 @@ class TitlePage extends StatelessWidget {
     );
   }
 }
-
-class _WrappedDialog extends StatelessWidget {
-  const _WrappedDialog({
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: child,
-      ),
-    );
-  }
-}

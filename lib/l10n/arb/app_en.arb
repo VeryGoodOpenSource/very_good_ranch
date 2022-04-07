@@ -15,5 +15,31 @@
     "settings": "Settings",
     "@settings": {
         "description": "Text for Settings button"
+    },
+    "audioSettings": "Audio settings",
+    "@audioSettings": {
+        "description": "Text for Audio settings title"
+    },
+    "musicVolume": "Music Volume: {volume}%",
+    "@musicVolume": {
+        "description": "Text for the current Music Volume",
+        "placeholders": {
+            "volume": {
+                "type": "int",
+                "example": "100%",
+                "description": "Volume of the music"
+            }
+        }
+    },
+    "gameplayVolume": "Gameplay Volume: {volume}%",
+    "@gameplayVolume": {
+        "description": "Text for the current Gameplay Volume",
+        "placeholders": {
+            "volume": {
+                "type": "int",
+                "example": "100%",
+                "description": "Volume of the gameplay"
+            }
+        }
     }
 }

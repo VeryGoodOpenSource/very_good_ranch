@@ -1,1 +1,1 @@
-export 'credits_page.dart';
+export 'credits_dialog.dart';

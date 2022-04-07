@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -38,7 +39,7 @@ void main() {
       verify(() => navigator.pushReplacement<void, void>(any())).called(1);
     });
 
-    testWidgets('tapping on credits button displays dialog with CreditsPage',
+    testWidgets('tapping on credits button displays dialog with CreditsDialog',
         (tester) async {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
       await tester.pumpApp(TitlePage());
@@ -46,20 +47,27 @@ void main() {
       await tester.tap(find.widgetWithText(ElevatedButton, l10n.credits));
       await tester.pump();
 
-      expect(find.byType(Dialog), findsOneWidget);
-      expect(find.byType(CreditsPage), findsOneWidget);
+      expect(find.byType(CreditsDialog), findsOneWidget);
     });
 
-    testWidgets('tapping on settings button displays dialog with SettingsPage',
+    testWidgets(
+        'tapping on settings button displays dialog with SettingsDialog',
         (tester) async {
+      final settingsBloc = MockSettingsBloc();
+
+      whenListen(
+        settingsBloc,
+        const Stream<SettingsState>.empty(),
+        initialState: SettingsState(),
+      );
+
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
-      await tester.pumpApp(TitlePage());
+      await tester.pumpApp(TitlePage(), settingsBloc: settingsBloc);
 
       await tester.tap(find.widgetWithText(ElevatedButton, l10n.settings));
       await tester.pump();
 
-      expect(find.byType(Dialog), findsOneWidget);
-      expect(find.byType(SettingsPage), findsOneWidget);
+      expect(find.byType(SettingsDialog), findsOneWidget);
     });
   });
 }

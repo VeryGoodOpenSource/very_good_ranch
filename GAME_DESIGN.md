@@ -13,6 +13,8 @@ Each unicorn has a happiness counter, this can be influenced by a few game aspec
 
 A unicorn goes to the next stage when they have eaten the right amount of food and are on the happiness threshold for their current stage.
 
+These thresholds will be determined when the development of the game has processed a bit further.
+
 ### Food
 
 Food is what a player uses to feed their unicorns. Each stage of unicorn has a preferred type of food, feeding them the correct food will ensure they grow up. Feeding the incorrect food will make them mad.
@@ -71,7 +73,8 @@ For sprites:
 
 - An idle sprite/animation, where the unicorn is standing still.
 - A sprite animation for a roaming unicorn.
-- 
+- Animation for when the player plays with the unicorn.
+- Animation of the unicorn being happy, we could use this after it gets food or when the player pets the unicorn.
 
 For audio:
 
@@ -84,4 +87,10 @@ For the food entity we need a few types of sprites for each type of food.
 
 The type of foods are:
 
-- 
+- 🧁 Cupcakes
+- 🍭 Lollipops
+- 🥞 Pancakes
+- 🍦 Ice creams
+- 🍬 Candies
+
+Depending on how food will be used for the different stages of the unicorn we might need multiple different sprite for each type of food.

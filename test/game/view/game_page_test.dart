@@ -10,8 +10,10 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockingjay/mockingjay.dart';
 
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -43,6 +45,18 @@ void main() {
       await tester.pump();
 
       expect(find.byType(GamePage), findsOneWidget);
+    });
+
+    testWidgets('overlays SettingsDialog', (tester) async {
+      final settingsBloc = MockSettingsBloc();
+      when(() => settingsBloc.state).thenReturn(SettingsState());
+
+      await tester.pumpApp(GamePage(), settingsBloc: settingsBloc);
+
+      await tester.tap(find.byIcon(Icons.settings));
+      await tester.pump();
+
+      expect(find.byType(SettingsDialog), findsOneWidget);
     });
   });
 }

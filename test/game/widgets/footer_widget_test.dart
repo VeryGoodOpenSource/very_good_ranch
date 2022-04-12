@@ -22,13 +22,29 @@ void main() {
       expect(find.byIcon(Icons.settings), findsOneWidget);
     });
 
-    testWidgets('activates settings overlay', (tester) async {
-      await tester.pumpApp(Scaffold(body: FooterWidget(overlays: overlays)));
+    group('open settings', () {
+      testWidgets('activates settings overlay', (tester) async {
+        await tester.pumpApp(Scaffold(body: FooterWidget(overlays: overlays)));
 
-      await tester.tap(find.byIcon(Icons.settings));
-      await tester.pump();
+        await tester.tap(find.byIcon(Icons.settings));
 
-      expect(overlays.isActive(SettingsDialog.overlayKey), isTrue);
+        expect(overlays.isActive(SettingsDialog.overlayKey), true);
+      });
+
+      testWidgets(
+        'removes shop overlay when settings is opened',
+        (tester) async {
+          overlays.add('shop');
+          await tester.pumpApp(
+            Scaffold(body: FooterWidget(overlays: overlays)),
+          );
+
+          await tester.tap(find.byIcon(Icons.settings));
+
+          expect(overlays.isActive('shop'), false);
+          expect(overlays.isActive(SettingsDialog.overlayKey), true);
+        },
+      );
     });
   });
 }

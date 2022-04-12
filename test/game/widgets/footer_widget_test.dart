@@ -2,7 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/settings/view/settings_dialog.dart';
+import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/pump_app.dart';
 

@@ -14,12 +14,3 @@ class VeryGoodRanchGame extends FlameGame with TapDetector {
     return super.onTapUp(info);
   }
 }
-
-// NOTE(wolfen): remove when https://github.com/flame-engine/flame/pull/1536 is merged
-extension _ActiveOverlaysNotifier on ActiveOverlaysNotifier {
-  void clear() {
-    value.clear();
-    // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-    notifyListeners();
-  }
-}

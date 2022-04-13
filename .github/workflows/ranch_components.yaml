@@ -1,0 +1,20 @@
+name: ranch_components
+
+on:
+  push:
+    paths:
+      - "packages/ranch_components/**"
+      - ".github/workflows/ranch_components.yaml"
+
+  pull_request:
+    paths:
+      - "packages/ranch_components/**"
+      - ".github/workflows/ranch_components.yaml"
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      working_directory: packages/ranch_components
+      coverage_excludes: "lib/gen/*.dart"
+      test_optimization: false

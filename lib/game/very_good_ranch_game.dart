@@ -15,9 +15,6 @@ class VeryGoodRanchGame extends FlameGame
   /// The random number generator for this game, allowing it to be seed-able.
   final Random seed;
 
-  /// The food spawn time threshold, in seconds.
-  final foodSpawnThreshold = 60.0;
-
   @override
   bool get debugMode => kDebugMode;
 

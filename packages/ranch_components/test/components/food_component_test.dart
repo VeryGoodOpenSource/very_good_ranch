@@ -9,45 +9,45 @@ void main() {
   final flameTester = FlameTester(TestGame.new);
 
   group('FoodComponent', () {
-    flameTester.test(
-      'loads correctly',
-      (game) async {
-        final food = FoodComponent(
-          position: Vector2.zero(),
-          saturation: 0,
-          type: FoodType.candy,
-        );
-        await game.ready();
-        await game.ensureAdd(food);
-
-        expect(game.contains(food), isTrue);
-      },
-    );
-
-    flameTester.testGameWidget(
-      'is draggable',
-      setUp: (game, tester) async {
-        await game.add(
-          FoodComponent(
+    flameTester
+      ..test(
+        'loads correctly',
+        (game) async {
+          final food = FoodComponent(
             position: Vector2.zero(),
             saturation: 0,
             type: FoodType.candy,
-          ),
-        );
-      },
-      verify: (game, tester) async {
-        await tester.dragFrom(
-          Offset.zero,
-          const Offset(100, 100),
-        );
-        await tester.pump();
+          );
+          await game.ready();
+          await game.ensureAdd(food);
 
-        await expectLater(
-          find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food_component/dragged.png'),
-        );
-      },
-    );
+          expect(game.contains(food), isTrue);
+        },
+      )
+      ..testGameWidget(
+        'is draggable',
+        setUp: (game, tester) async {
+          await game.add(
+            FoodComponent(
+              position: Vector2.zero(),
+              saturation: 0,
+              type: FoodType.candy,
+            ),
+          );
+        },
+        verify: (game, tester) async {
+          await tester.dragFrom(
+            Offset.zero,
+            const Offset(100, 100),
+          );
+          await tester.pump();
+
+          await expectLater(
+            find.byGame<TestGame>(),
+            matchesGoldenFile('golden/food_component/dragged.png'),
+          );
+        },
+      );
 
     group('cupcake', () {
       flameTester.testGameWidget(

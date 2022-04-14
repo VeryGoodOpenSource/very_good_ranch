@@ -4,11 +4,21 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 
+/// Type of food.
 enum FoodType {
+  /// Cupcake type.
   cupcake,
+
+  /// Lollipop type.
   lolipop,
+
+  /// Pancake type.
   pancake,
+
+  /// Ice cream type.
   iceCream,
+
+  /// Candy type.
   candy,
 }
 

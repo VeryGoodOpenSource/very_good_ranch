@@ -39,7 +39,7 @@ class VeryGoodRanchGame extends FlameGame
   void update(double dt) {
     lastTimeFoodSpawned += dt;
 
-    if (lastTimeFoodSpawned >= 60) {
+    if (lastTimeFoodSpawned >= foodSpawnThreshold) {
       lastTimeFoodSpawned = 0;
 
       final foodType = FoodType.values[seed.nextInt(FoodType.values.length)];

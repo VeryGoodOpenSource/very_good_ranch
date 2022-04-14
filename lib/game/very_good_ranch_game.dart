@@ -1,11 +1,10 @@
 import 'dart:math';
 
-import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/components/food_spawner.dart';
 
 class VeryGoodRanchGame extends FlameGame
     with TapDetector, HasDraggables, HasCollisionDetection {
@@ -27,35 +26,7 @@ class VeryGoodRanchGame extends FlameGame
 
   @override
   Future<void>? onLoad() {
-    add(
-      TimerComponent(
-        period: foodSpawnThreshold,
-        repeat: true,
-        onTick: () {
-          final foodType =
-              FoodType.values[seed.nextInt(FoodType.values.length)];
-          final position = Vector2.random(seed)..multiply(size);
-
-          switch (foodType) {
-            case FoodType.cupcake:
-              add(FoodComponent.cupcake(position: position));
-              break;
-            case FoodType.lolipop:
-              add(FoodComponent.lolipop(position: position));
-              break;
-            case FoodType.pancake:
-              add(FoodComponent.pancake(position: position));
-              break;
-            case FoodType.iceCream:
-              add(FoodComponent.iceCream(position: position));
-              break;
-            case FoodType.candy:
-              add(FoodComponent.candy(position: position));
-              break;
-          }
-        },
-      ),
-    );
+    add(FoodSpawner(seed: seed));
     return null;
   }
 

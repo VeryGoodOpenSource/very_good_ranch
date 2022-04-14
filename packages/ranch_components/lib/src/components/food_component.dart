@@ -84,8 +84,15 @@ class FoodComponent extends PositionComponent with Draggable {
   /// type.
   late Paint paint;
 
+  /// The radius of visual food representation.
+  ///
+  /// NOTE: This is a temporary solution until there are assets for each food
+  /// type.
+  late double radius;
+
   @override
   Future<void> onLoad() async {
+    radius = size.x / 2;
     paint = Paint();
     switch (type) {
       case FoodType.cupcake:
@@ -114,7 +121,6 @@ class FoodComponent extends PositionComponent with Draggable {
 
   @override
   void render(Canvas canvas) {
-    final radius = size.x / 2;
     canvas.drawCircle(Offset(radius, radius), radius, paint);
   }
 }

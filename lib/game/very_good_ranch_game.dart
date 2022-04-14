@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -16,10 +17,7 @@ class VeryGoodRanchGame extends FlameGame
   final Random seed;
 
   /// The food spawn time threshold, in seconds.
-  final foodSpawnThreshold = 60;
-
-  /// The last time a food was spawned, in seconds.
-  double lastTimeFoodSpawned = 0;
+  final foodSpawnThreshold = 60.0;
 
   @override
   bool get debugMode => kDebugMode;
@@ -28,41 +26,44 @@ class VeryGoodRanchGame extends FlameGame
   Color backgroundColor() => const Color(0xFFFFFFFF);
 
   @override
+  Future<void>? onLoad() {
+    add(
+      TimerComponent(
+        period: foodSpawnThreshold,
+        repeat: true,
+        onTick: () {
+          final foodType =
+              FoodType.values[seed.nextInt(FoodType.values.length)];
+          final position = Vector2.random(seed)..multiply(size);
+
+          switch (foodType) {
+            case FoodType.cupcake:
+              add(FoodComponent.cupcake(position: position));
+              break;
+            case FoodType.lolipop:
+              add(FoodComponent.lolipop(position: position));
+              break;
+            case FoodType.pancake:
+              add(FoodComponent.pancake(position: position));
+              break;
+            case FoodType.iceCream:
+              add(FoodComponent.iceCream(position: position));
+              break;
+            case FoodType.candy:
+              add(FoodComponent.candy(position: position));
+              break;
+          }
+        },
+      ),
+    );
+    return null;
+  }
+
+  @override
   void onTapUp(TapUpInfo info) {
     if (overlays.value.isNotEmpty) {
       overlays.clear();
     }
     return super.onTapUp(info);
-  }
-
-  @override
-  void update(double dt) {
-    lastTimeFoodSpawned += dt;
-
-    if (lastTimeFoodSpawned >= foodSpawnThreshold) {
-      lastTimeFoodSpawned = 0;
-
-      final foodType = FoodType.values[seed.nextInt(FoodType.values.length)];
-      final position = Vector2.random(seed)..multiply(size);
-
-      switch (foodType) {
-        case FoodType.cupcake:
-          add(FoodComponent.cupcake(position: position));
-          break;
-        case FoodType.lolipop:
-          add(FoodComponent.lolipop(position: position));
-          break;
-        case FoodType.pancake:
-          add(FoodComponent.pancake(position: position));
-          break;
-        case FoodType.iceCream:
-          add(FoodComponent.iceCream(position: position));
-          break;
-        case FoodType.candy:
-          add(FoodComponent.candy(position: position));
-          break;
-      }
-    }
-    super.update(dt);
   }
 }

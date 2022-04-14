@@ -41,7 +41,7 @@ void main() {
     );
 
     flameTester.testGameWidget(
-      'spawns a lolipop',
+      'spawns a lollipop',
       setUp: (game, tester) async {
         when(() => seed.nextInt(any())).thenReturn(1);
         await game.add(FoodSpawner(seed: seed));
@@ -53,7 +53,7 @@ void main() {
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
         expect(foodComponents.length, 1);
-        expect(foodComponents.first.type, FoodType.lolipop);
+        expect(foodComponents.first.type, FoodType.lollipop);
       },
     );
 

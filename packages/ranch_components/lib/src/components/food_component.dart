@@ -10,7 +10,7 @@ enum FoodType {
   cupcake,
 
   /// Lollipop type.
-  lolipop,
+  lollipop,
 
   /// Pancake type.
   pancake,
@@ -46,10 +46,10 @@ class FoodComponent extends PositionComponent with Draggable {
 
   /// {@macro food_component}
   ///
-  /// Constructs a lolipop.
-  FoodComponent.lolipop({
+  /// Constructs a lollipop.
+  FoodComponent.lollipop({
     required Vector2 position,
-  }) : this(position: position, saturation: 1.5, type: FoodType.lolipop);
+  }) : this(position: position, saturation: 1.5, type: FoodType.lollipop);
 
   /// {@macro food_component}
   ///
@@ -98,7 +98,7 @@ class FoodComponent extends PositionComponent with Draggable {
       case FoodType.cupcake:
         paint.color = const Color(0xFFE1BA84);
         break;
-      case FoodType.lolipop:
+      case FoodType.lollipop:
         paint.color = const Color(0xFF3B93FF);
         break;
       case FoodType.pancake:

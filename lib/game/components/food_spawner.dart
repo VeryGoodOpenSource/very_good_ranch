@@ -21,8 +21,8 @@ class FoodSpawner extends TimerComponent with HasGameRef {
       case FoodType.cupcake:
         add(FoodComponent.cupcake(position: position));
         break;
-      case FoodType.lolipop:
-        add(FoodComponent.lolipop(position: position));
+      case FoodType.lollipop:
+        add(FoodComponent.lollipop(position: position));
         break;
       case FoodType.pancake:
         add(FoodComponent.pancake(position: position));

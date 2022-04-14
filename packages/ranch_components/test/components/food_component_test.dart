@@ -72,22 +72,22 @@ void main() {
       );
     });
 
-    group('lolipop', () {
+    group('lollipop', () {
       flameTester.testGameWidget(
         'renders correctly',
         setUp: (game, tester) async {
           await game.add(
-            FoodComponent.lolipop(position: Vector2.zero()),
+            FoodComponent.lollipop(position: Vector2.zero()),
           );
         },
         verify: (game, tester) async {
           final food = game.children.whereType<FoodComponent>().first;
-          expect(food.type, FoodType.lolipop);
+          expect(food.type, FoodType.lollipop);
           expect(food.saturation, 1.5);
 
           await expectLater(
             find.byGame<TestGame>(),
-            matchesGoldenFile('golden/food_component/types/lolipop.png'),
+            matchesGoldenFile('golden/food_component/types/lollipop.png'),
           );
         },
       );

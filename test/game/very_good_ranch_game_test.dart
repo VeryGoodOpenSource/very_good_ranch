@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 // Copyright (c) 2022, Very Good Ventures
 // https://verygood.ventures
 //
@@ -61,82 +63,85 @@ void main() {
     );
 
     group('spawns a food component every 60 seconds', () {
-      flameTester
-        ..testGameWidget(
-          'spawns a cupcake',
-          setUp: (game, tester) async {
-            when(() => seed.nextInt(any())).thenReturn(0);
+      flameTester.testGameWidget(
+        'spawns a cupcake',
+        setUp: (game, tester) async {
+          when(() => seed.nextInt(any())).thenReturn(0);
 
-            await game.ready();
-            game.update(60);
-            await tester.pump();
-          },
-          verify: (game, tester) async {
-            final foodComponents = game.children.whereType<FoodComponent>();
-            expect(foodComponents.length, 1);
-            expect(foodComponents.first.type, FoodType.cupcake);
-          },
-        )
-        ..testGameWidget(
-          'spawns a lolipop',
-          setUp: (game, tester) async {
-            when(() => seed.nextInt(any())).thenReturn(1);
+          await game.ready();
+          game.update(60);
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final foodComponents = game.children.whereType<FoodComponent>();
+          expect(foodComponents.length, 1);
+          expect(foodComponents.first.type, FoodType.cupcake);
+        },
+      );
 
-            await game.ready();
-            game.update(60);
-            await tester.pump();
-          },
-          verify: (game, tester) async {
-            final foodComponents = game.children.whereType<FoodComponent>();
-            expect(foodComponents.length, 1);
-            expect(foodComponents.first.type, FoodType.lolipop);
-          },
-        )
-        ..testGameWidget(
-          'spawns a pancake',
-          setUp: (game, tester) async {
-            when(() => seed.nextInt(any())).thenReturn(2);
+      flameTester.testGameWidget(
+        'spawns a lolipop',
+        setUp: (game, tester) async {
+          when(() => seed.nextInt(any())).thenReturn(1);
 
-            await game.ready();
-            game.update(60);
-            await tester.pump();
-          },
-          verify: (game, tester) async {
-            final foodComponents = game.children.whereType<FoodComponent>();
-            expect(foodComponents.length, 1);
-            expect(foodComponents.first.type, FoodType.pancake);
-          },
-        )
-        ..testGameWidget(
-          'spawns a ice cream',
-          setUp: (game, tester) async {
-            when(() => seed.nextInt(any())).thenReturn(3);
+          await game.ready();
+          game.update(60);
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final foodComponents = game.children.whereType<FoodComponent>();
+          expect(foodComponents.length, 1);
+          expect(foodComponents.first.type, FoodType.lolipop);
+        },
+      );
 
-            await game.ready();
-            game.update(60);
-            await tester.pump();
-          },
-          verify: (game, tester) async {
-            final foodComponents = game.children.whereType<FoodComponent>();
-            expect(foodComponents.length, 1);
-            expect(foodComponents.first.type, FoodType.iceCream);
-          },
-        )
-        ..testGameWidget(
-          'spawns a candy',
-          setUp: (game, tester) async {
-            when(() => seed.nextInt(any())).thenReturn(4);
+      flameTester.testGameWidget(
+        'spawns a pancake',
+        setUp: (game, tester) async {
+          when(() => seed.nextInt(any())).thenReturn(2);
 
-            await game.ready();
-            game.update(60);
-            await tester.pump();
-          },
-          verify: (game, tester) async {
-            final foodComponents = game.children.whereType<FoodComponent>();
-            expect(foodComponents.length, 1);
-            expect(foodComponents.first.type, FoodType.candy);
-          },
-        );
+          await game.ready();
+          game.update(60);
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final foodComponents = game.children.whereType<FoodComponent>();
+          expect(foodComponents.length, 1);
+          expect(foodComponents.first.type, FoodType.pancake);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'spawns a ice cream',
+        setUp: (game, tester) async {
+          when(() => seed.nextInt(any())).thenReturn(3);
+
+          await game.ready();
+          game.update(60);
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final foodComponents = game.children.whereType<FoodComponent>();
+          expect(foodComponents.length, 1);
+          expect(foodComponents.first.type, FoodType.iceCream);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'spawns a candy',
+        setUp: (game, tester) async {
+          when(() => seed.nextInt(any())).thenReturn(4);
+
+          await game.ready();
+          game.update(60);
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final foodComponents = game.children.whereType<FoodComponent>();
+          expect(foodComponents.length, 1);
+          expect(foodComponents.first.type, FoodType.candy);
+        },
+      );
     });
   });
 }

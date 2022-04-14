@@ -28,7 +28,7 @@ void addFoodComponentStories(Dashbook dashbook) {
       The FoodComponent is a component that represents a food.
 
       - It is draggable.
-      - It can be a different types.
+      - It can be of different types.
 ''',
   );
 }

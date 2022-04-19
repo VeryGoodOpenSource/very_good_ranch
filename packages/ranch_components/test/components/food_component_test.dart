@@ -51,6 +51,38 @@ void main() {
       },
     );
 
+    flameTester.testGameWidget(
+      'only drags one food item',
+      setUp: (game, tester) async {
+        await game.add(
+          FoodComponent(
+            position: Vector2.zero(),
+            saturation: 0,
+            type: FoodType.candy,
+          ),
+        );
+        await game.add(
+          FoodComponent(
+            position: Vector2.zero(),
+            saturation: 0,
+            type: FoodType.iceCream,
+          ),
+        );
+      },
+      verify: (game, tester) async {
+        await tester.dragFrom(
+          Offset.zero,
+          const Offset(100, 100),
+        );
+        await tester.pump();
+
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/food_component/single-item-dragged.png'),
+        );
+      },
+    );
+
     group('cupcake', () {
       flameTester.testGameWidget(
         'renders correctly',

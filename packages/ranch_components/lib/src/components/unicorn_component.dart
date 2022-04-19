@@ -6,8 +6,12 @@ import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 
+/// The animation state of the unicorn.
 enum UnicornState {
+  /// The unicorn is idle.
   idle,
+
+  /// The unicorn is roaming.
   roaming,
 }
 

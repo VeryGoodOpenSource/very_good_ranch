@@ -7,10 +7,10 @@ void addUnicornComponentStories(Dashbook dashbook) {
   dashbook.storiesOf('UnicornComponent').add(
     'idle',
     (context) {
+      final unicorn = UnicornComponent(position: Vector2.zero());
+
       return GameWidget(
-        game: StoryGame(
-          UnicornComponent(position: Vector2.zero()),
-        ),
+        game: StoryGame(unicorn..current = UnicornState.idle),
       );
     },
     info: '''
@@ -20,10 +20,9 @@ void addUnicornComponentStories(Dashbook dashbook) {
     'roaming',
     (context) {
       final unicorn = UnicornComponent(position: Vector2.zero());
-      unicorn.current = UnicornState.roaming;
 
       return GameWidget(
-        game: StoryGame(unicorn),
+        game: StoryGame(unicorn..current = UnicornState.roaming),
       );
     },
     info: '''

@@ -1,6 +1,5 @@
 // ignore_for_file: cascade_invocations
 
-import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
@@ -15,7 +14,7 @@ void main() {
     flameTester.test(
       'loads correctly',
       (game) async {
-        final unicorn = UnicornComponent(position: Vector2.zero());
+        final unicorn = UnicornComponent();
         await game.ready();
         await game.ensureAdd(unicorn);
 
@@ -27,7 +26,7 @@ void main() {
     flameTester.testGameWidget(
       'has idle animation',
       setUp: (game, tester) async {
-        final unicorn = UnicornComponent(position: Vector2.zero());
+        final unicorn = UnicornComponent();
         await game.add(unicorn);
       },
       verify: (game, tester) async {
@@ -44,7 +43,7 @@ void main() {
     flameTester.testGameWidget(
       'has roaming animation',
       setUp: (game, tester) async {
-        final unicorn = UnicornComponent(position: Vector2.zero());
+        final unicorn = UnicornComponent();
         unicorn.current = UnicornState.roaming;
         await game.add(unicorn);
       },

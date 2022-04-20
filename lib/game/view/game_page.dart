@@ -27,13 +27,15 @@ class _GamePageState extends State<GamePage> {
         children: [
           const HeaderWidget(),
           Expanded(
-            child: GameWidget(
-              game: _game,
-              overlayBuilderMap: {
-                SettingsDialog.overlayKey: (context, game) {
-                  return const SettingsDialog();
-                }
-              },
+            child: ClipRect(
+              child: GameWidget(
+                game: _game,
+                overlayBuilderMap: {
+                  SettingsDialog.overlayKey: (context, game) {
+                    return const SettingsDialog();
+                  }
+                },
+              ),
             ),
           ),
           FooterWidget(overlays: _game.overlays),

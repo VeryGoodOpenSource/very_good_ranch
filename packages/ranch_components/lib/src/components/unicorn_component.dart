@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
@@ -19,13 +18,13 @@ enum UnicornState {
 /// A component that represents a unicorn.
 /// {@endtemplate}
 class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState> {
+  // TODO(wolfen): The name of this component should be more descriptive.
+
   /// {@macro unicorn_component}
   UnicornComponent({
-    required Vector2 position,
+    Vector2? size,
   }) : super(
-          position: position,
-          size: Vector2.all(32),
-          children: [RectangleHitbox()],
+          size: size ?? Vector2.all(32),
           current: UnicornState.idle,
         );
 

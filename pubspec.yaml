@@ -19,6 +19,8 @@ dependencies:
   intl: ^0.17.0
   ranch_components:
     path: packages/ranch_components
+  ranch_flame:
+    path: packages/ranch_flame
 
 dev_dependencies:
   bloc_test: ^9.0.3

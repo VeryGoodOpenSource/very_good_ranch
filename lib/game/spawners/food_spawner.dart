@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/entities/food/food.dart';
 
 class FoodSpawner extends TimerComponent with HasGameRef {
   FoodSpawner({
@@ -19,19 +20,19 @@ class FoodSpawner extends TimerComponent with HasGameRef {
 
     switch (foodType) {
       case FoodType.cupcake:
-        add(FoodComponent.cupcake(position: position));
+        add(Food.cupcake(position: position));
         break;
       case FoodType.lollipop:
-        add(FoodComponent.lollipop(position: position));
+        add(Food.lollipop(position: position));
         break;
       case FoodType.pancake:
-        add(FoodComponent.pancake(position: position));
+        add(Food.pancake(position: position));
         break;
       case FoodType.iceCream:
-        add(FoodComponent.iceCream(position: position));
+        add(Food.iceCream(position: position));
         break;
       case FoodType.candy:
-        add(FoodComponent.candy(position: position));
+        add(Food.candy(position: position));
         break;
     }
   }

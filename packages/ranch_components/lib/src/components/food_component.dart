@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
 
 /// Type of food.
 enum FoodType {
@@ -25,55 +24,14 @@ enum FoodType {
 /// {@template food_component}
 /// A component that represents a food.
 /// {@endtemplate}
-class FoodComponent extends PositionComponent with Draggable {
+class FoodComponent extends PositionComponent {
   /// {@macro food_component}
   FoodComponent({
-    required Vector2 position,
-    required this.saturation,
     required this.type,
   }) : super(
-          position: position,
           size: Vector2.all(32),
           children: [CircleHitbox()],
         );
-
-  /// {@macro food_component}
-  ///
-  /// Constructs a cupcake.
-  FoodComponent.cupcake({
-    required Vector2 position,
-  }) : this(position: position, saturation: 2.5, type: FoodType.cupcake);
-
-  /// {@macro food_component}
-  ///
-  /// Constructs a lollipop.
-  FoodComponent.lollipop({
-    required Vector2 position,
-  }) : this(position: position, saturation: 1.5, type: FoodType.lollipop);
-
-  /// {@macro food_component}
-  ///
-  /// Constructs a pancake.
-  FoodComponent.pancake({
-    required Vector2 position,
-  }) : this(position: position, saturation: 3, type: FoodType.pancake);
-
-  /// {@macro food_component}
-  ///
-  /// Constructs an ice cream.
-  FoodComponent.iceCream({
-    required Vector2 position,
-  }) : this(position: position, saturation: 2, type: FoodType.iceCream);
-
-  /// {@macro food_component}
-  ///
-  /// Constructs a candy.
-  FoodComponent.candy({
-    required Vector2 position,
-  }) : this(position: position, saturation: 1, type: FoodType.candy);
-
-  /// The amount of saturation the food provides.
-  final double saturation;
 
   /// The type of food.
   final FoodType type;
@@ -111,12 +69,6 @@ class FoodComponent extends PositionComponent with Draggable {
         paint.color = const Color(0xFFF707FF);
         break;
     }
-  }
-
-  @override
-  bool onDragUpdate(DragUpdateInfo info) {
-    position.add(info.delta.game);
-    return false;
   }
 
   @override

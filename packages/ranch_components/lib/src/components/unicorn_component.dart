@@ -18,15 +18,10 @@ enum UnicornState {
 /// A component that represents a unicorn.
 /// {@endtemplate}
 class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState> {
-  // TODO(wolfen): The name of this component should be more descriptive.
-
   /// {@macro unicorn_component}
   UnicornComponent({
     Vector2? size,
-  }) : super(
-          size: size ?? Vector2.all(32),
-          current: UnicornState.idle,
-        );
+  }) : super(size: size ?? Vector2.all(32), current: UnicornState.idle);
 
   @override
   Future<void> onLoad() async {

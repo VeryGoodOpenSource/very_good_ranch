@@ -16,18 +16,13 @@ void addFoodComponentStories(Dashbook dashbook) {
       );
       return GameWidget(
         game: StoryGame(
-          FoodComponent(
-            position: Vector2.zero(),
-            saturation: 0,
-            type: foodType,
-          ),
+          FoodComponent(type: foodType),
         ),
       );
     },
     info: '''
       The FoodComponent is a component that represents a food.
 
-      - It is draggable.
       - It can be of different types.
 ''',
   );

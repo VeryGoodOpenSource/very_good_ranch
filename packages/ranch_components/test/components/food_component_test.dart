@@ -1,6 +1,5 @@
 // ignore_for_file: cascade_invocations
 
-import 'package:flame/game.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
@@ -11,177 +10,84 @@ void main() {
   final flameTester = FlameTester(TestGame.new);
 
   group('FoodComponent', () {
-    flameTester.test(
-      'loads correctly',
-      (game) async {
-        final food = FoodComponent(
-          position: Vector2.zero(),
-          saturation: 0,
-          type: FoodType.candy,
-        );
-        await game.ready();
-        await game.ensureAdd(food);
-
-        expect(game.contains(food), isTrue);
-      },
-    );
-
     flameTester.testGameWidget(
-      'is draggable',
+      'cupcake',
       setUp: (game, tester) async {
-        await game.add(
-          FoodComponent(
-            position: Vector2.zero(),
-            saturation: 0,
-            type: FoodType.candy,
-          ),
-        );
+        await game.add(FoodComponent(type: FoodType.cupcake));
       },
       verify: (game, tester) async {
-        await tester.dragFrom(
-          Offset.zero,
-          const Offset(100, 100),
-        );
-        await tester.pump();
+        final food = game.children.whereType<FoodComponent>().first;
+        expect(food.type, FoodType.cupcake);
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food_component/dragged.png'),
+          matchesGoldenFile('golden/food_component/types/cupcake.png'),
         );
       },
     );
 
     flameTester.testGameWidget(
-      'only drags one food item',
+      'lollipop',
       setUp: (game, tester) async {
-        await game.add(
-          FoodComponent(
-            position: Vector2.zero(),
-            saturation: 0,
-            type: FoodType.candy,
-          ),
-        );
-        await game.add(
-          FoodComponent(
-            position: Vector2.zero(),
-            saturation: 0,
-            type: FoodType.iceCream,
-          ),
-        );
+        await game.add(FoodComponent(type: FoodType.lollipop));
       },
       verify: (game, tester) async {
-        await tester.dragFrom(
-          Offset.zero,
-          const Offset(100, 100),
-        );
-        await tester.pump();
+        final food = game.children.whereType<FoodComponent>().first;
+        expect(food.type, FoodType.lollipop);
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food_component/single-item-dragged.png'),
+          matchesGoldenFile('golden/food_component/types/lollipop.png'),
         );
       },
     );
 
-    group('cupcake', () {
-      flameTester.testGameWidget(
-        'renders correctly',
-        setUp: (game, tester) async {
-          await game.add(
-            FoodComponent.cupcake(position: Vector2.zero()),
-          );
-        },
-        verify: (game, tester) async {
-          final food = game.children.whereType<FoodComponent>().first;
-          expect(food.type, FoodType.cupcake);
-          expect(food.saturation, 2.5);
+    flameTester.testGameWidget(
+      'pancake',
+      setUp: (game, tester) async {
+        await game.add(FoodComponent(type: FoodType.pancake));
+      },
+      verify: (game, tester) async {
+        final food = game.children.whereType<FoodComponent>().first;
+        expect(food.type, FoodType.pancake);
 
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile('golden/food_component/types/cupcake.png'),
-          );
-        },
-      );
-    });
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/food_component/types/pancake.png'),
+        );
+      },
+    );
 
-    group('lollipop', () {
-      flameTester.testGameWidget(
-        'renders correctly',
-        setUp: (game, tester) async {
-          await game.add(
-            FoodComponent.lollipop(position: Vector2.zero()),
-          );
-        },
-        verify: (game, tester) async {
-          final food = game.children.whereType<FoodComponent>().first;
-          expect(food.type, FoodType.lollipop);
-          expect(food.saturation, 1.5);
+    flameTester.testGameWidget(
+      'iceCream',
+      setUp: (game, tester) async {
+        await game.add(FoodComponent(type: FoodType.iceCream));
+      },
+      verify: (game, tester) async {
+        final food = game.children.whereType<FoodComponent>().first;
+        expect(food.type, FoodType.iceCream);
 
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile('golden/food_component/types/lollipop.png'),
-          );
-        },
-      );
-    });
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/food_component/types/iceCream.png'),
+        );
+      },
+    );
 
-    group('pancake', () {
-      flameTester.testGameWidget(
-        'renders correctly',
-        setUp: (game, tester) async {
-          await game.add(
-            FoodComponent.pancake(position: Vector2.zero()),
-          );
-        },
-        verify: (game, tester) async {
-          final food = game.children.whereType<FoodComponent>().first;
-          expect(food.type, FoodType.pancake);
-          expect(food.saturation, 3);
+    flameTester.testGameWidget(
+      'candy',
+      setUp: (game, tester) async {
+        await game.add(FoodComponent(type: FoodType.candy));
+      },
+      verify: (game, tester) async {
+        final food = game.children.whereType<FoodComponent>().first;
+        expect(food.type, FoodType.candy);
 
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile('golden/food_component/types/pancake.png'),
-          );
-        },
-      );
-    });
-
-    group('iceCream', () {
-      flameTester.testGameWidget(
-        'renders correctly',
-        setUp: (game, tester) async {
-          await game.add(FoodComponent.iceCream(position: Vector2.zero()));
-        },
-        verify: (game, tester) async {
-          final food = game.children.whereType<FoodComponent>().first;
-          expect(food.type, FoodType.iceCream);
-          expect(food.saturation, 2);
-
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile('golden/food_component/types/iceCream.png'),
-          );
-        },
-      );
-    });
-
-    group('candy', () {
-      flameTester.testGameWidget(
-        'renders correctly',
-        setUp: (game, tester) async {
-          await game.add(FoodComponent.candy(position: Vector2.zero()));
-        },
-        verify: (game, tester) async {
-          final food = game.children.whereType<FoodComponent>().first;
-          expect(food.type, FoodType.candy);
-          expect(food.saturation, 1);
-
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile('golden/food_component/types/candy.png'),
-          );
-        },
-      );
-    });
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/food_component/types/candy.png'),
+        );
+      },
+    );
   });
 }

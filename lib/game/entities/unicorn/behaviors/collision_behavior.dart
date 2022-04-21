@@ -13,11 +13,10 @@ class CollisionBehavior extends PositionComponent
   }
 
   @override
-  Future<void>? onMount() {
+  Future<void> onMount() async {
     super.onMount();
     size = parent.size;
     parent.size.addListener(_onParentResize);
-    return null;
   }
 
   @override

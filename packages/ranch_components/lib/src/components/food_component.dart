@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 /// Type of food.
@@ -28,10 +27,7 @@ class FoodComponent extends PositionComponent {
   /// {@macro food_component}
   FoodComponent({
     required this.type,
-  }) : super(
-          size: Vector2.all(32),
-          children: [CircleHitbox()],
-        );
+  }) : super(size: Vector2.all(32));
 
   /// The type of food.
   final FoodType type;

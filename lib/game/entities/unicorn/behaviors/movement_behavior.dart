@@ -18,10 +18,10 @@ class MovementBehavior extends TimerComponent
       parent.position += direction * (speed * dt);
       parent.position.clamp(parent.size, gameRef.size - parent.size);
 
-      if (parent.position.x == 0 ||
-          parent.position.x == gameRef.size.x ||
-          parent.position.y == 0 ||
-          parent.position.y == gameRef.size.y) {
+      if (parent.position.x == parent.size.x ||
+          parent.position.x == gameRef.size.x - parent.size.x ||
+          parent.position.y == parent.size.y ||
+          parent.position.y == gameRef.size.y - parent.size.y) {
         parent.state = UnicornState.idle;
         direction.setZero();
       }

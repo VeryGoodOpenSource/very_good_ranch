@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
@@ -21,6 +20,6 @@ class UnicornSpawner extends TimerComponent with HasGameRef {
       return;
     }
     final position = Vector2.random(seed)..multiply(gameRef.size);
-    unawaited(add(Unicorn(position: position)));
+    add(Unicorn(position: position));
   }
 }

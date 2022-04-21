@@ -27,10 +27,6 @@ class VeryGoodRanchGame extends FlameGame
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
 
-  Vector2 getRandomPosition() {
-    return Vector2.random(seed)..multiply(size);
-  }
-
   @override
   Future<void> onLoad() async {
     unawaited(add(FoodSpawner(seed: seed)));

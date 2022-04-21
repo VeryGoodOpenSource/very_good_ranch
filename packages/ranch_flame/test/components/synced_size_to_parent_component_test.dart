@@ -7,7 +7,9 @@ import 'package:ranch_flame/ranch_flame.dart';
 
 import '../helpers/helpers.dart';
 
-class ParentComponent extends PositionComponent {}
+class ParentComponent extends PositionComponent {
+  ParentComponent(Vector2 size) : super(size: size);
+}
 
 class TestComponent extends SyncedSizeToParentComponent<ParentComponent> {}
 
@@ -16,7 +18,8 @@ void main() {
 
   group('SyncSizeWithParent', () {
     flameTester.test('keeps size in sync with parent', (game) async {
-      final parent = ParentComponent();
+      final originalSize = Vector2.all(64);
+      final parent = ParentComponent(originalSize);
       final component = TestComponent();
 
       await game.ready();
@@ -25,20 +28,21 @@ void main() {
 
       expect(
         component.size,
-        closeToVector(parent.size.x, parent.size.y),
+        closeToVector(originalSize.x, originalSize.y),
       );
 
       parent.size.multiply(Vector2.all(2));
 
       expect(
         component.size,
-        closeToVector(parent.size.x, parent.size.y),
+        closeToVector(originalSize.x * 2, originalSize.y * 2),
       );
     });
 
     flameTester.test('does not keep size in sync after removing from parent',
         (game) async {
-      final parent = ParentComponent();
+      final originalSize = Vector2.all(64);
+      final parent = ParentComponent(originalSize);
       final component = TestComponent();
 
       await game.ready();
@@ -47,7 +51,7 @@ void main() {
 
       expect(
         component.size,
-        closeToVector(parent.size.x, parent.size.y),
+        closeToVector(originalSize.x, originalSize.y),
       );
 
       component.removeFromParent();
@@ -57,7 +61,7 @@ void main() {
 
       expect(
         component.size,
-        closeToVector(0, 0),
+        closeToVector(originalSize.x, originalSize.y),
       );
     });
   });

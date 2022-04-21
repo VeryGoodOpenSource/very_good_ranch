@@ -30,6 +30,7 @@ abstract class SyncedSizeToParentComponent<T extends PositionComponent>
   @mustCallSuper
   void onMount() {
     super.onMount();
+    size = parent.size;
     parent.size.addListener(_onParentResize);
   }
 

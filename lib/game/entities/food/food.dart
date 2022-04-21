@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
@@ -13,6 +14,7 @@ class Food extends PositionComponent {
           size: Vector2.all(32),
           children: [
             FoodComponent(type: type),
+            CircleHitbox(),
             DraggableBehavior(),
           ],
         );
@@ -24,7 +26,7 @@ class Food extends PositionComponent {
   Food.test({
     this.type = FoodType.candy,
     this.saturation = 0,
-  });
+  }) : super(size: Vector2.all(32), children: [FoodComponent(type: type)]);
 
   /// {@macro food_component}
   ///

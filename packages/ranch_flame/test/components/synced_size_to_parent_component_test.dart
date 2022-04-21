@@ -9,8 +9,7 @@ import '../helpers/helpers.dart';
 
 class ParentComponent extends PositionComponent {}
 
-class TestComponent extends PositionComponent
-    with HasParent<ParentComponent>, SyncSizeWithParent {}
+class TestComponent extends SyncedSizeToParentComponent<ParentComponent> {}
 
 void main() {
   final flameTester = FlameTester<TestGame>(TestGame.new);

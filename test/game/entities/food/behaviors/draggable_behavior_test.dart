@@ -17,7 +17,7 @@ void main() {
       setUp: (game, tester) async {
         final food = Food.test();
         await food.add(DraggableBehavior());
-        await game.add(food);
+        await game.ensureAdd(food);
       },
       verify: (game, tester) async {
         await tester.dragFrom(
@@ -42,8 +42,8 @@ void main() {
         final food2 = Food.test(type: FoodType.iceCream);
         await food2.add(DraggableBehavior());
 
-        await game.add(food1);
-        await game.add(food2);
+        await game.ensureAdd(food1);
+        await game.ensureAdd(food2);
       },
       verify: (game, tester) async {
         await tester.dragFrom(

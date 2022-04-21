@@ -16,6 +16,7 @@ void main() {
 
       parent.add(component);
 
+      expect(component.parent, isA<ParentComponent>());
       expect(component.onMount, returnsNormally);
     });
 

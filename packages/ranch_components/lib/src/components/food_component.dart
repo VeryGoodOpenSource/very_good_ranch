@@ -116,7 +116,7 @@ class FoodComponent extends PositionComponent with Draggable {
   @override
   bool onDragUpdate(DragUpdateInfo info) {
     position.add(info.delta.game);
-    return true;
+    return false;
   }
 
   @override

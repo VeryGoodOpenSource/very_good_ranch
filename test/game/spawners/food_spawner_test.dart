@@ -6,7 +6,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/game/components/food_spawner.dart';
+import 'package:very_good_ranch/game/spawners/food_spawner.dart';
 
 import '../../helpers/helpers.dart';
 

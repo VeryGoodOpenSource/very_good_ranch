@@ -13,6 +13,7 @@ import 'package:flame/game.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:very_good_ranch/game/game.dart';
 
 import '../helpers/helpers.dart';
@@ -22,6 +23,8 @@ void main() {
 
   setUp(() {
     seed = MockRandom();
+    when(() => seed.nextDouble()).thenReturn(0);
+    when(() => seed.nextBool()).thenReturn(false);
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(

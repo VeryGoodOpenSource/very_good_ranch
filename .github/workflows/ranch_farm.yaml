@@ -1,0 +1,20 @@
+name: ranch_farm
+
+on:
+  push:
+    paths:
+      - "packages/ranch_farm/**"
+      - ".github/workflows/ranch_farm.yaml"
+
+  pull_request:
+    paths:
+      - "packages/ranch_farm/**"
+      - ".github/workflows/ranch_farm.yaml"
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      working_directory: packages/ranch_farm
+      coverage_excludes: "lib/gen/*.dart"
+      test_optimization: false

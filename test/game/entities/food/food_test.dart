@@ -22,7 +22,7 @@ void main() {
 
         final food = game.children.whereType<Food>().first;
         expect(food.type, FoodType.cupcake);
-        expect(food.saturation, 2.5);
+        expect(food.nutrition, 2.5);
 
         await expectLater(
           find.byGame<TestGame>(),
@@ -41,7 +41,7 @@ void main() {
 
         final food = game.children.whereType<Food>().first;
         expect(food.type, FoodType.lollipop);
-        expect(food.saturation, 1.5);
+        expect(food.nutrition, 1.5);
 
         await expectLater(
           find.byGame<TestGame>(),
@@ -60,7 +60,7 @@ void main() {
 
         final food = game.children.whereType<Food>().first;
         expect(food.type, FoodType.pancake);
-        expect(food.saturation, 3);
+        expect(food.nutrition, 3);
 
         await expectLater(
           find.byGame<TestGame>(),
@@ -79,7 +79,7 @@ void main() {
 
         final food = game.children.whereType<Food>().first;
         expect(food.type, FoodType.iceCream);
-        expect(food.saturation, 2);
+        expect(food.nutrition, 2);
 
         await expectLater(
           find.byGame<TestGame>(),
@@ -98,7 +98,7 @@ void main() {
 
         final food = game.children.whereType<Food>().first;
         expect(food.type, FoodType.candy);
-        expect(food.saturation, 1);
+        expect(food.nutrition, 1);
 
         await expectLater(
           find.byGame<TestGame>(),

@@ -31,7 +31,7 @@ void main() {
 
         await game.ready();
         game.update(20);
-        await tester.pump();
+        await game.ready();
       },
       verify: (game, tester) async {
         final unicornComponents = game.descendants().whereType<Unicorn>();

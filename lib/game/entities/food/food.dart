@@ -2,7 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/game/entities/food/behaviors/draggable_behavior.dart';
+import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 
 class Food extends PositionComponent {
   Food({

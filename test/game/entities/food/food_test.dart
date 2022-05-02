@@ -83,7 +83,7 @@ void main() {
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food/types/iceCream.png'),
+          matchesGoldenFile('golden/food/types/ice_cream.png'),
         );
       },
     );

@@ -55,7 +55,7 @@ void main() {
         await expectLater(
           find.byGame<TestGame>(),
           matchesGoldenFile(
-            'golden/draggable/single-item-dragged.png',
+            'golden/draggable/single_item_dragged.png',
           ),
         );
       },

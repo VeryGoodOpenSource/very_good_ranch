@@ -29,8 +29,8 @@ class VeryGoodRanchGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    unawaited(add(FoodSpawner(seed: seed)));
-    unawaited(add(UnicornSpawner(seed: seed)));
+    await add(FoodSpawner(seed: seed));
+    await add(UnicornSpawner(seed: seed));
   }
 
   @override

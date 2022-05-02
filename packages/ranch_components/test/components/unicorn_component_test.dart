@@ -35,7 +35,7 @@ void main() {
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/unicorn_component/idle/frame0.png'),
+          matchesGoldenFile('golden/unicorn_component/idle/frame_0.png'),
         );
       },
     );
@@ -53,7 +53,7 @@ void main() {
           await tester.pump();
           await expectLater(
             find.byGame<TestGame>(),
-            matchesGoldenFile('golden/unicorn_component/roaming/frame$i.png'),
+            matchesGoldenFile('golden/unicorn_component/roaming/frame_$i.png'),
           );
         }
       },

@@ -3,7 +3,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 
-class StoryGame extends FlameGame with HasDraggables, HasCollisionDetection {
+class StoryGame extends FlameGame {
   StoryGame(this.component) {
     // Clearing the prefix allows us to load images from packages.
     images.prefix = '';

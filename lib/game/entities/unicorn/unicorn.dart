@@ -34,6 +34,6 @@ class Unicorn extends PositionComponent {
 
   @override
   Future<void> onLoad() async {
-    unawaited(add(_unicornComponent));
+    await add(_unicornComponent);
   }
 }

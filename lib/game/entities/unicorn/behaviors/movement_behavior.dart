@@ -6,6 +6,10 @@ import 'package:very_good_ranch/game/game.dart';
 
 class MovementBehavior extends Behavior<Unicorn>
     with HasGameRef<VeryGoodRanchGame> {
+  final speed = 10;
+
+  Vector2 direction = Vector2.zero();
+
   @override
   Future<void>? onLoad() {
     add(TimerComponent(period: 10, repeat: true, onTick: _onTick));
@@ -35,10 +39,6 @@ class MovementBehavior extends Behavior<Unicorn>
       direction.setZero();
     }
   }
-
-  final speed = 10;
-
-  Vector2 direction = Vector2.zero();
 
   @override
   void update(double dt) {

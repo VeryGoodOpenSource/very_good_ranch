@@ -15,9 +15,9 @@ void main() {
     flameTester.testGameWidget(
       'is draggable',
       setUp: (game, tester) async {
-        final food = Food.test();
-        await food.add(DraggableBehavior());
+        final food = Food.test(behaviors: [DraggableBehavior()]);
         await game.ensureAdd(food);
+        await game.ready();
       },
       verify: (game, tester) async {
         await tester.dragFrom(
@@ -36,11 +36,12 @@ void main() {
     flameTester.testGameWidget(
       'only drags one food item',
       setUp: (game, tester) async {
-        final food1 = Food.test();
-        await food1.add(DraggableBehavior());
+        final food1 = Food.test(behaviors: [DraggableBehavior()]);
 
-        final food2 = Food.test(type: FoodType.iceCream);
-        await food2.add(DraggableBehavior());
+        final food2 = Food.test(
+          type: FoodType.iceCream,
+          behaviors: [DraggableBehavior()],
+        );
 
         await game.ensureAdd(food1);
         await game.ensureAdd(food2);

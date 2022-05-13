@@ -11,10 +11,10 @@ class MockFood extends Mock implements Food {}
 void main() {
   group('CollisionBehavior', () {
     test('consumes food', () {
-      final collisionBehavior = CollisionBehavior();
+      final foodCollisionBehavior = FoodCollisionBehavior();
       final food = MockFood();
 
-      collisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+      foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
       verify(food.removeFromParent).called(1);
     });

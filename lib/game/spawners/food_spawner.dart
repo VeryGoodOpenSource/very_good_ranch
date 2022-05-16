@@ -10,10 +10,10 @@ class FoodSpawner extends TimerComponent with HasGameRef {
     required this.seed,
     double spawnThreshold = 60.0,
   })  : _foodRarity = RarityList<FoodType>([
-          const Rarity(FoodType.candy, 40),
-          const Rarity(FoodType.lollipop, 30),
-          const Rarity(FoodType.pancake, 20),
-          const Rarity(FoodType.iceCream, 10),
+          Rarity(FoodType.candy, FoodType.candy.rarity),
+          Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
+          Rarity(FoodType.pancake, FoodType.pancake.rarity),
+          Rarity(FoodType.iceCream, FoodType.iceCream.rarity),
         ]),
         super(repeat: true, period: spawnThreshold);
 

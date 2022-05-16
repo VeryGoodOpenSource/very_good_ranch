@@ -4,17 +4,38 @@ import 'package:flame/components.dart';
 
 /// Type of food.
 enum FoodType {
+  /// Candy type.
+  candy(
+    nutrition: 1,
+    rarity: 40,
+  ),
+
   /// Lollipop type.
-  lollipop,
+  lollipop(
+    nutrition: 2,
+    rarity: 30,
+  ),
 
   /// Pancake type.
-  pancake,
+  pancake(
+    nutrition: 3,
+    rarity: 20,
+  ),
 
   /// Ice cream type.
-  iceCream,
+  iceCream(
+    nutrition: 4,
+    rarity: 10,
+  );
 
-  /// Candy type.
-  candy,
+  /// Food enum constructor.
+  const FoodType({required this.nutrition, required this.rarity});
+
+  /// The nutrition value of the food.
+  final double nutrition;
+
+  /// The rarity of the food.
+  final int rarity;
 }
 
 /// {@template food_component}

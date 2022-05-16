@@ -8,7 +8,6 @@ import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 class Food extends Entity {
   Food({
     required super.position,
-    required this.nutrition,
     required this.type,
   }) : super(
           size: Vector2.all(32),
@@ -16,7 +15,9 @@ class Food extends Entity {
             FoodComponent(type: type),
             CircleHitbox(),
           ],
-          behaviors: [DraggableBehavior()],
+          behaviors: [
+            DraggableBehavior(),
+          ],
         );
 
   /// Creates a Food without any behaviors.
@@ -25,7 +26,6 @@ class Food extends Entity {
   @visibleForTesting
   Food.test({
     this.type = FoodType.candy,
-    this.nutrition = 0,
     super.behaviors,
   }) : super(size: Vector2.all(32), children: [FoodComponent(type: type)]);
 
@@ -36,7 +36,6 @@ class Food extends Entity {
     required Vector2 position,
   }) : this(
           position: position,
-          nutrition: 1,
           type: FoodType.candy,
         );
 
@@ -47,7 +46,6 @@ class Food extends Entity {
     required Vector2 position,
   }) : this(
           position: position,
-          nutrition: 3,
           type: FoodType.lollipop,
         );
 
@@ -58,7 +56,6 @@ class Food extends Entity {
     required Vector2 position,
   }) : this(
           position: position,
-          nutrition: 2,
           type: FoodType.pancake,
         );
 
@@ -69,12 +66,11 @@ class Food extends Entity {
     required Vector2 position,
   }) : this(
           position: position,
-          nutrition: 4,
           type: FoodType.iceCream,
         );
 
   /// The amount of nutrition the food provides.
-  final double nutrition;
+  double get nutrition => type.nutrition;
 
   /// The type of food.
   final FoodType type;

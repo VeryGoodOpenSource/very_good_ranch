@@ -67,16 +67,6 @@ void main() {
     });
 
     test('returns a random item', () {
-      final list = RarityList<int>(
-        [Rarity(1, 10), Rarity(2, 20), Rarity(3, 30)],
-      );
-
-      expect(list.getRandom(Random()), 1);
-      expect(list.getRandom(Random()), 2);
-      expect(list.getRandom(Random()), 3);
-    });
-
-    test('returns a random item with a random seed', () {
       when(() => rnd.nextInt(100)).thenReturn(50);
 
       final list = RarityList<int>(

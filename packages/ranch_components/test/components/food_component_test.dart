@@ -74,4 +74,20 @@ void main() {
       },
     );
   });
+
+  group('FoodType', () {
+    test('nutrition', () {
+      expect(FoodType.candy.nutrition, 1);
+      expect(FoodType.lollipop.nutrition, 2);
+      expect(FoodType.pancake.nutrition, 3);
+      expect(FoodType.iceCream.nutrition, 4);
+    });
+
+    test('rarity', () {
+      expect(FoodType.candy.rarity, 40);
+      expect(FoodType.lollipop.rarity, 30);
+      expect(FoodType.pancake.rarity, 20);
+      expect(FoodType.iceCream.rarity, 10);
+    });
+  });
 }

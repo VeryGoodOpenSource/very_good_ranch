@@ -4,9 +4,6 @@ import 'package:flame/components.dart';
 
 /// Type of food.
 enum FoodType {
-  /// Cupcake type.
-  cupcake,
-
   /// Lollipop type.
   lollipop,
 
@@ -49,9 +46,6 @@ class FoodComponent extends PositionComponent {
     radius = size.x / 2;
     paint = Paint();
     switch (type) {
-      case FoodType.cupcake:
-        paint.color = const Color(0xFFE1BA84);
-        break;
       case FoodType.lollipop:
         paint.color = const Color(0xFF3B93FF);
         break;

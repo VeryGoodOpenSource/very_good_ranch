@@ -13,25 +13,6 @@ void main() {
 
   group('Food', () {
     flameTester.testGameWidget(
-      'cupcake',
-      setUp: (game, tester) async {
-        await game.add(Food.cupcake(position: Vector2.zero()));
-      },
-      verify: (game, tester) async {
-        await tester.pump();
-
-        final food = game.children.whereType<Food>().first;
-        expect(food.type, FoodType.cupcake);
-        expect(food.nutrition, 2.5);
-
-        await expectLater(
-          find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food/types/cupcake.png'),
-        );
-      },
-    );
-
-    flameTester.testGameWidget(
       'lollipop',
       setUp: (game, tester) async {
         await game.add(Food.lollipop(position: Vector2.zero()));

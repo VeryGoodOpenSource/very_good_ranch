@@ -16,9 +16,7 @@ class Food extends Entity {
             FoodComponent(type: type),
             CircleHitbox(),
           ],
-          behaviors: [
-            DraggableBehavior(),
-          ],
+          behaviors: [DraggableBehavior()],
         );
 
   /// Creates a Food without any behaviors.
@@ -33,38 +31,47 @@ class Food extends Entity {
 
   /// {@macro food_component}
   ///
-  /// Constructs a cupcake.
-  Food.cupcake({
+  /// Constructs a candy.
+  Food.candy({
     required Vector2 position,
-  }) : this(position: position, nutrition: 2.5, type: FoodType.cupcake);
+  }) : this(
+          position: position,
+          nutrition: 1,
+          type: FoodType.candy,
+        );
 
   /// {@macro food_component}
   ///
   /// Constructs a lollipop.
   Food.lollipop({
     required Vector2 position,
-  }) : this(position: position, nutrition: 1.5, type: FoodType.lollipop);
+  }) : this(
+          position: position,
+          nutrition: 3,
+          type: FoodType.lollipop,
+        );
 
   /// {@macro food_component}
   ///
   /// Constructs a pancake.
   Food.pancake({
     required Vector2 position,
-  }) : this(position: position, nutrition: 3, type: FoodType.pancake);
+  }) : this(
+          position: position,
+          nutrition: 2,
+          type: FoodType.pancake,
+        );
 
   /// {@macro food_component}
   ///
   /// Constructs an ice cream.
   Food.iceCream({
     required Vector2 position,
-  }) : this(position: position, nutrition: 2, type: FoodType.iceCream);
-
-  /// {@macro food_component}
-  ///
-  /// Constructs a candy.
-  Food.candy({
-    required Vector2 position,
-  }) : this(position: position, nutrition: 1, type: FoodType.candy);
+  }) : this(
+          position: position,
+          nutrition: 4,
+          type: FoodType.iceCream,
+        );
 
   /// The amount of nutrition the food provides.
   final double nutrition;

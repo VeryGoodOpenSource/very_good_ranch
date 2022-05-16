@@ -11,17 +11,17 @@ void main() {
 
   group('FoodComponent', () {
     flameTester.testGameWidget(
-      'cupcake',
+      'candy',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.cupcake));
+        await game.add(FoodComponent(type: FoodType.candy));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
-        expect(food.type, FoodType.cupcake);
+        expect(food.type, FoodType.candy);
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food_component/types/cupcake.png'),
+          matchesGoldenFile('golden/food_component/types/candy.png'),
         );
       },
     );
@@ -70,22 +70,6 @@ void main() {
         await expectLater(
           find.byGame<TestGame>(),
           matchesGoldenFile('golden/food_component/types/ice_cream.png'),
-        );
-      },
-    );
-
-    flameTester.testGameWidget(
-      'candy',
-      setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.candy));
-      },
-      verify: (game, tester) async {
-        final food = game.children.whereType<FoodComponent>().first;
-        expect(food.type, FoodType.candy);
-
-        await expectLater(
-          find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food_component/types/candy.png'),
         );
       },
     );

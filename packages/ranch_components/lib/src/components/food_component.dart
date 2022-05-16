@@ -5,37 +5,48 @@ import 'package:flame/components.dart';
 /// Type of food.
 enum FoodType {
   /// Candy type.
-  candy(
-    nutrition: 1,
-    rarity: 40,
-  ),
+  candy,
 
   /// Lollipop type.
-  lollipop(
-    nutrition: 2,
-    rarity: 30,
-  ),
+  lollipop,
 
   /// Pancake type.
-  pancake(
-    nutrition: 3,
-    rarity: 20,
-  ),
+  pancake,
 
   /// Ice cream type.
-  iceCream(
-    nutrition: 4,
-    rarity: 10,
-  );
+  iceCream;
+}
 
-  /// Food enum constructor.
-  const FoodType({required this.nutrition, required this.rarity});
-
+/// This should be a 2.17 enum constructor but guess what, coverage doesn't
+/// work for that, see:
+extension FoodTypeX on FoodType {
   /// The nutrition value of the food.
-  final double nutrition;
+  double get nutrition {
+    switch (this) {
+      case FoodType.candy:
+        return 1;
+      case FoodType.lollipop:
+        return 2;
+      case FoodType.pancake:
+        return 3;
+      case FoodType.iceCream:
+        return 4;
+    }
+  }
 
   /// The rarity of the food.
-  final int rarity;
+  int get rarity {
+    switch (this) {
+      case FoodType.candy:
+        return 40;
+      case FoodType.lollipop:
+        return 30;
+      case FoodType.pancake:
+        return 20;
+      case FoodType.iceCream:
+        return 10;
+    }
+  }
 }
 
 /// {@template food_component}

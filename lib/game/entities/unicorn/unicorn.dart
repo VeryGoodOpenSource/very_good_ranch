@@ -6,7 +6,6 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
-import 'package:very_good_ranch/game/entities/unicorn/stages.dart';
 
 class Unicorn extends Entity {
   Unicorn({
@@ -35,6 +34,17 @@ class Unicorn extends Entity {
             PropagatingCollisionBehavior(RectangleHitbox()),
           ],
         );
+
+  /// A state that describes how well fed is the unicorn.
+  double fullnessFactor = 1;
+
+  /// A state that describes how many times the unicorn ate a food.
+  int timesFed = 0;
+
+  /// A state that describes how well treated is the unicorn.
+  double enjoymentFactor = 1;
+
+  double get happinessFactor => fullnessFactor * enjoymentFactor;
 
   UnicornStage get currentStage =>
       findBehavior<EvolutionBehavior>()!.currentStage;

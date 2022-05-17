@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
-import 'package:very_good_ranch/game/entities/unicorn/stages.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
 void main() {
@@ -62,15 +61,14 @@ void main() {
           await game.ensureAdd(unicorn);
           unicorn.state = UnicornState.idle;
 
-          expect(unicorn.currentStage, isA<BabyUnicornStage>());
-          unicorn.findBehavior<EvolutionBehavior>()!.currentStage.timesFed =
-              100;
+          expect(unicorn.currentStage, UnicornStage.baby);
+          unicorn.timesFed = 100;
 
           await game.ready();
           game.update(10);
           await game.ready();
 
-          expect(unicorn.currentStage, isA<KidUnicornStage>());
+          expect(unicorn.currentStage, UnicornStage.kid);
         },
       );
     });

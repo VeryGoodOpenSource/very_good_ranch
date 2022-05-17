@@ -9,6 +9,7 @@ class Food extends Entity {
   Food({
     required super.position,
     required this.type,
+    required double despawnTime,
   }) : super(
           size: Vector2.all(32),
           children: [
@@ -17,6 +18,7 @@ class Food extends Entity {
           ],
           behaviors: [
             DraggableBehavior(),
+            DespawnBehavior(despawnTime: despawnTime),
           ],
         );
 
@@ -37,6 +39,7 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.candy,
+          despawnTime: 60,
         );
 
   /// {@macro food_component}
@@ -47,6 +50,7 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.lollipop,
+          despawnTime: 40,
         );
 
   /// {@macro food_component}
@@ -57,6 +61,7 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.pancake,
+          despawnTime: 20,
         );
 
   /// {@macro food_component}
@@ -67,6 +72,7 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.iceCream,
+          despawnTime: 10,
         );
 
   /// The amount of nutrition the food provides.

@@ -17,8 +17,8 @@ enum FoodType {
   iceCream;
 }
 
-/// This should be a 2.17 enum constructor but guess what, coverage doesn't
-/// work for that, see:
+/// NOTE: This should be a 2.17 enum constructor but guess what, coverage
+/// doesn't work for that, see: https://github.com/dart-lang/coverage/issues/386
 extension FoodTypeX on FoodType {
   /// The nutrition value of the food.
   double get nutrition {
@@ -35,6 +35,11 @@ extension FoodTypeX on FoodType {
   }
 
   /// The rarity of the food.
+  ///
+  /// Each food type has a rarity percentage between 0 and 100, where 0 is the
+  /// most rare and 100 is the most common.
+  ///
+  /// The rarity of a food is used to determine the chance of it being spawned.
   int get rarity {
     switch (this) {
       case FoodType.candy:

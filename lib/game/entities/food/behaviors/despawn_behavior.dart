@@ -21,17 +21,6 @@ class DespawnBehavior extends Behavior<Food> {
     await add(_timer = TimerComponent(period: despawnTime, onTick: onDespawn));
   }
 
-  @override
-  void onMount() {
-    super.onMount();
-    _timer?.timer.start();
-  }
-
-  @override
-  void onRemove() {
-    _timer?.timer.stop();
-  }
-
   void onDespawn() {
     parent.shouldRemove = true;
   }

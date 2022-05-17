@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
@@ -15,28 +14,17 @@ class EvolutionBehavior extends Behavior<Unicorn> {
   UnicornStage get currentStage => _currentStage;
   UnicornStage _currentStage;
 
-  late final TimerComponent _evolveTimer;
-
   @override
-  Future<void> onLoad() async {
-    await add(
-      _evolveTimer = TimerComponent(
-        period: 10,
-        onTick: _checkEvolve,
-        repeat: true,
-      ),
-    );
-  }
+  void update(double dt) {
+    if (currentStage is AdultUnicornStage) {
+      return;
+    }
 
-  void _checkEvolve() {
     if (!currentStage.shouldEvolve) {
       return;
     }
 
     final newStage = currentStage.evolve();
     _currentStage = newStage;
-    if (newStage is AdultUnicornStage) {
-      _evolveTimer.timer.stop();
-    }
   }
 }

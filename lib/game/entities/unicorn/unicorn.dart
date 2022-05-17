@@ -38,7 +38,7 @@ class Unicorn extends Entity {
   /// A state that describes how well fed the unicorn is.
   double fullnessFactor = 1;
 
-  /// A state that describes how many times the unicorn ate a food.
+  /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
   /// A state that describes how well treated the unicorn is.

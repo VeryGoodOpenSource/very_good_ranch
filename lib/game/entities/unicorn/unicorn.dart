@@ -41,7 +41,7 @@ class Unicorn extends Entity {
   /// A state that describes how many times the unicorn ate a food.
   int timesFed = 0;
 
-  /// A state that describes how well treated is the unicorn.
+  /// A state that describes how well treated the unicorn is.
   double enjoymentFactor = 1;
 
   double get happinessFactor => fullnessFactor * enjoymentFactor;

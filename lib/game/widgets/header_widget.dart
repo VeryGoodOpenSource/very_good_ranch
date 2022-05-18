@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({Key? key}) : super(key: key);
+  const HeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

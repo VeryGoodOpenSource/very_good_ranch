@@ -5,9 +5,7 @@ import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 
 class MoveToInventoryBehavior extends DoubleTapBehavior<Food>
-    with
-        FlameBlocListenable<InventoryBloc, InventoryState>,
-        FlameBlocReader<InventoryBloc, InventoryState> {
+    with FlameBlocReader<InventoryBloc, InventoryState> {
   @override
   bool onDoubleTapDown(TapDownInfo info) {
     parent.shouldRemove = true;

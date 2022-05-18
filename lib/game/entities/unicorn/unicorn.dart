@@ -1,30 +1,37 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-class Unicorn extends PositionComponent {
+class Unicorn extends Entity {
   Unicorn({
-    required Vector2 position,
+    required super.position,
   })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
         super(
-          position: position,
           size: Vector2.all(32),
-          children: [CollisionBehavior(), MovementBehavior()],
+          behaviors: [
+            PropagatingCollisionBehavior(RectangleHitbox()),
+            MovementBehavior(),
+            FoodCollisionBehavior(),
+          ],
         );
 
-  /// Creates a Unicorn without any children.
+  /// Creates a Unicorn without any behaviors.
   ///
   /// This can be used for testing each behavior of a unicorn.
   @visibleForTesting
   Unicorn.test({
-    required Vector2 position,
+    required super.position,
   })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
         super(
-          position: position,
           size: Vector2.all(32),
+          behaviors: [
+            PropagatingCollisionBehavior(RectangleHitbox()),
+          ],
         );
 
   final UnicornComponent _unicornComponent;

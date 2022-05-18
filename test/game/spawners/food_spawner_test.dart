@@ -24,9 +24,9 @@ void main() {
 
   group('FoodSpawner', () {
     flameTester.testGameWidget(
-      'spawns a cupcake',
+      'spawns a candy',
       setUp: (game, tester) async {
-        when(() => seed.nextInt(any())).thenReturn(0);
+        when(() => seed.nextInt(100)).thenReturn(0);
         await game.add(FoodSpawner(seed: seed));
 
         await game.ready();
@@ -36,14 +36,14 @@ void main() {
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
         expect(foodComponents.length, 1);
-        expect(foodComponents.first.type, FoodType.cupcake);
+        expect(foodComponents.first.type, FoodType.candy);
       },
     );
 
     flameTester.testGameWidget(
       'spawns a lollipop',
       setUp: (game, tester) async {
-        when(() => seed.nextInt(any())).thenReturn(1);
+        when(() => seed.nextInt(100)).thenReturn(60);
         await game.add(FoodSpawner(seed: seed));
 
         await game.ready();
@@ -60,7 +60,7 @@ void main() {
     flameTester.testGameWidget(
       'spawns a pancake',
       setUp: (game, tester) async {
-        when(() => seed.nextInt(any())).thenReturn(2);
+        when(() => seed.nextInt(100)).thenReturn(80);
         await game.add(FoodSpawner(seed: seed));
 
         await game.ready();
@@ -77,7 +77,7 @@ void main() {
     flameTester.testGameWidget(
       'spawns a ice cream',
       setUp: (game, tester) async {
-        when(() => seed.nextInt(any())).thenReturn(3);
+        when(() => seed.nextInt(100)).thenReturn(90);
         await game.add(FoodSpawner(seed: seed));
 
         await game.ready();
@@ -88,23 +88,6 @@ void main() {
         final foodComponents = game.descendants().whereType<FoodComponent>();
         expect(foodComponents.length, 1);
         expect(foodComponents.first.type, FoodType.iceCream);
-      },
-    );
-
-    flameTester.testGameWidget(
-      'spawns a candy',
-      setUp: (game, tester) async {
-        when(() => seed.nextInt(any())).thenReturn(4);
-        await game.add(FoodSpawner(seed: seed));
-
-        await game.ready();
-        game.update(60);
-        await game.ready();
-      },
-      verify: (game, tester) async {
-        final foodComponents = game.descendants().whereType<FoodComponent>();
-        expect(foodComponents.length, 1);
-        expect(foodComponents.first.type, FoodType.candy);
       },
     );
   });

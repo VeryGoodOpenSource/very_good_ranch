@@ -1,36 +1,22 @@
 import 'package:flame/components.dart';
+import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:ranch_flame/ranch_flame.dart';
-import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
+import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
 
-class MovementBehavior extends TimerComponent
-    with HasGameRef<VeryGoodRanchGame>, HasParent<Unicorn> {
-  MovementBehavior() : super(period: 10, repeat: true);
-
+class MovementBehavior extends Behavior<Unicorn>
+    with HasGameRef<VeryGoodRanchGame> {
   final speed = 10;
 
   Vector2 direction = Vector2.zero();
 
   @override
-  void update(double dt) {
-    if (parent.state == UnicornState.roaming) {
-      parent.position += direction * (speed * dt);
-      parent.position.clamp(parent.size, gameRef.size - parent.size);
-
-      if (parent.position.x == parent.size.x ||
-          parent.position.x == gameRef.size.x - parent.size.x ||
-          parent.position.y == parent.size.y ||
-          parent.position.y == gameRef.size.y - parent.size.y) {
-        parent.state = UnicornState.idle;
-        direction.setZero();
-      }
-    }
-    super.update(dt);
+  Future<void>? onLoad() {
+    add(TimerComponent(period: 10, repeat: true, onTick: _onTick));
+    return null;
   }
 
-  @override
-  void onTick() {
+  void _onTick() {
     if (gameRef.seed.nextDouble() < 0.5) {
       parent.state = UnicornState.roaming;
       direction =
@@ -52,5 +38,22 @@ class MovementBehavior extends TimerComponent
       parent.state = UnicornState.idle;
       direction.setZero();
     }
+  }
+
+  @override
+  void update(double dt) {
+    if (parent.state == UnicornState.roaming) {
+      parent.position += direction * (speed * dt);
+      parent.position.clamp(parent.size, gameRef.size - parent.size);
+
+      if (parent.position.x == parent.size.x ||
+          parent.position.x == gameRef.size.x - parent.size.x ||
+          parent.position.y == parent.size.y ||
+          parent.position.y == gameRef.size.y - parent.size.y) {
+        parent.state = UnicornState.idle;
+        direction.setZero();
+      }
+    }
+    super.update(dt);
   }
 }

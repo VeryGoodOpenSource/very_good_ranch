@@ -9,7 +9,7 @@ void addFoodComponentStories(Dashbook dashbook) {
     (context) {
       final foodType = context.optionsProperty<FoodType>(
         'type',
-        FoodType.cupcake,
+        FoodType.candy,
         FoodType.values
             .map((e) => PropertyOption(e.name.split(' ').last, e))
             .toList(),

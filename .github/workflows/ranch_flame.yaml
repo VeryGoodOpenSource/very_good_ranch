@@ -15,6 +15,6 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
+      flutter_channel: stable
+      flutter_version: 3.0.0
       working_directory: packages/ranch_flame
-      coverage_excludes: "lib/gen/*.dart"
-      test_optimization: false

@@ -15,9 +15,9 @@ void main() {
     flameTester.testGameWidget(
       'is draggable',
       setUp: (game, tester) async {
-        final food = Food.test();
-        await food.add(DraggableBehavior());
+        final food = Food.test(behaviors: [DraggableBehavior()]);
         await game.ensureAdd(food);
+        await game.ready();
       },
       verify: (game, tester) async {
         await tester.dragFrom(
@@ -33,23 +33,85 @@ void main() {
       },
     );
 
+    group('beingDragged', () {
+      flameTester.testGameWidget(
+        'set it to true on drag start',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggableBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggableBehavior>().first;
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await tester.pump();
+
+          expect(draggable.beingDragged, isTrue);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'set it to false on drag stop',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggableBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggableBehavior>().first;
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await gesture.up();
+          await tester.pump();
+
+          expect(draggable.beingDragged, isFalse);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'set it to false on drag cancel',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggableBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggableBehavior>().first;
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await gesture.cancel();
+          await tester.pump();
+
+          expect(draggable.beingDragged, isFalse);
+        },
+      );
+    });
+
     flameTester.testGameWidget(
       'only drags one food item',
       setUp: (game, tester) async {
-        final food1 = Food.test();
-        await food1.add(DraggableBehavior());
+        final food1 = Food.test(behaviors: [DraggableBehavior()]);
 
-        final food2 = Food.test(type: FoodType.iceCream);
-        await food2.add(DraggableBehavior());
+        final food2 = Food.test(
+          type: FoodType.iceCream,
+          behaviors: [DraggableBehavior()],
+        );
 
         await game.ensureAdd(food1);
         await game.ensureAdd(food2);
       },
       verify: (game, tester) async {
-        await tester.dragFrom(
-          Offset.zero,
-          const Offset(100, 100),
-        );
+        await tester.dragFrom(Offset.zero, const Offset(100, 100));
         await tester.pump();
 
         await expectLater(

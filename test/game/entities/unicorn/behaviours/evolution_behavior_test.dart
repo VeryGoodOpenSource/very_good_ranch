@@ -22,7 +22,7 @@ void main() {
         await unicorn.ensureAdd(evolutionBehavior);
 
         expect(evolutionBehavior.currentStage, UnicornStage.baby);
-        unicorn.timesFed = 100;
+        unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
         await game.ready();
         game.update(10);

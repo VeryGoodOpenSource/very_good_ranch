@@ -131,8 +131,6 @@ void main() {
           unicorn.enjoymentFactor = 0;
 
           await game.ready();
-          game.update(10);
-          await game.ready();
 
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
         },

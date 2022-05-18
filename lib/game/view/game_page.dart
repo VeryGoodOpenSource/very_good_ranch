@@ -8,7 +8,7 @@ import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
+  const GamePage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -27,8 +27,8 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     _game = VeryGoodRanchGame(
-      gameBloc: BlocProvider.of<GameBloc>(context),
-      inventoryBloc: BlocProvider.of<InventoryBloc>(context),
+      gameBloc: context.read<GameBloc>(),
+      inventoryBloc: context.read<InventoryBloc>(),
     );
   }
 

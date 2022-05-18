@@ -22,8 +22,8 @@ class FoodItemEntry extends StatelessWidget {
         if (count <= 0) {
           return;
         }
-        final inventoryBloc = BlocProvider.of<InventoryBloc>(context);
-        final gameBloc = BlocProvider.of<GameBloc>(context);
+        final inventoryBloc = context.read<InventoryBloc>();
+        final gameBloc = context.read<GameBloc>();
 
         inventoryBloc.add(RemoveFoodItem(type));
         gameBloc.add(SpawnFood(type));

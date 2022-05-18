@@ -17,6 +17,7 @@ class Unicorn extends Entity {
             PropagatingCollisionBehavior(RectangleHitbox()),
             MovementBehavior(),
             FoodCollisionBehavior(),
+            EvolutionBehavior(),
           ],
         );
 
@@ -34,9 +35,24 @@ class Unicorn extends Entity {
           ],
         );
 
+  /// A state that describes how well fed the unicorn is.
+  double fullnessFactor = 1;
+
+  /// A state that describes how many times the unicorn ate food.
+  int timesFed = 0;
+
+  /// A state that describes how well treated the unicorn is.
+  double enjoymentFactor = 1;
+
+  double get happinessFactor => fullnessFactor * enjoymentFactor;
+
+  UnicornStage get currentStage =>
+      findBehavior<EvolutionBehavior>()!.currentStage;
+
   final UnicornComponent _unicornComponent;
 
   UnicornState? get state => _unicornComponent.current;
+
   set state(UnicornState? state) => _unicornComponent.current = state;
 
   @override

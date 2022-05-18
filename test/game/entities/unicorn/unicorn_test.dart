@@ -5,12 +5,13 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-
-import '../../../helpers/helpers.dart';
+import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
+import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final flameTester = FlameTester<TestGame>(TestGame.new);
+
+  final flameTester = FlameTester<VeryGoodRanchGame>(VeryGoodRanchGame.new);
 
   group('Unicorn', () {
     flameTester.test(
@@ -47,6 +48,25 @@ void main() {
           unicorn.state = UnicornState.roaming;
 
           expect(unicorn.state, UnicornState.roaming);
+        },
+      );
+    });
+
+    group('unicorn stage', () {
+      flameTester.test(
+        'proxies from the behavior',
+        (game) async {
+          final unicorn = Unicorn(position: Vector2.zero());
+          await game.ready();
+          await game.ensureAdd(unicorn);
+          unicorn.state = UnicornState.idle;
+
+          expect(unicorn.currentStage, UnicornStage.baby);
+          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+
+          game.update(0);
+
+          expect(unicorn.currentStage, UnicornStage.kid);
         },
       );
     });

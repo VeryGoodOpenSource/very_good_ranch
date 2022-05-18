@@ -31,7 +31,7 @@ dev_dependencies:
     sdk: flutter
   mockingjay: ^0.3.0-dev.1
   mocktail: ^0.3.0
-  very_good_analysis: ^2.4.0
+  very_good_analysis: ^3.0.0
 
 dependency_overrides:
   flame:

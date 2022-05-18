@@ -5,9 +5,9 @@ import 'package:very_good_ranch/settings/settings.dart';
 void main() {
   group('SettingsBloc', () {
     test('initial state has max gameplay and music volume', () {
-      final gameBloc = SettingsBloc();
-      expect(gameBloc.state.musicVolume, equals(1));
-      expect(gameBloc.state.gameplayVolume, equals(1));
+      final settingsBloc = SettingsBloc();
+      expect(settingsBloc.state.musicVolume, equals(1));
+      expect(settingsBloc.state.gameplayVolume, equals(1));
     });
 
     group('MusicVolumeChanged', () {

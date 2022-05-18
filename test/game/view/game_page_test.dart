@@ -13,14 +13,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   group('GamePage', () {
+    late GameBloc gameBloc;
+
+    setUp(() {
+      gameBloc = MockGameBloc();
+      when(() => gameBloc.state).thenReturn(GameState());
+    });
+
     testWidgets('renders GameWidget', (tester) async {
-      await tester.pumpApp(GamePage());
+      await tester.pumpApp(GamePage(), gameBloc: gameBloc);
       expect(find.byType(GameWidget<VeryGoodRanchGame>), findsOneWidget);
     });
 
@@ -38,6 +46,7 @@ void main() {
             },
           ),
         ),
+        gameBloc: gameBloc,
       );
 
       await tester.tap(find.text('Tap me'));
@@ -51,12 +60,32 @@ void main() {
       final settingsBloc = MockSettingsBloc();
       when(() => settingsBloc.state).thenReturn(SettingsState());
 
-      await tester.pumpApp(GamePage(), settingsBloc: settingsBloc);
+      await tester.pumpApp(
+        GamePage(),
+        gameBloc: gameBloc,
+        settingsBloc: settingsBloc,
+      );
 
       await tester.tap(find.byIcon(Icons.settings));
       await tester.pump();
 
       expect(find.byType(SettingsDialog), findsOneWidget);
+    });
+
+    testWidgets('overlays InventoryDialog', (tester) async {
+      final inventoryBloc = MockInventoryBloc();
+      when(() => inventoryBloc.state).thenReturn(InventoryState());
+
+      await tester.pumpApp(
+        GamePage(),
+        gameBloc: gameBloc,
+        inventoryBloc: inventoryBloc,
+      );
+
+      await tester.tap(find.byIcon(Icons.inventory));
+      await tester.pump();
+
+      expect(find.byType(InventoryDialog), findsOneWidget);
     });
   });
 }

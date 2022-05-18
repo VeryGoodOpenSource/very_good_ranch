@@ -7,26 +7,26 @@ void main() {
   group('SettingsEvent', () {
     group('MusicVolumeChanged', () {
       test('can be instantiated', () {
-        expect(const MusicVolumeChanged(0.5), isNotNull);
+        expect(MusicVolumeChanged(0.5), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
           MusicVolumeChanged(0.5),
-          equals(const MusicVolumeChanged(0.5)),
+          equals(MusicVolumeChanged(0.5)),
         );
       });
     });
 
     group('GameplayVolumeChanged', () {
       test('can be instantiated', () {
-        expect(const GameplayVolumeChanged(0.5), isNotNull);
+        expect(GameplayVolumeChanged(0.5), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
           GameplayVolumeChanged(0.5),
-          equals(const GameplayVolumeChanged(0.5)),
+          equals(GameplayVolumeChanged(0.5)),
         );
       });
     });

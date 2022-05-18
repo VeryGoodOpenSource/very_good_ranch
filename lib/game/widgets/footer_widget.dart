@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:very_good_ranch/inventory/view/view.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class FooterWidget extends StatelessWidget {
@@ -23,12 +24,18 @@ class FooterWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.inventory)),
             IconButton(
               onPressed: () {
-                if (overlays.isActive('shop')) {
-                  overlays.remove('shop');
+                _clearOverlays(except: InventoryDialog.overlayKey);
+                if (!overlays.isActive(InventoryDialog.overlayKey)) {
+                  overlays.add(InventoryDialog.overlayKey);
                 }
+              },
+              icon: const Icon(Icons.inventory),
+            ),
+            IconButton(
+              onPressed: () {
+                _clearOverlays(except: SettingsDialog.overlayKey);
                 if (!overlays.isActive(SettingsDialog.overlayKey)) {
                   overlays.add(SettingsDialog.overlayKey);
                 }
@@ -39,5 +46,22 @@ class FooterWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _clearOverlays({
+    required String except,
+  }) {
+    if (overlays.isActive(
+          InventoryDialog.overlayKey,
+        ) &&
+        except != InventoryDialog.overlayKey) {
+      overlays.remove(InventoryDialog.overlayKey);
+    }
+    if (overlays.isActive(
+          SettingsDialog.overlayKey,
+        ) &&
+        except != SettingsDialog.overlayKey) {
+      overlays.remove(SettingsDialog.overlayKey);
+    }
   }
 }

@@ -132,7 +132,7 @@ packages:
     description:
       path: "packages/flame"
       ref: HEAD
-      resolved-ref: aeaf9999b0b4f69e394063d3af8e18f67dff5ed9
+      resolved-ref: "69214827a0edb563468951256eccecab408f89df"
       url: "https://github.com/flame-engine/flame"
     source: git
     version: "1.1.1"
@@ -145,6 +145,13 @@ packages:
       url: "https://github.com/VeryGoodOpenSource/flame_behaviors"
     source: git
     version: "0.0.1-dev.1"
+  flame_bloc:
+    dependency: "direct main"
+    description:
+      name: flame_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   flame_test:
     dependency: "direct dev"
     description:

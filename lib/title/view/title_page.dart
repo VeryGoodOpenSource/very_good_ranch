@@ -6,7 +6,7 @@ import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class TitlePage extends StatelessWidget {
-  const TitlePage({Key? key}) : super(key: key);
+  const TitlePage({super.key});
 
   @override
   Widget build(BuildContext context) {

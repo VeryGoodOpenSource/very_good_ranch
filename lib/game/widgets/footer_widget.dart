@@ -5,9 +5,9 @@ import 'package:very_good_ranch/settings/settings.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({
-    Key? key,
+    super.key,
     required this.overlays,
-  }) : super(key: key);
+  });
 
   final ActiveOverlaysNotifier overlays;
 

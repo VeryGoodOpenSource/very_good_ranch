@@ -8,7 +8,7 @@ import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
+  const GamePage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(

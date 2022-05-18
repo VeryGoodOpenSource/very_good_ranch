@@ -88,7 +88,7 @@ void main() {
 
         expect(unicorn.enjoymentFactor, 1.0);
         game.update(EnjoymentDecreaseBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.95);
+        expect(unicorn.enjoymentFactor, 0.9);
       });
     });
   });

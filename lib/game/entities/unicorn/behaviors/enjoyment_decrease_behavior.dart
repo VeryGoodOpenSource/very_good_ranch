@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
@@ -22,8 +20,7 @@ class EnjoymentDecreaseBehavior extends Behavior<Unicorn> {
   // Todo(renancaraujo): Confirm logic: enjoyment decreases linearly. We may
   //  change this rule to vary according to the unicorn stage.
   void _decreaseEnjoyment() {
-    final decreaseFactor = parent.currentStage.enjoymentDecreaseFactor;
-    max(parent.enjoymentFactor -= decreaseFactor, 0);
+    parent.enjoymentFactor -= parent.currentStage.enjoymentDecreaseFactor;
   }
 }
 

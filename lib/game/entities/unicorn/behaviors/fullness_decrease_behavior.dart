@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
@@ -23,8 +21,7 @@ class FullnessDecreaseBehavior extends Behavior<Unicorn> {
   // Todo(renancaraujo): Confirm logic: fullness decreases linearly. We may
   // change this rule to vary according to the unicorn stage.
   void _decreaseFullness() {
-    final decreaseFactor = parent.currentStage.fullnessDecreaseFactor;
-    max(parent.fullnessFactor -= decreaseFactor, 0);
+    parent.fullnessFactor -= parent.currentStage.fullnessDecreaseFactor;
   }
 }
 

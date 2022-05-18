@@ -4,7 +4,6 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
-import 'package:very_good_ranch/game/entities/food/behaviors/move_to_inventory_behavior.dart';
 
 class Food extends Entity {
   Food({

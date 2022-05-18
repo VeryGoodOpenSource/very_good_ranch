@@ -1,6 +1,7 @@
 // ignore_for_file: cascade_invocations
 
 import 'package:flame_test/flame_test.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
@@ -26,7 +27,7 @@ void main() {
 
   group('MoveToInventoryBehavior', () {
     flameTester.testGameWidget(
-      'moves to inventory on long tap',
+      'move to inventory on double tap',
       setUp: (game, tester) async {
         await game.ensureAdd(
           flameBlocProvider(
@@ -39,13 +40,17 @@ void main() {
       },
       verify: (game, tester) async {
         final food = game.descendants().whereType<Food>().first;
-        await tester.longPressAt(Offset.zero);
+        await tester.tapAt(Offset.zero);
+        await tester.pump(kDoubleTapMinTime);
+        await tester.tapAt(Offset.zero);
         await tester.pump();
+
+        // TODO(wolfen): does not work
 
         expect(food.parent, isNull);
 
         verify(
-          () => inventoryBloc.add(AddFoodItem(FoodItem(type: food.type))),
+          () => inventoryBloc.add(AddFoodItem(food.type)),
         ).called(1);
       },
     );

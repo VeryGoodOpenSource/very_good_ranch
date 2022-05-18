@@ -8,8 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
-import 'package:very_good_ranch/inventory/bloc/bloc.dart';
+import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 import 'package:very_good_ranch/title/title.dart';

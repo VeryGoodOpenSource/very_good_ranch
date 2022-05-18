@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors,
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
@@ -15,11 +18,11 @@ void main() {
         'add food item to set',
         build: InventoryBloc.new,
         act: (bloc) {
-          bloc.add(const AddFoodItem(FoodItem(type: FoodType.candy)));
+          bloc.add(AddFoodItem(FoodType.candy));
         },
         expect: () {
           return [
-            InventoryState(foodItems: {const FoodItem(type: FoodType.candy)})
+            InventoryState(foodItems: [FoodType.candy])
           ];
         },
       );
@@ -30,13 +33,13 @@ void main() {
         'remove food item from set',
         build: InventoryBloc.new,
         seed: () => InventoryState(
-          foodItems: {const FoodItem(type: FoodType.candy)},
+          foodItems: [FoodType.candy],
         ),
         act: (bloc) {
-          bloc.add(const RemoveFoodItem(FoodItem(type: FoodType.candy)));
+          bloc.add(const RemoveFoodItem(FoodType.candy));
         },
         expect: () {
-          return [InventoryState(foodItems: const {})];
+          return [InventoryState(foodItems: [])];
         },
       );
     });

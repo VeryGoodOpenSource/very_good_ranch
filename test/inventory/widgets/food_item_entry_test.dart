@@ -25,19 +25,20 @@ void main() {
     });
 
     testWidgets('renders correctly', (tester) async {
-      await tester.pumpApp(FoodItemEntry(item: FoodItem(type: FoodType.candy)));
+      await tester.pumpApp(FoodItemEntry(type: FoodType.candy, count: 1));
 
       expect(find.byType(Container), findsNWidgets(1));
     });
 
+    // TODO(wolfen): if there are none of the food item, it should not be displayed
+
     testWidgets('removes food item correctly', (tester) async {
-      final foodItem = FoodItem(type: FoodType.candy);
       when(() => inventoryBloc.state).thenReturn(
-        InventoryState(foodItems: {foodItem}),
+        InventoryState(foodItems: const [FoodType.candy]),
       );
 
       await tester.pumpApp(
-        FoodItemEntry(item: FoodItem(type: FoodType.candy)),
+        FoodItemEntry(type: FoodType.candy, count: 1),
         inventoryBloc: inventoryBloc,
         gameBloc: gameBloc,
       );
@@ -47,8 +48,28 @@ void main() {
       await tester.tap(find.byType(Container));
       await tester.pumpAndSettle();
 
-      verify(() => inventoryBloc.add(RemoveFoodItem(foodItem))).called(1);
-      verify(() => gameBloc.add(SpawnFood(foodItem.type))).called(1);
+      verify(() => inventoryBloc.add(RemoveFoodItem(FoodType.candy))).called(1);
+      verify(() => gameBloc.add(SpawnFood(FoodType.candy))).called(1);
+    });
+
+    testWidgets('does not remove food if it doesnt have any', (tester) async {
+      when(() => inventoryBloc.state).thenReturn(
+        InventoryState(foodItems: const [FoodType.candy]),
+      );
+
+      await tester.pumpApp(
+        FoodItemEntry(type: FoodType.candy, count: 0),
+        inventoryBloc: inventoryBloc,
+        gameBloc: gameBloc,
+      );
+
+      await tester.tap(find.byType(Container));
+      await tester.pump(kDoubleTapMinTime);
+      await tester.tap(find.byType(Container));
+      await tester.pumpAndSettle();
+
+      verifyNever(() => inventoryBloc.add(RemoveFoodItem(FoodType.candy)));
+      verifyNever(() => gameBloc.add(SpawnFood(FoodType.candy)));
     });
   });
 }

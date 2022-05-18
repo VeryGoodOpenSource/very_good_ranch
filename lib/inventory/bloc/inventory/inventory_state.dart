@@ -2,13 +2,13 @@ part of 'inventory_bloc.dart';
 
 class InventoryState extends Equatable {
   InventoryState({
-    Set<FoodItem>? foodItems,
-  }) : foodItems = foodItems ?? {};
+    List<FoodType>? foodItems,
+  }) : foodItems = foodItems ?? [];
 
-  final Set<FoodItem> foodItems;
+  final List<FoodType> foodItems;
 
   InventoryState copyWith({
-    Set<FoodItem>? foodItems,
+    List<FoodType>? foodItems,
   }) {
     return InventoryState(
       foodItems: foodItems ?? this.foodItems,
@@ -17,13 +17,4 @@ class InventoryState extends Equatable {
 
   @override
   List<Object> get props => [foodItems];
-}
-
-class FoodItem extends Equatable {
-  const FoodItem({required this.type});
-
-  final FoodType type;
-
-  @override
-  List<Object> get props => [type];
 }

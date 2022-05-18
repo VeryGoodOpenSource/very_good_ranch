@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/inventory/bloc/bloc.dart';
 import 'package:very_good_ranch/inventory/widgets/widgets.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
@@ -20,36 +21,36 @@ class InventoryDialog extends StatelessWidget {
         child: BlocBuilder<InventoryBloc, InventoryState>(
           builder: (context, state) {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Center(
                   child: Text(l10n.inventory, style: theme.textTheme.headline6),
                 ),
                 const SizedBox(height: 8),
                 Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: constraints.maxWidth ~/ 100,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: state.foodItems.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            padding: const EdgeInsets.all(8),
-                            child: Center(
-                              child: FoodItemEntry(
-                                key: Key('food_item_$index'),
-                                item: state.foodItems.elementAt(index),
-                              ),
+                  child: GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    children: [
+                      for (final type in FoodType.values)
+                        Container(
+                          decoration: BoxDecoration(border: Border.all()),
+                          padding: const EdgeInsets.all(8),
+                          child: Center(
+                            child: FoodItemEntry(
+                              key: Key('food_type_${type.name}'),
+                              type: type,
+                              count: state.foodItems
+                                  .where((e) => e == type)
+                                  .length,
                             ),
-                          );
-                        },
-                      );
-                    },
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ],

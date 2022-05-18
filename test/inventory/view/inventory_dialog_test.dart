@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors,
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +30,12 @@ void main() {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
       when(() => inventoryBloc.state).thenReturn(
         InventoryState(
-          foodItems: {
-            FoodItem(type: FoodType.candy),
-            FoodItem(type: FoodType.lollipop),
-            FoodItem(type: FoodType.pancake),
-            FoodItem(type: FoodType.iceCream),
-          },
+          foodItems: [
+            FoodType.candy,
+            FoodType.lollipop,
+            FoodType.pancake,
+            FoodType.iceCream,
+          ],
         ),
       );
       await tester.pumpApp(InventoryDialog(), inventoryBloc: inventoryBloc);
@@ -45,9 +46,8 @@ void main() {
     });
 
     testWidgets('removes food item correctly', (tester) async {
-      final foodItem = FoodItem(type: FoodType.candy);
       when(() => inventoryBloc.state).thenReturn(
-        InventoryState(foodItems: {foodItem}),
+        InventoryState(foodItems: [FoodType.candy]),
       );
       await tester.pumpApp(
         InventoryDialog(),
@@ -60,8 +60,8 @@ void main() {
       await tester.tap(find.byKey(const Key('food_item_0')));
       await tester.pumpAndSettle();
 
-      verify(() => inventoryBloc.add(RemoveFoodItem(foodItem))).called(1);
-      verify(() => gameBloc.add(SpawnFood(foodItem.type))).called(1);
+      verify(() => inventoryBloc.add(RemoveFoodItem(FoodType.candy))).called(1);
+      verify(() => gameBloc.add(SpawnFood(FoodType.candy))).called(1);
     });
   });
 }

@@ -12,10 +12,10 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   }
 
   void _onAddFoodItem(AddFoodItem event, Emitter<InventoryState> emit) {
-    emit(state.copyWith(foodItems: {...state.foodItems, event.item}));
+    emit(state.copyWith(foodItems: [...state.foodItems, event.type]));
   }
 
   void _onRemoveFoodItem(RemoveFoodItem event, Emitter<InventoryState> emit) {
-    emit(state.copyWith(foodItems: {...state.foodItems}..remove(event.item)));
+    emit(state.copyWith(foodItems: [...state.foodItems]..remove(event.type)));
   }
 }

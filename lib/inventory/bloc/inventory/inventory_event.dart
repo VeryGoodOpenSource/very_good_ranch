@@ -5,19 +5,19 @@ abstract class InventoryEvent extends Equatable {
 }
 
 class AddFoodItem extends InventoryEvent {
-  const AddFoodItem(this.item);
+  const AddFoodItem(this.type);
 
-  final FoodItem item;
+  final FoodType type;
 
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [type];
 }
 
 class RemoveFoodItem extends InventoryEvent {
-  const RemoveFoodItem(this.item);
+  const RemoveFoodItem(this.type);
 
-  final FoodItem item;
+  final FoodType type;
 
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [type];
 }

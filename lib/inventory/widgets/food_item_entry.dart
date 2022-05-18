@@ -13,8 +13,8 @@ class FoodItemEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: () {
-        final inventoryBloc = BlocProvider.of<InventoryBloc>(context);
-        final gameBloc = BlocProvider.of<GameBloc>(context);
+        final inventoryBloc = context.read<InventoryBloc>();
+        final gameBloc = context.read<GameBloc>();
 
         inventoryBloc.add(RemoveFoodItem(item));
         gameBloc.add(SpawnFood(item.type));

@@ -27,8 +27,8 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     _game = VeryGoodRanchGame(
-      gameBloc: BlocProvider.of<GameBloc>(context),
-      inventoryBloc: BlocProvider.of<InventoryBloc>(context),
+      gameBloc: context.read<GameBloc>(),
+      inventoryBloc: context.read<InventoryBloc>(),
     );
   }
 

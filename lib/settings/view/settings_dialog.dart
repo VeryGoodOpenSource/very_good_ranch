@@ -4,7 +4,7 @@ import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class SettingsDialog extends StatelessWidget {
-  const SettingsDialog({Key? key}) : super(key: key);
+  const SettingsDialog({super.key});
 
   static const overlayKey = 'settings';
 

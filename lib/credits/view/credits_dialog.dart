@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class CreditsDialog extends StatelessWidget {
-  const CreditsDialog({Key? key}) : super(key: key);
+  const CreditsDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

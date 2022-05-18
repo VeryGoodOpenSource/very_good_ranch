@@ -18,6 +18,8 @@ class Unicorn extends Entity {
             MovementBehavior(),
             FoodCollisionBehavior(),
             EvolutionBehavior(),
+            FullnessDecreaseBehavior(),
+            EnjoymentDecreaseBehavior(),
           ],
         );
 
@@ -27,11 +29,13 @@ class Unicorn extends Entity {
   @visibleForTesting
   Unicorn.test({
     required super.position,
+    EvolutionBehavior? evolutionBehavior,
   })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
         super(
           size: Vector2.all(32),
           behaviors: [
             PropagatingCollisionBehavior(RectangleHitbox()),
+            if (evolutionBehavior != null) evolutionBehavior,
           ],
         );
 

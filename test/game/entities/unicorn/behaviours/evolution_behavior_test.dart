@@ -126,5 +126,32 @@ void main() {
         },
       );
     });
+    group('on evolution', () {
+      flameTester.test(
+        'resets enjoyment and fullness factors to full',
+        (game) async {
+          final evolutionBehavior =
+              EvolutionBehavior.withInitialStage(UnicornStage.kid);
+
+          final unicorn = Unicorn(position: Vector2.zero());
+          await game.ready();
+          await game.ensureAdd(unicorn);
+          await unicorn.ensureAdd(evolutionBehavior);
+
+          expect(evolutionBehavior.currentStage, UnicornStage.kid);
+          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+
+          // Setting happiness to above the threshold, but not full
+          unicorn.enjoymentFactor = 0.95;
+          unicorn.fullnessFactor = 0.95;
+
+          game.update(0);
+
+          expect(evolutionBehavior.currentStage, UnicornStage.teenager);
+          expect(unicorn.enjoymentFactor, 1.0);
+          expect(unicorn.fullnessFactor, 1.0);
+        },
+      );
+    });
   });
 }

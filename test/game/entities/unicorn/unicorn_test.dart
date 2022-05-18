@@ -62,11 +62,9 @@ void main() {
           unicorn.state = UnicornState.idle;
 
           expect(unicorn.currentStage, UnicornStage.baby);
-          unicorn.timesFed = 100;
+          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-          await game.ready();
-          game.update(10);
-          await game.ready();
+          game.update(0);
 
           expect(unicorn.currentStage, UnicornStage.kid);
         },

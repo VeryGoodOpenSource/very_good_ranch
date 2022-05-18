@@ -24,9 +24,7 @@ void main() {
         expect(evolutionBehavior.currentStage, UnicornStage.baby);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-        await game.ready();
-        game.update(10);
-        await game.ready();
+        game.update(0);
 
         expect(evolutionBehavior.currentStage, UnicornStage.kid);
       });
@@ -42,11 +40,9 @@ void main() {
         await game.ready();
 
         expect(evolutionBehavior.currentStage, UnicornStage.kid);
-        unicorn.timesFed = 100;
+        unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-        await game.ready();
-        game.update(10);
-        await game.ready();
+        game.update(0);
 
         expect(evolutionBehavior.currentStage, UnicornStage.teenager);
       });
@@ -62,11 +58,9 @@ void main() {
         game.update(5);
 
         expect(evolutionBehavior.currentStage, UnicornStage.teenager);
-        unicorn.timesFed = 100;
+        unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-        await game.ready();
-        game.update(10);
-        await game.ready();
+        game.update(0);
 
         expect(evolutionBehavior.currentStage, UnicornStage.adult);
       });
@@ -83,11 +77,9 @@ void main() {
           await unicorn.ensureAdd(evolutionBehavior);
 
           expect(evolutionBehavior.currentStage, UnicornStage.adult);
-          unicorn.timesFed = 100;
+          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-          await game.ready();
-          game.update(10);
-          await game.ready();
+          game.update(0);
 
           expect(evolutionBehavior.currentStage, UnicornStage.adult);
         },
@@ -107,9 +99,7 @@ void main() {
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
           unicorn.timesFed = 0;
 
-          await game.ready();
-          game.update(10);
-          await game.ready();
+          game.update(0);
 
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
         },
@@ -130,7 +120,7 @@ void main() {
           unicorn.timesFed = 1;
           unicorn.enjoymentFactor = 0;
 
-          await game.ready();
+          game.update(0);
 
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
         },

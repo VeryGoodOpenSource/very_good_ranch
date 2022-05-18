@@ -12,7 +12,7 @@ void main() {
   final flameTester = FlameTester(VeryGoodRanchGame.new);
 
   group('Evolution Behavior', () {
-    group('evolves the unicorn every 10 seconds', () {
+    group('evolves the unicorn', () {
       flameTester.test('from baby to kid', (game) async {
         final evolutionBehavior = EvolutionBehavior();
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/inventory/bloc/bloc.dart';
-import 'package:very_good_ranch/inventory/widgets/widgets.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class InventoryDialog extends StatelessWidget {

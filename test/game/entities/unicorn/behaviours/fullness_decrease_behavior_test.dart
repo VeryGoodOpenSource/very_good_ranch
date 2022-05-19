@@ -6,13 +6,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
-import 'package:very_good_ranch/game/very_good_ranch_game.dart';
+import 'package:very_good_ranch/game/game.dart';
+
+import '../../../../helpers/helpers.dart';
 
 class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final flameTester = FlameTester(VeryGoodRanchGame.new);
+  late GameBloc gameBloc;
+
+  setUp(() {
+    gameBloc = MockGameBloc();
+    when(() => gameBloc.state).thenReturn(const GameState());
+  });
+
+  final flameTester = FlameTester<VeryGoodRanchGame>(
+    () => VeryGoodRanchGame(
+      gameBloc: gameBloc,
+      inventoryBloc: MockInventoryBloc(),
+    ),
+  );
 
   group('FullnessDecreaseBehavior', () {
     group('decreases fullness', () {

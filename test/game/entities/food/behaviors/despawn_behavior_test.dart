@@ -54,20 +54,21 @@ void main() {
         game.update(0.5);
         expect(food.shouldRemove, isFalse);
 
-        await tester.runAsync(() async {
-          final gesture = await tester.createGesture();
-          await gesture.down(Offset.zero);
-          await gesture.moveTo(const Offset(100, 100));
-          await tester.pump();
-          game.update(0.5);
-          expect(food.shouldRemove, isFalse);
+        final gesture = await tester.createGesture();
+        await gesture.down(Offset.zero);
+        await gesture.moveTo(const Offset(100, 100));
+        await tester.pump();
+        game.update(0.5);
+        expect(food.shouldRemove, isFalse);
 
-          await gesture.up();
-          await tester.pump();
-          await tester.pump();
-          game.update(1);
-          expect(food.shouldRemove, isTrue);
-        });
+        await gesture.up();
+        await tester.pump();
+        await tester.pump();
+        game.update(1);
+        expect(food.shouldRemove, isTrue);
+
+        game.pauseEngine();
+        await tester.pumpAndSettle();
       },
     );
   });

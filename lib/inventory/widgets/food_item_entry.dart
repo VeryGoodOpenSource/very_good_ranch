@@ -29,10 +29,23 @@ class FoodItemEntry extends StatelessWidget {
         gameBloc.add(FoodSpawned(type));
       },
       // NOTE: replace with sprite widget when we have sprites.
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: type.color,
-          borderRadius: BorderRadius.circular(100),
+      child: SizedBox.expand(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: type.color,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: Text('$count'),
+            ),
+          ],
         ),
       ),
     );

@@ -30,8 +30,6 @@ void main() {
       expect(find.byType(Container), findsNWidgets(1));
     });
 
-    // TODO(wolfen): if there are none of the food item, it should not be displayed
-
     testWidgets('removes food item correctly', (tester) async {
       when(() => inventoryBloc.state).thenReturn(
         InventoryState(foodItems: const [FoodType.candy]),
@@ -48,11 +46,12 @@ void main() {
       await tester.tap(find.byType(Container));
       await tester.pumpAndSettle();
 
-      verify(() => inventoryBloc.add(RemoveFoodItem(FoodType.candy))).called(1);
-      verify(() => gameBloc.add(SpawnFood(FoodType.candy))).called(1);
+      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.candy)))
+          .called(1);
+      verify(() => gameBloc.add(FoodSpawned(FoodType.candy))).called(1);
     });
 
-    testWidgets('does not remove food if it doesnt have any', (tester) async {
+    testWidgets('does not remove food if it does not have any', (tester) async {
       when(() => inventoryBloc.state).thenReturn(
         InventoryState(foodItems: const [FoodType.candy]),
       );
@@ -68,8 +67,8 @@ void main() {
       await tester.tap(find.byType(Container));
       await tester.pumpAndSettle();
 
-      verifyNever(() => inventoryBloc.add(RemoveFoodItem(FoodType.candy)));
-      verifyNever(() => gameBloc.add(SpawnFood(FoodType.candy)));
+      verifyNever(() => inventoryBloc.add(FoodItemRemoved(FoodType.candy)));
+      verifyNever(() => gameBloc.add(FoodSpawned(FoodType.candy)));
     });
   });
 }

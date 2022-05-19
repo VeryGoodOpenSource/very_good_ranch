@@ -138,7 +138,7 @@ void main() {
         );
 
         await game.ready();
-        gameBloc.add(const SpawnFood(FoodType.candy));
+        gameBloc.add(const FoodSpawned(FoodType.candy));
         await game.ready();
       },
       verify: (game, tester) async {

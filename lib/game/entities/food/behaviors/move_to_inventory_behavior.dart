@@ -9,7 +9,7 @@ class MoveToInventoryBehavior extends DoubleTapBehavior<Food>
   @override
   bool onDoubleTapDown(TapDownInfo info) {
     parent.shouldRemove = true;
-    bloc.add(AddFoodItem(parent.type));
+    bloc.add(FoodItemAdded(parent.type));
     return false;
   }
 }

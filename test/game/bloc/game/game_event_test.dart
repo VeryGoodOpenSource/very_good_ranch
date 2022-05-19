@@ -6,15 +6,15 @@ import 'package:very_good_ranch/game/game.dart';
 
 void main() {
   group('GameEvent', () {
-    group('SpawnFood', () {
+    group('FoodSpawned', () {
       test('can be instantiated', () {
-        expect(SpawnFood(FoodType.candy), isNotNull);
+        expect(FoodSpawned(FoodType.candy), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
-          SpawnFood(FoodType.candy),
-          equals(SpawnFood(FoodType.candy)),
+          FoodSpawned(FoodType.candy),
+          equals(FoodSpawned(FoodType.candy)),
         );
       });
     });

@@ -6,7 +6,7 @@ import 'package:very_good_ranch/inventory/widgets/widgets.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class InventoryDialog extends StatelessWidget {
-  const InventoryDialog({Key? key}) : super(key: key);
+  const InventoryDialog({super.key});
 
   static const overlayKey = 'inventory';
 
@@ -18,17 +18,17 @@ class InventoryDialog extends StatelessWidget {
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: BlocBuilder<InventoryBloc, InventoryState>(
-          builder: (context, state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Center(
-                  child: Text(l10n.inventory, style: theme.textTheme.headline6),
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: GridView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Center(
+              child: Text(l10n.inventory, style: theme.textTheme.headline6),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: BlocBuilder<InventoryBloc, InventoryState>(
+                builder: (context, state) {
+                  return GridView(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
@@ -51,11 +51,11 @@ class InventoryDialog extends StatelessWidget {
                           ),
                         ),
                     ],
-                  ),
-                ),
-              ],
-            );
-          },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

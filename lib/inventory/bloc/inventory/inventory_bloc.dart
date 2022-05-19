@@ -7,15 +7,15 @@ part 'inventory_state.dart';
 
 class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   InventoryBloc() : super(InventoryState()) {
-    on<AddFoodItem>(_onAddFoodItem);
-    on<RemoveFoodItem>(_onRemoveFoodItem);
+    on<FoodItemAdded>(_onFoodItemAdded);
+    on<FoodItemRemoved>(_onFoodItemRemoved);
   }
 
-  void _onAddFoodItem(AddFoodItem event, Emitter<InventoryState> emit) {
+  void _onFoodItemAdded(FoodItemAdded event, Emitter<InventoryState> emit) {
     emit(state.copyWith(foodItems: [...state.foodItems, event.type]));
   }
 
-  void _onRemoveFoodItem(RemoveFoodItem event, Emitter<InventoryState> emit) {
+  void _onFoodItemRemoved(FoodItemRemoved event, Emitter<InventoryState> emit) {
     emit(state.copyWith(foodItems: [...state.foodItems]..remove(event.type)));
   }
 }

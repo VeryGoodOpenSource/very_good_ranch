@@ -6,28 +6,28 @@ import 'package:very_good_ranch/inventory/inventory.dart';
 
 void main() {
   group('InventoryEvent', () {
-    group('AddFoodItem', () {
+    group('FoodItemAdded', () {
       test('can be instantiated', () {
-        expect(AddFoodItem(FoodType.candy), isNotNull);
+        expect(FoodItemAdded(FoodType.candy), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
-          AddFoodItem(FoodType.candy),
-          equals(AddFoodItem(FoodType.candy)),
+          FoodItemAdded(FoodType.candy),
+          equals(FoodItemAdded(FoodType.candy)),
         );
       });
     });
 
-    group('RemoveFoodItem', () {
+    group('FoodItemRemoved', () {
       test('can be instantiated', () {
-        expect(RemoveFoodItem(FoodType.candy), isNotNull);
+        expect(FoodItemRemoved(FoodType.candy), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
-          RemoveFoodItem(FoodType.candy),
-          equals(RemoveFoodItem(FoodType.candy)),
+          FoodItemRemoved(FoodType.candy),
+          equals(FoodItemRemoved(FoodType.candy)),
         );
       });
     });

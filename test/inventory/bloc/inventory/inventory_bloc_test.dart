@@ -13,12 +13,12 @@ void main() {
       expect(inventoryBloc.state.foodItems, isEmpty);
     });
 
-    group('AddFoodItem', () {
+    group('FoodItemAdded', () {
       blocTest<InventoryBloc, InventoryState>(
         'add food item to set',
         build: InventoryBloc.new,
         act: (bloc) {
-          bloc.add(AddFoodItem(FoodType.candy));
+          bloc.add(FoodItemAdded(FoodType.candy));
         },
         expect: () {
           return [
@@ -28,7 +28,7 @@ void main() {
       );
     });
 
-    group('RemoveFoodItem', () {
+    group('FoodItemRemoved', () {
       blocTest<InventoryBloc, InventoryState>(
         'remove food item from set',
         build: InventoryBloc.new,
@@ -36,7 +36,7 @@ void main() {
           foodItems: [FoodType.candy],
         ),
         act: (bloc) {
-          bloc.add(const RemoveFoodItem(FoodType.candy));
+          bloc.add(const FoodItemRemoved(FoodType.candy));
         },
         expect: () {
           return [InventoryState(foodItems: [])];

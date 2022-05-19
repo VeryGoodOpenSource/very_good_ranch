@@ -60,8 +60,9 @@ void main() {
       await tester.tap(find.byKey(const Key('food_item_0')));
       await tester.pumpAndSettle();
 
-      verify(() => inventoryBloc.add(RemoveFoodItem(FoodType.candy))).called(1);
-      verify(() => gameBloc.add(SpawnFood(FoodType.candy))).called(1);
+      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.candy)))
+          .called(1);
+      verify(() => gameBloc.add(FoodSpawned(FoodType.candy))).called(1);
     });
   });
 }

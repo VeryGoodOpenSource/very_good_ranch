@@ -6,10 +6,10 @@ import 'package:very_good_ranch/inventory/bloc/bloc.dart';
 
 class FoodItemEntry extends StatelessWidget {
   const FoodItemEntry({
-    Key? key,
+    super.key,
     required this.type,
     required this.count,
-  }) : super(key: key);
+  });
 
   final FoodType type;
 
@@ -25,11 +25,11 @@ class FoodItemEntry extends StatelessWidget {
         final inventoryBloc = context.read<InventoryBloc>();
         final gameBloc = context.read<GameBloc>();
 
-        inventoryBloc.add(RemoveFoodItem(type));
-        gameBloc.add(SpawnFood(type));
+        inventoryBloc.add(FoodItemRemoved(type));
+        gameBloc.add(FoodSpawned(type));
       },
       // NOTE: replace with sprite widget when we have sprites.
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: type.color,
           borderRadius: BorderRadius.circular(100),

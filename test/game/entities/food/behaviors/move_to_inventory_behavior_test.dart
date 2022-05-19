@@ -50,7 +50,7 @@ void main() {
         expect(food.parent, isNull);
 
         verify(
-          () => inventoryBloc.add(AddFoodItem(food.type)),
+          () => inventoryBloc.add(FoodItemAdded(food.type)),
         ).called(1);
       },
     );

@@ -4,8 +4,8 @@ abstract class GameEvent extends Equatable {
   const GameEvent();
 }
 
-class SpawnFood extends GameEvent {
-  const SpawnFood(this.type);
+class FoodSpawned extends GameEvent {
+  const FoodSpawned(this.type);
 
   final FoodType type;
 

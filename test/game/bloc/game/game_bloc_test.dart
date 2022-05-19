@@ -10,12 +10,12 @@ void main() {
       expect(gameBloc.state.food, isNull);
     });
 
-    group('SpawnFood', () {
+    group('FoodSpawned', () {
       blocTest<GameBloc, GameState>(
         'spawn food',
         build: GameBloc.new,
         act: (bloc) {
-          bloc.add(const SpawnFood(FoodType.candy));
+          bloc.add(const FoodSpawned(FoodType.candy));
         },
         expect: () {
           return [

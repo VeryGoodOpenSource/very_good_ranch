@@ -7,10 +7,10 @@ part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc() : super(const GameState()) {
-    on<SpawnFood>(_onSpawnFood);
+    on<FoodSpawned>(_onFoodSpawned);
   }
 
-  void _onSpawnFood(SpawnFood event, Emitter<GameState> emit) {
+  void _onFoodSpawned(FoodSpawned event, Emitter<GameState> emit) {
     emit(GameState(food: event.type));
   }
 }

@@ -7,7 +7,6 @@ import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
-import 'package:very_good_ranch/inventory/widgets/widgets.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 import '../../helpers/helpers.dart';

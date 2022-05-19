@@ -18,31 +18,48 @@ class Unicorn extends Entity {
             MovementBehavior(),
             FoodCollisionBehavior(),
             EvolutionBehavior(),
+            FullnessDecreaseBehavior(),
+            EnjoymentDecreaseBehavior(),
           ],
         );
 
-  /// Creates a Unicorn without any behaviors.
+  /// Creates a Unicorn without only the passed [behaviors] and a
+  /// [PropagatingCollisionBehavior].
   ///
   /// This can be used for testing each behavior of a unicorn.
   @visibleForTesting
-  Unicorn.test({
+  Unicorn.customBehaviors({
     required super.position,
+    Iterable<Behavior>? behaviors,
   })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
         super(
           size: Vector2.all(32),
           behaviors: [
             PropagatingCollisionBehavior(RectangleHitbox()),
+            ...?behaviors,
           ],
         );
-
-  /// A state that describes how well fed the unicorn is.
-  double fullnessFactor = 1;
 
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
+  /// A state that describes how well fed the unicorn is.
+  double get fullnessFactor => _fullnessFactor;
+
+  set fullnessFactor(double value) {
+    _fullnessFactor = value.clamp(0.0, 1.0);
+  }
+
+  double _fullnessFactor = 1;
+
   /// A state that describes how well treated the unicorn is.
-  double enjoymentFactor = 1;
+  double get enjoymentFactor => _enjoymentFactor;
+
+  set enjoymentFactor(double value) {
+    _enjoymentFactor = value.clamp(0.0, 1.0);
+  }
+
+  double _enjoymentFactor = 1;
 
   double get happinessFactor => fullnessFactor * enjoymentFactor;
 

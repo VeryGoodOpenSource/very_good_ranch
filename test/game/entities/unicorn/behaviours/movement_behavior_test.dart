@@ -37,12 +37,16 @@ void main() {
         final movementBehavior = MovementBehavior();
         movementBehavior.direction = Vector2(1, 1);
 
-        final unicorn = Unicorn.test(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            movementBehavior,
+          ],
+        );
         unicorn.state = UnicornState.roaming;
 
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(movementBehavior);
 
         game.update(5);
 
@@ -56,12 +60,16 @@ void main() {
         final movementBehavior = MovementBehavior();
         movementBehavior.direction = Vector2(-1, -1);
 
-        final unicorn = Unicorn.test(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            movementBehavior,
+          ],
+        );
         unicorn.state = UnicornState.roaming;
 
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(movementBehavior);
 
         game.update(5);
 
@@ -80,11 +88,15 @@ void main() {
 
         final movementBehavior = MovementBehavior();
 
-        final unicorn = Unicorn.test(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            movementBehavior,
+          ],
+        );
 
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(movementBehavior);
 
         game.update(10);
 
@@ -97,11 +109,15 @@ void main() {
 
         final movementBehavior = MovementBehavior();
 
-        final unicorn = Unicorn.test(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            movementBehavior,
+          ],
+        );
 
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(movementBehavior);
 
         game.update(10);
 
@@ -116,12 +132,16 @@ void main() {
 
           final movementBehavior = MovementBehavior();
 
-          final unicorn = Unicorn.test(position: Vector2.zero());
+          final unicorn = Unicorn.customBehaviors(
+            position: Vector2.zero(),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
           unicorn.transform.scale.x = 1;
 
           await game.ready();
           await game.ensureAdd(unicorn);
-          await unicorn.ensureAdd(movementBehavior);
 
           game.update(10);
 
@@ -134,12 +154,16 @@ void main() {
 
           final movementBehavior = MovementBehavior();
 
-          final unicorn = Unicorn.test(position: Vector2.zero());
+          final unicorn = Unicorn.customBehaviors(
+            position: Vector2.zero(),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
           unicorn.transform.scale.x = -1;
 
           await game.ready();
           await game.ensureAdd(unicorn);
-          await unicorn.ensureAdd(movementBehavior);
 
           game.update(10);
 

@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:very_good_ranch/inventory/view/view.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class FooterWidget extends StatelessWidget {

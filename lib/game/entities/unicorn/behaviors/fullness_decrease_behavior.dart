@@ -18,16 +18,12 @@ class FullnessDecreaseBehavior extends Behavior<Unicorn> {
     );
   }
 
-  // Todo(renancaraujo): Confirm logic: fullness decreases linearly. We may
-  // change this rule to vary according to the unicorn stage.
   void _decreaseFullness() {
     parent.fullnessFactor -= parent.currentStage.fullnessDecreaseFactor;
   }
 }
 
 extension on UnicornStage {
-  // Todo(renancaraujo): Confirm logic: As older unicorn gets, more food it
-  // needs (?)
   double get fullnessDecreaseFactor {
     switch (this) {
       case UnicornStage.baby:

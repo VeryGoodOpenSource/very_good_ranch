@@ -17,16 +17,12 @@ class EnjoymentDecreaseBehavior extends Behavior<Unicorn> {
     );
   }
 
-  // Todo(renancaraujo): Confirm logic: enjoyment decreases linearly. We may
-  //  change this rule to vary according to the unicorn stage.
   void _decreaseEnjoyment() {
     parent.enjoymentFactor -= parent.currentStage.enjoymentDecreaseFactor;
   }
 }
 
 extension on UnicornStage {
-  // Todo(renancaraujo): Confirm logic: As older unicorn gets, less pet it
-  // needs (?)
   /// Percentage that of enjoyment lost every
   /// [EnjoymentDecreaseBehavior.decreaseInterval].
   double get enjoymentDecreaseFactor {

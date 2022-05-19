@@ -39,7 +39,7 @@ void main() {
       );
       await tester.pumpApp(InventoryDialog(), inventoryBloc: inventoryBloc);
 
-      expect(find.byType(Text), findsNWidgets(1));
+      expect(find.byType(Text), findsNWidgets(5));
       expect(find.byType(FoodItemEntry), findsNWidgets(4));
       expect(find.text(l10n.inventory), findsOneWidget);
     });

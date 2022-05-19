@@ -16,10 +16,14 @@ void main() {
       flameTester.test('from baby to kid', (game) async {
         final evolutionBehavior = EvolutionBehavior();
 
-        final unicorn = Unicorn.test(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            evolutionBehavior,
+          ],
+        );
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(evolutionBehavior);
 
         expect(evolutionBehavior.currentStage, UnicornStage.baby);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
@@ -33,10 +37,14 @@ void main() {
         final evolutionBehavior =
             EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-        final unicorn = Unicorn.test(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            evolutionBehavior,
+          ],
+        );
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(evolutionBehavior);
         await game.ready();
 
         expect(evolutionBehavior.currentStage, UnicornStage.kid);
@@ -48,13 +56,18 @@ void main() {
       });
 
       flameTester.test('from teenager to adult', (game) async {
-        final evolutionBehavior =
-            EvolutionBehavior.withInitialStage(UnicornStage.teenager);
+        final evolutionBehavior = EvolutionBehavior.withInitialStage(
+          UnicornStage.teenager,
+        );
 
-        final unicorn = Unicorn(position: Vector2.zero());
+        final unicorn = Unicorn.customBehaviors(
+          position: Vector2.zero(),
+          behaviors: [
+            evolutionBehavior,
+          ],
+        );
         await game.ready();
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(evolutionBehavior);
         game.update(5);
 
         expect(evolutionBehavior.currentStage, UnicornStage.teenager);
@@ -71,10 +84,14 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.adult);
 
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn.customBehaviors(
+            position: Vector2.zero(),
+            behaviors: [
+              evolutionBehavior,
+            ],
+          );
           await game.ready();
           await game.ensureAdd(unicorn);
-          await unicorn.ensureAdd(evolutionBehavior);
 
           expect(evolutionBehavior.currentStage, UnicornStage.adult);
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
@@ -91,10 +108,14 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn.customBehaviors(
+            position: Vector2.zero(),
+            behaviors: [
+              evolutionBehavior,
+            ],
+          );
           await game.ready();
           await game.ensureAdd(unicorn);
-          await unicorn.ensureAdd(evolutionBehavior);
 
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
           unicorn.timesFed = 0;
@@ -111,10 +132,14 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn.customBehaviors(
+            position: Vector2.zero(),
+            behaviors: [
+              evolutionBehavior,
+            ],
+          );
           await game.ready();
           await game.ensureAdd(unicorn);
-          await unicorn.ensureAdd(evolutionBehavior);
 
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
           unicorn.timesFed = 1;
@@ -126,6 +151,7 @@ void main() {
         },
       );
     });
+
     group('on evolution', () {
       flameTester.test(
         'resets enjoyment and fullness factors to full',
@@ -133,10 +159,14 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn.customBehaviors(
+            position: Vector2.zero(),
+            behaviors: [
+              evolutionBehavior,
+            ],
+          );
           await game.ready();
           await game.ensureAdd(unicorn);
-          await unicorn.ensureAdd(evolutionBehavior);
 
           expect(evolutionBehavior.currentStage, UnicornStage.kid);
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;

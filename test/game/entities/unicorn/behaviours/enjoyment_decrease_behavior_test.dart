@@ -22,12 +22,15 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
-        final unicorn = Unicorn.test(
+        final unicorn = Unicorn.customBehaviors(
           position: Vector2.zero(),
-          evolutionBehavior: evolutionBehavior,
+          behaviors: [
+            evolutionBehavior,
+            enjoymentDecreaseBehavior,
+          ],
         );
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(enjoymentDecreaseBehavior);
+
         when(() => evolutionBehavior.currentStage)
             .thenReturn(UnicornStage.baby);
 
@@ -42,12 +45,14 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
-        final unicorn = Unicorn.test(
+        final unicorn = Unicorn.customBehaviors(
           position: Vector2.zero(),
-          evolutionBehavior: evolutionBehavior,
+          behaviors: [
+            evolutionBehavior,
+            enjoymentDecreaseBehavior,
+          ],
         );
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(enjoymentDecreaseBehavior);
         when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         expect(unicorn.enjoymentFactor, 1.0);
@@ -61,12 +66,14 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
-        final unicorn = Unicorn.test(
+        final unicorn = Unicorn.customBehaviors(
           position: Vector2.zero(),
-          evolutionBehavior: evolutionBehavior,
+          behaviors: [
+            evolutionBehavior,
+            enjoymentDecreaseBehavior,
+          ],
         );
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(enjoymentDecreaseBehavior);
 
         expect(unicorn.enjoymentFactor, 1.0);
         game.update(EnjoymentDecreaseBehavior.decreaseInterval);
@@ -79,12 +86,14 @@ void main() {
             .thenReturn(UnicornStage.adult);
 
         final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
-        final unicorn = Unicorn.test(
+        final unicorn = Unicorn.customBehaviors(
           position: Vector2.zero(),
-          evolutionBehavior: evolutionBehavior,
+          behaviors: [
+            evolutionBehavior,
+            enjoymentDecreaseBehavior,
+          ],
         );
         await game.ensureAdd(unicorn);
-        await unicorn.ensureAdd(enjoymentDecreaseBehavior);
 
         expect(unicorn.enjoymentFactor, 1.0);
         game.update(EnjoymentDecreaseBehavior.decreaseInterval);

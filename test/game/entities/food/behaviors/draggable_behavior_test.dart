@@ -18,14 +18,14 @@ void main() {
         final food = Food.test(behaviors: [DraggableBehavior()]);
         await game.ensureAdd(food);
         await game.ready();
-      },
-      verify: (game, tester) async {
+
         await tester.dragFrom(
           Offset.zero,
           const Offset(100, 100),
         );
         await tester.pump();
-
+      },
+      verify: (game, tester) async {
         await expectLater(
           find.byGame<TestGame>(),
           matchesGoldenFile('golden/draggable/dragged.png'),
@@ -40,15 +40,15 @@ void main() {
           final food = Food.test(behaviors: [DraggableBehavior()]);
           await game.ensureAdd(food);
           await game.ready();
-        },
-        verify: (game, tester) async {
-          final draggable =
-              game.descendants().whereType<DraggableBehavior>().first;
 
           final gesture = await tester.createGesture();
           await gesture.down(Offset.zero);
           await gesture.moveTo(const Offset(100, 100));
           await tester.pump();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggableBehavior>().first;
 
           expect(draggable.beingDragged, isTrue);
         },
@@ -60,16 +60,16 @@ void main() {
           final food = Food.test(behaviors: [DraggableBehavior()]);
           await game.ensureAdd(food);
           await game.ready();
-        },
-        verify: (game, tester) async {
-          final draggable =
-              game.descendants().whereType<DraggableBehavior>().first;
 
           final gesture = await tester.createGesture();
           await gesture.down(Offset.zero);
           await gesture.moveTo(const Offset(100, 100));
           await gesture.up();
           await tester.pump();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggableBehavior>().first;
 
           expect(draggable.beingDragged, isFalse);
         },
@@ -81,16 +81,17 @@ void main() {
           final food = Food.test(behaviors: [DraggableBehavior()]);
           await game.ensureAdd(food);
           await game.ready();
-        },
-        verify: (game, tester) async {
-          final draggable =
-              game.descendants().whereType<DraggableBehavior>().first;
 
           final gesture = await tester.createGesture();
           await gesture.down(Offset.zero);
           await gesture.moveTo(const Offset(100, 100));
           await gesture.cancel();
           await tester.pump();
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggableBehavior>().first;
 
           expect(draggable.beingDragged, isFalse);
         },
@@ -109,11 +110,11 @@ void main() {
 
         await game.ensureAdd(food1);
         await game.ensureAdd(food2);
-      },
-      verify: (game, tester) async {
+
         await tester.dragFrom(Offset.zero, const Offset(100, 100));
         await tester.pump();
-
+      },
+      verify: (game, tester) async {
         await expectLater(
           find.byGame<TestGame>(),
           matchesGoldenFile(

@@ -19,7 +19,7 @@ class _TestDoubleTapBehavior extends DoubleTapBehavior {
   @override
   bool onDoubleTapDown(TapDownInfo info) {
     doubleTapped = true;
-    return true;
+    return super.onDoubleTapDown(info);
   }
 }
 
@@ -33,16 +33,37 @@ void main() {
         final entity = _TestEntity(behaviors: [_TestDoubleTapBehavior()]);
         await game.ensureAdd(entity);
         await game.ready();
+
+        await tester.tapAt(Offset.zero);
+        await Future<void>.delayed(kDoubleTapMinTime);
+        await tester.tapAt(Offset.zero);
+        await tester.pump();
       },
       verify: (game, tester) async {
         final behavior =
             game.descendants().whereType<_TestDoubleTapBehavior>().first;
-        await tester.tapAt(Offset.zero);
-        await tester.pump(kDoubleTapMinTime);
+        expect(behavior.doubleTapped, isTrue);
+      },
+    );
+
+    flameTester.testGameWidget(
+      'does not double tap with too much time between the taps',
+      setUp: (game, tester) async {
+        final entity = _TestEntity(behaviors: [_TestDoubleTapBehavior()]);
+        await game.ensureAdd(entity);
+        await game.ready();
+
         await tester.tapAt(Offset.zero);
         await tester.pump();
+        await Future<void>.delayed(kDoubleTapTimeout);
+        await tester.tapAt(Offset.zero);
+        await tester.pump();
+      },
+      verify: (game, tester) async {
+        final behavior =
+            game.descendants().whereType<_TestDoubleTapBehavior>().first;
 
-        expect(behavior.doubleTapped, isTrue);
+        expect(behavior.doubleTapped, isFalse);
       },
     );
   });

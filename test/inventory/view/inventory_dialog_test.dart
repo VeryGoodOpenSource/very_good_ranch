@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors,
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -43,26 +42,6 @@ void main() {
       expect(find.byType(Text), findsNWidgets(1));
       expect(find.byType(FoodItemEntry), findsNWidgets(4));
       expect(find.text(l10n.inventory), findsOneWidget);
-    });
-
-    testWidgets('removes food item correctly', (tester) async {
-      when(() => inventoryBloc.state).thenReturn(
-        InventoryState(foodItems: [FoodType.candy]),
-      );
-      await tester.pumpApp(
-        InventoryDialog(),
-        inventoryBloc: inventoryBloc,
-        gameBloc: gameBloc,
-      );
-
-      await tester.tap(find.byKey(const Key('food_item_0')));
-      await tester.pump(kDoubleTapMinTime);
-      await tester.tap(find.byKey(const Key('food_item_0')));
-      await tester.pumpAndSettle();
-
-      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.candy)))
-          .called(1);
-      verify(() => gameBloc.add(FoodSpawned(FoodType.candy))).called(1);
     });
   });
 }

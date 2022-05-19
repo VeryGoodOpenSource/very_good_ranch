@@ -4,6 +4,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 import 'package:very_good_ranch/game/game.dart';
@@ -37,20 +38,19 @@ void main() {
           ),
         );
         await game.ready();
-      },
-      verify: (game, tester) async {
-        final food = game.descendants().whereType<Food>().first;
+
         await tester.tapAt(Offset.zero);
         await tester.pump(kDoubleTapMinTime);
         await tester.tapAt(Offset.zero);
         await tester.pump();
+      },
+      verify: (game, tester) async {
+        final foundFood = game.descendants().whereType<Food>().length;
 
-        // TODO(wolfen): does not work
-
-        expect(food.parent, isNull);
+        expect(foundFood, equals(0));
 
         verify(
-          () => inventoryBloc.add(FoodItemAdded(food.type)),
+          () => inventoryBloc.add(const FoodItemAdded(FoodType.candy)),
         ).called(1);
       },
     );

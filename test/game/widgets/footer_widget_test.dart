@@ -65,7 +65,7 @@ void main() {
 
           await tester.tap(find.byIcon(Icons.inventory));
 
-          expect(overlays.isActive(SettingsDialog.overlayKey), false);
+          expect(overlays.isActive(SettingsDialog.overlayKey), isFalse);
           expect(overlays.isActive(InventoryDialog.overlayKey), isTrue);
         },
       );

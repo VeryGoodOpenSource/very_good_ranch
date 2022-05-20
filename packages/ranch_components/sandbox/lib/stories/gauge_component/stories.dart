@@ -1,5 +1,7 @@
 import 'package:dashbook/dashbook.dart';
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:sandbox/common/common.dart';
 
@@ -7,24 +9,49 @@ void addGaugeComponentStories(Dashbook dashbook) {
   dashbook.storiesOf('GaugeComponent').add(
     'basic',
     (context) {
-      final gauge = GaugeComponent(
+      final innerGauge = GaugeComponent(
         position: Vector2.zero(),
         size: 100,
-        percent: double.tryParse(context.textProperty('percent', '0.5')) ?? 1,
+        thickness: 20,
+        percentage: double.tryParse(context.textProperty('inner', '0.9')) ?? 1,
+        color: Colors.lightBlue,
+      );
+
+      final outerGauge = GaugeComponent(
+        position: Vector2.zero(),
+        size: 120,
+        thickness: 20,
+        percentage: double.tryParse(context.textProperty('outer', '0.7')) ?? 1,
+        color: Colors.pink,
       );
 
       context
-        ..action('increase', (_) {
-          if (gauge.percent == 1) return;
-          gauge.percent += 0.1;
+        ..action('increase inner', (_) {
+          if (innerGauge.percentage == 1) return;
+          innerGauge.percentage += 0.1;
         })
-        ..action('decrease', (_) {
-          if (gauge.percent == 0) return;
-          gauge.percent -= 0.1;
+        ..action('decrease inner', (_) {
+          if (innerGauge.percentage == 0) return;
+          innerGauge.percentage -= 0.1;
+        })
+        ..action('increase outer', (_) {
+          if (outerGauge.percentage == 1) return;
+          outerGauge.percentage += 0.1;
+        })
+        ..action('decrease outer', (_) {
+          if (outerGauge.percentage == 0) return;
+          outerGauge.percentage -= 0.1;
         });
 
       return GameWidget(
-        game: StoryGame(gauge),
+        game: StoryGame(
+          PositionComponent(
+            children: [
+              outerGauge,
+              innerGauge,
+            ],
+          ),
+        ),
       );
     },
     info: '''

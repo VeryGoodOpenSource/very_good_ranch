@@ -12,30 +12,34 @@ class GaugeComponent extends PositionComponent {
   GaugeComponent({
     required Vector2 position,
     required double size,
-    double percent = 0,
-  }) : super(
+    required double thickness,
+    required Color color,
+    double percentage = 0,
+  })  : assert(
+          percentage >= 0 && percentage <= 1,
+          'Percentage has to be between 0 and 1',
+        ),
+        super(
           position: position,
           size: Vector2.all(size),
           anchor: Anchor.center,
           children: [
-            CircleComponent(
-              radius: size / 2,
-              paint: Paint()..color = Colors.brown,
-            ),
             _GaugeIndicator(
               size: size,
-              percent: percent,
+              percentage: percentage,
+              thickness: thickness,
+              color: color,
             ),
           ],
         );
 
   /// returns the current percent of the gauge
-  double get percent => firstChild<_GaugeIndicator>()?.percent ?? 0;
+  double get percentage => firstChild<_GaugeIndicator>()?.percentage ?? 0;
 
   /// sets a new value for the gauge
-  set percent(double value) {
+  set percentage(double value) {
     final indicator = firstChild<_GaugeIndicator>();
-    indicator?.percent = value;
+    indicator?.percentage = value.clamp(0, 1);
     indicator?._buildPath();
   }
 }
@@ -43,57 +47,73 @@ class GaugeComponent extends PositionComponent {
 class _GaugeIndicator extends PositionComponent with HasPaint {
   _GaugeIndicator({
     required double size,
-    required this.percent,
+    required this.thickness,
+    required this.percentage,
+    required Color color,
   })  : _size = size,
+        _radius = size / 2,
+        _center = Offset(size / 2, size / 2),
+        _color = color,
         super(anchor: Anchor.center, position: Vector2.zero());
 
   final double _size;
-  double percent;
+  final double _radius;
+  final Offset _center;
+  final double thickness;
+  final Color _color;
+  final Paint _blendPaint = Paint()..blendMode = BlendMode.dstOut;
+
+  double percentage;
 
   late Path _path;
 
   final _tween = Tween<double>(
     begin: 0,
-    end: 6.28319,
+    end: pi * 2,
   );
 
   @override
   Future<void> onLoad() async {
-    paint = Paint()..color = Colors.pink;
+    paint = Paint()..color = _color;
     _buildPath();
   }
 
   void _buildPath() {
-    final radius = _size / 2;
-    if (percent == 1) {
+    // Because of float rounding errors, we can't check for "1"
+    if (percentage >= 0.999) {
+      print('hi');
       _path = Path()
         ..addOval(
           Rect.fromCenter(
-            center: Offset(radius, radius),
+            center: _center,
             width: _size,
             height: _size,
           ),
         );
     } else {
-      final radians = _tween.transform(percent);
+      final radians = _tween.transform(percentage);
       _path = Path()
-        ..moveTo(radius, radius)
-        ..lineTo(radius + cos(0) * radius, radius + sin(0) * radius)
+        ..moveTo(_center.dx, _center.dy)
+        ..lineTo(_center.dx + cos(0) * _radius, _center.dy + sin(0) * _radius)
         ..arcToPoint(
           Offset(
-            radius + cos(radians) * radius,
-            radius + sin(radians) * radius,
+            _center.dx + cos(radians) * _radius,
+            _center.dy + sin(radians) * _radius,
           ),
-          radius: Radius.circular(radius),
-          largeArc: percent > 0.5,
+          radius: Radius.circular(_radius),
+          largeArc: percentage > 0.5,
         )
-        ..lineTo(radius, radius)
+        ..lineTo(_center.dx, _center.dy)
         ..close();
     }
   }
 
   @override
   void render(Canvas canvas) {
-    canvas.drawPath(_path, paint);
+    canvas
+      ..save()
+      ..drawPath(_path, paint)
+      ..drawCircle(_center, _radius - thickness / 2, _blendPaint)
+      ..restore();
   }
 }

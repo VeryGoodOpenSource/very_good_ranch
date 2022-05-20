@@ -22,7 +22,7 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -44,7 +44,7 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -66,7 +66,7 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -86,7 +86,7 @@ void main() {
             .thenReturn(UnicornStage.adult);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,

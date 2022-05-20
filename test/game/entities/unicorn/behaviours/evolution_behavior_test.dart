@@ -16,7 +16,7 @@ void main() {
       flameTester.test('from baby to kid', (game) async {
         final evolutionBehavior = EvolutionBehavior();
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -37,7 +37,7 @@ void main() {
         final evolutionBehavior =
             EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -60,7 +60,7 @@ void main() {
           UnicornStage.teenager,
         );
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -84,7 +84,7 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.adult);
 
-          final unicorn = Unicorn.customBehaviors(
+          final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               evolutionBehavior,
@@ -108,7 +108,7 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-          final unicorn = Unicorn.customBehaviors(
+          final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               evolutionBehavior,
@@ -132,7 +132,7 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-          final unicorn = Unicorn.customBehaviors(
+          final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               evolutionBehavior,
@@ -159,7 +159,7 @@ void main() {
           final evolutionBehavior =
               EvolutionBehavior.withInitialStage(UnicornStage.kid);
 
-          final unicorn = Unicorn.customBehaviors(
+          final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               evolutionBehavior,

@@ -100,8 +100,8 @@ void main() {
         final draggableBehavior = _MockDraggableBehavior();
 
         final food = Food.test(behaviors: [draggableBehavior]);
-        await game.ready();
         await game.ensureAdd(food);
+        await game.ready();
 
         when(() => draggableBehavior.beingDragged).thenReturn(true);
         expect(food.beingDragged, true);

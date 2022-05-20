@@ -57,8 +57,10 @@ void main() {
         'proxies from the behavior',
         (game) async {
           final unicorn = Unicorn(position: Vector2.zero());
-          await game.ready();
+
           await game.ensureAdd(unicorn);
+          await game.ready();
+
           unicorn.state = UnicornState.idle;
 
           expect(unicorn.currentStage, UnicornStage.baby);

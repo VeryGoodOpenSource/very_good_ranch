@@ -4,8 +4,8 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
 class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
-  static const double correctFoodTypeImpact = 0.3;
-  static const double wrongFoodTypeImpact = -0.1;
+  static const double positiveImpactOnEnjoyment = 0.3;
+  static const double negativeImpactOnEnjoyment = -0.1;
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, Food other) {
@@ -24,8 +24,8 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
 
     final preferredFoodType = currentStage.preferredFoodType;
     final impactOnEnjoyment = preferredFoodType == foodType
-        ? correctFoodTypeImpact
-        : wrongFoodTypeImpact;
+        ? positiveImpactOnEnjoyment
+        : negativeImpactOnEnjoyment;
 
     parent.enjoymentFactor += impactOnEnjoyment;
   }

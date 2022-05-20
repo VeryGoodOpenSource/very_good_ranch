@@ -143,8 +143,8 @@ void main() {
       },
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
-        expect(foodComponents.length, 1);
-        expect(foodComponents.first.type, FoodType.candy);
+        expect(foodComponents.length, equals(1));
+        expect(foodComponents.first.type, equals(FoodType.candy));
       },
     );
   });

@@ -10,7 +10,7 @@ class EvolutionBehavior extends Behavior<Unicorn> {
   @visibleForTesting
   EvolutionBehavior.withInitialStage(this._currentStage);
 
-  static const double happinessThresholdToEvolve = 1;
+  static const double happinessThresholdToEvolve = 0.9;
   static const int timesThatMustBeFed = 4;
 
   UnicornStage get currentStage => _currentStage;
@@ -21,9 +21,12 @@ class EvolutionBehavior extends Behavior<Unicorn> {
     if (!shouldEvolve) {
       return;
     }
-
     final nextStage = getNextStage();
     _currentStage = nextStage;
+
+    parent
+      ..enjoymentFactor = 1.0
+      ..fullnessFactor = 1.0;
   }
 
   bool get shouldEvolve {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 /// {@template gauge_component}
 /// A [PositionComponent] that will render a gauge which can represent
-/// a progress of something.
+/// the progress of something.
 /// {@endtemplate}
 class GaugeComponent extends PositionComponent {
   /// {macro gauge_component}

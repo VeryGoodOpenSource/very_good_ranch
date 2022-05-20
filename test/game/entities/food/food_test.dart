@@ -3,10 +3,14 @@
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 
 import '../../../helpers/helpers.dart';
+
+class _MockDraggableBehavior extends Mock implements DraggableBehavior {}
 
 void main() {
   final flameTester = FlameTester(TestGame.new);
@@ -85,6 +89,24 @@ void main() {
           find.byGame<TestGame>(),
           matchesGoldenFile('golden/food/types/ice_cream.png'),
         );
+      },
+    );
+  });
+
+  group('food beingDragged', () {
+    flameTester.test(
+      'proxies from the behavior',
+      (game) async {
+        final draggableBehavior = _MockDraggableBehavior();
+
+        final food = Food.test(behaviors: [draggableBehavior]);
+        await game.ready();
+        await game.ensureAdd(food);
+
+        when(() => draggableBehavior.beingDragged).thenReturn(true);
+        expect(food.beingDragged, true);
+        when(() => draggableBehavior.beingDragged).thenReturn(false);
+        expect(food.beingDragged, false);
       },
     );
   });

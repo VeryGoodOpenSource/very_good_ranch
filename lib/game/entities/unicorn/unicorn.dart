@@ -7,6 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
+enum UnicornStage {
+  baby,
+  kid,
+  teenager,
+  adult,
+}
+
 class Unicorn extends Entity {
   Unicorn({
     required super.position,

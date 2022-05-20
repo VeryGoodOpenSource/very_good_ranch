@@ -2,8 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/evolution_behavior.dart';
-
 class FullnessDecreaseBehavior extends Behavior<Unicorn> {
   static double decreaseInterval = 7;
 

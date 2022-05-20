@@ -19,7 +19,7 @@ void main() {
       flameTester.test('for a baby unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
         when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.teenager);
+            .thenReturn(UnicornStage.baby);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
         final unicorn = Unicorn.customBehaviors(
@@ -30,8 +30,6 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.baby);
 
         expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
@@ -40,8 +38,7 @@ void main() {
 
       flameTester.test('for a kid unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.teenager);
+        when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
         final unicorn = Unicorn.customBehaviors(
@@ -52,8 +49,6 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-
-        when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);

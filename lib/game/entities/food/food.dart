@@ -78,7 +78,7 @@ class Food extends Entity {
   /// The amount of nutrition the food provides.
   double get nutrition => type.nutrition;
 
-  /// Is the food being dragged about?
+  /// Indicates if the food is currently being dragged.
   bool get beingDragged =>
       findBehavior<DraggableBehavior>()!.beingDragged == true;
 

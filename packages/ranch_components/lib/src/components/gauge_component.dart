@@ -81,7 +81,6 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
   void _buildPath() {
     // Because of float rounding errors, we can't check for "1"
     if (percentage >= 0.999) {
-      print('hi');
       _path = Path()
         ..addOval(
           Rect.fromCenter(

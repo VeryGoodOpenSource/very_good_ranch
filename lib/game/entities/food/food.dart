@@ -29,7 +29,12 @@ class Food extends Entity {
   Food.test({
     this.type = FoodType.candy,
     super.behaviors,
-  }) : super(size: Vector2.all(32), children: [FoodComponent(type: type)]);
+  }) : super(
+          size: Vector2.all(32),
+          children: [
+            FoodComponent(type: type),
+          ],
+        );
 
   /// {@macro food_component}
   ///

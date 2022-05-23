@@ -23,22 +23,16 @@ class Unicorn extends Entity {
           ],
         );
 
-  /// Creates a Unicorn without only the passed [behaviors] and a
+  /// Creates a Unicorn without only the passed behaviors and a
   /// [PropagatingCollisionBehavior].
   ///
   /// This can be used for testing each behavior of a unicorn.
   @visibleForTesting
-  Unicorn.customBehaviors({
+  Unicorn.test({
     required super.position,
-    Iterable<Behavior>? behaviors,
+    super.behaviors,
   })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
-        super(
-          size: Vector2.all(32),
-          behaviors: [
-            PropagatingCollisionBehavior(RectangleHitbox()),
-            ...?behaviors,
-          ],
-        );
+        super(size: Vector2.all(32));
 
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;

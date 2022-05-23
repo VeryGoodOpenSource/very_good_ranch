@@ -17,7 +17,7 @@ enum UnicornStage {
 class Unicorn extends Entity {
   Unicorn({
     required super.position,
-  })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
+  })  : unicornComponent = UnicornComponent(size: Vector2.all(32)),
         super(
           size: Vector2.all(32),
           behaviors: [
@@ -27,6 +27,7 @@ class Unicorn extends Entity {
             EvolutionBehavior(),
             FullnessDecreaseBehavior(),
             EnjoymentDecreaseBehavior(),
+            LeavingBehavior(),
           ],
         );
 
@@ -38,7 +39,7 @@ class Unicorn extends Entity {
   Unicorn.test({
     required super.position,
     super.behaviors,
-  })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
+  })  : unicornComponent = UnicornComponent(size: Vector2.all(32)),
         super(size: Vector2.all(32));
 
   /// A state that describes how many times the unicorn ate food.
@@ -67,14 +68,24 @@ class Unicorn extends Entity {
   UnicornStage get currentStage =>
       findBehavior<EvolutionBehavior>()!.currentStage;
 
-  final UnicornComponent _unicornComponent;
+  final UnicornComponent unicornComponent;
 
-  UnicornState? get state => _unicornComponent.current;
+  UnicornState? get state => unicornComponent.current;
 
-  set state(UnicornState? state) => _unicornComponent.current = state;
+  set state(UnicornState? state) => unicornComponent.current = state;
 
   @override
   Future<void> onLoad() async {
-    await add(_unicornComponent);
+    await add(unicornComponent);
+  }
+
+  @override
+  void renderDebugMode(Canvas canvas) {
+    super.renderDebugMode(canvas);
+    debugTextPaint.render(
+      canvas,
+      'hapiness: $happinessFactor, stage: ${currentStage.name}',
+      Vector2(size.x - 10 * 3, size.y + 18),
+    );
   }
 }

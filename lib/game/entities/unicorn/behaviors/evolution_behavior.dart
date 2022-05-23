@@ -51,10 +51,3 @@ class EvolutionBehavior extends Behavior<Unicorn> {
     return currentStage;
   }
 }
-
-enum UnicornStage {
-  baby,
-  kid,
-  teenager,
-  adult,
-}

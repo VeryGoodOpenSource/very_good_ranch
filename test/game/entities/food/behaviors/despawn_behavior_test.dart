@@ -16,7 +16,7 @@ void main() {
       setUp: (game, tester) async {
         final food = Food.test(
           behaviors: [
-            DraggableBehavior(),
+            DraggableFoodBehavior(),
             DespawnBehavior(despawnTime: 1),
           ],
         );
@@ -40,7 +40,7 @@ void main() {
       setUp: (game, tester) async {
         final food = Food.test(
           behaviors: [
-            DraggableBehavior(),
+            DraggableFoodBehavior(),
             DespawnBehavior(despawnTime: 1),
           ],
         );

@@ -13,11 +13,11 @@ class DespawnBehavior extends Behavior<Food> {
 
   TimerComponent? _timer;
 
-  DraggableBehavior? draggable;
+  DraggableFoodBehavior? draggable;
 
   @override
   Future<void> onLoad() async {
-    draggable = parent.firstChild<DraggableBehavior>();
+    draggable = parent.findBehavior<DraggableFoodBehavior>();
     await add(_timer = TimerComponent(period: despawnTime, onTick: onDespawn));
   }
 

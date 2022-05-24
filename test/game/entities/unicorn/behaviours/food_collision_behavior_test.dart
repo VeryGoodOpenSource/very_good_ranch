@@ -35,7 +35,7 @@ void main() {
       when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
       final foodCollisionBehavior = FoodCollisionBehavior();
-      final unicorn = Unicorn.customBehaviors(
+      final unicorn = Unicorn.test(
         position: Vector2.zero(),
         behaviors: [
           evolutionBehavior,
@@ -69,7 +69,7 @@ void main() {
             when(() => evolutionBehavior.currentStage).thenReturn(stage);
 
             final foodCollisionBehavior = FoodCollisionBehavior();
-            final unicorn = Unicorn.customBehaviors(
+            final unicorn = Unicorn.test(
               position: Vector2.zero(),
               behaviors: [
                 evolutionBehavior,
@@ -96,7 +96,7 @@ void main() {
         when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         final foodCollisionBehavior = FoodCollisionBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -132,7 +132,7 @@ void main() {
             when(() => evolutionBehavior.currentStage).thenReturn(stage);
 
             final foodCollisionBehavior = FoodCollisionBehavior();
-            final unicorn = Unicorn.customBehaviors(
+            final unicorn = Unicorn.test(
               position: Vector2.zero(),
               behaviors: [
                 evolutionBehavior,

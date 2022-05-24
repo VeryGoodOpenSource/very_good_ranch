@@ -30,13 +30,7 @@ class LeavingBehavior extends Behavior<Unicorn> {
     );
 
     parent.unicornComponent
-      ..add(
-        OpacityEffect.fadeOut(effectController),
-      )
-      ..add(
-        // Apply the effect to the internal component to not affect any
-        // collision behavior during animation
-        MoveByEffect(Vector2(0, -100), effectController),
-      );
+      ..add(OpacityEffect.fadeOut(effectController))
+      ..add(MoveByEffect(Vector2(0, -100), effectController));
   }
 }

@@ -17,7 +17,7 @@ void main() {
       'Start movement and opacity Effect',
       setUp: (game, tester) async {
         final leavingBehavior = LeavingBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: game.size / 2 - Vector2.all(16),
           behaviors: [
             leavingBehavior,
@@ -42,7 +42,7 @@ void main() {
     group('removes from parent when done', () {
       flameTester.test('from baby to kid', (game) async {
         final leavingBehavior = LeavingBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: game.size / 2 - Vector2.all(16),
           behaviors: [
             leavingBehavior,

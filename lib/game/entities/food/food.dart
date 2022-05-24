@@ -17,7 +17,7 @@ class Food extends Entity {
             CircleHitbox(),
           ],
           behaviors: [
-            DraggableBehavior(),
+            DraggingBehavior(),
             DespawnBehavior(despawnTime: despawnTime),
           ],
         );
@@ -84,7 +84,7 @@ class Food extends Entity {
   double get nutrition => type.nutrition;
 
   /// Indicates if the food is currently being dragged.
-  bool get beingDragged => findBehavior<DraggableBehavior>()!.beingDragged;
+  bool get beingDragged => findBehavior<DraggingBehavior>()!.beingDragged;
 
   /// The type of food.
   final FoodType type;

@@ -3,7 +3,7 @@
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/game/entities/food/behaviors/draggable_behavior.dart';
+import 'package:very_good_ranch/game/entities/food/behaviors/dragging_behavior.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 
 import '../../../../helpers/helpers.dart';
@@ -11,11 +11,11 @@ import '../../../../helpers/helpers.dart';
 void main() {
   final flameTester = FlameTester(TestGame.new);
 
-  group('DraggableBehavior', () {
+  group('DraggingBehavior', () {
     flameTester.testGameWidget(
       'is draggable',
       setUp: (game, tester) async {
-        final food = Food.test(behaviors: [DraggableBehavior()]);
+        final food = Food.test(behaviors: [DraggingBehavior()]);
         await game.ensureAdd(food);
         await game.ready();
       },
@@ -37,13 +37,13 @@ void main() {
       flameTester.testGameWidget(
         'set it to true on drag start',
         setUp: (game, tester) async {
-          final food = Food.test(behaviors: [DraggableBehavior()]);
+          final food = Food.test(behaviors: [DraggingBehavior()]);
           await game.ensureAdd(food);
           await game.ready();
         },
         verify: (game, tester) async {
           final draggable =
-              game.descendants().whereType<DraggableBehavior>().first;
+              game.descendants().whereType<DraggingBehavior>().first;
 
           final gesture = await tester.createGesture();
           await gesture.down(Offset.zero);
@@ -57,13 +57,13 @@ void main() {
       flameTester.testGameWidget(
         'set it to false on drag stop',
         setUp: (game, tester) async {
-          final food = Food.test(behaviors: [DraggableBehavior()]);
+          final food = Food.test(behaviors: [DraggingBehavior()]);
           await game.ensureAdd(food);
           await game.ready();
         },
         verify: (game, tester) async {
           final draggable =
-              game.descendants().whereType<DraggableBehavior>().first;
+              game.descendants().whereType<DraggingBehavior>().first;
 
           final gesture = await tester.createGesture();
           await gesture.down(Offset.zero);
@@ -78,13 +78,13 @@ void main() {
       flameTester.testGameWidget(
         'set it to false on drag cancel',
         setUp: (game, tester) async {
-          final food = Food.test(behaviors: [DraggableBehavior()]);
+          final food = Food.test(behaviors: [DraggingBehavior()]);
           await game.ensureAdd(food);
           await game.ready();
         },
         verify: (game, tester) async {
           final draggable =
-              game.descendants().whereType<DraggableBehavior>().first;
+              game.descendants().whereType<DraggingBehavior>().first;
 
           final gesture = await tester.createGesture();
           await gesture.down(Offset.zero);
@@ -100,11 +100,11 @@ void main() {
     flameTester.testGameWidget(
       'only drags one food item',
       setUp: (game, tester) async {
-        final food1 = Food.test(behaviors: [DraggableBehavior()]);
+        final food1 = Food.test(behaviors: [DraggingBehavior()]);
 
         final food2 = Food.test(
           type: FoodType.iceCream,
-          behaviors: [DraggableBehavior()],
+          behaviors: [DraggingBehavior()],
         );
 
         await game.ensureAdd(food1);

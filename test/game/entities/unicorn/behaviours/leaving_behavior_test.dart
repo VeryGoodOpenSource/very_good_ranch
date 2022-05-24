@@ -39,7 +39,7 @@ void main() {
         }
       },
     );
-    group('Removes from parent when done', () {
+    group('removes from parent when done', () {
       flameTester.test('from baby to kid', (game) async {
         final leavingBehavior = LeavingBehavior();
         final unicorn = Unicorn.customBehaviors(

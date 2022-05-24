@@ -11,11 +11,11 @@ class PetBehavior extends Behavior<Unicorn> with Tappable {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    if (_throttling == false) {
-      _increaseEnjoyment();
-      return true;
+    if (info.handled || _throttling) {
+      return false;
     }
-    return false;
+    _increaseEnjoyment();
+    return true;
   }
 
   void _increaseEnjoyment() {

@@ -10,8 +10,7 @@ import 'package:very_good_ranch/game/entities/food/food.dart';
 
 import '../../../helpers/helpers.dart';
 
-class _MockDraggableFoodBehavior extends Mock implements DraggableFoodBehavior {
-}
+class _MockDraggingBehavior extends Mock implements DraggingBehavior {}
 
 void main() {
   final flameTester = FlameTester(TestGame.new);
@@ -98,15 +97,15 @@ void main() {
     flameTester.test(
       'proxies from the behavior',
       (game) async {
-        final draggableFoodBehavior = _MockDraggableFoodBehavior();
+        final draggingBehavior = _MockDraggingBehavior();
 
-        final food = Food.test(behaviors: [draggableFoodBehavior]);
+        final food = Food.test(behaviors: [draggingBehavior]);
         await game.ensureAdd(food);
         await game.ready();
 
-        when(() => draggableFoodBehavior.beingDragged).thenReturn(true);
+        when(() => draggingBehavior.beingDragged).thenReturn(true);
         expect(food.beingDragged, true);
-        when(() => draggableFoodBehavior.beingDragged).thenReturn(false);
+        when(() => draggingBehavior.beingDragged).thenReturn(false);
         expect(food.beingDragged, false);
       },
     );

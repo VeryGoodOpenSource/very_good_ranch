@@ -2,6 +2,7 @@
 
 import 'package:flame/extensions.dart';
 import 'package:flame_test/flame_test.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
@@ -135,7 +136,10 @@ void main() {
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-            expect(unicorn.enjoymentFactor, 0.8);
+            expect(
+              unicorn.enjoymentFactor,
+              closeTo(0.8, precisionErrorTolerance),
+            );
           });
         }
       });
@@ -166,7 +170,7 @@ void main() {
 
         foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-        expect(unicorn.enjoymentFactor, 0.4);
+        expect(unicorn.enjoymentFactor, closeTo(0.4, precisionErrorTolerance));
       });
     });
 
@@ -202,7 +206,10 @@ void main() {
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-            expect(unicorn.fullnessFactor, fullnessResult);
+            expect(
+              unicorn.fullnessFactor,
+              closeTo(fullnessResult, precisionErrorTolerance),
+            );
           });
         }
       });

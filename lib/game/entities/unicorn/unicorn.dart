@@ -79,16 +79,4 @@ class Unicorn extends Entity {
   Future<void> onLoad() async {
     await add(unicornComponent);
   }
-
-  @override
-  void renderDebugMode(Canvas canvas) {
-    super.renderDebugMode(canvas);
-    debugTextPaint.render(
-      canvas,
-      'e: $enjoymentFactor\n'
-      'f: $fullnessFactor\n'
-      's: ${currentStage.name}',
-      Vector2(size.x - 10 * 3, size.y + 18),
-    );
-  }
 }

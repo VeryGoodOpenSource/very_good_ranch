@@ -11,6 +11,8 @@ class LeavingBehavior extends Behavior<Unicorn> {
 
   EffectController? _effectController;
 
+  bool get isLeaving => _effectController != null;
+
   @override
   void update(double dt) {
     if (parent.happinessFactor <= happinessThresholdToLeave &&

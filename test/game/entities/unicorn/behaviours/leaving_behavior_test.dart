@@ -27,8 +27,11 @@ void main() {
         unicorn.enjoymentFactor = 0.01;
       },
       verify: (game, tester) async {
+        final unicorn = game.descendants().whereType<Unicorn>().first;
+        final leavingBehavior = unicorn.findBehavior<LeavingBehavior>()!;
+
+        expect(leavingBehavior.isLeaving, true);
         for (var i = 0; i < 5; i++) {
-          await tester.pump();
           await expectLater(
             find.byGame<TestGame>(),
             matchesGoldenFile(
@@ -36,9 +39,11 @@ void main() {
             ),
           );
           game.update(.2);
+          await tester.pump();
         }
       },
     );
+
     group('removes from parent when done', () {
       flameTester.test('from baby to kid', (game) async {
         final leavingBehavior = LeavingBehavior();

@@ -38,13 +38,13 @@ void main() {
           ),
         );
         await game.ready();
-
+      },
+      verify: (game, tester) async {
         await tester.tapAt(Offset.zero);
         await tester.pump(kDoubleTapMinTime);
         await tester.tapAt(Offset.zero);
         await tester.pump();
-      },
-      verify: (game, tester) async {
+
         final foundFood = game.descendants().whereType<Food>().length;
 
         expect(foundFood, equals(0));
@@ -52,6 +52,9 @@ void main() {
         verify(
           () => inventoryBloc.add(const FoodItemAdded(FoodType.candy)),
         ).called(1);
+
+        // flush remaining timers created by the framework
+        await tester.pump(kLongPressTimeout);
       },
     );
   });

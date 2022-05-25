@@ -33,16 +33,18 @@ void main() {
         final entity = _TestEntity(behaviors: [_TestDoubleTapBehavior()]);
         await game.ensureAdd(entity);
         await game.ready();
-
-        await tester.tapAt(Offset.zero);
-        await Future<void>.delayed(kDoubleTapMinTime);
-        await tester.tapAt(Offset.zero);
-        await tester.pump();
       },
       verify: (game, tester) async {
+        await tester.tapAt(Offset.zero);
+        await tester.pump(kDoubleTapMinTime);
+        await tester.tapAt(Offset.zero);
+
         final behavior =
             game.descendants().whereType<_TestDoubleTapBehavior>().first;
         expect(behavior.doubleTapped, isTrue);
+
+        // flush remaining timers created by the framework
+        await tester.pump(kLongPressTimeout);
       },
     );
 
@@ -52,18 +54,21 @@ void main() {
         final entity = _TestEntity(behaviors: [_TestDoubleTapBehavior()]);
         await game.ensureAdd(entity);
         await game.ready();
-
-        await tester.tapAt(Offset.zero);
-        await tester.pump();
-        await Future<void>.delayed(kDoubleTapTimeout);
-        await tester.tapAt(Offset.zero);
-        await tester.pump();
       },
       verify: (game, tester) async {
+        await tester.tapAt(Offset.zero);
+        await tester.pump();
+        await tester.pump(kDoubleTapTimeout);
+        await tester.tapAt(Offset.zero);
+        await tester.pump();
+
         final behavior =
             game.descendants().whereType<_TestDoubleTapBehavior>().first;
 
         expect(behavior.doubleTapped, isFalse);
+
+        // flush remaining timers created by the framework
+        await tester.pump(kLongPressTimeout);
       },
     );
   });

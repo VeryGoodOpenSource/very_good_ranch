@@ -8,6 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 import 'package:very_good_ranch/title/title.dart';
@@ -20,6 +22,9 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => SettingsBloc()),
+        // TODO(wolfen): not sure if we should put it at the top.
+        BlocProvider(create: (_) => InventoryBloc()),
+        BlocProvider(create: (_) => GameBloc()),
       ],
       child: const AppView(),
     );

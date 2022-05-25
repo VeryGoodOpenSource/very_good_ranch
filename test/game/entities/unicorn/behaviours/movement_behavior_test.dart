@@ -10,7 +10,7 @@ import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
-import 'package:very_good_ranch/game/very_good_ranch_game.dart';
+import 'package:very_good_ranch/game/game.dart';
 
 import '../../../../helpers/helpers.dart';
 
@@ -19,16 +19,24 @@ class MockFood extends Mock implements FoodComponent {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late Random seed;
+  late GameBloc gameBloc;
 
   setUp(() {
     seed = MockRandom();
     when(() => seed.nextInt(any())).thenReturn(0);
     when(() => seed.nextDouble()).thenReturn(0);
     when(() => seed.nextBool()).thenReturn(false);
+
+    gameBloc = MockGameBloc();
+    when(() => gameBloc.state).thenReturn(const GameState());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
-    () => VeryGoodRanchGame(seed: seed),
+    () => VeryGoodRanchGame(
+      seed: seed,
+      gameBloc: gameBloc,
+      inventoryBloc: MockInventoryBloc(),
+    ),
   );
 
   group('MovementBehavior', () {

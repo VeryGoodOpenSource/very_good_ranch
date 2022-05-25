@@ -14,17 +14,18 @@ void main() {
     flameTester.testGameWidget(
       'removes parent after given despawn time',
       setUp: (game, tester) async {
-        final food = Food.test(
-          behaviors: [
-            DraggingBehavior(),
-            DespawnBehavior(despawnTime: 1),
-          ],
+        await game.ensureAdd(
+          Food.test(
+            behaviors: [
+              DraggingBehavior(),
+              DespawnBehavior(despawnTime: 1),
+            ],
+          ),
         );
-        await game.ensureAdd(food);
         await game.ready();
       },
       verify: (game, tester) async {
-        final food = game.firstChild<Food>()!;
+        final food = game.descendants().whereType<Food>().first;
         game.update(0.5);
 
         expect(food.shouldRemove, isFalse);
@@ -38,17 +39,18 @@ void main() {
     flameTester.testGameWidget(
       'should not remove when we are dragging the parent',
       setUp: (game, tester) async {
-        final food = Food.test(
-          behaviors: [
-            DraggingBehavior(),
-            DespawnBehavior(despawnTime: 1),
-          ],
+        await game.ensureAdd(
+          Food.test(
+            behaviors: [
+              DraggingBehavior(),
+              DespawnBehavior(despawnTime: 1),
+            ],
+          ),
         );
-        await game.ensureAdd(food);
         await game.ready();
       },
       verify: (game, tester) async {
-        final food = game.firstChild<Food>()!;
+        final food = game.descendants().whereType<Food>().first;
         game.update(0.5);
         expect(food.shouldRemove, isFalse);
 
@@ -61,8 +63,12 @@ void main() {
 
         await gesture.up();
         await tester.pump();
+        await tester.pump();
         game.update(1);
         expect(food.shouldRemove, isTrue);
+
+        game.pauseEngine();
+        await tester.pumpAndSettle();
       },
     );
   });

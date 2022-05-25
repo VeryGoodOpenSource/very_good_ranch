@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/pump_app.dart';
@@ -31,18 +32,41 @@ void main() {
         expect(overlays.isActive(SettingsDialog.overlayKey), true);
       });
 
+      testWidgets('activates inventory overlay', (tester) async {
+        await tester.pumpApp(Scaffold(body: FooterWidget(overlays: overlays)));
+
+        await tester.tap(find.byIcon(Icons.inventory));
+
+        expect(overlays.isActive(InventoryDialog.overlayKey), isTrue);
+      });
+
       testWidgets(
-        'removes shop overlay when settings is opened',
+        'removes inventory overlay when settings is opened',
         (tester) async {
-          overlays.add('shop');
+          overlays.add(InventoryDialog.overlayKey);
           await tester.pumpApp(
             Scaffold(body: FooterWidget(overlays: overlays)),
           );
 
           await tester.tap(find.byIcon(Icons.settings));
 
-          expect(overlays.isActive('shop'), false);
+          expect(overlays.isActive(InventoryDialog.overlayKey), false);
           expect(overlays.isActive(SettingsDialog.overlayKey), true);
+        },
+      );
+
+      testWidgets(
+        'removes settings overlay when inventory is opened',
+        (tester) async {
+          overlays.add(SettingsDialog.overlayKey);
+          await tester.pumpApp(
+            Scaffold(body: FooterWidget(overlays: overlays)),
+          );
+
+          await tester.tap(find.byIcon(Icons.inventory));
+
+          expect(overlays.isActive(SettingsDialog.overlayKey), isFalse);
+          expect(overlays.isActive(InventoryDialog.overlayKey), isTrue);
         },
       );
     });

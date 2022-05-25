@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
@@ -20,11 +22,15 @@ extension PumpApp on WidgetTester {
     Widget widget, {
     MockNavigator? navigator,
     SettingsBloc? settingsBloc,
+    InventoryBloc? inventoryBloc,
+    GameBloc? gameBloc,
   }) async {
     return pumpWidget(
       MultiBlocProvider(
         providers: [
           BlocProvider.value(value: settingsBloc ?? MockSettingsBloc()),
+          BlocProvider.value(value: gameBloc ?? MockGameBloc()),
+          BlocProvider.value(value: inventoryBloc ?? MockInventoryBloc()),
         ],
         child: MaterialApp(
           localizationsDelegates: const [

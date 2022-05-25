@@ -41,5 +41,9 @@
                 "description": "Volume of the gameplay"
             }
         }
+    },
+    "inventory": "Inventory",
+    "@inventory": {
+        "description": "Text for Inventory title"
     }
 }

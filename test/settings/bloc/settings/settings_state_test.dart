@@ -8,13 +8,13 @@ void main() {
     test('supports value equality', () {
       expect(
         SettingsState(musicVolume: 0.5, gameplayVolume: 0.5),
-        equals(const SettingsState(musicVolume: 0.5, gameplayVolume: 0.5)),
+        equals(SettingsState(musicVolume: 0.5, gameplayVolume: 0.5)),
       );
     });
 
     group('constructor', () {
       test('can be instantiated', () {
-        expect(const SettingsState(), isNotNull);
+        expect(SettingsState(), isNotNull);
       });
 
       test('throws AssertionError if musicVolume is not between 0 and 1', () {

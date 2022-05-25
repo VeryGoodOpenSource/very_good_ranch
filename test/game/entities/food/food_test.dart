@@ -7,24 +7,43 @@ import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
+import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/inventory/inventory.dart';
 
 import '../../../helpers/helpers.dart';
 
 class _MockDraggingBehavior extends Mock implements DraggingBehavior {}
 
 void main() {
+  late GameBloc gameBloc;
+  late InventoryBloc inventoryBloc;
+
+  setUp(() {
+    gameBloc = MockGameBloc();
+    when(() => gameBloc.state).thenReturn(const GameState());
+
+    inventoryBloc = MockInventoryBloc();
+    when(() => inventoryBloc.state).thenReturn(InventoryState());
+  });
+
   final flameTester = FlameTester(TestGame.new);
 
   group('Food', () {
     flameTester.testGameWidget(
       'candy',
       setUp: (game, tester) async {
-        await game.add(Food.candy(position: Vector2.zero()));
+        await game.ensureAdd(
+          flameBlocProvider(
+            gameBloc: gameBloc,
+            inventoryBloc: inventoryBloc,
+            child: Food.candy(position: Vector2.zero()),
+          ),
+        );
       },
       verify: (game, tester) async {
         await tester.pump();
 
-        final food = game.children.whereType<Food>().first;
+        final food = game.descendants().whereType<Food>().first;
         expect(food.type, FoodType.candy);
         expect(food.nutrition, FoodType.candy.nutrition);
 
@@ -38,12 +57,18 @@ void main() {
     flameTester.testGameWidget(
       'lollipop',
       setUp: (game, tester) async {
-        await game.add(Food.lollipop(position: Vector2.zero()));
+        await game.ensureAdd(
+          flameBlocProvider(
+            gameBloc: gameBloc,
+            inventoryBloc: inventoryBloc,
+            child: Food.lollipop(position: Vector2.zero()),
+          ),
+        );
       },
       verify: (game, tester) async {
         await tester.pump();
 
-        final food = game.children.whereType<Food>().first;
+        final food = game.descendants().whereType<Food>().first;
         expect(food.type, FoodType.lollipop);
         expect(food.nutrition, FoodType.lollipop.nutrition);
 
@@ -57,12 +82,18 @@ void main() {
     flameTester.testGameWidget(
       'pancake',
       setUp: (game, tester) async {
-        await game.add(Food.pancake(position: Vector2.zero()));
+        await game.ensureAdd(
+          flameBlocProvider(
+            gameBloc: gameBloc,
+            inventoryBloc: inventoryBloc,
+            child: Food.pancake(position: Vector2.zero()),
+          ),
+        );
       },
       verify: (game, tester) async {
         await tester.pump();
 
-        final food = game.children.whereType<Food>().first;
+        final food = game.descendants().whereType<Food>().first;
         expect(food.type, FoodType.pancake);
         expect(food.nutrition, FoodType.pancake.nutrition);
 
@@ -76,12 +107,18 @@ void main() {
     flameTester.testGameWidget(
       'iceCream',
       setUp: (game, tester) async {
-        await game.add(Food.iceCream(position: Vector2.zero()));
+        await game.ensureAdd(
+          flameBlocProvider(
+            gameBloc: gameBloc,
+            inventoryBloc: inventoryBloc,
+            child: Food.iceCream(position: Vector2.zero()),
+          ),
+        );
       },
       verify: (game, tester) async {
         await tester.pump();
 
-        final food = game.children.whereType<Food>().first;
+        final food = game.descendants().whereType<Food>().first;
         expect(food.type, FoodType.iceCream);
         expect(food.nutrition, FoodType.iceCream.nutrition);
 

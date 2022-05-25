@@ -52,6 +52,23 @@ extension FoodTypeX on FoodType {
         return 10;
     }
   }
+
+  /// The color of the food.
+  ///
+  /// NOTE: This is a temporary solution until there are assets for each food
+  /// type.
+  Color get color {
+    switch (this) {
+      case FoodType.lollipop:
+        return const Color(0xFF3B93FF);
+      case FoodType.pancake:
+        return const Color(0xFFCED352);
+      case FoodType.iceCream:
+        return const Color(0xFFE9E9E9);
+      case FoodType.candy:
+        return const Color(0xFFF707FF);
+    }
+  }
 }
 
 /// {@template food_component}
@@ -81,21 +98,7 @@ class FoodComponent extends PositionComponent {
   @override
   Future<void> onLoad() async {
     radius = size.x / 2;
-    paint = Paint();
-    switch (type) {
-      case FoodType.lollipop:
-        paint.color = const Color(0xFF3B93FF);
-        break;
-      case FoodType.pancake:
-        paint.color = const Color(0xFFCED352);
-        break;
-      case FoodType.iceCream:
-        paint.color = const Color(0xFFE9E9E9);
-        break;
-      case FoodType.candy:
-        paint.color = const Color(0xFFF707FF);
-        break;
-    }
+    paint = Paint()..color = type.color;
   }
 
   @override

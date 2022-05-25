@@ -1,11 +1,14 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame_bloc/flame_bloc.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 
-class FoodSpawner extends TimerComponent with HasGameRef {
+class FoodSpawner extends TimerComponent
+    with HasGameRef, FlameBlocListenable<GameBloc, GameState> {
   FoodSpawner({
     required this.seed,
     double spawnThreshold = 60.0,
@@ -23,11 +26,22 @@ class FoodSpawner extends TimerComponent with HasGameRef {
   final RarityList<FoodType> _foodRarity;
 
   @override
+  void onNewState(GameState state) {
+    if (state.food != null) {
+      _spawnFood(state.food!);
+    }
+  }
+
+  @override
   void onTick() {
     final foodType = _foodRarity.getRandom(seed);
-    final position = Vector2.random(seed)..multiply(gameRef.size);
 
-    switch (foodType) {
+    _spawnFood(foodType);
+  }
+
+  void _spawnFood(FoodType type) {
+    final position = Vector2.random(seed)..multiply(gameRef.size);
+    switch (type) {
       case FoodType.lollipop:
         add(Food.lollipop(position: position));
         break;

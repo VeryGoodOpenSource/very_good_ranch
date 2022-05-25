@@ -17,7 +17,7 @@ void main() {
         await game.ensureAdd(
           Food.test(
             behaviors: [
-              DraggableBehavior(),
+              DraggingBehavior(),
               DespawnBehavior(despawnTime: 1),
             ],
           ),
@@ -42,7 +42,7 @@ void main() {
         await game.ensureAdd(
           Food.test(
             behaviors: [
-              DraggableBehavior(),
+              DraggingBehavior(),
               DespawnBehavior(despawnTime: 1),
             ],
           ),

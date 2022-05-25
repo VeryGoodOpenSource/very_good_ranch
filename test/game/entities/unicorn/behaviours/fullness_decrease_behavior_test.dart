@@ -33,10 +33,10 @@ void main() {
       flameTester.test('for a baby unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
         when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.teenager);
+            .thenReturn(UnicornStage.baby);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -44,8 +44,6 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.baby);
 
         expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
@@ -54,11 +52,10 @@ void main() {
 
       flameTester.test('for a kid unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.teenager);
+        when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -66,8 +63,6 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-
-        when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
@@ -80,7 +75,7 @@ void main() {
             .thenReturn(UnicornStage.teenager);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
@@ -100,7 +95,7 @@ void main() {
             .thenReturn(UnicornStage.adult);
 
         final fullnessDecreaseBehavior = FullnessDecreaseBehavior();
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,

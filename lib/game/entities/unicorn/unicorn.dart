@@ -7,6 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
+enum UnicornStage {
+  baby,
+  kid,
+  teenager,
+  adult,
+}
+
 class Unicorn extends Entity {
   Unicorn({
     required super.position,
@@ -23,22 +30,16 @@ class Unicorn extends Entity {
           ],
         );
 
-  /// Creates a Unicorn without only the passed [behaviors] and a
+  /// Creates a Unicorn without only the passed behaviors and a
   /// [PropagatingCollisionBehavior].
   ///
   /// This can be used for testing each behavior of a unicorn.
   @visibleForTesting
-  Unicorn.customBehaviors({
+  Unicorn.test({
     required super.position,
-    Iterable<Behavior>? behaviors,
+    super.behaviors,
   })  : _unicornComponent = UnicornComponent(size: Vector2.all(32)),
-        super(
-          size: Vector2.all(32),
-          behaviors: [
-            PropagatingCollisionBehavior(RectangleHitbox()),
-            ...?behaviors,
-          ],
-        );
+        super(size: Vector2.all(32));
 
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;

@@ -141,7 +141,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9ab8c9a59c5a528297aeb75aa64f6742e992d83a"
+      resolved-ref: f7f3d35cade614ca404dc84937777752dca3f5be
       url: "https://github.com/VeryGoodOpenSource/flame_behaviors"
     source: git
     version: "0.0.1-dev.1"

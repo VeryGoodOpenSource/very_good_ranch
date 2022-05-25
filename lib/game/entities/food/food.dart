@@ -17,7 +17,7 @@ class Food extends Entity {
             CircleHitbox(),
           ],
           behaviors: [
-            DraggableBehavior(),
+            DraggingBehavior(),
             DespawnBehavior(despawnTime: despawnTime),
             MoveToInventoryBehavior(),
           ],
@@ -30,7 +30,12 @@ class Food extends Entity {
   Food.test({
     this.type = FoodType.candy,
     super.behaviors,
-  }) : super(size: Vector2.all(32), children: [FoodComponent(type: type)]);
+  }) : super(
+          size: Vector2.all(32),
+          children: [
+            FoodComponent(type: type),
+          ],
+        );
 
   /// {@macro food_component}
   ///
@@ -78,6 +83,9 @@ class Food extends Entity {
 
   /// The amount of nutrition the food provides.
   double get nutrition => type.nutrition;
+
+  /// Indicates if the food is currently being dragged.
+  bool get beingDragged => findBehavior<DraggingBehavior>()!.beingDragged;
 
   /// The type of food.
   final FoodType type;

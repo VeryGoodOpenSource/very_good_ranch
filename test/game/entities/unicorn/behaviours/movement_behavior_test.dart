@@ -45,7 +45,7 @@ void main() {
         final movementBehavior = MovementBehavior();
         movementBehavior.direction = Vector2(1, 1);
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             movementBehavior,
@@ -68,7 +68,7 @@ void main() {
         final movementBehavior = MovementBehavior();
         movementBehavior.direction = Vector2(-1, -1);
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             movementBehavior,
@@ -96,7 +96,7 @@ void main() {
 
         final movementBehavior = MovementBehavior();
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             movementBehavior,
@@ -117,7 +117,7 @@ void main() {
 
         final movementBehavior = MovementBehavior();
 
-        final unicorn = Unicorn.customBehaviors(
+        final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             movementBehavior,
@@ -140,7 +140,7 @@ void main() {
 
           final movementBehavior = MovementBehavior();
 
-          final unicorn = Unicorn.customBehaviors(
+          final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               movementBehavior,
@@ -162,7 +162,7 @@ void main() {
 
           final movementBehavior = MovementBehavior();
 
-          final unicorn = Unicorn.customBehaviors(
+          final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               movementBehavior,

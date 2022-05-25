@@ -1,3 +1,4 @@
+import 'dart:async' as async;
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
@@ -5,25 +6,34 @@ import 'package:flutter/gestures.dart';
 
 abstract class DoubleTapBehavior<Parent extends Entity> extends Behavior<Parent>
     with Tappable {
-  Vector2? _previousTap;
-  int _timeSinceLastTap = 0;
+  Vector2? _firstTap;
+  async.Timer? _preventFastTapTimer;
+  async.Timer? _timeoutTimer;
 
   @override
   bool onTapDown(TapDownInfo info) {
-    if (_previousTap == null) {
-      _timeSinceLastTap = DateTime.now().microsecondsSinceEpoch;
-      _previousTap = info.eventPosition.game;
-    } else {
-      final difference =
-          DateTime.now().microsecondsSinceEpoch - _timeSinceLastTap;
-      if (difference >= kDoubleTapMinTime.inMicroseconds &&
-          difference <= kDoubleTapTimeout.inMicroseconds) {
-        _previousTap = null;
-        return onDoubleTapDown(info);
-      }
-      _previousTap = null;
+    if (_preventFastTapTimer != null) {
+      return false;
     }
-    return false;
+
+    if (_firstTap == null) {
+      //create a timer to prevent fast taps
+      _preventFastTapTimer = async.Timer(kDoubleTapMinTime, () {
+        _firstTap = info.eventPosition.game;
+        _preventFastTapTimer = null;
+      });
+      // After timeout, act as if first tap never happened
+      _timeoutTimer = async.Timer(kDoubleTapTimeout, () {
+        _firstTap = null;
+        _timeoutTimer = null;
+      });
+      return true;
+    } else {
+      _timeoutTimer?.cancel();
+      _timeoutTimer = null;
+      _firstTap = null;
+      return onDoubleTapDown(info);
+    }
   }
 
   bool onDoubleTapDown(TapDownInfo info) {

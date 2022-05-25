@@ -1,32 +1,31 @@
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
-class PetBehavior extends Behavior<Unicorn> with Tappable {
-  static const Duration petThrottleDuration = Duration(seconds: 1);
+class PetBehavior extends TappableBehavior<Unicorn> {
+  static const petThrottleDuration = 1.0;
 
-  bool _throttling = false;
+  late final TimerComponent _throttlingTimer;
+
+  @override
+  Future<void> onLoad() async {
+    await add(
+      _throttlingTimer = TimerComponent(
+        period: petThrottleDuration,
+        autoStart: false,
+      ),
+    );
+  }
 
   @override
   bool onTapDown(TapDownInfo info) {
-    if (info.handled || _throttling) {
+    if (info.handled || !_throttlingTimer.timer.isRunning()) {
+      _throttlingTimer.timer.start();
+      parent.enjoymentFactor += parent.currentStage.petEnjoymentIncrease;
       return false;
     }
-    _increaseEnjoyment();
     return true;
-  }
-
-  void _increaseEnjoyment() {
-    parent.enjoymentFactor += parent.currentStage.petEnjoymentIncrease;
-    _throttling = true;
-    Future<void>.delayed(petThrottleDuration).then((_) => _throttling = false);
-  }
-
-  @override
-  bool containsPoint(Vector2 point) {
-    return parent.containsPoint(point);
   }
 }
 

@@ -1,6 +1,7 @@
 // ignore_for_file: cascade_invocations
 
 import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,6 +15,7 @@ class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
 
 void main() {
   final flameTester = FlameTester(TestGame.new);
+
   group('PetBehavior', () {
     group('increases enjoyment', () {
       for (final stageEnjoymentResult in {
@@ -43,12 +45,14 @@ void main() {
             final unicorn = game.descendants().whereType<Unicorn>().first;
 
             unicorn.enjoymentFactor = 0.5;
-
             await tester.tapAt(Offset.zero);
 
-            expect(unicorn.enjoymentFactor, enjoymentResult);
+            /// Flush long press gesture timer
+            game.pauseEngine();
+            await tester.pumpAndSettle();
+            game.resumeEngine();
 
-            await tester.pump(PetBehavior.petThrottleDuration);
+            expect(unicorn.enjoymentFactor, enjoymentResult);
           },
         );
       }
@@ -81,27 +85,24 @@ void main() {
           expect(unicorn.enjoymentFactor, 0.7);
 
           // Do not wait full throttle time, pet again
-          await tester.pump(
-            Duration(
-              seconds: (PetBehavior.petThrottleDuration.inSeconds / 2).floor(),
-            ),
-          );
+          game.update(PetBehavior.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
+
           expect(unicorn.enjoymentFactor, 0.7);
 
-          // Await for the rest of the hrottle time, pet again
-          await tester.pump(
-            Duration(
-              seconds: (PetBehavior.petThrottleDuration.inSeconds / 2).ceil(),
-            ),
-          );
+          // Await for the rest of the throttle time, pet again
+          game.update(PetBehavior.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
+
+          /// Flush long press gesture timer
+          game.pauseEngine();
+          await tester.pumpAndSettle();
+          game.resumeEngine();
+
           expect(
             unicorn.enjoymentFactor,
             closeTo(0.9, precisionErrorTolerance),
           );
-
-          await tester.pump(PetBehavior.petThrottleDuration);
         },
       );
     });

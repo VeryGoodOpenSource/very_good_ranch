@@ -112,7 +112,7 @@ void main() {
         await expectLater(
           find.byGame<VeryGoodRanchGame>(),
           matchesGoldenFile(
-            'golden/gauge/has-half-gauge-50.png',
+            'golden/gauge/has-half-gauge-leaving.png',
           ),
         );
       },

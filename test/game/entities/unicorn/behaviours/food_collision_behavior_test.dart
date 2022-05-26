@@ -16,6 +16,8 @@ class _MockFood extends Mock implements Food {}
 
 class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
 
+class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late GameBloc gameBloc;
@@ -44,7 +46,34 @@ void main() {
       verifyNever(food.removeFromParent);
     });
 
+    flameTester.test(
+      'does not remove the food while unicorn is leaving',
+      (game) async {
+        final leavingBehavior = _MockLeavingBehavior();
+        when(() => leavingBehavior.isLeaving).thenReturn(true);
+
+        final foodCollisionBehavior = FoodCollisionBehavior();
+        final unicorn = Unicorn.test(
+          position: Vector2.zero(),
+          behaviors: [
+            leavingBehavior,
+            foodCollisionBehavior,
+          ],
+        );
+        await game.ensureAdd(unicorn);
+
+        final food = _MockFood();
+        when(() => food.beingDragged).thenReturn(false);
+        foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+
+        verifyNever(food.removeFromParent);
+      },
+    );
+
     flameTester.test('removes the food from parent', (game) async {
+      final leavingBehavior = _MockLeavingBehavior();
+      when(() => leavingBehavior.isLeaving).thenReturn(false);
+
       final evolutionBehavior = _MockEvolutionBehavior();
       when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
@@ -54,6 +83,7 @@ void main() {
         behaviors: [
           evolutionBehavior,
           foodCollisionBehavior,
+          leavingBehavior,
         ],
       );
       await game.ensureAdd(unicorn);
@@ -79,6 +109,10 @@ void main() {
                   (game) async {
             final stage = stageFood.key;
             final foodType = stageFood.value;
+
+            final leavingBehavior = _MockLeavingBehavior();
+            when(() => leavingBehavior.isLeaving).thenReturn(false);
+
             final evolutionBehavior = _MockEvolutionBehavior();
             when(() => evolutionBehavior.currentStage).thenReturn(stage);
 
@@ -88,6 +122,7 @@ void main() {
               behaviors: [
                 evolutionBehavior,
                 foodCollisionBehavior,
+                leavingBehavior,
               ],
             );
             unicorn.enjoymentFactor = 0.5;
@@ -106,6 +141,9 @@ void main() {
       });
 
       flameTester.test('with the wrong type of food', (game) async {
+        final leavingBehavior = _MockLeavingBehavior();
+        when(() => leavingBehavior.isLeaving).thenReturn(false);
+
         final evolutionBehavior = _MockEvolutionBehavior();
         when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
@@ -115,6 +153,7 @@ void main() {
           behaviors: [
             evolutionBehavior,
             foodCollisionBehavior,
+            leavingBehavior,
           ],
         );
         unicorn.enjoymentFactor = 0.5;

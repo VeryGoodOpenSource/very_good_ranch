@@ -28,6 +28,7 @@ class Unicorn extends Entity {
             FullnessDecreaseBehavior(),
             EnjoymentDecreaseBehavior(),
             LeavingBehavior(),
+            PetBehavior(),
           ],
         );
 

@@ -2,7 +2,6 @@
 
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
@@ -194,11 +193,8 @@ void main() {
           game.update(0);
 
           expect(evolutionBehavior.currentStage, UnicornStage.teenager);
-          expect(
-            unicorn.enjoymentFactor,
-            closeTo(1.0, precisionErrorTolerance),
-          );
-          expect(unicorn.fullnessFactor, closeTo(1.0, precisionErrorTolerance));
+          expect(unicorn.enjoymentFactor, 1.0);
+          expect(unicorn.fullnessFactor, 1.0);
         },
       );
     });

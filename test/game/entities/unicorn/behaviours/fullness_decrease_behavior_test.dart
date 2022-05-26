@@ -2,7 +2,6 @@
 
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
@@ -46,9 +45,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, closeTo(1.0, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, closeTo(0.9, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 0.9);
       });
 
       flameTester.test('for a kid unicorn', (game) async {
@@ -65,9 +64,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, closeTo(1.0, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, closeTo(0.9, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 0.9);
       });
 
       flameTester.test('for a teenager unicorn', (game) async {
@@ -85,9 +84,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, closeTo(1.0, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, closeTo(0.8, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 0.8);
       });
 
       flameTester.test('for an adult unicorn', (game) async {
@@ -105,9 +104,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, closeTo(1.0, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 1.0);
         game.update(FullnessDecreaseBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, closeTo(0.7, precisionErrorTolerance));
+        expect(unicorn.fullnessFactor, 0.7);
       });
     });
   });

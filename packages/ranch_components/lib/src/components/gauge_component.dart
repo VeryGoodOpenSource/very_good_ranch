@@ -50,18 +50,15 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
     required this.thickness,
     required this.percentage,
     required Color color,
-  })  : _size = size,
-        _radius = size / 2,
+  })  : _radius = size / 2,
         _center = Offset(size / 2, size / 2),
         _color = color,
         super(anchor: Anchor.center, position: Vector2.zero());
 
-  final double _size;
   final double _radius;
   final Offset _center;
   final double thickness;
   final Color _color;
-  final Paint _blendPaint = Paint()..blendMode = BlendMode.dstOut;
 
   double percentage;
 
@@ -79,27 +76,36 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
   }
 
   void _buildPath() {
+    final externalPath = _buildPathSection(_radius);
+    final internalPath = _buildPathSection(_radius - thickness / 2);
+
+    _path = Path()
+      ..fillType = PathFillType.evenOdd
+      ..addPath(externalPath, Offset.zero)
+      ..addPath(internalPath, Offset.zero);
+  }
+
+  Path _buildPathSection(double radius) {
     // Because of float rounding errors, we can't check for "1"
     if (percentage >= 0.999) {
-      _path = Path()
+      return Path()
         ..addOval(
-          Rect.fromCenter(
+          Rect.fromCircle(
             center: _center,
-            width: _size,
-            height: _size,
+            radius: radius,
           ),
         );
     } else {
       final radians = _tween.transform(percentage);
-      _path = Path()
+      return Path()
         ..moveTo(_center.dx, _center.dy)
-        ..lineTo(_center.dx + cos(0) * _radius, _center.dy + sin(0) * _radius)
+        ..lineTo(_center.dx + cos(0) * radius, _center.dy + sin(0) * radius)
         ..arcToPoint(
           Offset(
-            _center.dx + cos(radians) * _radius,
-            _center.dy + sin(radians) * _radius,
+            _center.dx + cos(radians) * radius,
+            _center.dy + sin(radians) * radius,
           ),
-          radius: Radius.circular(_radius),
+          radius: Radius.circular(radius),
           largeArc: percentage > 0.5,
         )
         ..lineTo(_center.dx, _center.dy)
@@ -112,7 +118,6 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
     canvas
       ..save()
       ..drawPath(_path, paint)
-      ..drawCircle(_center, _radius - thickness / 2, _blendPaint)
       ..restore();
   }
 }

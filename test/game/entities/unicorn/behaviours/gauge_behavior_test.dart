@@ -11,6 +11,8 @@ import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
 import '../../../../helpers/helpers.dart';
 
+class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late GameBloc gameBloc;
@@ -32,12 +34,16 @@ void main() {
     flameTester.testGameWidget(
       'Follows fullness and enjoyment factors: 100%',
       setUp: (game, tester) async {
+        final leavingBehavior = _MockLeavingBehavior();
+        when(() => leavingBehavior.isLeaving).thenReturn(false);
+
         final gaugeBehavior = GaugeBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.all(100),
           behaviors: [
             gaugeBehavior,
+            leavingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -57,12 +63,45 @@ void main() {
     flameTester.testGameWidget(
       'Follows fullness and enjoyment factors: 50%',
       setUp: (game, tester) async {
+        final leavingBehavior = _MockLeavingBehavior();
+        when(() => leavingBehavior.isLeaving).thenReturn(false);
+
         final gaugeBehavior = GaugeBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.all(100),
           behaviors: [
             gaugeBehavior,
+            leavingBehavior,
+          ],
+        );
+        await game.ensureAdd(unicorn);
+        unicorn.fullnessFactor = 0.5;
+        unicorn.enjoymentFactor = 0.5;
+      },
+      verify: (game, tester) async {
+        await expectLater(
+          find.byGame<VeryGoodRanchGame>(),
+          matchesGoldenFile(
+            'golden/gauge/has-half-gauge-50.png',
+          ),
+        );
+      },
+    );
+
+    flameTester.testGameWidget(
+      'Do not render gauge when leaving',
+      setUp: (game, tester) async {
+        final leavingBehavior = _MockLeavingBehavior();
+        when(() => leavingBehavior.isLeaving).thenReturn(true);
+
+        final gaugeBehavior = GaugeBehavior();
+
+        final unicorn = Unicorn.test(
+          position: Vector2.all(100),
+          behaviors: [
+            gaugeBehavior,
+            leavingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);

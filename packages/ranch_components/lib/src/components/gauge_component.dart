@@ -40,7 +40,7 @@ class GaugeComponent extends PositionComponent {
   set percentage(double value) {
     final indicator = firstChild<_GaugeIndicator>();
     indicator?.percentage = value.clamp(0, 1);
-    indicator?.rebuildPaths();
+    indicator?._buildPath();
   }
 }
 
@@ -72,12 +72,12 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
   @override
   Future<void> onLoad() async {
     paint = Paint()..color = _color;
-    rebuildPaths();
+    _buildPath();
   }
 
-  void rebuildPaths() {
-    final externalPath = _buildPath(_radius);
-    final internalPath = _buildPath(_radius - thickness / 2);
+  void _buildPath() {
+    final externalPath = _buildPathSection(_radius);
+    final internalPath = _buildPathSection(_radius - thickness / 2);
 
     _path = Path()
       ..fillType = PathFillType.evenOdd
@@ -85,7 +85,7 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
       ..addPath(internalPath, Offset.zero);
   }
 
-  Path _buildPath(double radius) {
+  Path _buildPathSection(double radius) {
     // Because of float rounding errors, we can't check for "1"
     if (percentage >= 0.999) {
       return Path()

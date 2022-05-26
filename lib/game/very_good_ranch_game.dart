@@ -17,7 +17,9 @@ class VeryGoodRanchGame extends FlameGame
     Random? seed,
     required this.gameBloc,
     required this.inventoryBloc,
-  }) : seed = seed ?? Random() {
+    @visibleForTesting bool debugMode = kDebugMode,
+  })  : _debugMode = debugMode,
+        seed = seed ?? Random() {
     // Clearing the prefix allows us to load images from packages.
     images.prefix = '';
     Flame.images.prefix = '';
@@ -30,8 +32,10 @@ class VeryGoodRanchGame extends FlameGame
 
   final InventoryBloc inventoryBloc;
 
+  final bool _debugMode;
+
   @override
-  bool get debugMode => kDebugMode;
+  bool get debugMode => _debugMode;
 
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);

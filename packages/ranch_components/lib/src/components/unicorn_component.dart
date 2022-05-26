@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/material.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 
 /// The animation state of the unicorn.
@@ -21,7 +22,12 @@ class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState> {
   /// {@macro unicorn_component}
   UnicornComponent({
     Vector2? size,
-  }) : super(size: size ?? Vector2.all(32), current: UnicornState.idle);
+    @visibleForTesting Anchor anchor = Anchor.center,
+  }) : super(
+          size: size ?? Vector2.all(32),
+          current: UnicornState.idle,
+          anchor: anchor,
+        );
 
   @override
   Future<void> onLoad() async {

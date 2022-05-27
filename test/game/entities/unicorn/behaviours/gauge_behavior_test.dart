@@ -107,6 +107,7 @@ void main() {
         await game.ensureAdd(unicorn);
         unicorn.fullnessFactor = 0.5;
         unicorn.enjoymentFactor = 0.5;
+        game.update(0.1);
       },
       verify: (game, tester) async {
         await expectLater(

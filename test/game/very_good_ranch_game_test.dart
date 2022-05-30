@@ -65,7 +65,7 @@ void main() {
         game.overlays.add('test');
         await tester.pump();
 
-        expect(find.text('test overlay'), findsOneWidget);
+        expect(game.overlays.isActive('test'), true);
 
         await tester.tap(find.byType(GameWidget<VeryGoodRanchGame>));
         await tester.pump();

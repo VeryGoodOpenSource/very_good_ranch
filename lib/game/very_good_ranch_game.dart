@@ -8,6 +8,7 @@ import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
+import 'package:very_good_ranch/game/components/unicorn_counter.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 
@@ -50,6 +51,12 @@ class VeryGoodRanchGame extends FlameGame
           FoodSpawner(seed: seed),
           UnicornSpawner(seed: seed),
         ],
+      ),
+    );
+
+    await add(
+      UnicornCounter(
+        position: Vector2(size.x, 0),
       ),
     );
   }

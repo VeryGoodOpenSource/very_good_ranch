@@ -84,7 +84,7 @@ packages:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   coverage:
     dependency: transitive
     description:
@@ -132,7 +132,7 @@ packages:
     description:
       path: "packages/flame"
       ref: HEAD
-      resolved-ref: "69214827a0edb563468951256eccecab408f89df"
+      resolved-ref: f8b2410e298a5535c9643e6d70bfef46600ce4a5
       url: "https://github.com/flame-engine/flame"
     source: git
     version: "1.1.1"
@@ -141,7 +141,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f7f3d35cade614ca404dc84937777752dca3f5be
+      resolved-ref: e161daf360f49423355b4822ff4342bad00c6977
       url: "https://github.com/VeryGoodOpenSource/flame_behaviors"
     source: git
     version: "0.0.1-dev.1"
@@ -208,7 +208,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   intl:
     dependency: "direct main"
     description:
@@ -327,7 +327,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.2"
+    version: "6.0.3"
   pub_semver:
     dependency: transitive
     description:
@@ -500,7 +500,7 @@ packages:
       name: webkit_inspection_protocol
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   yaml:
     dependency: transitive
     description:

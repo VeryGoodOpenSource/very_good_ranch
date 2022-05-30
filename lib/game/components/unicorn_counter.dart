@@ -1,0 +1,101 @@
+import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
+import 'package:very_good_ranch/game/entities/entities.dart';
+
+class UnicornCounter extends PositionComponent with HasGameRef {
+  UnicornCounter({
+    required super.position,
+  });
+
+  @override
+  PositionType get positionType => PositionType.game;
+
+  late List<Unicorn> unicorns;
+
+  @override
+  Future<void> onLoad() async {
+    gameRef.children.register<Unicorn>();
+    unicorns = gameRef.children.query<Unicorn>();
+
+    await addAll(UnicornStage.values.map(_UnicornHead.new));
+  }
+}
+
+class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
+  _UnicornHead(this.stage);
+
+  static final _textPaint = TextPaint(
+    style: const TextStyle(
+      color: Colors.black,
+      fontSize: 24,
+    ),
+    textDirection: TextDirection.rtl,
+  );
+
+  static final _outlinePaint = Paint()
+    ..color = Colors.black
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2;
+  static final _blendOutPaint = Paint()..blendMode = BlendMode.dstIn;
+
+  final UnicornStage stage;
+
+  late Sprite _head;
+
+  @override
+  Future<void> onLoad() async {
+    // TODO(wolfen): when we have more sprites this should be based on stage.
+    _head = await parent.gameRef.loadSprite(
+      Assets.images.unicorn.keyName,
+      srcSize: Vector2(11, 11),
+      srcPosition: Vector2(18, 4),
+    );
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final multiplier = [
+      UnicornStage.baby,
+      UnicornStage.kid,
+      UnicornStage.teenager,
+      UnicornStage.adult
+    ].indexOf(stage);
+    final amount = parent.unicorns.where((u) => u.currentStage == stage).length;
+    final textSize = _textPaint.measureText(amount.toString());
+
+    const anchor = Anchor.topRight;
+    final size = _head.srcSize * 2;
+    final position = Vector2(-8, 0);
+    final delta = anchor.toVector2()..multiply(size);
+    final headRect = (position - delta).toPositionedRect(size);
+
+    canvas
+      ..save()
+      ..translate(0, textSize.y * multiplier + 8);
+
+    _textPaint.render(
+      canvas,
+      '$amount',
+      Vector2(-size.x + position.x - 8, 0),
+      anchor: anchor,
+    );
+
+    // Render head inside a circle bound.
+    canvas.save();
+    _head.render(canvas, size: size, position: position, anchor: anchor);
+    canvas
+      ..drawRect(headRect, _blendOutPaint)
+      ..restore()
+      // Draw circle around head.
+      ..drawRRect(
+        RRect.fromRectAndRadius(
+          headRect.translate(0, 2),
+          const Radius.circular(32),
+        ),
+        _outlinePaint,
+      )
+      ..restore();
+  }
+}

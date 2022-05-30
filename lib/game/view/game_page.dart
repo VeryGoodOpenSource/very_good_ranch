@@ -53,7 +53,7 @@ class _GamePageState extends State<GamePage> {
               ),
             ),
           ),
-          FooterWidget(overlays: _game.overlays),
+          FooterWidget(game: _game),
         ],
       ),
     );

@@ -18,6 +18,10 @@ class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
 
 class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
 
+class _MockEnjoymentBehavior extends Mock implements EnjoymentBehavior {}
+
+class _MockFullnessBehavior extends Mock implements FullnessBehavior {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late GameBloc gameBloc;
@@ -98,23 +102,20 @@ void main() {
 
     group('feeding unicorn impacts enjoyment', () {
       group('with the right type of food', () {
-        for (final stageFood in {
-          UnicornStage.baby: FoodType.candy,
-          UnicornStage.kid: FoodType.lollipop,
-          UnicornStage.teenager: FoodType.iceCream,
-          UnicornStage.adult: FoodType.pancake,
-        }.entries) {
+        for (final stage in UnicornStage.values) {
           flameTester
-              .test('${stageFood.key.name} prefers ${stageFood.value.name}',
+              .test('${stage.name} prefers ${stage.preferredFoodType.name}',
                   (game) async {
-            final stage = stageFood.key;
-            final foodType = stageFood.value;
+            final preferredFoodType = stage.preferredFoodType;
 
             final leavingBehavior = _MockLeavingBehavior();
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
             final evolutionBehavior = _MockEvolutionBehavior();
             when(() => evolutionBehavior.currentStage).thenReturn(stage);
+
+            final enjoymentBehavior = _MockEnjoymentBehavior();
+            when(() => enjoymentBehavior.percentage).thenReturn(0.5);
 
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
@@ -123,19 +124,19 @@ void main() {
                 evolutionBehavior,
                 foodCollisionBehavior,
                 leavingBehavior,
+                enjoymentBehavior,
               ],
             );
-            unicorn.enjoymentFactor = 0.5;
 
             await game.ensureAdd(unicorn);
 
             final food = _MockFood();
-            when(() => food.type).thenReturn(foodType);
+            when(() => food.type).thenReturn(preferredFoodType);
             when(() => food.beingDragged).thenReturn(false);
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-            expect(unicorn.enjoymentFactor, 0.8);
+            verify(() => enjoymentBehavior.increaseBy(0.3)).called(1);
           });
         }
       });
@@ -147,6 +148,9 @@ void main() {
         final evolutionBehavior = _MockEvolutionBehavior();
         when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
+        final enjoymentBehavior = _MockEnjoymentBehavior();
+        when(() => enjoymentBehavior.percentage).thenReturn(0.5);
+
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
@@ -154,9 +158,9 @@ void main() {
             evolutionBehavior,
             foodCollisionBehavior,
             leavingBehavior,
+            enjoymentBehavior,
           ],
         );
-        unicorn.enjoymentFactor = 0.5;
 
         await game.ensureAdd(unicorn);
 
@@ -166,23 +170,27 @@ void main() {
 
         foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-        expect(unicorn.enjoymentFactor, 0.4);
+        verify(() => enjoymentBehavior.increaseBy(-0.1)).called(1);
       });
     });
 
     group('feeding unicorn impacts fullness', () {
       group('in a positive way', () {
         for (final stageFullnessResult in {
-          UnicornStage.baby: 0.8,
-          UnicornStage.kid: 0.75,
-          UnicornStage.teenager: 0.7,
-          UnicornStage.adult: 0.65,
+          UnicornStage.baby: 0.3,
+          UnicornStage.kid: 0.25,
+          UnicornStage.teenager: 0.2,
+          UnicornStage.adult: 0.15,
         }.entries) {
           flameTester.test('for ${stageFullnessResult.key.name}', (game) async {
             final stage = stageFullnessResult.key;
             final fullnessResult = stageFullnessResult.value;
+
             final evolutionBehavior = _MockEvolutionBehavior();
             when(() => evolutionBehavior.currentStage).thenReturn(stage);
+
+            final fullnessBehavior = _MockFullnessBehavior();
+            when(() => fullnessBehavior.percentage).thenReturn(0.5);
 
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
@@ -190,9 +198,9 @@ void main() {
               behaviors: [
                 evolutionBehavior,
                 foodCollisionBehavior,
+                fullnessBehavior,
               ],
             );
-            unicorn.fullnessFactor = 0.5;
 
             await game.ensureAdd(unicorn);
 
@@ -202,7 +210,7 @@ void main() {
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-            expect(unicorn.fullnessFactor, fullnessResult);
+            verify(() => fullnessBehavior.increaseBy(fullnessResult)).called(1);
           });
         }
       });

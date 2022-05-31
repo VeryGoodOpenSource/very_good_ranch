@@ -4,7 +4,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-class FullnessBehavior extends GaugeBehavior {
+class FullnessBehavior extends FactorBehavior {
   factory FullnessBehavior() {
     return FullnessBehavior._(
       GaugeComponent(
@@ -22,9 +22,6 @@ class FullnessBehavior extends GaugeBehavior {
   static double decreaseInterval = 7;
 
   @override
-  double get gaugePercentage => parent.fullnessFactor;
-
-  @override
   Future<void> onLoad() async {
     await add(
       TimerComponent(
@@ -36,7 +33,7 @@ class FullnessBehavior extends GaugeBehavior {
   }
 
   void _decreaseFullness() {
-    parent.fullnessFactor -= parent.currentStage.fullnessDecreaseFactor;
+    decreaseBy(parent.currentStage.fullnessDecreaseFactor);
   }
 }
 

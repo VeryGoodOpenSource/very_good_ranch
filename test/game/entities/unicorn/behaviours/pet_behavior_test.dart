@@ -3,7 +3,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_test/flame_test.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
@@ -13,19 +12,20 @@ import '../../../../helpers/test_game.dart';
 
 class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
 
+class _MockEnjoymentBehavior extends Mock implements EnjoymentBehavior {}
+
 void main() {
   final flameTester = FlameTester(TestGame.new);
 
   group('PetBehavior', () {
     group('increases enjoyment', () {
-      for (final stageEnjoymentResult in {
-        UnicornStage.baby: 0.7,
-        UnicornStage.kid: 0.66,
-        UnicornStage.teenager: 0.63,
-        UnicornStage.adult: 0.6,
-      }.entries) {
-        final stage = stageEnjoymentResult.key;
-        final enjoymentResult = stageEnjoymentResult.value;
+      late EnjoymentBehavior enjoymentBehavior;
+      setUp(() {
+        enjoymentBehavior = _MockEnjoymentBehavior();
+      });
+
+      for (final stage in UnicornStage.values) {
+        final petEnjoymentIncrease = stage.petEnjoymentIncrease;
         flameTester.testGameWidget(
           'for $stage',
           setUp: (game, tester) async {
@@ -37,14 +37,13 @@ void main() {
               behaviors: [
                 petBehavior,
                 evolutionBehavior,
+                enjoymentBehavior,
               ],
             );
+            when(() => enjoymentBehavior.percentage).thenReturn(0.5);
             await game.ensureAdd(unicorn);
           },
           verify: (game, tester) async {
-            final unicorn = game.descendants().whereType<Unicorn>().first;
-
-            unicorn.enjoymentFactor = 0.5;
             await tester.tapAt(Offset.zero);
 
             /// Flush long press gesture timer
@@ -52,13 +51,18 @@ void main() {
             await tester.pumpAndSettle();
             game.resumeEngine();
 
-            expect(unicorn.enjoymentFactor, enjoymentResult);
+            verify(() => enjoymentBehavior.increaseBy(petEnjoymentIncrease))
+                .called(1);
           },
         );
       }
     });
 
     group('has a throttle time', () {
+      late EnjoymentBehavior enjoymentBehavior;
+      setUp(() {
+        enjoymentBehavior = _MockEnjoymentBehavior();
+      });
       flameTester.testGameWidget(
         'throttle prevents multiple taps',
         setUp: (game, tester) async {
@@ -71,24 +75,22 @@ void main() {
             behaviors: [
               petBehavior,
               evolutionBehavior,
+              enjoymentBehavior,
             ],
           );
+          when(() => enjoymentBehavior.percentage).thenReturn(0.5);
           await game.ensureAdd(unicorn);
         },
         verify: (game, tester) async {
-          final unicorn = game.descendants().whereType<Unicorn>().first;
-
-          unicorn.enjoymentFactor = 0.5;
-
           // Give it the first pet
           await tester.tapAt(Offset.zero);
-          expect(unicorn.enjoymentFactor, 0.7);
+          verify(() => enjoymentBehavior.increaseBy(0.2)).called(1);
 
           // Do not wait full throttle time, pet again
           game.update(PetBehavior.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
 
-          expect(unicorn.enjoymentFactor, 0.7);
+          verifyNever(() => enjoymentBehavior.increaseBy(0.2));
 
           // Await for the rest of the throttle time, pet again
           game.update(PetBehavior.petThrottleDuration / 2);
@@ -99,10 +101,11 @@ void main() {
           await tester.pumpAndSettle();
           game.resumeEngine();
 
-          expect(
-            unicorn.enjoymentFactor,
-            closeTo(0.9, precisionErrorTolerance),
-          );
+          verify(
+            () => enjoymentBehavior.increaseBy(
+              UnicornStage.baby.petEnjoymentIncrease,
+            ),
+          ).called(1);
         },
       );
     });

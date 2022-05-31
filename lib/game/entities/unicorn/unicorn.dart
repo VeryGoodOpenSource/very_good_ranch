@@ -46,25 +46,14 @@ class Unicorn extends Entity {
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
-  /// A state that describes how well fed the unicorn is.
-  double get fullnessFactor => _fullnessFactor;
+  late final FullnessBehavior fullnessBehavior =
+      findBehavior<FullnessBehavior>()!;
 
-  set fullnessFactor(double value) {
-    _fullnessFactor = value.clamp(0.0, 1.0);
-  }
+  late final EnjoymentBehavior enjoymentBehavior =
+      findBehavior<EnjoymentBehavior>()!;
 
-  double _fullnessFactor = 1;
-
-  /// A state that describes how well treated the unicorn is.
-  double get enjoymentFactor => _enjoymentFactor;
-
-  set enjoymentFactor(double value) {
-    _enjoymentFactor = value.clamp(0.0, 1.0);
-  }
-
-  double _enjoymentFactor = 1;
-
-  double get happinessFactor => fullnessFactor * enjoymentFactor;
+  double get happinessFactor =>
+      fullnessBehavior.percentage * enjoymentBehavior.percentage;
 
   UnicornStage get currentStage =>
       findBehavior<EvolutionBehavior>()!.currentStage;

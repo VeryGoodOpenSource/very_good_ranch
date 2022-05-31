@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
@@ -24,18 +25,19 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     final currentStage = parent.currentStage;
 
     final fullnessFeedFactor = currentStage.fullnessFeedFactor;
-    parent.fullnessFactor += fullnessFeedFactor;
+    parent.findBehavior<FullnessBehavior>()?.increaseBy(fullnessFeedFactor);
 
     final preferredFoodType = currentStage.preferredFoodType;
     final impactOnEnjoyment = preferredFoodType == foodType
         ? positiveImpactOnEnjoyment
         : negativeImpactOnEnjoyment;
 
-    parent.enjoymentFactor += impactOnEnjoyment;
+    parent.findBehavior<EnjoymentBehavior>()?.increaseBy(impactOnEnjoyment);
   }
 }
 
-extension on UnicornStage {
+@visibleForTesting
+extension PreferredFoodType on UnicornStage {
   FoodType get preferredFoodType {
     switch (this) {
       case UnicornStage.baby:
@@ -49,7 +51,7 @@ extension on UnicornStage {
     }
   }
 
-  /// How much of [Unicorn.fullnessFactor] will be restored each time the
+  /// How much of Unicorns fullness factor will be restored each time the
   /// unicorn is fed.
   double get fullnessFeedFactor {
     switch (this) {

@@ -4,7 +4,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
-class EnjoymentBehavior extends GaugeBehavior {
+class EnjoymentBehavior extends FactorBehavior {
   factory EnjoymentBehavior() {
     return EnjoymentBehavior._(
       GaugeComponent(
@@ -22,9 +22,6 @@ class EnjoymentBehavior extends GaugeBehavior {
   static double decreaseInterval = 8;
 
   @override
-  double get gaugePercentage => parent.enjoymentFactor;
-
-  @override
   Future<void> onLoad() async {
     await add(
       TimerComponent(
@@ -36,7 +33,7 @@ class EnjoymentBehavior extends GaugeBehavior {
   }
 
   void _decreaseEnjoyment() {
-    parent.enjoymentFactor -= parent.currentStage.enjoymentDecreaseFactor;
+    decreaseBy(parent.currentStage.enjoymentDecreaseFactor);
   }
 }
 

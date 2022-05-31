@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/game/widgets/widgets.dart';
@@ -34,27 +35,29 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const HeaderWidget(),
-          Expanded(
-            child: ClipRect(
-              child: GameWidget(
-                game: _game,
-                overlayBuilderMap: {
-                  InventoryDialog.overlayKey: (context, game) {
-                    return const InventoryDialog();
+    return GameViewport(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const HeaderWidget(),
+            Expanded(
+              child: ClipRect(
+                child: GameWidget(
+                  game: _game,
+                  overlayBuilderMap: {
+                    InventoryDialog.overlayKey: (context, game) {
+                      return const InventoryDialog();
+                    },
+                    SettingsDialog.overlayKey: (context, game) {
+                      return const SettingsDialog();
+                    }
                   },
-                  SettingsDialog.overlayKey: (context, game) {
-                    return const SettingsDialog();
-                  }
-                },
+                ),
               ),
             ),
-          ),
-          FooterWidget(overlays: _game.overlays),
-        ],
+            FooterWidget(overlays: _game.overlays),
+          ],
+        ),
       ),
     );
   }

@@ -30,7 +30,7 @@ void main() {
     testWidgets('viewport too narrow', (tester) async {
       tester.binding.window.physicalSizeTestValue = const Size(200, 1000);
 
-      // resets the screen to its original size after the test end
+      // Resets the screen to its original size after the test ends.
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
 
       await tester.pumpWidget(

@@ -1,7 +1,7 @@
-export 'enjoyment_decrease_behavior.dart';
+export 'enjoyment_behavior.dart';
 export 'evolution_behavior.dart';
 export 'food_collision_behavior.dart';
-export 'fullness_decrease_behavior.dart';
+export 'fullness_behavior.dart';
 export 'gauge_behavior.dart';
 export 'leaving_behavior.dart';
 export 'movement_behavior.dart';

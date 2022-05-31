@@ -2,8 +2,10 @@
 
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
@@ -12,6 +14,25 @@ import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import '../../../../helpers/helpers.dart';
 
 class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
+
+class _TestGaugeBehavior extends GaugeBehavior {
+  factory _TestGaugeBehavior() {
+    return _TestGaugeBehavior._(
+      GaugeComponent(
+        position: Vector2.zero(),
+        size: 75,
+        thickness: 10,
+        percentage: 1,
+        color: Colors.lightBlue,
+      ),
+    );
+  }
+
+  _TestGaugeBehavior._(super.gauge);
+
+  @override
+  double gaugePercentage = 1;
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +58,7 @@ void main() {
         final leavingBehavior = _MockLeavingBehavior();
         when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-        final gaugeBehavior = GaugeBehavior();
+        final gaugeBehavior = _TestGaugeBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.all(100),
@@ -47,8 +68,7 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-        unicorn.fullnessFactor = 1.0;
-        unicorn.enjoymentFactor = 1.0;
+        gaugeBehavior.gaugePercentage = 1.0;
       },
       verify: (game, tester) async {
         await expectLater(
@@ -66,7 +86,7 @@ void main() {
         final leavingBehavior = _MockLeavingBehavior();
         when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-        final gaugeBehavior = GaugeBehavior();
+        final gaugeBehavior = _TestGaugeBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.all(100),
@@ -76,8 +96,7 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-        unicorn.fullnessFactor = 0.5;
-        unicorn.enjoymentFactor = 0.5;
+        gaugeBehavior.gaugePercentage = 0.5;
       },
       verify: (game, tester) async {
         await expectLater(
@@ -95,7 +114,7 @@ void main() {
         final leavingBehavior = _MockLeavingBehavior();
         when(() => leavingBehavior.isLeaving).thenReturn(true);
 
-        final gaugeBehavior = GaugeBehavior();
+        final gaugeBehavior = _TestGaugeBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.all(100),
@@ -105,8 +124,7 @@ void main() {
           ],
         );
         await game.ensureAdd(unicorn);
-        unicorn.fullnessFactor = 0.5;
-        unicorn.enjoymentFactor = 0.5;
+        gaugeBehavior.gaugePercentage = 0.0;
         game.update(0.1);
       },
       verify: (game, tester) async {

@@ -19,9 +19,12 @@ enum UnicornState {
 /// {@endtemplate}
 class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState> {
   /// {@macro unicorn_component}
-  UnicornComponent({
-    Vector2? size,
-  }) : super(size: size ?? Vector2.all(32), current: UnicornState.idle);
+  UnicornComponent({Vector2? size})
+      : super(
+          size: size ?? Vector2.all(32),
+          current: UnicornState.idle,
+          anchor: Anchor.center,
+        );
 
   @override
   Future<void> onLoad() async {

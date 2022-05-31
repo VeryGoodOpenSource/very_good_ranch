@@ -1,9 +1,28 @@
 import 'package:flame/components.dart';
-import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:flutter/material.dart';
+import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
-class EnjoymentDecreaseBehavior extends Behavior<Unicorn> {
+class EnjoymentBehavior extends GaugeBehavior {
+  factory EnjoymentBehavior() {
+    return EnjoymentBehavior._(
+      GaugeComponent(
+        position: Vector2.zero(),
+        size: 75,
+        thickness: 10,
+        percentage: 1,
+        color: Colors.lightBlue,
+      ),
+    );
+  }
+
+  EnjoymentBehavior._(super.gauge);
+
   static double decreaseInterval = 8;
+
+  @override
+  double get gaugePercentage => parent.enjoymentFactor;
 
   @override
   Future<void> onLoad() async {
@@ -23,7 +42,7 @@ class EnjoymentDecreaseBehavior extends Behavior<Unicorn> {
 
 extension on UnicornStage {
   /// Percentage that of enjoyment lost every
-  /// [EnjoymentDecreaseBehavior.decreaseInterval].
+  /// [EnjoymentBehavior.decreaseInterval].
   double get enjoymentDecreaseFactor {
     switch (this) {
       case UnicornStage.baby:

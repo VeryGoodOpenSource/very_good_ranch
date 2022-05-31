@@ -1,9 +1,28 @@
 import 'package:flame/components.dart';
-import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:flutter/material.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
+import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-class FullnessDecreaseBehavior extends Behavior<Unicorn> {
+class FullnessBehavior extends GaugeBehavior {
+  factory FullnessBehavior() {
+    return FullnessBehavior._(
+      GaugeComponent(
+        position: Vector2.zero(),
+        size: 87,
+        thickness: 10,
+        percentage: 1,
+        color: Colors.pink,
+      ),
+    );
+  }
+
+  FullnessBehavior._(super.gauge);
+
   static double decreaseInterval = 7;
+
+  @override
+  double get gaugePercentage => parent.fullnessFactor;
 
   @override
   Future<void> onLoad() async {

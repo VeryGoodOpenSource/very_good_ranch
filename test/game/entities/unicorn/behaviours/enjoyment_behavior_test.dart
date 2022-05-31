@@ -12,6 +12,8 @@ import '../../../../helpers/helpers.dart';
 
 class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
 
+class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late GameBloc gameBloc;
@@ -25,22 +27,23 @@ void main() {
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
+      debugMode: false,
     ),
   );
 
-  group('EnjoymentDecreaseBehavior', () {
+  group('EnjoymentBehavior', () {
     group('decreases enjoyment', () {
       flameTester.test('for a baby unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
         when(() => evolutionBehavior.currentStage)
             .thenReturn(UnicornStage.teenager);
 
-        final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
+        final enjoymentBehavior = EnjoymentBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
-            enjoymentDecreaseBehavior,
+            enjoymentBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -49,7 +52,7 @@ void main() {
             .thenReturn(UnicornStage.baby);
 
         expect(unicorn.enjoymentFactor, 1.0);
-        game.update(EnjoymentDecreaseBehavior.decreaseInterval);
+        game.update(EnjoymentBehavior.decreaseInterval);
         expect(unicorn.enjoymentFactor, 0.7);
       });
 
@@ -58,19 +61,19 @@ void main() {
         when(() => evolutionBehavior.currentStage)
             .thenReturn(UnicornStage.teenager);
 
-        final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
+        final enjoymentBehavior = EnjoymentBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
-            enjoymentDecreaseBehavior,
+            enjoymentBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
         when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
         expect(unicorn.enjoymentFactor, 1.0);
-        game.update(EnjoymentDecreaseBehavior.decreaseInterval);
+        game.update(EnjoymentBehavior.decreaseInterval);
         expect(unicorn.enjoymentFactor, 0.8);
       });
 
@@ -79,18 +82,18 @@ void main() {
         when(() => evolutionBehavior.currentStage)
             .thenReturn(UnicornStage.teenager);
 
-        final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
+        final enjoymentBehavior = EnjoymentBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
-            enjoymentDecreaseBehavior,
+            enjoymentBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
 
         expect(unicorn.enjoymentFactor, 1.0);
-        game.update(EnjoymentDecreaseBehavior.decreaseInterval);
+        game.update(EnjoymentBehavior.decreaseInterval);
         expect(unicorn.enjoymentFactor, 0.9);
       });
 
@@ -99,20 +102,53 @@ void main() {
         when(() => evolutionBehavior.currentStage)
             .thenReturn(UnicornStage.adult);
 
-        final enjoymentDecreaseBehavior = EnjoymentDecreaseBehavior();
+        final enjoymentBehavior = EnjoymentBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             evolutionBehavior,
-            enjoymentDecreaseBehavior,
+            enjoymentBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
 
         expect(unicorn.enjoymentFactor, 1.0);
-        game.update(EnjoymentDecreaseBehavior.decreaseInterval);
+        game.update(EnjoymentBehavior.decreaseInterval);
         expect(unicorn.enjoymentFactor, 0.9);
       });
+    });
+    group('renders a gauge', () {
+      flameTester.testGameWidget(
+        'with the right color and size',
+        setUp: (game, tester) async {
+          final evolutionBehavior = _MockEvolutionBehavior();
+          when(() => evolutionBehavior.currentStage)
+              .thenReturn(UnicornStage.adult);
+          final leavingBehavior = _MockLeavingBehavior();
+          when(() => leavingBehavior.isLeaving).thenReturn(false);
+
+          final enjoymentBehavior = EnjoymentBehavior();
+
+          final unicorn = Unicorn.test(
+            position: Vector2.all(100),
+            behaviors: [
+              evolutionBehavior,
+              leavingBehavior,
+              enjoymentBehavior,
+            ],
+          );
+          await game.ensureAdd(unicorn);
+          unicorn.fullnessFactor = 1.0;
+        },
+        verify: (game, tester) async {
+          await expectLater(
+            find.byGame<VeryGoodRanchGame>(),
+            matchesGoldenFile(
+              'golden/enjoyment/has-gauge.png',
+            ),
+          );
+        },
+      );
     });
   });
 }

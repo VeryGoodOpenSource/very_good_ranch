@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
-import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
 import '../../../../helpers/helpers.dart';
 
@@ -36,20 +34,8 @@ class _TestGaugeBehavior extends GaugeBehavior {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late GameBloc gameBloc;
 
-  setUp(() {
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
-  });
-
-  final flameTester = FlameTester<VeryGoodRanchGame>(
-    () => VeryGoodRanchGame(
-      gameBloc: gameBloc,
-      inventoryBloc: MockInventoryBloc(),
-      debugMode: false,
-    ),
-  );
+  final flameTester = FlameTester<TestGame>(TestGame.new);
 
   group('GaugeBehavior', () {
     flameTester.testGameWidget(
@@ -72,7 +58,7 @@ void main() {
       },
       verify: (game, tester) async {
         await expectLater(
-          find.byGame<VeryGoodRanchGame>(),
+          find.byGame<TestGame>(),
           matchesGoldenFile(
             'golden/gauge/has-full-gauge.png',
           ),
@@ -100,7 +86,7 @@ void main() {
       },
       verify: (game, tester) async {
         await expectLater(
-          find.byGame<VeryGoodRanchGame>(),
+          find.byGame<TestGame>(),
           matchesGoldenFile(
             'golden/gauge/has-half-gauge-50.png',
           ),
@@ -129,7 +115,7 @@ void main() {
       },
       verify: (game, tester) async {
         await expectLater(
-          find.byGame<VeryGoodRanchGame>(),
+          find.byGame<TestGame>(),
           matchesGoldenFile(
             'golden/gauge/has-half-gauge-leaving.png',
           ),

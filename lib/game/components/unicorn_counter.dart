@@ -62,7 +62,9 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
       UnicornStage.teenager,
       UnicornStage.adult
     ].indexOf(stage);
-    final amount = parent.unicorns.where((u) => u.currentStage == stage).length;
+    final amount = parent.unicorns
+        .where((u) => u.isMounted && u.currentStage == stage)
+        .length;
     final textSize = _textPaint.measureText(amount.toString());
 
     const anchor = Anchor.topRight;

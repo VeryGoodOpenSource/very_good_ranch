@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/effects.dart';
 
 /// {@template gauge_component}
 /// A [PositionComponent] that will render a gauge which can represent
@@ -39,8 +40,13 @@ class GaugeComponent extends PositionComponent {
   /// sets a new value for the gauge
   set percentage(double value) {
     final indicator = firstChild<_GaugeIndicator>();
-    indicator?.percentage = value.clamp(0, 1);
-    indicator?._buildPath();
+
+    if (indicator == null) {
+      return;
+    }
+    indicator.changeEffect
+      ..go(to: value)
+      ..reset();
   }
 }
 
@@ -54,6 +60,16 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
         _center = Offset(size / 2, size / 2),
         _color = color,
         super(anchor: Anchor.center, position: Vector2.zero());
+
+  EffectController effectController = CurvedEffectController(
+    0.15,
+    Curves.easeInOut,
+  )..setToEnd();
+
+  late final changeEffect = _GaugeIndicatorChangeEffect(
+    percentage,
+    effectController,
+  );
 
   final double _radius;
   final Offset _center;
@@ -72,6 +88,7 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
   @override
   Future<void> onLoad() async {
     paint = Paint()..color = _color;
+    await add(changeEffect);
     _buildPath();
   }
 
@@ -120,4 +137,46 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
       ..drawPath(_path, paint)
       ..restore();
   }
+}
+
+class _GaugeIndicatorChangeEffect extends Effect
+    with EffectTarget<_GaugeIndicator> {
+  _GaugeIndicatorChangeEffect(this._to, super.controller)
+      : assert(
+          _to >= 0.0 && _to <= 1.0,
+          'Percentage should be set between 0.0 and 1.0',
+        );
+
+  @override
+  void onMount() {
+    super.onMount();
+    _from = target.percentage;
+  }
+
+  double _to;
+  late double _from;
+
+  void go({
+    required double to,
+  }) {
+    assert(isMounted, 'Tried to change an effect that is not mounted');
+    _to = to;
+    _from = target.percentage;
+  }
+
+  @override
+  void apply(double progress) {
+    final dPercentage = _to - _from;
+    final percentage = (_from + dPercentage * progress).clamp(0.0, 1.0);
+
+    target
+      ..percentage = percentage
+      .._buildPath();
+  }
+
+  @override
+  double measure() => _to;
+
+  @override
+  bool get removeOnFinish => false;
 }

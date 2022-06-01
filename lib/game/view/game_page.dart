@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/game/widgets/widgets.dart';
@@ -39,17 +40,19 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const HeaderWidget(),
-          Expanded(
-            child: ClipRect(
-              child: GameView(game: _game),
+    return GameViewport(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const HeaderWidget(),
+            Expanded(
+              child: ClipRect(
+                child: GameView(game: _game),
+              ),
             ),
-          ),
-          FooterWidget(game: _game),
-        ],
+            FooterWidget(game: _game),
+          ],
+        ),
       ),
     );
   }

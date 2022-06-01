@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:flame/effects.dart';
+import 'package:flutter/material.dart';
 
 /// {@template gauge_component}
 /// A [PositionComponent] that will render a gauge which can represent
@@ -34,6 +34,9 @@ class GaugeComponent extends PositionComponent {
           ],
         );
 
+  /// The animation duration in seconds for intrinsic animations.
+  static const double animationDuration = 0.15;
+
   /// returns the current percent of the gauge
   double get percentage => firstChild<_GaugeIndicator>()?.percentage ?? 0;
 
@@ -62,7 +65,7 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
         super(anchor: Anchor.center, position: Vector2.zero());
 
   EffectController effectController = CurvedEffectController(
-    0.15,
+    GaugeComponent.animationDuration,
     Curves.easeInOut,
   )..setToEnd();
 
@@ -173,9 +176,6 @@ class _GaugeIndicatorChangeEffect extends Effect
       ..percentage = percentage
       .._buildPath();
   }
-
-  @override
-  double measure() => _to;
 
   @override
   bool get removeOnFinish => false;

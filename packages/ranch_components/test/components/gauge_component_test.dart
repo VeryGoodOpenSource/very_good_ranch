@@ -73,6 +73,8 @@ void main() {
           final gauge = game.firstChild<GaugeComponent>()!;
           gauge.percentage = 2;
 
+          game.update(GaugeComponent.animationDuration);
+
           expect(gauge.percentage, equals(1));
         },
       );
@@ -169,6 +171,9 @@ void main() {
         );
 
         game.firstChild<GaugeComponent>()?.percentage = 0.5;
+
+        game.update(GaugeComponent.animationDuration);
+
         await tester.pump();
         await expectLater(
           find.byGame<TestGame>(),

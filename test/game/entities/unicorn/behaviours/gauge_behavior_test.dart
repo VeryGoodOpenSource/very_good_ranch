@@ -97,6 +97,7 @@ void main() {
         );
         await game.ensureAdd(unicorn);
         gaugeBehavior.gaugePercentage = 0.5;
+        game.update(GaugeComponent.animationDuration);
       },
       verify: (game, tester) async {
         await expectLater(

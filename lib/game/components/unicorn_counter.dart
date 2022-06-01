@@ -70,8 +70,6 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
     const anchor = Anchor.topRight;
     final size = _head.srcSize * 2;
     final position = Vector2(-8, 0);
-    final delta = anchor.toVector2()..multiply(size);
-    final headRect = (position - delta).toPositionedRect(size);
 
     canvas
       ..save()
@@ -84,20 +82,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
       anchor: anchor,
     );
 
-    // Render head inside a circle bound.
-    canvas.save();
     _head.render(canvas, size: size, position: position, anchor: anchor);
-    canvas
-      ..drawRect(headRect, _blendOutPaint)
-      ..restore()
-      // Draw circle around head.
-      ..drawRRect(
-        RRect.fromRectAndRadius(
-          headRect.translate(0, 2),
-          const Radius.circular(32),
-        ),
-        _outlinePaint,
-      )
-      ..restore();
+    canvas.restore();
   }
 }

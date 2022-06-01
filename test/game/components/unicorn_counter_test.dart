@@ -29,10 +29,10 @@ void main() {
         await game.ready();
       },
       verify: (game, tester) async {
-        await expectLater(
-          find.byGame<TestGame>(),
-          matchesGoldenFile('golden/unicorn_counter/all_unicorns.png'),
-        );
+        final counter = game.firstChild<UnicornCounter>()!;
+
+        expect(counter.unicorns.length, equals(4));
+        expect(counter.children.length, equals(UnicornStage.values.length));
       },
     );
   });

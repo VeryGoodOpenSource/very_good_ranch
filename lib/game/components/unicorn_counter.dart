@@ -34,12 +34,6 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
     textDirection: TextDirection.rtl,
   );
 
-  static final _outlinePaint = Paint()
-    ..color = Colors.black
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 2;
-  static final _blendOutPaint = Paint()..blendMode = BlendMode.dstIn;
-
   final UnicornStage stage;
 
   late Sprite _head;

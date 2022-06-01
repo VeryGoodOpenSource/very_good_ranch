@@ -152,7 +152,7 @@ void main() {
     });
 
     flameTester.testGameWidget(
-      'can be changed at runtime',
+      'can be changed at runtime with animation',
       setUp: (game, tester) async {
         game.camera.followVector2(Vector2.zero());
         await game.ensureAdd(
@@ -172,7 +172,15 @@ void main() {
 
         game.firstChild<GaugeComponent>()?.percentage = 0.5;
 
-        game.update(GaugeComponent.animationDuration);
+        game.update(GaugeComponent.animationDuration / 2);
+
+        await tester.pump();
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/gauge_component/changing/middle.png'),
+        );
+
+        game.update(GaugeComponent.animationDuration / 2);
 
         await tester.pump();
         await expectLater(

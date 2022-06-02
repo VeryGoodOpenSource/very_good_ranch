@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
@@ -27,7 +28,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
   _UnicornHead(this.stage);
 
   static final _textPaint = TextPaint(
-    style: const TextStyle(
+    style: GoogleFonts.mouseMemoirs(
       color: Colors.black,
       fontSize: 24,
     ),

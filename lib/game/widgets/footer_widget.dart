@@ -6,10 +6,10 @@ import 'package:very_good_ranch/settings/settings.dart';
 class FooterWidget extends StatelessWidget {
   const FooterWidget({
     super.key,
-    required this.overlays,
+    required this.game,
   });
 
-  final ActiveOverlaysNotifier overlays;
+  final FlameGame game;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class FooterWidget extends StatelessWidget {
             IconButton(
               onPressed: () {
                 _clearOverlays(except: InventoryDialog.overlayKey);
-                if (!overlays.isActive(InventoryDialog.overlayKey)) {
-                  overlays.add(InventoryDialog.overlayKey);
+                if (!game.overlays.isActive(InventoryDialog.overlayKey)) {
+                  game.overlays.add(InventoryDialog.overlayKey);
                 }
               },
               icon: const Icon(Icons.inventory),
@@ -36,8 +36,8 @@ class FooterWidget extends StatelessWidget {
             IconButton(
               onPressed: () {
                 _clearOverlays(except: SettingsDialog.overlayKey);
-                if (!overlays.isActive(SettingsDialog.overlayKey)) {
-                  overlays.add(SettingsDialog.overlayKey);
+                if (!game.overlays.isActive(SettingsDialog.overlayKey)) {
+                  game.overlays.add(SettingsDialog.overlayKey);
                 }
               },
               icon: const Icon(Icons.settings),
@@ -51,17 +51,17 @@ class FooterWidget extends StatelessWidget {
   void _clearOverlays({
     required String except,
   }) {
-    if (overlays.isActive(
+    if (game.overlays.isActive(
           InventoryDialog.overlayKey,
         ) &&
         except != InventoryDialog.overlayKey) {
-      overlays.remove(InventoryDialog.overlayKey);
+      game.overlays.remove(InventoryDialog.overlayKey);
     }
-    if (overlays.isActive(
+    if (game.overlays.isActive(
           SettingsDialog.overlayKey,
         ) &&
         except != SettingsDialog.overlayKey) {
-      overlays.remove(SettingsDialog.overlayKey);
+      game.overlays.remove(SettingsDialog.overlayKey);
     }
   }
 }

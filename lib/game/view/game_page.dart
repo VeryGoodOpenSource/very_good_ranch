@@ -6,10 +6,14 @@ import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/game/widgets/widgets.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key});
+  const GamePage({
+    super.key,
+    this.game,
+  });
+
+  final FlameGame? game;
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -22,15 +26,16 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  late VeryGoodRanchGame _game;
+  late FlameGame _game;
 
   @override
   void initState() {
     super.initState();
-    _game = VeryGoodRanchGame(
-      gameBloc: context.read<GameBloc>(),
-      inventoryBloc: context.read<InventoryBloc>(),
-    );
+    _game = widget.game ??
+        VeryGoodRanchGame(
+          gameBloc: context.read<GameBloc>(),
+          inventoryBloc: context.read<InventoryBloc>(),
+        );
   }
 
   @override
@@ -42,20 +47,10 @@ class _GamePageState extends State<GamePage> {
             const HeaderWidget(),
             Expanded(
               child: ClipRect(
-                child: GameWidget(
-                  game: _game,
-                  overlayBuilderMap: {
-                    InventoryDialog.overlayKey: (context, game) {
-                      return const InventoryDialog();
-                    },
-                    SettingsDialog.overlayKey: (context, game) {
-                      return const SettingsDialog();
-                    }
-                  },
-                ),
+                child: GameView(game: _game),
               ),
             ),
-            FooterWidget(overlays: _game.overlays),
+            FooterWidget(game: _game),
           ],
         ),
       ),

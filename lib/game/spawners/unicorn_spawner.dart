@@ -20,6 +20,6 @@ class UnicornSpawner extends TimerComponent with HasGameRef {
       return;
     }
     final position = Vector2.random(seed)..multiply(gameRef.size);
-    add(Unicorn(position: position));
+    gameRef.add(Unicorn(position: position));
   }
 }

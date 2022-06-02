@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
-import 'package:very_good_ranch/game/game.dart';
 
 import '../../../../helpers/helpers.dart';
 
@@ -16,20 +15,8 @@ class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late GameBloc gameBloc;
 
-  setUp(() {
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
-  });
-
-  final flameTester = FlameTester<VeryGoodRanchGame>(
-    () => VeryGoodRanchGame(
-      gameBloc: gameBloc,
-      debugMode: false,
-      inventoryBloc: MockInventoryBloc(),
-    ),
-  );
+  final flameTester = FlameTester<TestGame>(TestGame.new);
 
   group('FullnessBehavior', () {
     group('decreases fullness', () {
@@ -138,7 +125,7 @@ void main() {
         },
         verify: (game, tester) async {
           await expectLater(
-            find.byGame<VeryGoodRanchGame>(),
+            find.byGame<TestGame>(),
             matchesGoldenFile(
               'golden/fullness/has-gauge.png',
             ),

@@ -7,7 +7,6 @@
 
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -27,9 +26,9 @@ void main() {
       when(() => gameBloc.state).thenReturn(GameState());
     });
 
-    testWidgets('renders GameWidget', (tester) async {
+    testWidgets('renders GameView', (tester) async {
       await tester.pumpApp(GamePage(), gameBloc: gameBloc);
-      expect(find.byType(GameWidget<VeryGoodRanchGame>), findsOneWidget);
+      expect(find.byType(GameView), findsOneWidget);
     });
 
     testWidgets('route returns a valid navigation route', (tester) async {
@@ -57,30 +56,46 @@ void main() {
     });
 
     testWidgets('overlays SettingsDialog', (tester) async {
-      final settingsBloc = MockSettingsBloc();
-      when(() => settingsBloc.state).thenReturn(SettingsState());
+      await tester.runAsync(() async {
+        final settingsBloc = MockSettingsBloc();
+        when(() => settingsBloc.state).thenReturn(SettingsState());
+        final game = TestGame();
 
-      await tester.pumpApp(
-        GamePage(),
-        gameBloc: gameBloc,
-        settingsBloc: settingsBloc,
-      );
+        await tester.pumpApp(
+          GamePage(game: game),
+          gameBloc: gameBloc,
+          settingsBloc: settingsBloc,
+        );
 
-      await tester.tap(find.byIcon(Icons.settings));
-      await tester.pump();
+        // These three lines of code is needed to ensure that the game is
+        // attached to the GameRenderBox.
+        game.pauseEngine();
+        await tester.pumpAndSettle();
+        game.resumeEngine();
 
-      expect(find.byType(SettingsDialog), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.settings));
+        await tester.pump();
+
+        expect(find.byType(SettingsDialog), findsOneWidget);
+      });
     });
 
     testWidgets('overlays InventoryDialog', (tester) async {
       final inventoryBloc = MockInventoryBloc();
       when(() => inventoryBloc.state).thenReturn(InventoryState());
+      final game = TestGame();
 
       await tester.pumpApp(
-        GamePage(),
+        GamePage(game: game),
         gameBloc: gameBloc,
         inventoryBloc: inventoryBloc,
       );
+
+      // These three lines of code is needed to ensure that the game is
+      // attached to the GameRenderBox.
+      game.pauseEngine();
+      await tester.pumpAndSettle();
+      game.resumeEngine();
 
       await tester.tap(find.byIcon(Icons.inventory));
       await tester.pump();

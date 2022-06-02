@@ -34,7 +34,7 @@ void main() {
         await game.ready();
       },
       verify: (game, tester) async {
-        final unicornComponents = game.descendants().whereType<Unicorn>();
+        final unicornComponents = game.children.whereType<Unicorn>();
         expect(unicornComponents.length, 1);
         expect(unicornComponents.first.position, game.size);
       },

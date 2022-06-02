@@ -9,14 +9,14 @@ import '../../helpers/pump_app.dart';
 
 void main() {
   group('FooterWidget', () {
-    late ActiveOverlaysNotifier overlays;
+    late FlameGame game;
 
     setUp(() {
-      overlays = ActiveOverlaysNotifier();
+      game = FlameGame();
     });
 
     testWidgets('renders correctly', (tester) async {
-      await tester.pumpApp(Scaffold(body: FooterWidget(overlays: overlays)));
+      await tester.pumpApp(Scaffold(body: FooterWidget(game: game)));
 
       expect(find.byType(IconButton), findsNWidgets(2));
       expect(find.byIcon(Icons.inventory), findsOneWidget);
@@ -25,48 +25,48 @@ void main() {
 
     group('open settings', () {
       testWidgets('activates settings overlay', (tester) async {
-        await tester.pumpApp(Scaffold(body: FooterWidget(overlays: overlays)));
+        await tester.pumpApp(Scaffold(body: FooterWidget(game: game)));
 
         await tester.tap(find.byIcon(Icons.settings));
 
-        expect(overlays.isActive(SettingsDialog.overlayKey), true);
+        expect(game.overlays.isActive(SettingsDialog.overlayKey), true);
       });
 
       testWidgets('activates inventory overlay', (tester) async {
-        await tester.pumpApp(Scaffold(body: FooterWidget(overlays: overlays)));
+        await tester.pumpApp(Scaffold(body: FooterWidget(game: game)));
 
         await tester.tap(find.byIcon(Icons.inventory));
 
-        expect(overlays.isActive(InventoryDialog.overlayKey), isTrue);
+        expect(game.overlays.isActive(InventoryDialog.overlayKey), isTrue);
       });
 
       testWidgets(
         'removes inventory overlay when settings is opened',
         (tester) async {
-          overlays.add(InventoryDialog.overlayKey);
+          game.overlays.add(InventoryDialog.overlayKey);
           await tester.pumpApp(
-            Scaffold(body: FooterWidget(overlays: overlays)),
+            Scaffold(body: FooterWidget(game: game)),
           );
 
           await tester.tap(find.byIcon(Icons.settings));
 
-          expect(overlays.isActive(InventoryDialog.overlayKey), false);
-          expect(overlays.isActive(SettingsDialog.overlayKey), true);
+          expect(game.overlays.isActive(InventoryDialog.overlayKey), false);
+          expect(game.overlays.isActive(SettingsDialog.overlayKey), true);
         },
       );
 
       testWidgets(
         'removes settings overlay when inventory is opened',
         (tester) async {
-          overlays.add(SettingsDialog.overlayKey);
+          game.overlays.add(SettingsDialog.overlayKey);
           await tester.pumpApp(
-            Scaffold(body: FooterWidget(overlays: overlays)),
+            Scaffold(body: FooterWidget(game: game)),
           );
 
           await tester.tap(find.byIcon(Icons.inventory));
 
-          expect(overlays.isActive(SettingsDialog.overlayKey), isFalse);
-          expect(overlays.isActive(InventoryDialog.overlayKey), isTrue);
+          expect(game.overlays.isActive(SettingsDialog.overlayKey), isFalse);
+          expect(game.overlays.isActive(InventoryDialog.overlayKey), isTrue);
         },
       );
     });

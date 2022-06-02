@@ -64,7 +64,7 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
         _color = color,
         super(anchor: Anchor.center, position: Vector2.zero());
 
-  EffectController effectController = CurvedEffectController(
+  final effectController = CurvedEffectController(
     GaugeComponent.animationDuration,
     Curves.easeInOut,
   )..setToEnd();

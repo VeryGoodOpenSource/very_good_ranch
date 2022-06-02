@@ -9,7 +9,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -29,6 +32,15 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString(
+      'assets/fonts/mouse_memoirs/OFL.txt',
+    );
+    yield LicenseEntryWithLineBreaks(['mouse_memoirs'], license);
+  });
+
+  GoogleFonts.config.allowRuntimeFetching = false;
 
   await runZonedGuarded(
     () async {

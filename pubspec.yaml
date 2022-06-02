@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  google_fonts: ^3.0.1
   intl: ^0.17.0
   ranch_components:
     path: packages/ranch_components
@@ -46,3 +47,4 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/fonts/mouse_memoirs/

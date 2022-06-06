@@ -58,7 +58,7 @@ class TeenUnicornComponent extends UnicornComponent {
 /// A component that represents a magnificent adult unicorn.
 /// {@endtemplate}
 class AdultUnicornComponent extends UnicornComponent {
-  /// {@macro unicorn_component}
+  /// {@macro adult_unicorn_component}
   AdultUnicornComponent()
       : super(
           size: Vector2(90, 110.5),

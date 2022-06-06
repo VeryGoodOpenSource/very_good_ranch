@@ -54,7 +54,7 @@ class TeenUnicornComponent extends UnicornComponent {
         );
 }
 
-/// {@template unicorn_component}
+/// {@template adult_unicorn_component}
 /// A component that represents a magnificent adult unicorn.
 /// {@endtemplate}
 class AdultUnicornComponent extends UnicornComponent {

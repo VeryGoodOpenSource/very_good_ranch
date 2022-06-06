@@ -95,6 +95,6 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  // Todo(renancaraujo): use geenrated code once this lands: https://github.com/FlutterGen/flutter_gen/pull/251
+  // Todo(renancaraujo): use generated code once this lands: https://github.com/FlutterGen/flutter_gen/pull/251
   String get packagePath => 'packages/ranch_components/$_assetName';
 }

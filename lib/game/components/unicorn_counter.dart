@@ -2,8 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
+import 'package:very_good_ranch/gen/assets.gen.dart';
 
 class UnicornCounter extends PositionComponent with HasGameRef {
   UnicornCounter({
@@ -31,6 +31,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
     style: GoogleFonts.mouseMemoirs(
       color: Colors.black,
       fontSize: 24,
+      height: 1.2,
     ),
     textDirection: TextDirection.rtl,
   );
@@ -41,17 +42,15 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
 
   @override
   Future<void> onLoad() async {
-    // TODO(wolfen): when we have more sprites this should be based on stage.
     _head = await parent.gameRef.loadSprite(
-      Assets.images.childSprite.packagePath,
-      srcSize: Vector2(11, 11),
-      srcPosition: Vector2(18, 4),
+      stage.headAssetPath,
+      srcSize: Vector2(40, 40),
     );
   }
 
   @override
   void render(Canvas canvas) {
-    final multiplier = [
+    final multiplier = const [
       UnicornStage.baby,
       UnicornStage.child,
       UnicornStage.teen,
@@ -63,12 +62,12 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
     final textSize = _textPaint.measureText(amount.toString());
 
     const anchor = Anchor.topRight;
-    final size = _head.srcSize * 2;
+    final size = _head.srcSize * 0.8;
     final position = Vector2(-8, 0);
 
     canvas
       ..save()
-      ..translate(0, textSize.y * multiplier + 8);
+      ..translate(0, (textSize.y + 5) * multiplier + 10);
 
     _textPaint.render(
       canvas,
@@ -79,5 +78,20 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
 
     _head.render(canvas, size: size, position: position, anchor: anchor);
     canvas.restore();
+  }
+}
+
+extension on UnicornStage {
+  String get headAssetPath {
+    switch (this) {
+      case UnicornStage.baby:
+        return Assets.images.babyHead.path;
+      case UnicornStage.child:
+        return Assets.images.childHead.path;
+      case UnicornStage.teen:
+        return Assets.images.teenHead.path;
+      case UnicornStage.adult:
+        return Assets.images.adultHead.path;
+    }
   }
 }

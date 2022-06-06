@@ -83,7 +83,7 @@ void main() {
 
           game.update(0);
 
-          expect(unicorn.currentStage, UnicornStage.kid);
+          expect(unicorn.currentStage, UnicornStage.child);
         },
       );
     });

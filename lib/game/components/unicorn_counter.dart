@@ -43,7 +43,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
   Future<void> onLoad() async {
     // TODO(wolfen): when we have more sprites this should be based on stage.
     _head = await parent.gameRef.loadSprite(
-      Assets.images.unicorn.keyName,
+      Assets.images.childSprite.packagePath,
       srcSize: Vector2(11, 11),
       srcPosition: Vector2(18, 4),
     );
@@ -53,8 +53,8 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
   void render(Canvas canvas) {
     final multiplier = [
       UnicornStage.baby,
-      UnicornStage.kid,
-      UnicornStage.teenager,
+      UnicornStage.child,
+      UnicornStage.teen,
       UnicornStage.adult
     ].indexOf(stage);
     final amount = parent.unicorns

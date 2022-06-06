@@ -40,9 +40,9 @@ extension PetBehaviorIncreasePerStage on UnicornStage {
     switch (this) {
       case UnicornStage.baby:
         return 0.2;
-      case UnicornStage.kid:
+      case UnicornStage.child:
         return 0.16;
-      case UnicornStage.teenager:
+      case UnicornStage.teen:
         return 0.13;
       case UnicornStage.adult:
         return 0.1;

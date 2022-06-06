@@ -42,7 +42,8 @@ void main() {
 
       flameTester.test('for a kid unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
+        when(() => evolutionBehavior.currentStage)
+            .thenReturn(UnicornStage.child);
 
         final fullnessBehavior = FullnessBehavior();
         final unicorn = Unicorn.test(
@@ -62,7 +63,7 @@ void main() {
       flameTester.test('for a teenager unicorn', (game) async {
         final evolutionBehavior = _MockEvolutionBehavior();
         when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.teenager);
+            .thenReturn(UnicornStage.teen);
 
         final fullnessBehavior = FullnessBehavior();
         final unicorn = Unicorn.test(

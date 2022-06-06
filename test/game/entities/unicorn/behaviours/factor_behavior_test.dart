@@ -81,6 +81,7 @@ void main() {
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 0.5;
           factorBehavior.makeGaugeTemporarilyVisible();
+          game.update(GaugeComponent.animationDuration);
         },
         verify: (game, tester) async {
           await expectLater(
@@ -265,6 +266,7 @@ void main() {
           );
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 0.1;
+          game.update(GaugeComponent.animationDuration);
         },
         verify: (game, tester) async {
           await expectLater(

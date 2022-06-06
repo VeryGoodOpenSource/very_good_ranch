@@ -6,7 +6,7 @@ import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 class UnicornSpawner extends TimerComponent with HasGameRef {
   UnicornSpawner({
     required this.seed,
-    double spawnThreshold = 2.0,
+    double spawnThreshold = 20.0,
   }) : super(repeat: true, period: spawnThreshold);
 
   /// The random number generator for spawning unicorn.

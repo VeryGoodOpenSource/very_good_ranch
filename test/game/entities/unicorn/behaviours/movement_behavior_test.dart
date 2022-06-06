@@ -146,14 +146,14 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.transform.scale.x = 1;
+          unicorn.unicornComponent.transform.scale.x = 1;
 
           await game.ready();
           await game.ensureAdd(unicorn);
 
           game.update(10);
 
-          expect(unicorn.transform.scale.x, lessThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, lessThan(0));
         });
 
         flameTester.test('flips it back', (game) async {
@@ -168,14 +168,14 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.transform.scale.x = -1;
+          unicorn.unicornComponent.transform.scale.x = -1;
 
           await game.ready();
           await game.ensureAdd(unicorn);
 
           game.update(10);
 
-          expect(unicorn.transform.scale.x, greaterThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
         });
       });
     });

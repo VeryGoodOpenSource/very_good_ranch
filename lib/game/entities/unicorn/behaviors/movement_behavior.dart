@@ -26,12 +26,12 @@ class MovementBehavior extends Behavior<Unicorn>
       if (direction.x < 0) {
         // If it isn't flipped, flip it.
         if (!isFlipped) {
-          parent.flipHorizontallyAroundCenter();
+          parent.unicornComponent.flipHorizontallyAroundCenter();
         }
       } else {
         // If it was flipped, un-flip it.
         if (isFlipped) {
-          parent.flipHorizontallyAroundCenter();
+          parent.unicornComponent.flipHorizontallyAroundCenter();
         }
       }
     } else {

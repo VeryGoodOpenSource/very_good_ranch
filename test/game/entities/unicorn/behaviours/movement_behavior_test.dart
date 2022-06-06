@@ -60,7 +60,7 @@ void main() {
 
         expect(
           unicorn.position,
-          closeToVector(50, 50),
+          closeToVector(57.0, 50),
         );
       });
 
@@ -83,7 +83,7 @@ void main() {
 
         expect(
           unicorn.position,
-          closeToVector(32, 32),
+          closeToVector(57.0, 48.5),
         );
         expect(unicorn.state, UnicornState.idle);
       });

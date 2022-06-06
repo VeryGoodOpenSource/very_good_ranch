@@ -46,7 +46,7 @@ class Unicorn extends Entity {
       size: size,
       behaviors: behaviors,
       unicornComponent: _unicornComponent,
-    );
+    )..add(_unicornComponent);
   }
 
   Unicorn._({

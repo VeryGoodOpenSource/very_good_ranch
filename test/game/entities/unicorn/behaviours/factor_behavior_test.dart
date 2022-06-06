@@ -18,8 +18,8 @@ class _TestFactorBehavior extends FactorBehavior {
     return _TestFactorBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: 75,
-        thickness: 10,
+        size: 120,
+        thickness: 15,
         percentage: 1,
         color: Colors.lightBlue,
       ),
@@ -51,6 +51,7 @@ void main() {
               leavingBehavior,
             ],
           );
+
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 1.0;
           factorBehavior.makeGaugeTemporarilyVisible();
@@ -139,6 +140,8 @@ void main() {
           factorBehavior.percentage = 1.0;
         },
         verify: (game, tester) async {
+          await game.onLoadFuture;
+          await tester.pump();
           await expectLater(
             find.byGame<TestGame>(),
             matchesGoldenFile('golden/gauge/visibility-start.png'),

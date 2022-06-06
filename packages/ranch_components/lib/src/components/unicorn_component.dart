@@ -28,7 +28,7 @@ class BabyUnicornComponent extends UnicornComponent {
         );
 }
 
-/// {@template unicorn_component}
+/// {@template child_unicorn_component}
 /// A component that represents a brace face child unicorn.
 /// {@endtemplate}
 class ChildUnicornComponent extends UnicornComponent {

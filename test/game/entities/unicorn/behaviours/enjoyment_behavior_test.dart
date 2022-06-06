@@ -38,9 +38,9 @@ void main() {
         when(() => evolutionBehavior.currentStage)
             .thenReturn(UnicornStage.baby);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(enjoymentBehavior.percentage, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.7);
+        expect(enjoymentBehavior.percentage, 0.7);
       });
 
       flameTester.test('for a kid unicorn', (game) async {
@@ -59,9 +59,9 @@ void main() {
         await game.ensureAdd(unicorn);
         when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(enjoymentBehavior.percentage, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.8);
+        expect(enjoymentBehavior.percentage, 0.8);
       });
 
       flameTester.test('for a teenager unicorn', (game) async {
@@ -79,9 +79,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(enjoymentBehavior.percentage, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.9);
+        expect(enjoymentBehavior.percentage, 0.9);
       });
 
       flameTester.test('for an adult unicorn', (game) async {
@@ -99,9 +99,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(enjoymentBehavior.percentage, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.9);
+        expect(enjoymentBehavior.percentage, 0.9);
       });
     });
 
@@ -126,7 +126,8 @@ void main() {
             ],
           );
           await game.ensureAdd(unicorn);
-          unicorn.fullnessFactor = 1.0;
+          enjoymentBehavior.percentage = 1.0;
+          enjoymentBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
           await expectLater(

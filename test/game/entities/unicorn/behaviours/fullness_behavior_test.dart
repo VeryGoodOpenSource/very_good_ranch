@@ -35,9 +35,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, 1.0);
+        expect(fullnessBehavior.percentage, 1.0);
         game.update(FullnessBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, 0.9);
+        expect(fullnessBehavior.percentage, 0.9);
       });
 
       flameTester.test('for a kid unicorn', (game) async {
@@ -54,9 +54,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, 1.0);
+        expect(fullnessBehavior.percentage, 1.0);
         game.update(FullnessBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, 0.9);
+        expect(fullnessBehavior.percentage, 0.9);
       });
 
       flameTester.test('for a teenager unicorn', (game) async {
@@ -74,9 +74,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, 1.0);
+        expect(fullnessBehavior.percentage, 1.0);
         game.update(FullnessBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, 0.8);
+        expect(fullnessBehavior.percentage, 0.8);
       });
 
       flameTester.test('for an adult unicorn', (game) async {
@@ -94,9 +94,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.fullnessFactor, 1.0);
+        expect(fullnessBehavior.percentage, 1.0);
         game.update(FullnessBehavior.decreaseInterval);
-        expect(unicorn.fullnessFactor, 0.7);
+        expect(fullnessBehavior.percentage, 0.7);
       });
     });
 
@@ -121,7 +121,8 @@ void main() {
             ],
           );
           await game.ensureAdd(unicorn);
-          unicorn.fullnessFactor = 1.0;
+          fullnessBehavior.percentage = 1.0;
+          fullnessBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
           await expectLater(

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
@@ -71,7 +70,7 @@ class AdultUnicornComponent extends UnicornComponent {
 /// A component that represents a unicorn.
 /// {@endtemplate}
 abstract class UnicornComponent
-    extends SpriteAnimationGroupComponent<UnicornState> {
+    extends SpriteAnimationGroupComponent<UnicornState> with HasGameRef {
   /// {@macro unicorn_component}
   @visibleForTesting
   UnicornComponent({
@@ -92,7 +91,7 @@ abstract class UnicornComponent
   @override
   Future<void> onLoad() async {
     final sheet = SpriteSheet.fromColumnsAndRows(
-      image: await Flame.images.load(_fileName),
+      image: await gameRef.images.load(_fileName),
       columns: _columns,
       rows: UnicornState.values.length,
     );
@@ -108,7 +107,7 @@ abstract class UnicornComponent
     final roamAnimation = sheet.createAnimation(
       row: 1,
       stepTime: stepTime,
-      to: 3,
+      to: 1,
     );
 
     animations = {

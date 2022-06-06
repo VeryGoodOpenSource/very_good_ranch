@@ -37,9 +37,8 @@ class Unicorn extends Entity {
   factory Unicorn.test({
     required Vector2 position,
     Iterable<Behavior<Unicorn>>? behaviors,
-    UnicornComponent? unicornComponent,
   }) {
-    final _unicornComponent = unicornComponent ?? BabyUnicornComponent();
+    final _unicornComponent = BabyUnicornComponent();
     final size = _unicornComponent.size;
     return Unicorn._(
       position: position,
@@ -54,7 +53,7 @@ class Unicorn extends Entity {
     required super.size,
     super.behaviors,
     UnicornComponent? unicornComponent,
-  }) : _unicornComponent = unicornComponent ?? BabyUnicornComponent();
+  }) : _unicornComponent = unicornComponent;
 
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;

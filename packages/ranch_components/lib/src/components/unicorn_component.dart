@@ -32,7 +32,7 @@ class BabyUnicornComponent extends UnicornComponent {
 /// A component that represents a brace face child unicorn.
 /// {@endtemplate}
 class ChildUnicornComponent extends UnicornComponent {
-  /// {@macro unicorn_component}
+  /// {@macro child_unicorn_component}
   ChildUnicornComponent()
       : super(
           size: Vector2(71, 70),

@@ -26,6 +26,8 @@ class VeryGoodRanchGame extends FlameGame
     Flame.images.prefix = '';
   }
 
+  static const _virtualWidth = 800.0;
+
   /// The random number generator for this game, allowing it to be seed-able.
   final Random seed;
 
@@ -43,6 +45,12 @@ class VeryGoodRanchGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
+    final aspectRatio = size.x / size.y;
+    const width = _virtualWidth;
+    final height = width / aspectRatio;
+
+    camera.viewport = FixedResolutionViewport(Vector2(width, height));
+
     await add(
       FlameMultiBlocProvider(
         providers: [
@@ -60,7 +68,7 @@ class VeryGoodRanchGame extends FlameGame
 
     await add(
       UnicornCounter(
-        position: Vector2(size.x, 0),
+        position: Vector2(camera.viewport.effectiveSize.x, 0),
       ),
     );
   }

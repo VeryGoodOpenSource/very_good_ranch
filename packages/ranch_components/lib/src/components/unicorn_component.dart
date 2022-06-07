@@ -82,7 +82,6 @@ abstract class UnicornComponent
         super(
           size: size,
           current: UnicornState.idle,
-          anchor: Anchor.center,
         );
 
   final int _columns;

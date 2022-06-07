@@ -52,6 +52,12 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
   @mustCallSuper
   void update(double dt) {
     super.update(dt);
+    final currentPosition = Vector2.copy(_gaugeComponent.position);
+    final parentCenter = parent.size / 2;
+    if (currentPosition != parentCenter) {
+      _gaugeComponent.position = parentCenter;
+    }
+
     _visibilityTimer.update(dt);
     _gaugeComponent.percentage = percentage;
     final isLeaving = leavingBehavior?.isLeaving == true;

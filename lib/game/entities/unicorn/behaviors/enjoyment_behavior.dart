@@ -9,8 +9,8 @@ class EnjoymentBehavior extends FactorBehavior {
     return EnjoymentBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: 75,
-        thickness: 10,
+        size: 120,
+        thickness: 20,
         percentage: 1,
         color: Colors.lightBlue,
       ),
@@ -44,9 +44,9 @@ extension on UnicornStage {
     switch (this) {
       case UnicornStage.baby:
         return 0.3;
-      case UnicornStage.kid:
+      case UnicornStage.child:
         return 0.2;
-      case UnicornStage.teenager:
+      case UnicornStage.teen:
         return 0.1;
       case UnicornStage.adult:
         return 0.1;

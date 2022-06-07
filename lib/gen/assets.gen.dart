@@ -3,36 +3,82 @@
 ///  FlutterGen
 /// *****************************************************
 
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: directives_ordering,unnecessary_import
+
 import 'package:flutter/widgets.dart';
+
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  $AssetsFontsMouseMemoirsGen get mouseMemoirs =>
+      const $AssetsFontsMouseMemoirsGen();
+}
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/adult_head.png
+  AssetGenImage get adultHead =>
+      const AssetGenImage('assets/images/adult_head.png');
+
+  /// File path: assets/images/baby_head.png
+  AssetGenImage get babyHead =>
+      const AssetGenImage('assets/images/baby_head.png');
+
+  /// File path: assets/images/child_head.png
+  AssetGenImage get childHead =>
+      const AssetGenImage('assets/images/child_head.png');
+
+  /// File path: assets/images/teen_head.png
+  AssetGenImage get teenHead =>
+      const AssetGenImage('assets/images/teen_head.png');
+
+  /// File path: assets/images/title_header.png
   AssetGenImage get titleHeader =>
       const AssetGenImage('assets/images/title_header.png');
+
+  /// File path: assets/images/title_hills.png
   AssetGenImage get titleHills =>
       const AssetGenImage('assets/images/title_hills.png');
+}
+
+class $AssetsFontsMouseMemoirsGen {
+  const $AssetsFontsMouseMemoirsGen();
+
+  /// File path: assets/fonts/mouse_memoirs/MouseMemoirs-Regular.ttf
+  String get mouseMemoirsRegular =>
+      'assets/fonts/mouse_memoirs/MouseMemoirs-Regular.ttf';
+
+  /// File path: assets/fonts/mouse_memoirs/OFL.txt
+  String get ofl => 'assets/fonts/mouse_memoirs/OFL.txt';
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
-class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName);
+class AssetGenImage {
+  const AssetGenImage(this._assetName);
+
+  final String _assetName;
 
   Image image({
     Key? key,
+    AssetBundle? bundle,
     ImageFrameBuilder? frameBuilder,
-    ImageLoadingBuilder? loadingBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
+    double? scale = 1.0,
     double? width,
     double? height,
     Color? color,
+    Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
@@ -41,19 +87,24 @@ class AssetGenImage extends AssetImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
+    String? package,
     FilterQuality filterQuality = FilterQuality.low,
+    int? cacheWidth,
+    int? cacheHeight,
   }) {
-    return Image(
+    return Image.asset(
+      _assetName,
       key: key,
-      image: this,
+      bundle: bundle,
       frameBuilder: frameBuilder,
-      loadingBuilder: loadingBuilder,
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
       excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
       width: width,
       height: height,
       color: color,
+      opacity: opacity,
       colorBlendMode: colorBlendMode,
       fit: fit,
       alignment: alignment,
@@ -62,9 +113,12 @@ class AssetGenImage extends AssetImage {
       matchTextDirection: matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
+      package: package,
       filterQuality: filterQuality,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
     );
   }
 
-  String get path => assetName;
+  String get path => _assetName;
 }

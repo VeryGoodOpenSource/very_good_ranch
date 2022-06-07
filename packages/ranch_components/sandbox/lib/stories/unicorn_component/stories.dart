@@ -7,7 +7,16 @@ void addUnicornComponentStories(Dashbook dashbook) {
   dashbook.storiesOf('UnicornComponent').add(
     'idle',
     (context) {
-      final unicorn = UnicornComponent();
+      final unicorn = context.listProperty<UnicornComponent>(
+        'Unicorn stage',
+        BabyUnicornComponent(),
+        [
+          BabyUnicornComponent(),
+          ChildUnicornComponent(),
+          TeenUnicornComponent(),
+          AdultUnicornComponent(),
+        ],
+      );
 
       return GameWidget(
         game: StoryGame(unicorn..current = UnicornState.idle),
@@ -19,7 +28,16 @@ void addUnicornComponentStories(Dashbook dashbook) {
   ).add(
     'roaming',
     (context) {
-      final unicorn = UnicornComponent();
+      final unicorn = context.listProperty<UnicornComponent>(
+        'Unicorn stage',
+        BabyUnicornComponent(),
+        [
+          BabyUnicornComponent(),
+          ChildUnicornComponent(),
+          TeenUnicornComponent(),
+          AdultUnicornComponent(),
+        ],
+      );
 
       return GameWidget(
         game: StoryGame(unicorn..current = UnicornState.roaming),

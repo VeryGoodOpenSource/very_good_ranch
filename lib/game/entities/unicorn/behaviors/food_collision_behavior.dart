@@ -42,9 +42,9 @@ extension PreferredFoodType on UnicornStage {
     switch (this) {
       case UnicornStage.baby:
         return FoodType.candy;
-      case UnicornStage.kid:
+      case UnicornStage.child:
         return FoodType.lollipop;
-      case UnicornStage.teenager:
+      case UnicornStage.teen:
         return FoodType.iceCream;
       case UnicornStage.adult:
         return FoodType.pancake;
@@ -57,9 +57,9 @@ extension PreferredFoodType on UnicornStage {
     switch (this) {
       case UnicornStage.baby:
         return 0.3;
-      case UnicornStage.kid:
+      case UnicornStage.child:
         return 0.25;
-      case UnicornStage.teenager:
+      case UnicornStage.teen:
         return 0.2;
       case UnicornStage.adult:
         return 0.15;

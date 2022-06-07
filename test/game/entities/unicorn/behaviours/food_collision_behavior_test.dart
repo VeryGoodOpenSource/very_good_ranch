@@ -79,7 +79,7 @@ void main() {
       when(() => leavingBehavior.isLeaving).thenReturn(false);
 
       final evolutionBehavior = _MockEvolutionBehavior();
-      when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
+      when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.child);
 
       final foodCollisionBehavior = FoodCollisionBehavior();
       final unicorn = Unicorn.test(
@@ -146,7 +146,8 @@ void main() {
         when(() => leavingBehavior.isLeaving).thenReturn(false);
 
         final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.kid);
+        when(() => evolutionBehavior.currentStage)
+            .thenReturn(UnicornStage.child);
 
         final enjoymentBehavior = _MockEnjoymentBehavior();
         when(() => enjoymentBehavior.percentage).thenReturn(0.5);
@@ -178,8 +179,8 @@ void main() {
       group('in a positive way', () {
         for (final stageFullnessResult in {
           UnicornStage.baby: 0.3,
-          UnicornStage.kid: 0.25,
-          UnicornStage.teenager: 0.2,
+          UnicornStage.child: 0.25,
+          UnicornStage.teen: 0.2,
           UnicornStage.adult: 0.15,
         }.entries) {
           flameTester.test('for ${stageFullnessResult.key.name}', (game) async {

@@ -56,7 +56,7 @@ void main() {
 
         game.update(0);
 
-        expect(evolutionBehavior.currentStage, UnicornStage.kid);
+        expect(evolutionBehavior.currentStage, UnicornStage.child);
       });
 
       flameTester.test('from kid to teenager', (game) async {
@@ -64,7 +64,7 @@ void main() {
         final fullnessBehavior = _MockFullnessBehavior();
 
         final evolutionBehavior =
-            EvolutionBehavior.withInitialStage(UnicornStage.kid);
+            EvolutionBehavior.withInitialStage(UnicornStage.child);
 
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
@@ -78,14 +78,14 @@ void main() {
         await game.ensureAdd(unicorn);
         await game.ready();
 
-        expect(evolutionBehavior.currentStage, UnicornStage.kid);
+        expect(evolutionBehavior.currentStage, UnicornStage.child);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
         when(() => enjoymentBehavior.percentage).thenReturn(1);
         when(() => fullnessBehavior.percentage).thenReturn(1);
 
         game.update(0);
 
-        expect(evolutionBehavior.currentStage, UnicornStage.teenager);
+        expect(evolutionBehavior.currentStage, UnicornStage.teen);
       });
 
       flameTester.test('from teenager to adult', (game) async {
@@ -93,7 +93,7 @@ void main() {
         final fullnessBehavior = _MockFullnessBehavior();
 
         final evolutionBehavior = EvolutionBehavior.withInitialStage(
-          UnicornStage.teenager,
+          UnicornStage.teen,
         );
 
         final unicorn = Unicorn.test(
@@ -108,7 +108,7 @@ void main() {
         await game.ensureAdd(unicorn);
         game.update(5);
 
-        expect(evolutionBehavior.currentStage, UnicornStage.teenager);
+        expect(evolutionBehavior.currentStage, UnicornStage.teen);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
         when(() => enjoymentBehavior.percentage).thenReturn(1);
         when(() => fullnessBehavior.percentage).thenReturn(1);
@@ -156,7 +156,7 @@ void main() {
           final fullnessBehavior = _MockFullnessBehavior();
 
           final evolutionBehavior =
-              EvolutionBehavior.withInitialStage(UnicornStage.kid);
+              EvolutionBehavior.withInitialStage(UnicornStage.child);
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
@@ -169,14 +169,14 @@ void main() {
           await game.ready();
           await game.ensureAdd(unicorn);
 
-          expect(evolutionBehavior.currentStage, UnicornStage.kid);
+          expect(evolutionBehavior.currentStage, UnicornStage.child);
           unicorn.timesFed = 0;
           when(() => enjoymentBehavior.percentage).thenReturn(1);
           when(() => fullnessBehavior.percentage).thenReturn(1);
 
           game.update(0);
 
-          expect(evolutionBehavior.currentStage, UnicornStage.kid);
+          expect(evolutionBehavior.currentStage, UnicornStage.child);
         },
       );
 
@@ -187,7 +187,7 @@ void main() {
           final fullnessBehavior = _MockFullnessBehavior();
 
           final evolutionBehavior =
-              EvolutionBehavior.withInitialStage(UnicornStage.kid);
+              EvolutionBehavior.withInitialStage(UnicornStage.child);
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
@@ -200,14 +200,14 @@ void main() {
           await game.ready();
           await game.ensureAdd(unicorn);
 
-          expect(evolutionBehavior.currentStage, UnicornStage.kid);
+          expect(evolutionBehavior.currentStage, UnicornStage.child);
           unicorn.timesFed = 1;
           when(() => enjoymentBehavior.percentage).thenReturn(0);
           when(() => fullnessBehavior.percentage).thenReturn(0);
 
           game.update(0);
 
-          expect(evolutionBehavior.currentStage, UnicornStage.kid);
+          expect(evolutionBehavior.currentStage, UnicornStage.child);
         },
       );
     });
@@ -220,7 +220,7 @@ void main() {
           final fullnessBehavior = _MockFullnessBehavior();
 
           final evolutionBehavior =
-              EvolutionBehavior.withInitialStage(UnicornStage.kid);
+              EvolutionBehavior.withInitialStage(UnicornStage.child);
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
@@ -233,7 +233,7 @@ void main() {
           await game.ready();
           await game.ensureAdd(unicorn);
 
-          expect(evolutionBehavior.currentStage, UnicornStage.kid);
+          expect(evolutionBehavior.currentStage, UnicornStage.child);
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
           // Setting happiness to above the threshold, but not full
@@ -242,7 +242,7 @@ void main() {
 
           game.update(0);
 
-          expect(evolutionBehavior.currentStage, UnicornStage.teenager);
+          expect(evolutionBehavior.currentStage, UnicornStage.teen);
           verify(enjoymentBehavior.reset).called(1);
           verify(fullnessBehavior.reset).called(1);
         },

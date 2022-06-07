@@ -50,7 +50,7 @@ void main() {
           behaviors: [
             movementBehavior,
           ],
-        );
+        )..size = Vector2.all(32);
         unicorn.state = UnicornState.roaming;
 
         await game.ready();
@@ -60,7 +60,7 @@ void main() {
 
         expect(
           unicorn.position,
-          closeToVector(50, 50),
+          closeToVector(50.0, 50.0),
         );
       });
 
@@ -73,7 +73,7 @@ void main() {
           behaviors: [
             movementBehavior,
           ],
-        );
+        )..size = Vector2.all(32);
         unicorn.state = UnicornState.roaming;
 
         await game.ready();
@@ -83,7 +83,7 @@ void main() {
 
         expect(
           unicorn.position,
-          closeToVector(32, 32),
+          closeToVector(32.0, 32.0),
         );
         expect(unicorn.state, UnicornState.idle);
       });

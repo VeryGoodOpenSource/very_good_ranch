@@ -8,7 +8,7 @@ import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 abstract class FactorBehavior extends Behavior<Unicorn> {
   FactorBehavior(this._gaugeComponent) : super(children: [_gaugeComponent]);
 
-  static double visibilityDuration = 1;
+  static double visibilityDuration = 1.5;
 
   final GaugeComponent _gaugeComponent;
 

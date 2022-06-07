@@ -73,5 +73,34 @@ void main() {
         expect(game.overlays.isActive('test'), false);
       },
     );
+
+    group('viewport', () {
+      group('big square viewport', () {
+        final configuredViewportTester = flameTester.configure(
+          gameSize: Vector2(4000, 4000),
+        );
+        configuredViewportTester.test('assumes aspect ratio', (game) {
+          expect(game.camera.viewport.effectiveSize, Vector2(800, 800));
+        });
+      });
+
+      group('narrow portrait viewport', () {
+        final configuredViewportTester = flameTester.configure(
+          gameSize: Vector2(1000, 4000),
+        );
+        configuredViewportTester.test('assumes aspect ratio', (game) {
+          expect(game.camera.viewport.effectiveSize, Vector2(800, 3200));
+        });
+      });
+
+      group('narrow portrait viewport', () {
+        final configuredViewportTester = flameTester.configure(
+          gameSize: Vector2(500, 100),
+        );
+        configuredViewportTester.test('assumes aspect ratio', (game) {
+          expect(game.camera.viewport.effectiveSize, Vector2(800, 160));
+        });
+      });
+    });
   });
 }

@@ -92,7 +92,7 @@ class VeryGoodRanchGame extends FlameGame
 }
 
 /// Defines the area win which unicorns will appear, roam about and eat.
-class PastureArea extends PositionComponent with HasPaint, HasGameRef {
+class PastureArea extends PositionComponent with HasGameRef {
   PastureArea({super.children});
 
   static const padding = EdgeInsets.only(

@@ -9,12 +9,13 @@ void addRanchBackgroundComponentStories(Dashbook dashbook) {
     (context) {
       final unicornX = context.numberProperty('unicorn x', 350);
       final unicornY = context.numberProperty('unicorn y', 1200);
-      final unicorn = AdultUnicornComponent()..position = Vector2(unicornX, unicornY);
+      final unicorn = AdultUnicornComponent()
+        ..position = Vector2(unicornX, unicornY);
       return GameWidget(
         game: StoryGame(
-          RanchBackgroundComponent(children: [
-            unicorn
-          ]),
+          BackgroundComponent(
+            children: [unicorn],
+          ),
         ),
       );
     },

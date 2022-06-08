@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class GameViewport extends StatefulWidget {
   const GameViewport({
@@ -20,7 +20,7 @@ class _GameViewportState extends State<GameViewport> {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: const Color(0xFF131433),
+      color: Colors.black,
       child: Center(
         child: AspectRatio(
           // Cannot clamp inline because of https://github.com/dart-lang/sdk/issues/48812

@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
+import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -27,16 +28,23 @@ void main() {
       'spawns a unicorn',
       setUp: (game, tester) async {
         when(() => seed.nextDouble()).thenReturn(1);
-        await game.add(UnicornSpawner(seed: seed));
+        await game.add(
+          PastureArea(
+            children: [
+              UnicornSpawner(seed: seed),
+            ],
+          ),
+        );
 
         await game.ready();
         game.update(20);
         await game.ready();
       },
       verify: (game, tester) async {
-        final unicornComponents = game.children.whereType<Unicorn>();
+        final pastureArea = game.children.whereType<PastureArea>().first;
+        final unicornComponents = pastureArea.children.whereType<Unicorn>();
         expect(unicornComponents.length, 1);
-        expect(unicornComponents.first.position, game.size);
+        expect(unicornComponents.first.position, pastureArea.size);
       },
     );
   });

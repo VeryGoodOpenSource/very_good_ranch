@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
+import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
-class UnicornSpawner extends TimerComponent with HasGameRef {
+class UnicornSpawner extends TimerComponent with ParentIsA<PastureArea> {
   UnicornSpawner({
     required this.seed,
     double spawnThreshold = 20.0,
@@ -19,7 +20,8 @@ class UnicornSpawner extends TimerComponent with HasGameRef {
     if (seed.nextDouble() < .5) {
       return;
     }
-    final position = Vector2.random(seed)..multiply(gameRef.size);
-    gameRef.add(Unicorn(position: position));
+    final position = Vector2.random(seed)..multiply(parent.size);
+
+    parent.add(Unicorn(position: position));
   }
 }

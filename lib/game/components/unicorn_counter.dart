@@ -3,9 +3,11 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
+import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 
-class UnicornCounter extends PositionComponent with HasGameRef {
+class UnicornCounter extends PositionComponent
+    with HasGameRef<VeryGoodRanchGame> {
   UnicornCounter({
     required super.position,
   });
@@ -17,8 +19,8 @@ class UnicornCounter extends PositionComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    gameRef.children.register<Unicorn>();
-    unicorns = gameRef.children.query<Unicorn>();
+    gameRef.pastureArea.children.register<Unicorn>();
+    unicorns = gameRef.pastureArea.children.query<Unicorn>();
 
     await addAll(UnicornStage.values.map(_UnicornHead.new));
   }
@@ -29,7 +31,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
 
   static final _textPaint = TextPaint(
     style: GoogleFonts.mouseMemoirs(
-      color: Colors.black,
+      color: Colors.white,
       fontSize: 24,
       height: 1.2,
     ),

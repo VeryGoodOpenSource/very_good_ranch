@@ -44,16 +44,24 @@ class MovementBehavior extends Behavior<Unicorn>
   void update(double dt) {
     if (parent.state == UnicornState.roaming) {
       parent.position += direction * (speed * dt);
-      parent.position.clamp(parent.size, gameRef.size - parent.size);
 
-      if (parent.position.x == parent.size.x ||
-          parent.position.x == gameRef.size.x - parent.size.x ||
-          parent.position.y == parent.size.y ||
-          parent.position.y == gameRef.size.y - parent.size.y) {
+      final origin = Vector2.zero();
+      final limit = gameRef.pastureArea.size - parent.size;
+
+      parent.position.clamp(origin, limit);
+
+      final goingRight = direction.x > 0;
+      final goingBottom = direction.y > 0;
+
+      if ((goingRight && parent.position.x == limit.x) ||
+          (!goingRight && parent.position.x == 0) ||
+          (goingBottom && parent.position.y == limit.y) ||
+          (!goingBottom && parent.position.y == 0)) {
         parent.state = UnicornState.idle;
         direction.setZero();
       }
     }
+
     super.update(dt);
   }
 }

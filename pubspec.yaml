@@ -9,7 +9,7 @@ environment:
 dependencies:
   bloc: ^8.0.3
   equatable: ^2.0.3
-  flame: ^1.1.1
+  flame: ^1.2.0
   flame_behaviors:
     git:
       url: https://github.com/VeryGoodOpenSource/flame_behaviors
@@ -35,11 +35,6 @@ dev_dependencies:
   mocktail: ^0.3.0
   very_good_analysis: ^3.0.0
 
-dependency_overrides:
-  flame:
-    git:
-      url: https://github.com/flame-engine/flame
-      path: packages/flame
 
 flutter:
   uses-material-design: true

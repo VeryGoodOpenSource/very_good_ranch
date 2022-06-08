@@ -13,11 +13,14 @@ class StoryGame extends FlameGame {
   final PositionComponent component;
 
   @override
-  Color backgroundColor() => const Color(0xFFFFFFFF);
+  Color backgroundColor() => const Color(0xFF52C1B1);
+
+  bool get debugMode => true;
+
 
   @override
   Future<void> onLoad() async {
-    camera.followVector2(Vector2.zero());
+   // camera.followVector2(Vector2.zero());
     await add(component);
   }
 }

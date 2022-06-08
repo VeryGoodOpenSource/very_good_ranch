@@ -20,6 +20,9 @@ class $AssetsImagesGen {
   AssetGenImage get babySprite =>
       const AssetGenImage('assets/images/baby_sprite.png');
 
+  /// File path: assets/images/barn.png
+  AssetGenImage get barn => const AssetGenImage('assets/images/barn.png');
+
   /// File path: assets/images/cake.png
   AssetGenImage get cake => const AssetGenImage('assets/images/cake.png');
 
@@ -29,6 +32,21 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/donut.png
   AssetGenImage get donut => const AssetGenImage('assets/images/donut.png');
+
+  /// File path: assets/images/flower_duo.png
+  AssetGenImage get flowerDuo =>
+      const AssetGenImage('assets/images/flower_duo.png');
+
+  /// File path: assets/images/flower_solo.png
+  AssetGenImage get flowerSolo =>
+      const AssetGenImage('assets/images/flower_solo.png');
+
+  /// File path: assets/images/glower_group.png
+  AssetGenImage get glowerGroup =>
+      const AssetGenImage('assets/images/glower_group.png');
+
+  /// File path: assets/images/grass.png
+  AssetGenImage get grass => const AssetGenImage('assets/images/grass.png');
 
   /// File path: assets/images/icecream.png
   AssetGenImage get icecream =>
@@ -45,6 +63,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/teen_sprite.png
   AssetGenImage get teenSprite =>
       const AssetGenImage('assets/images/teen_sprite.png');
+
+  /// File path: assets/images/tree_lined.png
+  AssetGenImage get treeLined =>
+      const AssetGenImage('assets/images/tree_lined.png');
+
+  /// File path: assets/images/tree_short.png
+  AssetGenImage get treeShort =>
+      const AssetGenImage('assets/images/tree_short.png');
+
+  /// File path: assets/images/treet_tall.png
+  AssetGenImage get treetTall =>
+      const AssetGenImage('assets/images/treet_tall.png');
 }
 
 class Assets {
@@ -112,6 +142,7 @@ class AssetGenImage {
   }
 
   String get path => _assetName;
+
 
   // Todo(renancaraujo): use generated code once this lands: https://github.com/FlutterGen/flutter_gen/pull/251
   String get packagePath => 'packages/ranch_components/$_assetName';

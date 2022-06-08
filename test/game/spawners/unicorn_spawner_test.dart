@@ -42,6 +42,7 @@ void main() {
       },
       verify: (game, tester) async {
         final pastureArea = game.children.whereType<PastureField>().first;
+
         final unicornComponents = pastureArea.children.whereType<Unicorn>();
         expect(unicornComponents.length, 1);
         expect(unicornComponents.first.position, pastureArea.size);

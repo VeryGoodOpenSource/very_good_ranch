@@ -37,13 +37,13 @@ class $AssetsImagesGen {
   AssetGenImage get flowerDuo =>
       const AssetGenImage('assets/images/flower_duo.png');
 
+  /// File path: assets/images/flower_group.png
+  AssetGenImage get flowerGroup =>
+      const AssetGenImage('assets/images/flower_group.png');
+
   /// File path: assets/images/flower_solo.png
   AssetGenImage get flowerSolo =>
       const AssetGenImage('assets/images/flower_solo.png');
-
-  /// File path: assets/images/glower_group.png
-  AssetGenImage get glowerGroup =>
-      const AssetGenImage('assets/images/glower_group.png');
 
   /// File path: assets/images/grass.png
   AssetGenImage get grass => const AssetGenImage('assets/images/grass.png');
@@ -72,9 +72,13 @@ class $AssetsImagesGen {
   AssetGenImage get treeShort =>
       const AssetGenImage('assets/images/tree_short.png');
 
-  /// File path: assets/images/treet_tall.png
-  AssetGenImage get treetTall =>
-      const AssetGenImage('assets/images/treet_tall.png');
+  /// File path: assets/images/tree_tall.png
+  AssetGenImage get treeTall =>
+      const AssetGenImage('assets/images/tree_tall.png');
+
+  /// File path: assets/images/tree_trio.png
+  AssetGenImage get treeTrio =>
+      const AssetGenImage('assets/images/tree_trio.png');
 }
 
 class Assets {

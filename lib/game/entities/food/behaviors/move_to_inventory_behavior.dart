@@ -8,7 +8,7 @@ class MoveToInventoryBehavior extends DoubleTapBehavior<Food>
     with FlameBlocReader<InventoryBloc, InventoryState> {
   @override
   bool onDoubleTapDown(TapDownInfo info) {
-    parent.shouldRemove = true;
+    parent.removeFromParent();
     bloc.add(FoodItemAdded(parent.type));
     return false;
   }

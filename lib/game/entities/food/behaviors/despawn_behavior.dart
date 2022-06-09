@@ -22,7 +22,7 @@ class DespawnBehavior extends Behavior<Food> {
   }
 
   void onDespawn() {
-    parent.shouldRemove = true;
+    parent.removeFromParent();
   }
 
   @override

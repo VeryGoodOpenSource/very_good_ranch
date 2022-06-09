@@ -28,11 +28,11 @@ void main() {
         final food = game.descendants().whereType<Food>().first;
         game.update(0.5);
 
-        expect(food.shouldRemove, isFalse);
+        expect(food.isRemoving, isFalse);
 
         game.update(0.5);
 
-        expect(food.shouldRemove, isTrue);
+        expect(food.isRemoving, isTrue);
       },
     );
 
@@ -52,20 +52,20 @@ void main() {
       verify: (game, tester) async {
         final food = game.descendants().whereType<Food>().first;
         game.update(0.5);
-        expect(food.shouldRemove, isFalse);
+        expect(food.isRemoving, isFalse);
 
         final gesture = await tester.createGesture();
         await gesture.down(Offset.zero);
         await gesture.moveTo(const Offset(100, 100));
         await tester.pump();
         game.update(0.5);
-        expect(food.shouldRemove, isFalse);
+        expect(food.isRemoving, isFalse);
 
         await gesture.up();
         await tester.pump();
         await tester.pump();
         game.update(1);
-        expect(food.shouldRemove, isTrue);
+        expect(food.isRemoving, isTrue);
 
         game.pauseEngine();
         await tester.pumpAndSettle();

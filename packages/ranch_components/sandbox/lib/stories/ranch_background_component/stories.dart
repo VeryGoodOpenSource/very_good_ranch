@@ -21,7 +21,7 @@ void addRanchBackgroundComponentStories(Dashbook dashbook) {
     },
     info: '''
       The RanchBackgroundComponent is a component that render the geenral 
-      background of a farm and defines a pasture area
+      background of a farm and defines a pasture field
 
       - It can accommodate unicorns
 ''',

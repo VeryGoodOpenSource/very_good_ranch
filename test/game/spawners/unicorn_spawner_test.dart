@@ -52,7 +52,7 @@ void main() {
         expect(unicornComponents.length, 1);
         expect(
           unicornComponents.first.position,
-          backgroundCompoennt.pastureArea.bottomRight.toVector2(),
+          backgroundCompoennt.pastureField.bottomRight.toVector2(),
         );
       },
     );

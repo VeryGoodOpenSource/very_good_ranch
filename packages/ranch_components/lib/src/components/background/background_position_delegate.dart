@@ -9,12 +9,12 @@ import 'package:ranch_components/src/components/background/background_component.
 class BackgroundPositionDelegate {
   const BackgroundPositionDelegate({
     required this.seed,
-    required this.pastureArea,
+    required this.pastureField,
     this.config = RanchBackgroundConfig.def,
   });
 
   final Random seed;
-  final Rect pastureArea;
+  final Rect pastureField;
   final RanchBackgroundConfig config;
 
   Vector2 getPositionForBarn() {
@@ -23,24 +23,24 @@ class BackgroundPositionDelegate {
 
   Vector2 getPositionForTreeTrio1(Vector2 size) {
     return Vector2(
-      pastureArea.right - size.x - 10,
-      pastureArea.top - size.y,
+      pastureField.right - size.x - 10,
+      pastureField.top - size.y,
     );
   }
 
   Vector2 getPositionForTreeTrio2(Vector2 size) {
-    final xOffset = pastureArea.width / 2 * seed.nextDouble();
+    final xOffset = pastureField.width / 2 * seed.nextDouble();
     return Vector2(
-      pastureArea.left + xOffset,
-      pastureArea.bottom - size.y + 10,
+      pastureField.left + xOffset,
+      pastureField.bottom - size.y + 10,
     );
   }
 
   Vector2 getPositionForTreeTrio3(Vector2 size) {
-    final xOffset = pastureArea.width / 2 * seed.nextDouble();
+    final xOffset = pastureField.width / 2 * seed.nextDouble();
     return Vector2(
-      pastureArea.right - size.x - xOffset,
-      pastureArea.bottom - size.y + 25,
+      pastureField.right - size.x - xOffset,
+      pastureField.bottom - size.y + 25,
     );
   }
 
@@ -50,11 +50,11 @@ class BackgroundPositionDelegate {
     double maxX,
   ) {
     final sideTreesSpacing = config.sideTreesSpacing;
-    final numTrees = (pastureArea.height / sideTreesSpacing).floor();
+    final numTrees = (pastureField.height / sideTreesSpacing).floor();
 
     final res = <Vector2>[];
     for (var i = 0; i < numTrees; i++) {
-      final baseY = pastureArea.top + i * sideTreesSpacing;
+      final baseY = pastureField.top + i * sideTreesSpacing;
       final variationY = seed.nextDouble() * sideTreesSpacing;
 
       final y = baseY + variationY;
@@ -70,28 +70,28 @@ class BackgroundPositionDelegate {
 
   List<Vector2> getPositionsForLeftSideTrees(Vector2 size) {
     const minX = 0.0;
-    final maxX = pastureArea.left - size.x;
+    final maxX = pastureField.left - size.x;
 
     return _getPositionsForSideTrees(size, minX, maxX);
   }
 
   List<Vector2> getPositionsForRightSideTrees(Vector2 size, double maxX) {
-    final minX = pastureArea.right;
+    final minX = pastureField.right;
 
     return _getPositionsForSideTrees(size, minX, maxX - size.x);
   }
 
   List<Vector2> getPositionsForGrasses(Vector2 size) {
     final numGrass =
-        (pastureArea.width * pastureArea.height / config.grassScatter).floor();
+        (pastureField.width * pastureField.height / config.grassScatter).floor();
 
     final res = <Vector2>[];
     for (var i = 0; i < numGrass; i++) {
       final position = Vector2.random(seed)
         ..multiply(
-          pastureArea.size.toVector2(),
+          pastureField.size.toVector2(),
         );
-      res.add(pastureArea.topLeft.toVector2() + position);
+      res.add(pastureField.topLeft.toVector2() + position);
     }
 
     return res;
@@ -103,9 +103,9 @@ class BackgroundPositionDelegate {
     for (var i = 0; i < numflowers; i++) {
       final position = Vector2.random(seed)
         ..multiply(
-          pastureArea.size.toVector2(),
+          pastureField.size.toVector2(),
         );
-      res.add(pastureArea.topLeft.toVector2() + position);
+      res.add(pastureField.topLeft.toVector2() + position);
     }
 
     return res;
@@ -117,9 +117,9 @@ class BackgroundPositionDelegate {
     for (var i = 0; i < numflowers; i++) {
       final position = Vector2.random(seed)
         ..multiply(
-          pastureArea.size.toVector2(),
+          pastureField.size.toVector2(),
         );
-      res.add(pastureArea.topLeft.toVector2() + position);
+      res.add(pastureField.topLeft.toVector2() + position);
     }
 
     return res;
@@ -131,9 +131,9 @@ class BackgroundPositionDelegate {
     for (var i = 0; i < numGroup; i++) {
       final position = Vector2.random(seed)
         ..multiply(
-          pastureArea.size.toVector2(),
+          pastureField.size.toVector2(),
         );
-      res.add(pastureArea.topLeft.toVector2() + position);
+      res.add(pastureField.topLeft.toVector2() + position);
     }
 
     return res;

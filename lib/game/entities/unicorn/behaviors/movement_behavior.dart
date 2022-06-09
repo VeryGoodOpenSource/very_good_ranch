@@ -46,9 +46,9 @@ class MovementBehavior extends Behavior<Unicorn>
     if (parent.state == UnicornState.roaming) {
       parent.position += direction * (speed * dt);
 
-      final origin = gameRef.background.pastureArea.topLeft.toVector2();
+      final origin = gameRef.background.pastureField.topLeft.toVector2();
       final limit =
-          gameRef.background.pastureArea.bottomRight.toVector2() - parent.size;
+          gameRef.background.pastureField.bottomRight.toVector2() - parent.size;
 
       parent.position.clamp(origin, limit);
 

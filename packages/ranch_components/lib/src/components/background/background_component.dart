@@ -9,7 +9,7 @@ import 'package:ranch_components/src/components/background/background_elements.d
 import 'package:ranch_components/src/components/background/background_position_delegate.dart';
 
 class BackgroundComponent extends PositionComponent with HasGameRef {
-  BackgroundComponent({super.children, this.positioner});
+  BackgroundComponent({super.children, this.delegate});
 
   static const padding = EdgeInsets.only(
     top: 170,
@@ -18,19 +18,19 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
     bottom: 30,
   );
 
-  BackgroundPositionDelegate? positioner;
+  BackgroundPositionDelegate? delegate;
 
-  late final Rect pastureArea;
+  late final Rect pastureField;
 
-  void _calculatePastureArea() {
+  void _calculatePastureField() {
     final paddingDeflection = Vector2(padding.horizontal, padding.vertical);
     final paddingPosition = Vector2(padding.left, padding.top);
-    final pastureAreaSize = size - paddingDeflection;
-    final pastureAreaPosition = paddingPosition;
+    final pastureFieldSize = size - paddingDeflection;
+    final pastureFieldPosition = paddingPosition;
 
-    pastureArea = Rect.fromPoints(
-      pastureAreaPosition.toOffset(),
-      pastureAreaPosition.toOffset() + pastureAreaSize.toOffset(),
+    pastureField = Rect.fromPoints(
+      pastureFieldPosition.toOffset(),
+      pastureFieldPosition.toOffset() + pastureFieldSize.toOffset(),
     );
   }
 
@@ -38,41 +38,41 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
   Future<void> onLoad() async {
     size = gameRef.camera.viewport.effectiveSize;
 
-    _calculatePastureArea();
+    _calculatePastureField();
 
-    final positioner = this.positioner ??= BackgroundPositionDelegate(
+    final delegate = this.delegate ??= BackgroundPositionDelegate(
       seed: Random(),
-      pastureArea: pastureArea,
+      pastureField: pastureField,
     );
 
     // Add barn
-    await add(Barn(position: positioner.getPositionForBarn()));
+    await add(Barn(position: delegate.getPositionForBarn()));
 
     // Add 3 tree trios:
     // one at the top
     await add(
       TreeTrio(
-        position: positioner.getPositionForTreeTrio1(TreeTrio.dimensions),
+        position: delegate.getPositionForTreeTrio1(TreeTrio.dimensions),
       ),
     );
 
     // one at bottom left
     await add(
       TreeTrio(
-        position: positioner.getPositionForTreeTrio2(TreeTrio.dimensions),
+        position: delegate.getPositionForTreeTrio2(TreeTrio.dimensions),
       )..priority = 1,
     );
 
     // one at bottom left
     await add(
       TreeTrio(
-        position: positioner.getPositionForTreeTrio3(TreeTrio.dimensions),
+        position: delegate.getPositionForTreeTrio3(TreeTrio.dimensions),
       )..priority = 1,
     );
 
     // Add trees to the left
     final leftSideTreePositions =
-        positioner.getPositionsForLeftSideTrees(TreeTall.dimensions);
+        delegate.getPositionsForLeftSideTrees(TreeTall.dimensions);
     for (final leftSideTreePosition in leftSideTreePositions) {
       await add(
         TreeTall(
@@ -83,7 +83,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add trees to the right
     final rightSideTreePositions =
-        positioner.getPositionsForRightSideTrees(TreeShort.dimensions, size.x);
+        delegate.getPositionsForRightSideTrees(TreeShort.dimensions, size.x);
     for (final rightSideTreePosition in rightSideTreePositions) {
       await add(
         TreeShort(
@@ -94,7 +94,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add all the grass
     final grassesPositions =
-        positioner.getPositionsForGrasses(Grass.dimensions);
+        delegate.getPositionsForGrasses(Grass.dimensions);
     for (final grassPosition in grassesPositions) {
       await add(
         Grass(
@@ -105,7 +105,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add flowers solo
     final soloFlowersPositions =
-        positioner.getPositionsForFlowerSolo(FlowerSolo.dimensions);
+        delegate.getPositionsForFlowerSolo(FlowerSolo.dimensions);
     for (final soloFlowersPosition in soloFlowersPositions) {
       await add(
         FlowerSolo(
@@ -116,7 +116,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add flowers duo
     final duoFlowersPositions =
-        positioner.getPositionsForFlowerDuo(FlowerDuo.dimensions);
+        delegate.getPositionsForFlowerDuo(FlowerDuo.dimensions);
     for (final duoFlowersPosition in duoFlowersPositions) {
       await add(
         FlowerDuo(
@@ -127,7 +127,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add groups of flowers
     final flowerGroupPositions =
-        positioner.getPositionsForFlowerDuo(FlowerGroup.dimensions);
+        delegate.getPositionsForFlowerDuo(FlowerGroup.dimensions);
     for (final flowerGroupPosition in flowerGroupPositions) {
       await add(
         FlowerGroup(

@@ -25,7 +25,6 @@ void main() {
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
-      debugMode: false,
     ),
   );
 

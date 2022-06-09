@@ -42,10 +42,10 @@ class FoodSpawner extends TimerComponent
   }
 
   void _spawnFood(FoodType type) {
-    final pastureArea = parent.pastureArea;
+    final pastureField = parent.pastureField;
     final position = Vector2.random(seed)
-      ..multiply(pastureArea.size.toVector2())
-      ..add(pastureArea.topLeft.toVector2())
+      ..multiply(pastureField.size.toVector2())
+      ..add(pastureField.topLeft.toVector2())
       ..sub(type.size);
 
     switch (type) {

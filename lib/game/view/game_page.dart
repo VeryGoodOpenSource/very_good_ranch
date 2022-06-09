@@ -44,7 +44,6 @@ class _GamePageState extends State<GamePage> {
       child: Scaffold(
         body: Column(
           children: [
-            const HeaderWidget(),
             Expanded(
               child: ClipRect(
                 child: GameView(game: _game),

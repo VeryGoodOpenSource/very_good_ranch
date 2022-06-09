@@ -64,28 +64,106 @@ void main() {
         );
       });
 
-      flameTester.test('starts idling if border is reached', (game) async {
-        final movementBehavior = MovementBehavior();
-        movementBehavior.direction = Vector2(-1, -1);
+      group('starts idling ', () {
+        flameTester.test('if top border is reached', (game) async {
+          final movementBehavior = MovementBehavior();
+          movementBehavior.direction = Vector2(-1, -1);
 
-        final unicorn = Unicorn.test(
-          position: Vector2.zero(),
-          behaviors: [
-            movementBehavior,
-          ],
-        )..size = Vector2.all(32);
-        unicorn.state = UnicornState.roaming;
+          final unicorn = Unicorn.test(
+            position: Vector2(100, 0),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
+          unicorn.state = UnicornState.roaming;
 
-        await game.ready();
-        await game.ensureAdd(unicorn);
+          await game.ready();
+          await game.ensureAdd(unicorn);
 
-        game.update(5);
+          game.update(1);
 
-        expect(
-          unicorn.position,
-          closeToVector(32.0, 32.0),
-        );
-        expect(unicorn.state, UnicornState.idle);
+          expect(
+            unicorn.position,
+            closeToVector(90, 0),
+          );
+          expect(unicorn.state, UnicornState.idle);
+        });
+
+        flameTester.test('if left border is reached', (game) async {
+          final movementBehavior = MovementBehavior();
+          movementBehavior.direction = Vector2(-1, -1);
+
+          final unicorn = Unicorn.test(
+            position: Vector2(0, 100),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
+          unicorn.state = UnicornState.roaming;
+
+          await game.ready();
+          await game.ensureAdd(unicorn);
+
+          game.update(1);
+
+          expect(
+            unicorn.position,
+            closeToVector(0, 90),
+          );
+          expect(unicorn.state, UnicornState.idle);
+        });
+
+        flameTester.test('if bottom border is reached', (game) async {
+          final movementBehavior = MovementBehavior();
+          movementBehavior.direction = Vector2(1, 1);
+
+          final unicorn = Unicorn.test(
+            position: Vector2(0, game.pastureArea.size.y),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
+          unicorn.state = UnicornState.roaming;
+
+          await game.ready();
+          await game.ensureAdd(unicorn);
+
+          game.update(1);
+
+          final limit = game.pastureArea.size - unicorn.size;
+
+          expect(
+            unicorn.position,
+            closeToVector(10, limit.y),
+          );
+          expect(unicorn.state, UnicornState.idle);
+        });
+
+        flameTester.test('if right border is reached', (game) async {
+          final movementBehavior = MovementBehavior();
+          movementBehavior.direction = Vector2(1, 1);
+
+          final unicorn = Unicorn.test(
+            position: Vector2(game.pastureArea.size.x, 0),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
+          unicorn.state = UnicornState.roaming;
+
+          await game.ready();
+          await game.ensureAdd(unicorn);
+
+          game.update(1);
+
+          final limit = game.pastureArea.size - unicorn.size;
+
+          expect(
+            unicorn.position,
+            closeToVector(limit.x, 10),
+          );
+          expect(unicorn.state, UnicornState.idle);
+        });
       });
     });
 

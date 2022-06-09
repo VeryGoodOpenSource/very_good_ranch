@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
+import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/spawners/food_spawner.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 
@@ -37,11 +38,16 @@ void main() {
       'spawns a candy',
       setUp: (game, tester) async {
         when(() => seed.nextInt(100)).thenReturn(0);
+
         await game.ensureAdd(
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: FoodSpawner(seed: seed),
+            child: PastureField(
+              children: [
+                FoodSpawner(seed: seed),
+              ],
+            ),
           ),
         );
 
@@ -64,7 +70,11 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: FoodSpawner(seed: seed),
+            child: PastureField(
+              children: [
+                FoodSpawner(seed: seed),
+              ],
+            ),
           ),
         );
 
@@ -87,7 +97,11 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: FoodSpawner(seed: seed),
+            child: PastureField(
+              children: [
+                FoodSpawner(seed: seed),
+              ],
+            ),
           ),
         );
 
@@ -110,7 +124,11 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: FoodSpawner(seed: seed),
+            child: PastureField(
+              children: [
+                FoodSpawner(seed: seed),
+              ],
+            ),
           ),
         );
 
@@ -133,7 +151,11 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: FoodSpawner(seed: seed),
+            child: PastureField(
+              children: [
+                FoodSpawner(seed: seed),
+              ],
+            ),
           ),
         );
 

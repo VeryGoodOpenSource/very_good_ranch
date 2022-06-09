@@ -7,8 +7,10 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/components/components.dart';
+import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 
@@ -41,7 +43,9 @@ class VeryGoodRanchGame extends FlameGame
   bool get debugMode => _debugMode;
 
   @override
-  Color backgroundColor() => const Color(0xFFFFFFFF);
+  Color backgroundColor() => const Color(0xFF52C1B1);
+
+  late final PastureField pastureArea;
 
   @override
   Future<void> onLoad() async {
@@ -60,8 +64,12 @@ class VeryGoodRanchGame extends FlameGame
           ),
         ],
         children: [
-          FoodSpawner(seed: seed),
-          UnicornSpawner(seed: seed),
+          pastureArea = PastureField(
+            children: [
+              FoodSpawner(seed: seed),
+              UnicornSpawner(seed: seed),
+            ],
+          ),
         ],
       ),
     );

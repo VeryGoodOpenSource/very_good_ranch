@@ -26,6 +26,7 @@ class BabyUnicornComponent extends UnicornComponent {
           filePath: Assets.images.babySprite.packagePath,
         );
 
+  /// The dimensions of the unicorn at this stage
   static final dimensions = Vector2(57, 48.5);
 }
 
@@ -41,6 +42,7 @@ class ChildUnicornComponent extends UnicornComponent {
           filePath: Assets.images.childSprite.packagePath,
         );
 
+  /// The dimensions of the unicorn at this stage
   static final dimensions = Vector2(71, 70);
 }
 
@@ -56,6 +58,7 @@ class TeenUnicornComponent extends UnicornComponent {
           filePath: Assets.images.teenSprite.packagePath,
         );
 
+  /// The dimensions of the unicorn at this stage
   static final dimensions = Vector2(84, 87.5);
 }
 
@@ -71,6 +74,7 @@ class AdultUnicornComponent extends UnicornComponent {
           filePath: Assets.images.adultSprite.packagePath,
         );
 
+  /// The dimensions of the unicorn at this stage
   static final dimensions = Vector2(90, 110.5);
 }
 

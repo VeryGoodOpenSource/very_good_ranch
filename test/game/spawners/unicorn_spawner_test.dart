@@ -52,7 +52,8 @@ void main() {
         expect(unicornComponents.length, 1);
         expect(
           unicornComponents.first.position,
-          backgroundCompoennt.pastureField.bottomRight.toVector2(),
+          backgroundCompoennt.pastureField.bottomRight.toVector2() -
+              unicornComponents.first.size,
         );
       },
     );

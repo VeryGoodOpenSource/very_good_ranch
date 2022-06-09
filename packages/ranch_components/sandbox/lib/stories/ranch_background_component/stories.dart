@@ -3,8 +3,8 @@ import 'package:flame/game.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:sandbox/common/common.dart';
 
-void addRanchBackgroundComponentStories(Dashbook dashbook) {
-  dashbook.storiesOf('RanchBackgroundComponent').add(
+void addBackgroundComponentStories(Dashbook dashbook) {
+  dashbook.storiesOf('BackgroundComponent').add(
     'type',
     (context) {
       final unicornX = context.numberProperty('unicorn x', 350);
@@ -13,6 +13,7 @@ void addRanchBackgroundComponentStories(Dashbook dashbook) {
         ..position = Vector2(unicornX, unicornY);
       return GameWidget(
         game: StoryGame(
+          center: false,
           BackgroundComponent(
             children: [unicorn],
           ),
@@ -20,7 +21,7 @@ void addRanchBackgroundComponentStories(Dashbook dashbook) {
       );
     },
     info: '''
-      The RanchBackgroundComponent is a component that render the geenral 
+      The BackgroundComponent is a component that render the general 
       background of a farm and defines a pasture field
 
       - It can accommodate unicorns

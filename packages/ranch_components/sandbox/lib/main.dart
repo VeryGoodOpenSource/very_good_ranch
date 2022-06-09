@@ -6,7 +6,7 @@ import 'package:sandbox/stories/stories.dart';
 void main() {
   final dashbook = Dashbook(theme: ThemeData.light());
 
-  addRanchBackgroundComponentStories(dashbook);
+  addBackgroundComponentStories(dashbook);
   addGaugeComponentStories(dashbook);
   addUnicornComponentStories(dashbook);
   addFoodComponentStories(dashbook);

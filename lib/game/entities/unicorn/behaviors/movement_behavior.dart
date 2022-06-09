@@ -55,10 +55,12 @@ class MovementBehavior extends Behavior<Unicorn>
       final goingRight = direction.x > 0;
       final goingBottom = direction.y > 0;
 
-      if ((goingRight && parent.position.x == limit.x) ||
-          (!goingRight && parent.position.x == 0) ||
-          (goingBottom && parent.position.y == limit.y) ||
-          (!goingBottom && parent.position.y == 0)) {
+      final parentPosition = parent.position.clone();
+
+      if ((goingRight && parentPosition.x == limit.x) ||
+          (!goingRight && parentPosition.x == origin.x) ||
+          (goingBottom && parentPosition.y == limit.y) ||
+          (!goingBottom && parentPosition.y == origin.y)) {
         parent.state = UnicornState.idle;
         direction.setZero();
       }

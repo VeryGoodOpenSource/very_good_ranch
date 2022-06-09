@@ -35,6 +35,7 @@ dev_dependencies:
   mocktail: ^0.3.0
   very_good_analysis: ^3.0.0
 
+
 flutter:
   uses-material-design: true
   generate: true

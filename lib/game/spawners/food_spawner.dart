@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
-import 'package:very_good_ranch/game/components/pasture_field.dart';
+import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 import 'package:very_good_ranch/game/game.dart';
 

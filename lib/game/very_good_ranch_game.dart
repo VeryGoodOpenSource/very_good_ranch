@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -88,26 +87,5 @@ class VeryGoodRanchGame extends FlameGame
       overlays.clear();
     }
     return super.onTapUp(pointerId, info);
-  }
-}
-
-/// Defines the area win which unicorns will appear, roam about and eat.
-class PastureArea extends PositionComponent with HasGameRef {
-  PastureArea({super.children});
-
-  static const padding = EdgeInsets.only(
-    top: 150,
-    left: 30,
-    right: 30,
-    bottom: 30,
-  );
-
-  @override
-  Future<void> onLoad() async {
-    final gameSize = gameRef.camera.viewport.effectiveSize;
-    final paddingDeflection = Vector2(padding.horizontal, padding.vertical);
-    final paddingPosition = Vector2(padding.left, padding.top);
-    size = gameSize - paddingDeflection;
-    position = paddingPosition;
   }
 }

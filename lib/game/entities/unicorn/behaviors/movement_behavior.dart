@@ -47,7 +47,8 @@ class MovementBehavior extends Behavior<Unicorn>
       parent.position += direction * (speed * dt);
 
       final origin = gameRef.background.pastureArea.topLeft.toVector2();
-      final limit = gameRef.background.pastureArea.bottomRight.toVector2();
+      final limit =
+          gameRef.background.pastureArea.bottomRight.toVector2() - parent.size;
 
       parent.position.clamp(origin, limit);
 

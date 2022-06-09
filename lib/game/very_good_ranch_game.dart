@@ -21,7 +21,7 @@ class VeryGoodRanchGame extends FlameGame
     Random? seed,
     required this.gameBloc,
     required this.inventoryBloc,
-    @visibleForTesting bool debugMode = kDebugMode,
+    @visibleForTesting bool debugMode = false,
   })  : _debugMode = debugMode,
         seed = seed ?? Random() {
     // Clearing the prefix allows us to load images from packages.

@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_components/src/components/background/background_elements.dart';
 import 'package:ranch_components/src/components/background/background_position_delegate.dart';
 
@@ -44,28 +46,28 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
     );
 
     // Add barn
-    await add(Barn(position: positioner.getPositionForBarn())..priority = -1);
+    await add(Barn(position: positioner.getPositionForBarn()));
 
     // Add 3 tree trios:
     // one at the top
     await add(
       TreeTrio(
         position: positioner.getPositionForTreeTrio1(TreeTrio.dimensions),
-      )..priority = -1,
+      ),
     );
 
     // one at bottom left
     await add(
       TreeTrio(
         position: positioner.getPositionForTreeTrio2(TreeTrio.dimensions),
-      ),
+      )..priority = 1,
     );
 
     // one at bottom left
     await add(
       TreeTrio(
         position: positioner.getPositionForTreeTrio3(TreeTrio.dimensions),
-      ),
+      )..priority = 1,
     );
 
     // Add trees to the left
@@ -97,7 +99,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       await add(
         Grass(
           position: grassPosition,
-        )..priority = -1,
+        ),
       );
     }
 
@@ -108,7 +110,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       await add(
         FlowerSolo(
           position: soloFlowersPosition,
-        )..priority = -1,
+        ),
       );
     }
 
@@ -119,7 +121,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       await add(
         FlowerDuo(
           position: duoFlowersPosition,
-        )..priority = -1,
+        ),
       );
     }
 
@@ -130,7 +132,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       await add(
         FlowerGroup(
           position: flowerGroupPosition,
-        )..priority = -1,
+        ),
       );
     }
   }

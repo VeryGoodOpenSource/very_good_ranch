@@ -4,7 +4,7 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/src/components/background/background_component.dart';
 
-/// A deelgate responsible for defining the position of the several visual
+/// A delegate responsible for defining the position of the several visual
 /// elements on a [BackgroundComponent].
 class BackgroundPositionDelegate {
   const BackgroundPositionDelegate({

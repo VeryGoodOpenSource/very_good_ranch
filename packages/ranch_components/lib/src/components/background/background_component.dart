@@ -9,11 +9,6 @@ import 'package:ranch_components/src/components/background/background_position_d
 class BackgroundComponent extends PositionComponent with HasGameRef {
   BackgroundComponent({super.children, this.positioner});
 
-  BackgroundPositionDelegate? positioner;
-
-  late final Vector2 pastureAreaPosition;
-  late final Vector2 pastureAreaSize;
-
   static const padding = EdgeInsets.only(
     top: 170,
     left: 30,
@@ -21,22 +16,31 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
     bottom: 30,
   );
 
-  @override
-  Future<void> onLoad() async {
-    final gameSize = gameRef.camera.viewport.effectiveSize;
+  BackgroundPositionDelegate? positioner;
+
+  late final Rect pastureArea;
+
+  void _calculatePastureArea() {
     final paddingDeflection = Vector2(padding.horizontal, padding.vertical);
     final paddingPosition = Vector2(padding.left, padding.top);
-    pastureAreaSize = gameSize - paddingDeflection;
-    pastureAreaPosition = paddingPosition;
+    final pastureAreaSize = size - paddingDeflection;
+    final pastureAreaPosition = paddingPosition;
 
-    size = gameRef.size;
+    pastureArea = Rect.fromPoints(
+      pastureAreaPosition.toOffset(),
+      pastureAreaPosition.toOffset() + pastureAreaSize.toOffset(),
+    );
+  }
+
+  @override
+  Future<void> onLoad() async {
+    size = gameRef.camera.viewport.effectiveSize;
+
+    _calculatePastureArea();
 
     final positioner = this.positioner ??= BackgroundPositionDelegate(
       seed: Random(),
-      pastureArea: Rect.fromPoints(
-        pastureAreaPosition.toOffset(),
-        pastureAreaPosition.toOffset() + pastureAreaSize.toOffset(),
-      ),
+      pastureArea: pastureArea,
     );
 
     // Add barn
@@ -130,6 +134,4 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       );
     }
   }
-
-
 }

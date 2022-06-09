@@ -118,7 +118,7 @@ void main() {
           movementBehavior.direction = Vector2(1, 1);
 
           final unicorn = Unicorn.test(
-            position: Vector2(0, game.pastureArea.size.y),
+            position: Vector2(0, game.background.pastureArea.bottom),
             behaviors: [
               movementBehavior,
             ],
@@ -130,11 +130,11 @@ void main() {
 
           game.update(1);
 
-          final limit = game.pastureArea.size - unicorn.size;
+          final limit = game.background.pastureArea.bottom - unicorn.size.y;
 
           expect(
             unicorn.position,
-            closeToVector(10, limit.y),
+            closeToVector(10, limit),
           );
           expect(unicorn.state, UnicornState.idle);
         });
@@ -144,7 +144,7 @@ void main() {
           movementBehavior.direction = Vector2(1, 1);
 
           final unicorn = Unicorn.test(
-            position: Vector2(game.pastureArea.size.x, 0),
+            position: Vector2(game.background.pastureArea.right, 0),
             behaviors: [
               movementBehavior,
             ],
@@ -156,11 +156,11 @@ void main() {
 
           game.update(1);
 
-          final limit = game.pastureArea.size - unicorn.size;
+          final limit = game.background.pastureArea.right - unicorn.size.x;
 
           expect(
             unicorn.position,
-            closeToVector(limit.x, 10),
+            closeToVector(limit, 10),
           );
           expect(unicorn.state, UnicornState.idle);
         });

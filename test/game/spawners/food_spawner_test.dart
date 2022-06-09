@@ -45,7 +45,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureField(
+            child: BackgroundComponent(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -72,7 +72,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureField(
+            child: BackgroundComponent(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -99,7 +99,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureField(
+            child: BackgroundComponent(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -127,7 +127,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureField(
+            child: BackgroundComponent(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -154,7 +154,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureField(
+            child: BackgroundComponent(
               children: [
                 FoodSpawner(seed: seed),
               ],

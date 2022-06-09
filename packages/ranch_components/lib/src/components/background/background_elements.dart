@@ -1,4 +1,3 @@
-
 import 'package:flame/components.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 

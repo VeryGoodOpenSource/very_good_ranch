@@ -41,33 +41,33 @@ void main() {
       );
     });
 
-    group('TreeTall', () {
+    group('TallTree', () {
       flameTester.testGameWidget(
-        'renders a TreeTall',
+        'renders a TallTree',
         setUp: (game, tester) async {
-          final treeTall = TreeTall();
-          await game.ensureAdd(treeTall);
+          final tallTree = TallTree();
+          await game.ensureAdd(tallTree);
         },
         verify: (game, tester) async {
           await expectLater(
             find.byGame<TestGame>(),
-            matchesGoldenFile('golden/elements/treetall.png'),
+            matchesGoldenFile('golden/elements/tall_tree.png'),
           );
         },
       );
     });
 
-    group('TreeShort', () {
+    group('ShortTree', () {
       flameTester.testGameWidget(
-        'renders a TreeShort',
+        'renders a ShortTree',
         setUp: (game, tester) async {
-          final treeShort = TreeShort();
-          await game.ensureAdd(treeShort);
+          final shortTree = ShortTree();
+          await game.ensureAdd(shortTree);
         },
         verify: (game, tester) async {
           await expectLater(
             find.byGame<TestGame>(),
-            matchesGoldenFile('golden/elements/treeshort.png'),
+            matchesGoldenFile('golden/elements/short_tree.png'),
           );
         },
       );

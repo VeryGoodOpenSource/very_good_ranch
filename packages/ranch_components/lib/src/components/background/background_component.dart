@@ -94,10 +94,10 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add trees to the left
     final leftSideTreePositions =
-        delegate.getPositionsForLeftSideTrees(TreeTall.dimensions);
+        delegate.getPositionsForLeftSideTrees(TallTree.dimensions);
     for (final leftSideTreePosition in leftSideTreePositions) {
       await add(
-        TreeTall(
+        TallTree(
           position: leftSideTreePosition,
         ),
       );
@@ -105,10 +105,10 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add trees to the right
     final rightSideTreePositions =
-        delegate.getPositionsForRightSideTrees(TreeShort.dimensions, size.x);
+        delegate.getPositionsForRightSideTrees(ShortTree.dimensions, size.x);
     for (final rightSideTreePosition in rightSideTreePositions) {
       await add(
-        TreeShort(
+        ShortTree(
           position: rightSideTreePosition,
         ),
       );

@@ -33,35 +33,35 @@ class TreeTrio extends SpriteComponent with HasGameRef {
   }
 }
 
-/// {@template tree_tall}
+/// {@template tall_tree}
 /// A component that shows a tall tree
 /// {@endtemplate}
-class TreeTall extends SpriteComponent with HasGameRef {
-  /// {@macro tree_tall}
-  TreeTall({super.position}) : super(size: dimensions);
+class TallTree extends SpriteComponent with HasGameRef {
+  /// {@macro tall_tree}
+  TallTree({super.position}) : super(size: dimensions);
 
   /// The dimensions of the tall tree
   static final dimensions = Vector2(24.5, 69);
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.treeTall.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.tallTree.packagePath);
   }
 }
 
-/// {@template tree_short}
+/// {@template short_tree}
 /// A component that shows a short tree
 /// {@endtemplate}
-class TreeShort extends SpriteComponent with HasGameRef {
-  /// {@macro tree_short}
-  TreeShort({super.position}) : super(size: dimensions);
+class ShortTree extends SpriteComponent with HasGameRef {
+  /// {@macro short_tree}
+  ShortTree({super.position}) : super(size: dimensions);
 
   /// The dimensions of the short tree
   static final dimensions = Vector2(24, 51.5);
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.treeShort.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.shortTree.packagePath);
   }
 }
 

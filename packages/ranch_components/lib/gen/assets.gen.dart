@@ -64,17 +64,17 @@ class $AssetsImagesGen {
   AssetGenImage get teenSprite =>
       const AssetGenImage('assets/images/teen_sprite.png');
 
-  /// File path: assets/images/tree_lined.png
-  AssetGenImage get treeLined =>
-      const AssetGenImage('assets/images/tree_lined.png');
+  /// File path: assets/images/lined_tree.png
+  AssetGenImage get linedTree =>
+      const AssetGenImage('assets/images/lined_tree.png');
 
-  /// File path: assets/images/tree_short.png
-  AssetGenImage get treeShort =>
-      const AssetGenImage('assets/images/tree_short.png');
+  /// File path: assets/images/short_tree.png
+  AssetGenImage get shortTree =>
+      const AssetGenImage('assets/images/short_tree.png');
 
-  /// File path: assets/images/tree_tall.png
-  AssetGenImage get treeTall =>
-      const AssetGenImage('assets/images/tree_tall.png');
+  /// File path: assets/images/tall_tree.png
+  AssetGenImage get tallTree =>
+      const AssetGenImage('assets/images/tall_tree.png');
 
   /// File path: assets/images/tree_trio.png
   AssetGenImage get treeTrio =>
@@ -146,7 +146,6 @@ class AssetGenImage {
   }
 
   String get path => _assetName;
-
 
   // Todo(renancaraujo): use generated code once this lands: https://github.com/FlutterGen/flutter_gen/pull/251
   String get packagePath => 'packages/ranch_components/$_assetName';

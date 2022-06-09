@@ -9,8 +9,8 @@ void main() {
   group('InventoryState', () {
     test('supports value equality', () {
       expect(
-        InventoryState(foodItems: [FoodType.candy]),
-        equals(InventoryState(foodItems: [FoodType.candy])),
+        InventoryState(foodItems: [FoodType.cake]),
+        equals(InventoryState(foodItems: [FoodType.cake])),
       );
     });
 
@@ -22,7 +22,7 @@ void main() {
 
     group('copyWith', () {
       test('returns a new instance with the given food items', () {
-        final state = InventoryState(foodItems: [FoodType.candy]);
+        final state = InventoryState(foodItems: [FoodType.cake]);
         expect(
           state.copyWith(foodItems: [FoodType.pancake]),
           equals(
@@ -32,11 +32,11 @@ void main() {
       });
 
       test('returns a new instance with the old food items', () {
-        final state = InventoryState(foodItems: [FoodType.candy]);
+        final state = InventoryState(foodItems: [FoodType.cake]);
         expect(
           state.copyWith(),
           equals(
-            InventoryState(foodItems: [FoodType.candy]),
+            InventoryState(foodItems: [FoodType.cake]),
           ),
         );
       });

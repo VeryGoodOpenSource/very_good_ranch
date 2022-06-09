@@ -8,26 +8,26 @@ void main() {
   group('InventoryEvent', () {
     group('FoodItemAdded', () {
       test('can be instantiated', () {
-        expect(FoodItemAdded(FoodType.candy), isNotNull);
+        expect(FoodItemAdded(FoodType.cake), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
-          FoodItemAdded(FoodType.candy),
-          equals(FoodItemAdded(FoodType.candy)),
+          FoodItemAdded(FoodType.cake),
+          equals(FoodItemAdded(FoodType.cake)),
         );
       });
     });
 
     group('FoodItemRemoved', () {
       test('can be instantiated', () {
-        expect(FoodItemRemoved(FoodType.candy), isNotNull);
+        expect(FoodItemRemoved(FoodType.cake), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
-          FoodItemRemoved(FoodType.candy),
-          equals(FoodItemRemoved(FoodType.candy)),
+          FoodItemRemoved(FoodType.cake),
+          equals(FoodItemRemoved(FoodType.cake)),
         );
       });
     });

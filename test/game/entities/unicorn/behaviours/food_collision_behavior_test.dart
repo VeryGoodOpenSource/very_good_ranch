@@ -166,7 +166,7 @@ void main() {
         await game.ensureAdd(unicorn);
 
         final food = _MockFood();
-        when(() => food.type).thenReturn(FoodType.candy);
+        when(() => food.type).thenReturn(FoodType.cake);
         when(() => food.beingDragged).thenReturn(false);
 
         foodCollisionBehavior.onCollision({Vector2.zero()}, food);
@@ -206,7 +206,7 @@ void main() {
             await game.ensureAdd(unicorn);
 
             final food = _MockFood();
-            when(() => food.type).thenReturn(FoodType.candy);
+            when(() => food.type).thenReturn(FoodType.cake);
             when(() => food.beingDragged).thenReturn(false);
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);

@@ -4,8 +4,8 @@ import 'package:flame/components.dart';
 
 /// Type of food.
 enum FoodType {
-  /// Candy type.
-  candy,
+  /// Cake type.
+  cake,
 
   /// Lollipop type.
   lollipop,
@@ -23,7 +23,7 @@ extension FoodTypeX on FoodType {
   /// The nutrition value of the food.
   double get nutrition {
     switch (this) {
-      case FoodType.candy:
+      case FoodType.cake:
         return 1;
       case FoodType.lollipop:
         return 2;
@@ -42,7 +42,7 @@ extension FoodTypeX on FoodType {
   /// The rarity of a food is used to determine the chance of it being spawned.
   int get rarity {
     switch (this) {
-      case FoodType.candy:
+      case FoodType.cake:
         return 40;
       case FoodType.lollipop:
         return 30;
@@ -65,7 +65,7 @@ extension FoodTypeX on FoodType {
         return const Color(0xFFCED352);
       case FoodType.iceCream:
         return const Color(0xFFE9E9E9);
-      case FoodType.candy:
+      case FoodType.cake:
         return const Color(0xFFF707FF);
     }
   }

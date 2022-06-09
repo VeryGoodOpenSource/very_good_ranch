@@ -29,7 +29,7 @@ void main() {
       when(() => inventoryBloc.state).thenReturn(
         InventoryState(
           foodItems: [
-            FoodType.candy,
+            FoodType.cake,
             FoodType.lollipop,
             FoodType.pancake,
             FoodType.iceCream,

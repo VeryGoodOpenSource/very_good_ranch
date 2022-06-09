@@ -8,13 +8,13 @@ void main() {
   group('GameEvent', () {
     group('FoodSpawned', () {
       test('can be instantiated', () {
-        expect(FoodSpawned(FoodType.candy), isNotNull);
+        expect(FoodSpawned(FoodType.cake), isNotNull);
       });
 
       test('supports value equality', () {
         expect(
-          FoodSpawned(FoodType.candy),
-          equals(FoodSpawned(FoodType.candy)),
+          FoodSpawned(FoodType.cake),
+          equals(FoodSpawned(FoodType.cake)),
         );
       });
     });

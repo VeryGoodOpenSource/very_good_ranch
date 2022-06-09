@@ -14,7 +14,7 @@ class FoodSpawner extends TimerComponent
     required this.seed,
     double spawnThreshold = 60.0,
   })  : _foodRarity = RarityList<FoodType>([
-          Rarity(FoodType.candy, FoodType.candy.rarity),
+          Rarity(FoodType.cake, FoodType.cake.rarity),
           Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
           Rarity(FoodType.pancake, FoodType.pancake.rarity),
           Rarity(FoodType.iceCream, FoodType.iceCream.rarity),
@@ -51,8 +51,8 @@ class FoodSpawner extends TimerComponent
       case FoodType.iceCream:
         add(Food.iceCream(position: position));
         break;
-      case FoodType.candy:
-        add(Food.candy(position: position));
+      case FoodType.cake:
+        add(Food.cake(position: position));
         break;
     }
   }

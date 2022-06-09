@@ -18,11 +18,11 @@ void main() {
         'add food item to set',
         build: InventoryBloc.new,
         act: (bloc) {
-          bloc.add(FoodItemAdded(FoodType.candy));
+          bloc.add(FoodItemAdded(FoodType.cake));
         },
         expect: () {
           return [
-            InventoryState(foodItems: [FoodType.candy])
+            InventoryState(foodItems: [FoodType.cake])
           ];
         },
       );
@@ -33,10 +33,10 @@ void main() {
         'remove food item from set',
         build: InventoryBloc.new,
         seed: () => InventoryState(
-          foodItems: [FoodType.candy],
+          foodItems: [FoodType.cake],
         ),
         act: (bloc) {
-          bloc.add(const FoodItemRemoved(FoodType.candy));
+          bloc.add(const FoodItemRemoved(FoodType.cake));
         },
         expect: () {
           return [InventoryState(foodItems: [])];

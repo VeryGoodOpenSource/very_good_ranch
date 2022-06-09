@@ -35,7 +35,7 @@ void main() {
 
   group('FoodSpawner', () {
     flameTester.testGameWidget(
-      'spawns a candy',
+      'spawns a cake',
       setUp: (game, tester) async {
         when(() => seed.nextInt(100)).thenReturn(0);
 
@@ -58,7 +58,7 @@ void main() {
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
         expect(foodComponents.length, 1);
-        expect(foodComponents.first.type, FoodType.candy);
+        expect(foodComponents.first.type, FoodType.cake);
       },
     );
 
@@ -160,13 +160,13 @@ void main() {
         );
 
         await game.ready();
-        gameBloc.add(const FoodSpawned(FoodType.candy));
+        gameBloc.add(const FoodSpawned(FoodType.cake));
         await game.ready();
       },
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
         expect(foodComponents.length, equals(1));
-        expect(foodComponents.first.type, equals(FoodType.candy));
+        expect(foodComponents.first.type, equals(FoodType.cake));
       },
     );
   });

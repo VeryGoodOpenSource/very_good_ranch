@@ -14,6 +14,8 @@ import 'package:very_good_ranch/inventory/inventory.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late Random seed;
   late GameBloc gameBloc;
   late InventoryBloc inventoryBloc;

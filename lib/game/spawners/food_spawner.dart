@@ -40,7 +40,10 @@ class FoodSpawner extends TimerComponent
   }
 
   void _spawnFood(FoodType type) {
-    final position = Vector2.random(seed)..multiply(parent.size);
+    final position = Vector2.random(seed)
+      ..multiply(parent.size)
+      ..sub(type.size);
+
     switch (type) {
       case FoodType.lollipop:
         add(Food.lollipop(position: position));

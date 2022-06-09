@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
 
 /// Type of food.
 enum FoodType {
@@ -57,16 +56,30 @@ extension FoodTypeX on FoodType {
   ///
   /// NOTE: This is a temporary solution until there are assets for each food
   /// type.
-  Color get color {
+  AssetGenImage get assetGenImage {
     switch (this) {
       case FoodType.lollipop:
-        return const Color(0xFF3B93FF);
+        return Assets.images.lollipop;
       case FoodType.pancake:
-        return const Color(0xFFCED352);
+        return Assets.images.pancakes;
       case FoodType.iceCream:
-        return const Color(0xFFE9E9E9);
+        return Assets.images.icecream;
       case FoodType.cake:
-        return const Color(0xFFF707FF);
+        return Assets.images.cake;
+    }
+  }
+
+  /// The size in which the food component shall assime
+  Vector2 get size {
+    switch (this) {
+      case FoodType.lollipop:
+        return Vector2(36.4, 66.5);
+      case FoodType.pancake:
+        return Vector2(75, 38.6);
+      case FoodType.iceCream:
+        return Vector2(39.2, 70);
+      case FoodType.cake:
+        return Vector2(43.9, 69.1);
     }
   }
 }
@@ -74,35 +87,47 @@ extension FoodTypeX on FoodType {
 /// {@template food_component}
 /// A component that represents a food.
 /// {@endtemplate}
-class FoodComponent extends PositionComponent {
-  /// {@macro food_component}
-  FoodComponent({
+class FoodComponent extends SpriteComponent with HasGameRef {
+  FoodComponent._({
     required this.type,
-  }) : super(size: Vector2.all(32));
+    required this.spritePath,
+  }) : super(size: type.size);
+
+  /// {@macro food_component}
+  factory FoodComponent.ofType(FoodType foodType) {
+    switch (foodType) {
+      case FoodType.cake:
+        return FoodComponent._(
+          type: foodType,
+          spritePath: Assets.images.cake.packagePath,
+        );
+
+      case FoodType.lollipop:
+        return FoodComponent._(
+          type: foodType,
+          spritePath: Assets.images.lollipop.packagePath,
+        );
+      case FoodType.pancake:
+        return FoodComponent._(
+          type: foodType,
+          spritePath: Assets.images.pancakes.packagePath,
+        );
+      case FoodType.iceCream:
+        return FoodComponent._(
+          type: foodType,
+          spritePath: Assets.images.icecream.packagePath,
+        );
+    }
+  }
+
+  /// The path to the sprite
+  final String spritePath;
 
   /// The type of food.
   final FoodType type;
 
-  /// The paint used to render the food.
-  ///
-  /// NOTE: This is a temporary solution until there are assets for each food
-  /// type.
-  late Paint paint;
-
-  /// The radius of visual food representation.
-  ///
-  /// NOTE: This is a temporary solution until there are assets for each food
-  /// type.
-  late double radius;
-
   @override
   Future<void> onLoad() async {
-    radius = size.x / 2;
-    paint = Paint()..color = type.color;
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawCircle(Offset(radius, radius), radius, paint);
+    sprite = await gameRef.loadSprite(spritePath);
   }
 }

@@ -16,7 +16,7 @@ void addFoodComponentStories(Dashbook dashbook) {
       );
       return GameWidget(
         game: StoryGame(
-          FoodComponent(type: foodType),
+          FoodComponent.ofType(foodType),
         ),
       );
     },

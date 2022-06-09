@@ -13,7 +13,7 @@ void main() {
     flameTester.testGameWidget(
       'cake',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.cake));
+        await game.add(FoodComponent.ofType(FoodType.cake));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
@@ -29,7 +29,7 @@ void main() {
     flameTester.testGameWidget(
       'lollipop',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.lollipop));
+        await game.add(FoodComponent.ofType(FoodType.lollipop));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
@@ -45,7 +45,7 @@ void main() {
     flameTester.testGameWidget(
       'pancake',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.pancake));
+        await game.add(FoodComponent.ofType(FoodType.pancake));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
@@ -61,7 +61,7 @@ void main() {
     flameTester.testGameWidget(
       'iceCream',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.iceCream));
+        await game.add(FoodComponent.ofType(FoodType.iceCream));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;

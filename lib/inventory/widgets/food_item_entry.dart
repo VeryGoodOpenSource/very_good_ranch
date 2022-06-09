@@ -17,6 +17,8 @@ class FoodItemEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final assetGenImage = type.assetGenImage;
+
     return GestureDetector(
       onDoubleTap: () {
         if (count <= 0) {
@@ -33,12 +35,7 @@ class FoodItemEntry extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: type.color,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
+              child: assetGenImage.image(),
             ),
             Positioned(
               right: 0,

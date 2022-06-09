@@ -11,10 +11,10 @@ class Food extends Entity {
     required this.type,
     required double despawnTime,
   }) : super(
-          size: Vector2.all(32),
+          size: type.size,
           children: [
-            FoodComponent(type: type),
-            CircleHitbox(),
+            FoodComponent.ofType(type),
+            RectangleHitbox(),
           ],
           behaviors: [
             DraggingBehavior(),
@@ -31,15 +31,15 @@ class Food extends Entity {
     this.type = FoodType.cake,
     super.behaviors,
   }) : super(
-          size: Vector2.all(32),
+          size: type.size,
           children: [
-            FoodComponent(type: type),
+            FoodComponent.ofType(type),
           ],
         );
 
   /// {@macro food_component}
   ///
-  /// Constructs a cake.
+  /// Constructs a candy.
   Food.cake({
     required Vector2 position,
   }) : this(

@@ -45,8 +45,7 @@ void main() {
       await tester.tap(find.byType(DecoratedBox));
       await tester.pumpAndSettle();
 
-      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.cake)))
-          .called(1);
+      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.cake))).called(1);
       verify(() => gameBloc.add(FoodSpawned(FoodType.cake))).called(1);
     });
 

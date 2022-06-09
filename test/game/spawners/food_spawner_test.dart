@@ -109,10 +109,11 @@ void main() {
 
         await game.ready();
         game.update(60);
-        await tester.pump();
+        await game.ready();
       },
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
+
         expect(foodComponents.length, 1);
         expect(foodComponents.first.type, FoodType.pancake);
       },

@@ -26,7 +26,7 @@ void main() {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(FoodItemEntry(type: FoodType.cake, count: 1));
 
-      expect(find.byType(DecoratedBox), findsNWidgets(1));
+      expect(find.byType(Image), findsNWidgets(1));
     });
 
     testWidgets('removes food item correctly', (tester) async {
@@ -40,9 +40,9 @@ void main() {
         gameBloc: gameBloc,
       );
 
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pump(kDoubleTapMinTime);
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pumpAndSettle();
 
       verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.cake))).called(1);
@@ -60,9 +60,9 @@ void main() {
         gameBloc: gameBloc,
       );
 
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pump(kDoubleTapMinTime);
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pumpAndSettle();
 
       verifyNever(() => inventoryBloc.add(FoodItemRemoved(FoodType.cake)));

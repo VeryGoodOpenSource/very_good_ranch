@@ -9,6 +9,7 @@ import 'package:very_good_ranch/game/entities/food/food.dart';
 import '../../../../helpers/helpers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   final flameTester = FlameTester(TestGame.new);
 
   group('DraggingBehavior', () {

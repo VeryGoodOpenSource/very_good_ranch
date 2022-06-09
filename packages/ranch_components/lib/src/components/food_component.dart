@@ -52,23 +52,6 @@ extension FoodTypeX on FoodType {
     }
   }
 
-  /// The color of the food.
-  ///
-  /// NOTE: This is a temporary solution until there are assets for each food
-  /// type.
-  AssetGenImage get assetGenImage {
-    switch (this) {
-      case FoodType.lollipop:
-        return Assets.images.lollipop;
-      case FoodType.pancake:
-        return Assets.images.pancakes;
-      case FoodType.iceCream:
-        return Assets.images.icecream;
-      case FoodType.cake:
-        return Assets.images.cake;
-    }
-  }
-
   /// The size in which the food component shall assime
   Vector2 get size {
     switch (this) {
@@ -127,7 +110,7 @@ class FoodComponent extends SpriteComponent with HasGameRef {
   final FoodType type;
 
   @override
-  Future<void> onLoad() async {
+  Future<void>? onLoad() async {
     sprite = await gameRef.loadSprite(spritePath);
   }
 }

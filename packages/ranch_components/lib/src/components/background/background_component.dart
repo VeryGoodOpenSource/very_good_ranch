@@ -7,6 +7,12 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_components/src/components/background/background_elements.dart';
 import 'package:ranch_components/src/components/background/background_position_delegate.dart';
 
+/// A signature for a callback that crates a [BackgroundPositionDelegate] given
+/// a pastureField
+typedef PositionDelegateGetter = BackgroundPositionDelegate Function(
+  Rect pastureField,
+);
+
 /// {@template background_component}
 /// A [Component] that adds the several background elements of a ranch and
 /// displaces them in such a way there is a [pastureField] in
@@ -14,7 +20,7 @@ import 'package:ranch_components/src/components/background/background_position_d
 /// {@endtemplate}
 class BackgroundComponent extends PositionComponent with HasGameRef {
   /// {@macro background_component}
-  BackgroundComponent({super.children, this.delegate});
+  BackgroundComponent({super.children, this.getDelegate});
 
   /// Describes the amount of pixels in each side of the viewport that are
   /// reserved for visual elements in which the unicorns and playble elements
@@ -28,7 +34,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
   /// The delegate responsible for defining the positions of the several visual
   /// elements of the background.
-  BackgroundPositionDelegate? delegate;
+  PositionDelegateGetter? getDelegate;
 
   /// A [Rect] that represents the area in which playable elements (ex: uncorns)
   /// will be placed
@@ -54,8 +60,8 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     _calculatePastureField();
 
-    final delegate =
-        this.delegate ??= BackgroundPositionDelegate(Random(), pastureField);
+    final delegate = getDelegate?.call(pastureField) ??
+        BackgroundPositionDelegate(Random(), pastureField);
 
     // Add barn
     await add(
@@ -64,7 +70,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       ),
     );
 
-    // Add three tree trios:
+    // Add  tree trios:
     // one at the top
     await add(
       TreeTrio(
@@ -142,7 +148,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
     // Add groups of flowers
     final flowerGroupPositions =
-        delegate.getPositionsForFlowerDuo(FlowerGroup.dimensions);
+        delegate.getPositionsForFlowerGroup(FlowerGroup.dimensions);
     for (final flowerGroupPosition in flowerGroupPositions) {
       await add(
         FlowerGroup(

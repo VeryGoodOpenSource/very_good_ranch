@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:flame/extensions.dart';
-import 'package:flame/game.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -59,7 +58,7 @@ void main() {
 
         game.update(5);
 
-        final result = pastureTop + Vector2(50.0, 50.0);
+        final result = pastureTop + Vector2(50, 50);
 
         expect(
           unicorn.position,

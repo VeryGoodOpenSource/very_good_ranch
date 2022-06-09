@@ -7,8 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
+import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/spawners/food_spawner.dart';
-import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 
 import '../../helpers/helpers.dart';
@@ -43,7 +43,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureArea(
+            child: PastureField(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -70,7 +70,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureArea(
+            child: PastureField(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -97,7 +97,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureArea(
+            child: PastureField(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -124,7 +124,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureArea(
+            child: PastureField(
               children: [
                 FoodSpawner(seed: seed),
               ],
@@ -151,7 +151,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: PastureArea(
+            child: PastureField(
               children: [
                 FoodSpawner(seed: seed),
               ],

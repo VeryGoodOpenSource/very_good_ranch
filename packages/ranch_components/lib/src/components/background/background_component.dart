@@ -24,7 +24,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
 
   /// Describes the amount of pixels in each side of the viewport that are
   /// reserved for visual elements in which the unicorns and playble elements
-  /// cannot e displaced to.
+  /// cannot be displaced to.
   static const paddingToPasture = EdgeInsets.only(
     top: 170,
     left: 30,

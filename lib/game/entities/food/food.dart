@@ -39,7 +39,7 @@ class Food extends Entity {
 
   /// {@macro food_component}
   ///
-  /// Constructs a candy.
+  /// Constructs a cake.
   Food.cake({
     required Vector2 position,
   }) : this(

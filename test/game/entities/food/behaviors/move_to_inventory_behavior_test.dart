@@ -50,7 +50,7 @@ void main() {
         expect(foundFood, equals(0));
 
         verify(
-          () => inventoryBloc.add(const FoodItemAdded(FoodType.candy)),
+          () => inventoryBloc.add(const FoodItemAdded(FoodType.cake)),
         ).called(1);
 
         // flush remaining timers created by the framework

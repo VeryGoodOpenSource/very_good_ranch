@@ -15,11 +15,11 @@ void main() {
         'spawn food',
         build: GameBloc.new,
         act: (bloc) {
-          bloc.add(const FoodSpawned(FoodType.candy));
+          bloc.add(const FoodSpawned(FoodType.cake));
         },
         expect: () {
           return [
-            const GameState(food: FoodType.candy),
+            const GameState(food: FoodType.cake),
           ];
         },
       );

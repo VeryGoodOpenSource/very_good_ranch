@@ -9,14 +9,14 @@ void addFoodComponentStories(Dashbook dashbook) {
     (context) {
       final foodType = context.optionsProperty<FoodType>(
         'type',
-        FoodType.candy,
+        FoodType.cake,
         FoodType.values
             .map((e) => PropertyOption(e.name.split(' ').last, e))
             .toList(),
       );
       return GameWidget(
         game: StoryGame(
-          FoodComponent(type: foodType),
+          FoodComponent.ofType(foodType),
         ),
       );
     },

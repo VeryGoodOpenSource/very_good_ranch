@@ -30,13 +30,13 @@ void main() {
 
   group('Food', () {
     flameTester.testGameWidget(
-      'candy',
+      'cake',
       setUp: (game, tester) async {
         await game.ensureAdd(
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: Food.candy(position: Vector2.zero()),
+            child: Food.cake(position: Vector2.zero()),
           ),
         );
       },
@@ -44,12 +44,12 @@ void main() {
         await tester.pump();
 
         final food = game.descendants().whereType<Food>().first;
-        expect(food.type, FoodType.candy);
-        expect(food.nutrition, FoodType.candy.nutrition);
+        expect(food.type, FoodType.cake);
+        expect(food.nutrition, FoodType.cake.nutrition);
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food/types/candy.png'),
+          matchesGoldenFile('golden/food/types/cake.png'),
         );
       },
     );

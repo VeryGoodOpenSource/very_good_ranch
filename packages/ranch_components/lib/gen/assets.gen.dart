@@ -20,9 +20,27 @@ class $AssetsImagesGen {
   AssetGenImage get babySprite =>
       const AssetGenImage('assets/images/baby_sprite.png');
 
+  /// File path: assets/images/cake.png
+  AssetGenImage get cake => const AssetGenImage('assets/images/cake.png');
+
   /// File path: assets/images/child_sprite.png
   AssetGenImage get childSprite =>
       const AssetGenImage('assets/images/child_sprite.png');
+
+  /// File path: assets/images/donut.png
+  AssetGenImage get donut => const AssetGenImage('assets/images/donut.png');
+
+  /// File path: assets/images/icecream.png
+  AssetGenImage get icecream =>
+      const AssetGenImage('assets/images/icecream.png');
+
+  /// File path: assets/images/lollipop.png
+  AssetGenImage get lollipop =>
+      const AssetGenImage('assets/images/lollipop.png');
+
+  /// File path: assets/images/pancakes.png
+  AssetGenImage get pancakes =>
+      const AssetGenImage('assets/images/pancakes.png');
 
   /// File path: assets/images/teen_sprite.png
   AssetGenImage get teenSprite =>

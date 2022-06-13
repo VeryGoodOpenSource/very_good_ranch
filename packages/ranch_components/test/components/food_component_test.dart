@@ -11,17 +11,17 @@ void main() {
 
   group('FoodComponent', () {
     flameTester.testGameWidget(
-      'candy',
+      'cake',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.candy));
+        await game.add(FoodComponent.ofType(FoodType.cake));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
-        expect(food.type, FoodType.candy);
+        expect(food.type, FoodType.cake);
 
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/food_component/types/candy.png'),
+          matchesGoldenFile('golden/food_component/types/cake.png'),
         );
       },
     );
@@ -29,7 +29,7 @@ void main() {
     flameTester.testGameWidget(
       'lollipop',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.lollipop));
+        await game.add(FoodComponent.ofType(FoodType.lollipop));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
@@ -45,7 +45,7 @@ void main() {
     flameTester.testGameWidget(
       'pancake',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.pancake));
+        await game.add(FoodComponent.ofType(FoodType.pancake));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
@@ -61,7 +61,7 @@ void main() {
     flameTester.testGameWidget(
       'iceCream',
       setUp: (game, tester) async {
-        await game.add(FoodComponent(type: FoodType.iceCream));
+        await game.add(FoodComponent.ofType(FoodType.iceCream));
       },
       verify: (game, tester) async {
         final food = game.children.whereType<FoodComponent>().first;
@@ -77,14 +77,14 @@ void main() {
 
   group('FoodType', () {
     test('nutrition', () {
-      expect(FoodType.candy.nutrition, 1);
+      expect(FoodType.cake.nutrition, 1);
       expect(FoodType.lollipop.nutrition, 2);
       expect(FoodType.pancake.nutrition, 3);
       expect(FoodType.iceCream.nutrition, 4);
     });
 
     test('rarity', () {
-      expect(FoodType.candy.rarity, 40);
+      expect(FoodType.cake.rarity, 40);
       expect(FoodType.lollipop.rarity, 30);
       expect(FoodType.pancake.rarity, 20);
       expect(FoodType.iceCream.rarity, 10);

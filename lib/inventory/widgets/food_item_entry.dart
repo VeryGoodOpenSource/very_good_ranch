@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/inventory/bloc/bloc.dart';
@@ -17,6 +18,8 @@ class FoodItemEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final assetGenImage = type.assetGenImage;
+
     return GestureDetector(
       onDoubleTap: () {
         if (count <= 0) {
@@ -33,12 +36,7 @@ class FoodItemEntry extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: type.color,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
+              child: assetGenImage.image(),
             ),
             Positioned(
               right: 0,
@@ -49,5 +47,20 @@ class FoodItemEntry extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension on FoodType {
+  AssetGenImage get assetGenImage {
+    switch (this) {
+      case FoodType.lollipop:
+        return Assets.images.lollipop;
+      case FoodType.pancake:
+        return Assets.images.pancakes;
+      case FoodType.iceCream:
+        return Assets.images.icecream;
+      case FoodType.cake:
+        return Assets.images.cake;
+    }
   }
 }

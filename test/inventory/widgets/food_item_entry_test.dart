@@ -24,50 +24,49 @@ void main() {
     });
 
     testWidgets('renders correctly', (tester) async {
-      await tester.pumpApp(FoodItemEntry(type: FoodType.candy, count: 1));
+      await tester.pumpApp(FoodItemEntry(type: FoodType.cake, count: 1));
 
-      expect(find.byType(DecoratedBox), findsNWidgets(1));
+      expect(find.byType(Image), findsNWidgets(1));
     });
 
     testWidgets('removes food item correctly', (tester) async {
       when(() => inventoryBloc.state).thenReturn(
-        InventoryState(foodItems: const [FoodType.candy]),
+        InventoryState(foodItems: const [FoodType.cake]),
       );
 
       await tester.pumpApp(
-        FoodItemEntry(type: FoodType.candy, count: 1),
+        FoodItemEntry(type: FoodType.cake, count: 1),
         inventoryBloc: inventoryBloc,
         gameBloc: gameBloc,
       );
 
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pump(kDoubleTapMinTime);
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pumpAndSettle();
 
-      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.candy)))
-          .called(1);
-      verify(() => gameBloc.add(FoodSpawned(FoodType.candy))).called(1);
+      verify(() => inventoryBloc.add(FoodItemRemoved(FoodType.cake))).called(1);
+      verify(() => gameBloc.add(FoodSpawned(FoodType.cake))).called(1);
     });
 
     testWidgets('does not remove food if it does not have any', (tester) async {
       when(() => inventoryBloc.state).thenReturn(
-        InventoryState(foodItems: const [FoodType.candy]),
+        InventoryState(foodItems: const [FoodType.cake]),
       );
 
       await tester.pumpApp(
-        FoodItemEntry(type: FoodType.candy, count: 0),
+        FoodItemEntry(type: FoodType.cake, count: 0),
         inventoryBloc: inventoryBloc,
         gameBloc: gameBloc,
       );
 
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pump(kDoubleTapMinTime);
-      await tester.tap(find.byType(DecoratedBox));
+      await tester.tap(find.byType(Image));
       await tester.pumpAndSettle();
 
-      verifyNever(() => inventoryBloc.add(FoodItemRemoved(FoodType.candy)));
-      verifyNever(() => gameBloc.add(FoodSpawned(FoodType.candy)));
+      verifyNever(() => inventoryBloc.add(FoodItemRemoved(FoodType.cake)));
+      verifyNever(() => gameBloc.add(FoodSpawned(FoodType.cake)));
     });
   });
 }

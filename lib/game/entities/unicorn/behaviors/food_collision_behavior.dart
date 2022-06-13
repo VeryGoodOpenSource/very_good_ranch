@@ -41,7 +41,7 @@ extension PreferredFoodType on UnicornStage {
   FoodType get preferredFoodType {
     switch (this) {
       case UnicornStage.baby:
-        return FoodType.candy;
+        return FoodType.cake;
       case UnicornStage.child:
         return FoodType.lollipop;
       case UnicornStage.teen:

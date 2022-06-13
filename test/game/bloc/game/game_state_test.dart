@@ -23,16 +23,16 @@ void main() {
       test('returns a new instance with the given food type', () {
         final state = GameState();
         expect(
-          state.copyWith(food: FoodType.candy),
-          equals(GameState(food: FoodType.candy)),
+          state.copyWith(food: FoodType.cake),
+          equals(GameState(food: FoodType.cake)),
         );
       });
 
       test('returns a new instance with the old food type', () {
-        final state = GameState(food: FoodType.candy);
+        final state = GameState(food: FoodType.cake);
         expect(
           state.copyWith(),
-          equals(GameState(food: FoodType.candy)),
+          equals(GameState(food: FoodType.cake)),
         );
       });
     });

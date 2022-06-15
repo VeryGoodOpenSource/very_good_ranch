@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
@@ -45,18 +46,21 @@ class MovementBehavior extends Behavior<Unicorn>
     if (parent.state == UnicornState.roaming) {
       parent.position += direction * (speed * dt);
 
-      final origin = Vector2.zero();
-      final limit = gameRef.pastureArea.size - parent.size;
+      final origin = gameRef.background.pastureField.topLeft.toVector2();
+      final limit =
+          gameRef.background.pastureField.bottomRight.toVector2() - parent.size;
 
       parent.position.clamp(origin, limit);
 
       final goingRight = direction.x > 0;
       final goingBottom = direction.y > 0;
 
-      if ((goingRight && parent.position.x == limit.x) ||
-          (!goingRight && parent.position.x == 0) ||
-          (goingBottom && parent.position.y == limit.y) ||
-          (!goingBottom && parent.position.y == 0)) {
+      final parentPosition = parent.position.clone();
+
+      if ((goingRight && parentPosition.x == limit.x) ||
+          (!goingRight && parentPosition.x == origin.x) ||
+          (goingBottom && parentPosition.y == limit.y) ||
+          (!goingBottom && parentPosition.y == origin.y)) {
         parent.state = UnicornState.idle;
         direction.setZero();
       }

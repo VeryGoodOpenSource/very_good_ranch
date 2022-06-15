@@ -2,10 +2,13 @@
 
 import 'dart:math';
 
+import 'package:flame/extensions.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:very_good_ranch/game/components/components.dart';
+
+import 'package:ranch_components/ranch_components.dart';
+
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 
@@ -29,7 +32,7 @@ void main() {
       setUp: (game, tester) async {
         when(() => seed.nextDouble()).thenReturn(1);
         await game.add(
-          PastureField(
+          BackgroundComponent(
             children: [
               UnicornSpawner(seed: seed),
             ],
@@ -41,10 +44,17 @@ void main() {
         await game.ready();
       },
       verify: (game, tester) async {
-        final pastureArea = game.children.whereType<PastureField>().first;
-        final unicornComponents = pastureArea.children.whereType<Unicorn>();
+        final backgroundCompoennt =
+            game.children.whereType<BackgroundComponent>().first;
+        final unicornComponents =
+            backgroundCompoennt.children.whereType<Unicorn>();
+
         expect(unicornComponents.length, 1);
-        expect(unicornComponents.first.position, pastureArea.size);
+        expect(
+          unicornComponents.first.position,
+          backgroundCompoennt.pastureField.bottomRight.toVector2() -
+              unicornComponents.first.size,
+        );
       },
     );
   });

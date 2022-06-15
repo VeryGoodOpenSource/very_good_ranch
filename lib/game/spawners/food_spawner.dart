@@ -1,15 +1,17 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
-import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 import 'package:very_good_ranch/game/game.dart';
 
 class FoodSpawner extends TimerComponent
-    with ParentIsA<PastureField>, FlameBlocListenable<GameBloc, GameState> {
+    with
+        ParentIsA<BackgroundComponent>,
+        FlameBlocListenable<GameBloc, GameState> {
   FoodSpawner({
     required this.seed,
     double spawnThreshold = 60.0,
@@ -40,8 +42,10 @@ class FoodSpawner extends TimerComponent
   }
 
   void _spawnFood(FoodType type) {
+    final pastureField = parent.pastureField;
     final position = Vector2.random(seed)
-      ..multiply(parent.size)
+      ..multiply(pastureField.size.toVector2())
+      ..add(pastureField.topLeft.toVector2())
       ..sub(type.size);
 
     switch (type) {

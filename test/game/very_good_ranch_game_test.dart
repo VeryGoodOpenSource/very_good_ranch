@@ -15,12 +15,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 
 import '../helpers/helpers.dart';
 
 void main() {
   late Random seed;
   late GameBloc gameBloc;
+  late AppLocalizations l10n;
 
   setUp(() {
     seed = MockRandom();
@@ -29,6 +31,9 @@ void main() {
 
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
+
+    l10n = MockAppLocalizations();
+    when(() => l10n.score).thenReturn('score');
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
@@ -36,6 +41,7 @@ void main() {
       seed: seed,
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
+      l10n: l10n,
     ),
     createGameWidget: (game) {
       return GameWidget(
@@ -53,6 +59,7 @@ void main() {
         VeryGoodRanchGame(
           gameBloc: gameBloc,
           inventoryBloc: MockInventoryBloc(),
+          l10n: l10n,
         ),
         isA<VeryGoodRanchGame>(),
       );

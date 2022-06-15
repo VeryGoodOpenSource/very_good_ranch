@@ -8,6 +8,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -15,17 +16,21 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late GameBloc gameBloc;
+  late AppLocalizations l10n;
 
   setUp(() {
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
+
+    l10n = MockAppLocalizations();
+    when(() => l10n.score).thenReturn('score');
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
-      debugMode: false,
+      l10n: l10n,
     ),
   );
 

@@ -12,9 +12,6 @@ class UnicornCounter extends PositionComponent
     required super.position,
   });
 
-  @override
-  PositionType get positionType => PositionType.game;
-
   late List<Unicorn> unicorns;
 
   @override
@@ -61,7 +58,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
     final amount = parent.unicorns
         .where((u) => u.isMounted && u.currentStage == stage)
         .length;
-    final textSize = _textPaint.measureText(amount.toString());
+    final textSize = _textPaint.measureText('$amount');
 
     const anchor = Anchor.topRight;
     final size = _head.srcSize * 0.8;

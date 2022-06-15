@@ -13,6 +13,7 @@ import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 
 class VeryGoodRanchGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection {
@@ -20,6 +21,7 @@ class VeryGoodRanchGame extends FlameGame
     Random? seed,
     required this.gameBloc,
     required this.inventoryBloc,
+    required this.l10n,
     @visibleForTesting bool debugMode = kDebugMode,
   })  : _debugMode = debugMode,
         seed = seed ?? Random() {
@@ -39,11 +41,15 @@ class VeryGoodRanchGame extends FlameGame
 
   final bool _debugMode;
 
+  final AppLocalizations l10n;
+
   @override
   bool get debugMode => _debugMode;
 
   @override
   Color backgroundColor() => const Color(0xFF52C1B1);
+
+  int get score => 0;
 
   late final PastureField pastureArea;
 
@@ -74,6 +80,7 @@ class VeryGoodRanchGame extends FlameGame
       ),
     );
 
+    await add(ScoreIndicator(position: Vector2.zero()));
     await add(
       UnicornCounter(
         position: Vector2(camera.viewport.effectiveSize.x, 0),

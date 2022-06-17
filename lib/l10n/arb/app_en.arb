@@ -45,5 +45,6 @@
     "inventory": "Inventory",
     "@inventory": {
         "description": "Text for Inventory title"
-    }
+    },
+    "score": "Score"
 }

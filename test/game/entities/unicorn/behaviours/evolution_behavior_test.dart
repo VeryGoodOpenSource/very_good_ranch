@@ -7,6 +7,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 
 import '../../../../helpers/helpers.dart';
 
@@ -16,17 +17,23 @@ class _MockFullnessBehavior extends Mock implements FullnessBehavior {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
   late GameBloc gameBloc;
+  late AppLocalizations l10n;
 
   setUp(() {
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
+
+    l10n = MockAppLocalizations();
+    when(() => l10n.score).thenReturn('score');
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
+      l10n: l10n,
     ),
   );
 

@@ -6,6 +6,7 @@ import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/game/widgets/widgets.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({
@@ -26,30 +27,27 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  late FlameGame _game;
-
-  @override
-  void initState() {
-    super.initState();
-    _game = widget.game ??
-        VeryGoodRanchGame(
-          gameBloc: context.read<GameBloc>(),
-          inventoryBloc: context.read<InventoryBloc>(),
-        );
-  }
+  FlameGame? _game;
 
   @override
   Widget build(BuildContext context) {
+    _game ??= widget.game ??
+        VeryGoodRanchGame(
+          gameBloc: context.read<GameBloc>(),
+          inventoryBloc: context.read<InventoryBloc>(),
+          l10n: context.l10n,
+        );
+
     return GameViewport(
       child: Scaffold(
         body: Column(
           children: [
             Expanded(
               child: ClipRect(
-                child: GameView(game: _game),
+                child: GameView(game: _game!),
               ),
             ),
-            FooterWidget(game: _game),
+            FooterWidget(game: _game!),
           ],
         ),
       ),

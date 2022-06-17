@@ -6,8 +6,8 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/game.dart';
@@ -22,7 +22,7 @@ class VeryGoodRanchGame extends FlameGame
     required this.gameBloc,
     required this.inventoryBloc,
     required this.l10n,
-    @visibleForTesting bool debugMode = kDebugMode,
+    @visibleForTesting bool debugMode = false,
   })  : _debugMode = debugMode,
         seed = seed ?? Random() {
     // Clearing the prefix allows us to load images from packages.
@@ -51,7 +51,7 @@ class VeryGoodRanchGame extends FlameGame
 
   int get score => 0;
 
-  late final PastureField pastureArea;
+  late final BackgroundComponent background;
 
   @override
   Future<void> onLoad() async {
@@ -70,7 +70,7 @@ class VeryGoodRanchGame extends FlameGame
           ),
         ],
         children: [
-          pastureArea = PastureField(
+          background = BackgroundComponent(
             children: [
               FoodSpawner(seed: seed),
               UnicornSpawner(seed: seed),

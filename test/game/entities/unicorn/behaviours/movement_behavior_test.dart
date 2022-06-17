@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:flame/extensions.dart';
-import 'package:flame/game.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -50,13 +49,14 @@ void main() {
       flameTester.test('roams towards direction', (game) async {
         final movementBehavior = MovementBehavior();
         movementBehavior.direction = Vector2(1, 1);
+        final pastureTop = game.background.pastureField.topLeft.toVector2();
 
         final unicorn = Unicorn.test(
-          position: Vector2.zero(),
+          position: pastureTop,
           behaviors: [
             movementBehavior,
           ],
-        )..size = Vector2.all(32);
+        );
         unicorn.state = UnicornState.roaming;
 
         await game.ready();
@@ -64,9 +64,11 @@ void main() {
 
         game.update(5);
 
+        final result = pastureTop + Vector2(50, 50);
+
         expect(
           unicorn.position,
-          closeToVector(50.0, 50.0),
+          closeToVector(result.x, result.y),
         );
       });
 
@@ -74,9 +76,11 @@ void main() {
         flameTester.test('if top border is reached', (game) async {
           final movementBehavior = MovementBehavior();
           movementBehavior.direction = Vector2(-1, -1);
+          final pastureTop = game.background.pastureField.top;
+          final pastureLeft = game.background.pastureField.left;
 
           final unicorn = Unicorn.test(
-            position: Vector2(100, 0),
+            position: Vector2(pastureLeft + 20, pastureTop),
             behaviors: [
               movementBehavior,
             ],
@@ -90,7 +94,7 @@ void main() {
 
           expect(
             unicorn.position,
-            closeToVector(90, 0),
+            closeToVector(pastureLeft + 10, pastureTop),
           );
           expect(unicorn.state, UnicornState.idle);
         });
@@ -98,9 +102,11 @@ void main() {
         flameTester.test('if left border is reached', (game) async {
           final movementBehavior = MovementBehavior();
           movementBehavior.direction = Vector2(-1, -1);
+          final pastureTop = game.background.pastureField.top;
+          final pastureLeft = game.background.pastureField.left;
 
           final unicorn = Unicorn.test(
-            position: Vector2(0, 100),
+            position: Vector2(pastureLeft, pastureTop + 100),
             behaviors: [
               movementBehavior,
             ],
@@ -114,7 +120,7 @@ void main() {
 
           expect(
             unicorn.position,
-            closeToVector(0, 90),
+            closeToVector(pastureLeft, pastureTop + 90),
           );
           expect(unicorn.state, UnicornState.idle);
         });
@@ -122,9 +128,11 @@ void main() {
         flameTester.test('if bottom border is reached', (game) async {
           final movementBehavior = MovementBehavior();
           movementBehavior.direction = Vector2(1, 1);
+          final pastureBottom = game.background.pastureField.bottom;
+          final pastureLeft = game.background.pastureField.left;
 
           final unicorn = Unicorn.test(
-            position: Vector2(0, game.pastureArea.size.y),
+            position: Vector2(pastureLeft, pastureBottom),
             behaviors: [
               movementBehavior,
             ],
@@ -136,11 +144,9 @@ void main() {
 
           game.update(1);
 
-          final limit = game.pastureArea.size - unicorn.size;
-
           expect(
             unicorn.position,
-            closeToVector(10, limit.y),
+            closeToVector(pastureLeft + 10, pastureBottom - unicorn.size.y),
           );
           expect(unicorn.state, UnicornState.idle);
         });
@@ -148,9 +154,11 @@ void main() {
         flameTester.test('if right border is reached', (game) async {
           final movementBehavior = MovementBehavior();
           movementBehavior.direction = Vector2(1, 1);
+          final pastureTop = game.background.pastureField.top;
+          final pastureRight = game.background.pastureField.right;
 
           final unicorn = Unicorn.test(
-            position: Vector2(game.pastureArea.size.x, 0),
+            position: Vector2(pastureRight, pastureTop),
             behaviors: [
               movementBehavior,
             ],
@@ -162,11 +170,9 @@ void main() {
 
           game.update(1);
 
-          final limit = game.pastureArea.size - unicorn.size;
-
           expect(
             unicorn.position,
-            closeToVector(limit.x, 10),
+            closeToVector(pastureRight - unicorn.size.x, pastureTop + 10),
           );
           expect(unicorn.state, UnicornState.idle);
         });

@@ -16,8 +16,8 @@ class UnicornCounter extends PositionComponent
 
   @override
   Future<void> onLoad() async {
-    gameRef.pastureArea.children.register<Unicorn>();
-    unicorns = gameRef.pastureArea.children.query<Unicorn>();
+    gameRef.background.children.register<Unicorn>();
+    unicorns = gameRef.background.children.query<Unicorn>();
 
     await addAll(UnicornStage.values.map(_UnicornHead.new));
   }

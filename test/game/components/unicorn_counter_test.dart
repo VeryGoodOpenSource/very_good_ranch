@@ -40,7 +40,7 @@ void main() {
       'counts each stage of a unicorn',
       setUp: (game, tester) async {
         await game.add(UnicornCounter(position: Vector2(game.size.x, 0)));
-        await game.pastureArea.addAll(
+        await game.background.addAll(
           UnicornStage.values.map(
             (e) => Unicorn.test(
               position: Vector2.zero(),

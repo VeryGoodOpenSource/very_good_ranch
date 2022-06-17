@@ -21,10 +21,13 @@ class BabyUnicornComponent extends UnicornComponent {
   /// {@macro unicorn_component}
   BabyUnicornComponent()
       : super(
-          size: Vector2(57, 48.5),
+          size: dimensions,
           columns: 1,
           filePath: Assets.images.babySprite.packagePath,
         );
+
+  /// The dimensions of the unicorn at this stage
+  static final dimensions = Vector2(57, 48.5);
 }
 
 /// {@template child_unicorn_component}
@@ -34,10 +37,13 @@ class ChildUnicornComponent extends UnicornComponent {
   /// {@macro child_unicorn_component}
   ChildUnicornComponent()
       : super(
-          size: Vector2(71, 70),
+          size: dimensions,
           columns: 1,
           filePath: Assets.images.childSprite.packagePath,
         );
+
+  /// The dimensions of the unicorn at this stage
+  static final dimensions = Vector2(71, 70);
 }
 
 /// {@template teen_unicorn_component}
@@ -47,10 +53,13 @@ class TeenUnicornComponent extends UnicornComponent {
   /// {@macro teen_unicorn_component}
   TeenUnicornComponent()
       : super(
-          size: Vector2(84, 87.5),
+          size: dimensions,
           columns: 1,
           filePath: Assets.images.teenSprite.packagePath,
         );
+
+  /// The dimensions of the unicorn at this stage
+  static final dimensions = Vector2(84, 87.5);
 }
 
 /// {@template adult_unicorn_component}
@@ -60,10 +69,13 @@ class AdultUnicornComponent extends UnicornComponent {
   /// {@macro adult_unicorn_component}
   AdultUnicornComponent()
       : super(
-          size: Vector2(90, 110.5),
+          size: dimensions,
           columns: 1,
           filePath: Assets.images.adultSprite.packagePath,
         );
+
+  /// The dimensions of the unicorn at this stage
+  static final dimensions = Vector2(90, 110.5);
 }
 
 /// {@template unicorn_component}

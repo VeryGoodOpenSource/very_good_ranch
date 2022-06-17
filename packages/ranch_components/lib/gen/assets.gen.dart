@@ -20,6 +20,9 @@ class $AssetsImagesGen {
   AssetGenImage get babySprite =>
       const AssetGenImage('assets/images/baby_sprite.png');
 
+  /// File path: assets/images/barn.png
+  AssetGenImage get barn => const AssetGenImage('assets/images/barn.png');
+
   /// File path: assets/images/cake.png
   AssetGenImage get cake => const AssetGenImage('assets/images/cake.png');
 
@@ -29,6 +32,21 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/donut.png
   AssetGenImage get donut => const AssetGenImage('assets/images/donut.png');
+
+  /// File path: assets/images/flower_duo.png
+  AssetGenImage get flowerDuo =>
+      const AssetGenImage('assets/images/flower_duo.png');
+
+  /// File path: assets/images/flower_group.png
+  AssetGenImage get flowerGroup =>
+      const AssetGenImage('assets/images/flower_group.png');
+
+  /// File path: assets/images/flower_solo.png
+  AssetGenImage get flowerSolo =>
+      const AssetGenImage('assets/images/flower_solo.png');
+
+  /// File path: assets/images/grass.png
+  AssetGenImage get grass => const AssetGenImage('assets/images/grass.png');
 
   /// File path: assets/images/icecream.png
   AssetGenImage get icecream =>
@@ -45,6 +63,22 @@ class $AssetsImagesGen {
   /// File path: assets/images/teen_sprite.png
   AssetGenImage get teenSprite =>
       const AssetGenImage('assets/images/teen_sprite.png');
+
+  /// File path: assets/images/lined_tree.png
+  AssetGenImage get linedTree =>
+      const AssetGenImage('assets/images/lined_tree.png');
+
+  /// File path: assets/images/short_tree.png
+  AssetGenImage get shortTree =>
+      const AssetGenImage('assets/images/short_tree.png');
+
+  /// File path: assets/images/tall_tree.png
+  AssetGenImage get tallTree =>
+      const AssetGenImage('assets/images/tall_tree.png');
+
+  /// File path: assets/images/tree_trio.png
+  AssetGenImage get treeTrio =>
+      const AssetGenImage('assets/images/tree_trio.png');
 }
 
 class Assets {

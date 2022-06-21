@@ -11,7 +11,7 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, Food other) {
-    if (other.beingDragged) {
+    if (other.beingDragged || !other.wasDragged) {
       return;
     }
     if (parent.findBehavior<LeavingBehavior>()?.isLeaving == true) {

@@ -50,7 +50,20 @@ void main() {
       final foodCollisionBehavior = FoodCollisionBehavior();
       final food = _MockFood();
 
+      when(() => food.wasDragged).thenReturn(false);
       when(() => food.beingDragged).thenReturn(true);
+
+      foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+
+      verifyNever(food.removeFromParent);
+    });
+
+    test('does not remove the food while it was not being dragged before', () {
+      final foodCollisionBehavior = FoodCollisionBehavior();
+      final food = _MockFood();
+
+      when(() => food.wasDragged).thenReturn(false);
+      when(() => food.beingDragged).thenReturn(false);
 
       foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -74,6 +87,7 @@ void main() {
         await game.ensureAdd(unicorn);
 
         final food = _MockFood();
+        when(() => food.wasDragged).thenReturn(false);
         when(() => food.beingDragged).thenReturn(false);
         foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -81,31 +95,36 @@ void main() {
       },
     );
 
-    flameTester.test('removes the food from parent', (game) async {
-      final leavingBehavior = _MockLeavingBehavior();
-      when(() => leavingBehavior.isLeaving).thenReturn(false);
+    flameTester.test(
+      'removes the food from parent when it was dragged',
+      (game) async {
+        final leavingBehavior = _MockLeavingBehavior();
+        when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-      final evolutionBehavior = _MockEvolutionBehavior();
-      when(() => evolutionBehavior.currentStage).thenReturn(UnicornStage.child);
+        final evolutionBehavior = _MockEvolutionBehavior();
+        when(() => evolutionBehavior.currentStage)
+            .thenReturn(UnicornStage.child);
 
-      final foodCollisionBehavior = FoodCollisionBehavior();
-      final unicorn = Unicorn.test(
-        position: Vector2.zero(),
-        behaviors: [
-          evolutionBehavior,
-          foodCollisionBehavior,
-          leavingBehavior,
-        ],
-      );
-      await game.ensureAdd(unicorn);
+        final foodCollisionBehavior = FoodCollisionBehavior();
+        final unicorn = Unicorn.test(
+          position: Vector2.zero(),
+          behaviors: [
+            evolutionBehavior,
+            foodCollisionBehavior,
+            leavingBehavior,
+          ],
+        );
+        await game.ensureAdd(unicorn);
 
-      final food = _MockFood();
-      when(() => food.beingDragged).thenReturn(false);
-      when(() => food.type).thenReturn(FoodType.lollipop);
-      foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+        final food = _MockFood();
+        when(() => food.beingDragged).thenReturn(false);
+        when(() => food.wasDragged).thenReturn(true);
+        when(() => food.type).thenReturn(FoodType.lollipop);
+        foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
-      verify(food.removeFromParent).called(1);
-    });
+        verify(food.removeFromParent).called(1);
+      },
+    );
 
     group('feeding unicorn impacts enjoyment', () {
       group('with the right type of food', () {
@@ -139,6 +158,7 @@ void main() {
 
             final food = _MockFood();
             when(() => food.type).thenReturn(preferredFoodType);
+            when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
@@ -174,6 +194,7 @@ void main() {
 
         final food = _MockFood();
         when(() => food.type).thenReturn(FoodType.cake);
+        when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
 
         foodCollisionBehavior.onCollision({Vector2.zero()}, food);
@@ -214,6 +235,7 @@ void main() {
 
             final food = _MockFood();
             when(() => food.type).thenReturn(FoodType.cake);
+            when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);

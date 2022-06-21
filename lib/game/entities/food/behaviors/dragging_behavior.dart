@@ -34,10 +34,7 @@ class DraggingBehavior extends DraggableBehavior<Food> {
   }
 
   void _wasDraggedBefore() {
-    final timerComponent = firstChild<TimerComponent>();
-    if (timerComponent != null) {
-      timerComponent.removeFromParent();
-    }
+    firstChild<TimerComponent>()?.removeFromParent();
 
     wasDragged = true;
     add(

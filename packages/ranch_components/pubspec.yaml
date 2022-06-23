@@ -22,6 +22,7 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/animations/
 
 flutter_gen:
   line_length: 80

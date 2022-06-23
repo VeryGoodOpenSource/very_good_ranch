@@ -33,6 +33,7 @@ class StoryGame extends FlameGame {
     if (center) {
       camera.followVector2(Vector2.zero());
     }
+
     await add(_component);
   }
 }

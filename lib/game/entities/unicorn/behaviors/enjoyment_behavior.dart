@@ -9,7 +9,7 @@ class EnjoymentBehavior extends FactorBehavior {
     return EnjoymentBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: 120,
+        size: UnicornComponent.dimensions.x,
         thickness: 20,
         percentage: 1,
         color: Colors.lightBlue,

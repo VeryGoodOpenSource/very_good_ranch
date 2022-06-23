@@ -57,7 +57,7 @@ void main() {
             movementBehavior,
           ],
         );
-        unicorn.state = UnicornState.roaming;
+        unicorn.state = UnicornState.walking;
 
         await game.ready();
         await game.ensureAdd(unicorn);
@@ -85,7 +85,7 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.state = UnicornState.roaming;
+          unicorn.state = UnicornState.walking;
 
           await game.ready();
           await game.ensureAdd(unicorn);
@@ -111,7 +111,7 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.state = UnicornState.roaming;
+          unicorn.state = UnicornState.walking;
 
           await game.ready();
           await game.ensureAdd(unicorn);
@@ -137,7 +137,7 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.state = UnicornState.roaming;
+          unicorn.state = UnicornState.walking;
 
           await game.ready();
           await game.ensureAdd(unicorn);
@@ -163,7 +163,7 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.state = UnicornState.roaming;
+          unicorn.state = UnicornState.walking;
 
           await game.ready();
           await game.ensureAdd(unicorn);
@@ -199,7 +199,7 @@ void main() {
         game.update(10);
 
         expect(movementBehavior.direction, closeToVector(0.25, 0.25));
-        expect(unicorn.state, UnicornState.roaming);
+        expect(unicorn.state, UnicornState.walking);
       });
 
       flameTester.test('sets state to idle', (game) async {

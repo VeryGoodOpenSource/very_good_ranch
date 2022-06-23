@@ -18,7 +18,7 @@ class _TestFactorBehavior extends FactorBehavior {
     return _TestFactorBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: 120,
+        size: UnicornComponent.dimensions.x,
         thickness: 15,
         percentage: 1,
         color: Colors.lightBlue,
@@ -83,6 +83,7 @@ void main() {
           factorBehavior.percentage = 0.5;
           factorBehavior.makeGaugeTemporarilyVisible();
           game.update(GaugeComponent.animationDuration);
+          unicorn.unicornComponent.animation?.setToLast();
         },
         verify: (game, tester) async {
           await expectLater(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
-import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 
@@ -10,8 +10,14 @@ enum UnicornState {
   /// The unicorn is idle.
   idle,
 
-  /// The unicorn is roaming.
-  roaming,
+  /// The unicorn is walking.
+  walking,
+
+  /// The unicorn is eating something (nice)
+  eating,
+
+  /// The unicorn is being petted
+  petted,
 }
 
 /// {@template unicorn_component}
@@ -21,13 +27,27 @@ class BabyUnicornComponent extends UnicornComponent {
   /// {@macro unicorn_component}
   BabyUnicornComponent()
       : super(
-          size: dimensions,
-          columns: 1,
-          filePath: Assets.images.babySprite.keyName,
+          eatAnimationData: UnicornAnimationData(
+            columnsAmount: 10,
+            frameAmount: 90,
+            filePath: Assets.animations.babyEat.keyName,
+          ),
+          idleAnimationData: UnicornAnimationData(
+            columnsAmount: 10,
+            frameAmount: 40,
+            filePath: Assets.animations.babyIdle.keyName,
+          ),
+          pettedAnimationData: UnicornAnimationData(
+            columnsAmount: 10,
+            frameAmount: 90,
+            filePath: Assets.animations.babyPetted.keyName,
+          ),
+          walkAnimationData: UnicornAnimationData(
+            columnsAmount: 11,
+            frameAmount: 33,
+            filePath: Assets.animations.babyWalkCycle.keyName,
+          ),
         );
-
-  /// The dimensions of the unicorn at this stage
-  static final dimensions = Vector2(57, 48.5);
 }
 
 /// {@template child_unicorn_component}
@@ -37,13 +57,27 @@ class ChildUnicornComponent extends UnicornComponent {
   /// {@macro child_unicorn_component}
   ChildUnicornComponent()
       : super(
-          size: dimensions,
-          columns: 1,
-          filePath: Assets.images.childSprite.keyName,
+          eatAnimationData: UnicornAnimationData(
+            columnsAmount: 12,
+            frameAmount: 91,
+            filePath: Assets.animations.childEat.keyName,
+          ),
+          idleAnimationData: UnicornAnimationData(
+            columnsAmount: 7,
+            frameAmount: 42,
+            filePath: Assets.animations.childIdle.keyName,
+          ),
+          pettedAnimationData: UnicornAnimationData(
+            columnsAmount: 10,
+            frameAmount: 90,
+            filePath: Assets.animations.childPetted.keyName,
+          ),
+          walkAnimationData: UnicornAnimationData(
+            columnsAmount: 11,
+            frameAmount: 33,
+            filePath: Assets.animations.childWalkCycle.keyName,
+          ),
         );
-
-  /// The dimensions of the unicorn at this stage
-  static final dimensions = Vector2(71, 70);
 }
 
 /// {@template teen_unicorn_component}
@@ -53,13 +87,27 @@ class TeenUnicornComponent extends UnicornComponent {
   /// {@macro teen_unicorn_component}
   TeenUnicornComponent()
       : super(
-          size: dimensions,
-          columns: 1,
-          filePath: Assets.images.teenSprite.keyName,
+          eatAnimationData: UnicornAnimationData(
+            columnsAmount: 12,
+            frameAmount: 91,
+            filePath: Assets.animations.teenEat.keyName,
+          ),
+          idleAnimationData: UnicornAnimationData(
+            columnsAmount: 11,
+            frameAmount: 43,
+            filePath: Assets.animations.teenIdle.keyName,
+          ),
+          pettedAnimationData: UnicornAnimationData(
+            columnsAmount: 12,
+            frameAmount: 105,
+            filePath: Assets.animations.teenPetted.keyName,
+          ),
+          walkAnimationData: UnicornAnimationData(
+            columnsAmount: 11,
+            frameAmount: 33,
+            filePath: Assets.animations.teenWalkCycle.keyName,
+          ),
         );
-
-  /// The dimensions of the unicorn at this stage
-  static final dimensions = Vector2(84, 87.5);
 }
 
 /// {@template adult_unicorn_component}
@@ -69,61 +117,150 @@ class AdultUnicornComponent extends UnicornComponent {
   /// {@macro adult_unicorn_component}
   AdultUnicornComponent()
       : super(
-          size: dimensions,
-          columns: 1,
-          filePath: Assets.images.adultSprite.keyName,
+          eatAnimationData: UnicornAnimationData(
+            columnsAmount: 10,
+            frameAmount: 90,
+            filePath: Assets.animations.adultEat.keyName,
+          ),
+          idleAnimationData: UnicornAnimationData(
+            columnsAmount: 10,
+            frameAmount: 50,
+            filePath: Assets.animations.adultIdle.keyName,
+          ),
+          pettedAnimationData: UnicornAnimationData(
+            columnsAmount: 12,
+            frameAmount: 105,
+            filePath: Assets.animations.adultPetted.keyName,
+          ),
+          walkAnimationData: UnicornAnimationData(
+            columnsAmount: 7,
+            frameAmount: 34,
+            filePath: Assets.animations.adultWalkCycle.keyName,
+          ),
         );
+}
 
-  /// The dimensions of the unicorn at this stage
-  static final dimensions = Vector2(90, 110.5);
+/// {@template unicorn_animation_data}
+///  The metadata o of a animation of a unicorn in a specific stage and state.
+/// {@endtemplate}
+@immutable
+class UnicornAnimationData {
+  /// {@macro unicorn_animation_data}
+  const UnicornAnimationData({
+    required this.frameAmount,
+    required this.columnsAmount,
+    required this.filePath,
+  });
+
+  /// The size of each frame in the unicorn spritesheets
+  static final _unicornFrameSize = Vector2(338, 405);
+
+  /// How many frames this animation has
+  final int frameAmount;
+
+  /// How many columns the sprite sheet files has
+  final int columnsAmount;
+
+  /// The path to the sprite sheet file
+  final String filePath;
+
+  /// Creates a [SpriteAnimation] from this metadata
+  Future<SpriteAnimation> createAnimation({
+    required Images images,
+    required double duration,
+    bool loop = false,
+  }) async {
+    final image = await images.load(filePath);
+    final stepTime = duration / frameAmount;
+    return SpriteAnimation.fromFrameData(
+      image,
+      SpriteAnimationData.sequenced(
+        amount: frameAmount,
+        stepTime: stepTime,
+        amountPerRow: columnsAmount,
+        textureSize: _unicornFrameSize,
+        loop: loop,
+      ),
+    );
+  }
 }
 
 /// {@template unicorn_component}
 /// A component that represents a unicorn.
 /// {@endtemplate}
-abstract class UnicornComponent
-    extends SpriteAnimationGroupComponent<UnicornState> with HasGameRef {
+class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
+    with HasGameRef {
   /// {@macro unicorn_component}
-  @visibleForTesting
   UnicornComponent({
-    required String filePath,
-    required int columns,
-    required Vector2 size,
-  })  : _columns = columns,
-        _fileName = filePath,
-        super(
-          size: size,
+    required this.eatAnimationData,
+    required this.idleAnimationData,
+    required this.pettedAnimationData,
+    required this.walkAnimationData,
+  }) : super(
+          size: dimensions,
           current: UnicornState.idle,
         );
 
-  final int _columns;
-  final String _fileName;
+  /// The dimensions of the unicorn component in the canvas
+  static Vector2 get dimensions => Vector2(202, 242);
+
+  /// The Duration in seconds of the "eat" animation
+  static const eatAnimationDuration = 1.5;
+
+  /// The Duration in seconds of the "idle" animation
+  static const idleAniationDuration = 1.0;
+
+  /// The Duration in seconds of the "petted" animation
+  static const pettedAnimationDuration = 1.0;
+
+  /// The Duration in seconds of the "walk" animation
+  static const walkAnimationDuration = 1.0;
+
+  /// The [UnicornAnimationData] for the [SpriteAnimation] to be run when
+  /// [current] is [UnicornState.eating].
+  final UnicornAnimationData eatAnimationData;
+
+  /// The [UnicornAnimationData] for the [SpriteAnimation] to be run when
+  /// [current] is [UnicornState.idle].
+  final UnicornAnimationData idleAnimationData;
+
+  /// The [UnicornAnimationData] for the [SpriteAnimation] to be run when
+  /// [current] is [UnicornState.petted].
+  final UnicornAnimationData pettedAnimationData;
+
+  /// The [UnicornAnimationData] for the [SpriteAnimation] to be run when
+  /// [current] is [UnicornState.walking].
+  final UnicornAnimationData walkAnimationData;
 
   @override
   Future<void> onLoad() async {
-    final sheet = SpriteSheet.fromColumnsAndRows(
-      image: await gameRef.images.load(_fileName),
-      columns: _columns,
-      rows: UnicornState.values.length,
+    final eatAnimation = await eatAnimationData.createAnimation(
+      images: gameRef.images,
+      duration: eatAnimationDuration,
     );
 
-    const stepTime = .3;
-
-    final idleAnimation = sheet.createAnimation(
-      row: 0,
-      stepTime: stepTime,
-      to: 1,
+    final idleAnimation = await idleAnimationData.createAnimation(
+      images: gameRef.images,
+      duration: eatAnimationDuration,
+      loop: true,
     );
 
-    final roamAnimation = sheet.createAnimation(
-      row: 1,
-      stepTime: stepTime,
-      to: 1,
+    final pettedAnimation = await pettedAnimationData.createAnimation(
+      images: gameRef.images,
+      duration: pettedAnimationDuration,
+    );
+
+    final walkAnimation = await walkAnimationData.createAnimation(
+      images: gameRef.images,
+      duration: walkAnimationDuration,
+      loop: true,
     );
 
     animations = {
+      UnicornState.eating: eatAnimation,
       UnicornState.idle: idleAnimation,
-      UnicornState.roaming: roamAnimation,
+      UnicornState.petted: pettedAnimation,
+      UnicornState.walking: walkAnimation,
     };
   }
 }

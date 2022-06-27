@@ -147,4 +147,22 @@ void main() {
       },
     );
   });
+
+  group('food wasDragged', () {
+    flameTester.test(
+      'proxies from the behavior',
+      (game) async {
+        final draggingBehavior = _MockDraggingBehavior();
+
+        final food = Food.test(behaviors: [draggingBehavior]);
+        await game.ensureAdd(food);
+        await game.ready();
+
+        when(() => draggingBehavior.wasDragged).thenReturn(true);
+        expect(food.wasDragged, true);
+        when(() => draggingBehavior.wasDragged).thenReturn(false);
+        expect(food.wasDragged, false);
+      },
+    );
+  });
 }

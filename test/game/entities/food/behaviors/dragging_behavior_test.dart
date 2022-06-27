@@ -1,5 +1,6 @@
 // ignore_for_file: cascade_invocations
 
+import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
@@ -95,6 +96,58 @@ void main() {
               game.descendants().whereType<DraggingBehavior>().first;
 
           expect(draggable.beingDragged, isFalse);
+        },
+      );
+    });
+
+    group('wasDragged', () {
+      flameTester.testGameWidget(
+        'set it to true on drag stop',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggingBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await gesture.up();
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggingBehavior>().first;
+
+          expect(draggable.wasDragged, isTrue);
+          expect(draggable.firstChild<TimerComponent>(), isNotNull);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'set it to false after 5 seconds after the drag stop',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggingBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await gesture.up();
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final draggable =
+              game.descendants().whereType<DraggingBehavior>().first;
+
+          expect(draggable.wasDragged, isTrue);
+          expect(draggable.firstChild<TimerComponent>(), isNotNull);
+
+          game.update(5);
+          game.update(0);
+
+          expect(draggable.wasDragged, isFalse);
+          expect(draggable.firstChild<TimerComponent>(), isNull);
         },
       );
     });

@@ -5,7 +5,7 @@ import 'package:flame/game.dart';
 
 class StoryGame extends FlameGame {
   StoryGame(
-    this.component, {
+    this._component, {
     this.center = true,
   }) {
     // Clearing the prefix allows us to load images from packages.
@@ -13,7 +13,16 @@ class StoryGame extends FlameGame {
     Flame.images.prefix = '';
   }
 
-  final PositionComponent component;
+  PositionComponent _component;
+
+  PositionComponent get component => _component;
+
+  Future<void> setComponent(PositionComponent value) async {
+    _component.removeFromParent();
+    value.removeFromParent();
+    return add(_component = value);
+  }
+
   final bool center;
 
   @override
@@ -24,6 +33,6 @@ class StoryGame extends FlameGame {
     if (center) {
       camera.followVector2(Vector2.zero());
     }
-    await add(component);
+    await add(_component);
   }
 }

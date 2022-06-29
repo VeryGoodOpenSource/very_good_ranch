@@ -225,6 +225,28 @@ void main() {
 
       group('flips horizontally', () {
         flameTester.test('flips it', (game) async {
+          when(() => seed.nextBool()).thenReturn(true);
+          when(() => seed.nextDouble()).thenReturn(0.25);
+
+          final movementBehavior = MovementBehavior();
+
+          final unicorn = Unicorn.test(
+            position: Vector2.zero(),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
+          unicorn.unicornComponent.transform.scale.x = -1;
+
+          await game.ready();
+          await game.ensureAdd(unicorn);
+
+          game.update(10);
+
+          expect(unicorn.unicornComponent.transform.scale.x, lessThan(0));
+        });
+
+        flameTester.test('flips it back', (game) async {
           when(() => seed.nextBool()).thenReturn(false);
           when(() => seed.nextDouble()).thenReturn(0.25);
 
@@ -246,9 +268,9 @@ void main() {
           expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
         });
 
-        flameTester.test('flips it back', (game) async {
+        flameTester.test('flips it back on zero', (game) async {
           when(() => seed.nextBool()).thenReturn(true);
-          when(() => seed.nextDouble()).thenReturn(0.25);
+          when(() => seed.nextDouble()).thenReturn(0);
 
           final movementBehavior = MovementBehavior();
 
@@ -265,7 +287,7 @@ void main() {
 
           game.update(10);
 
-          expect(unicorn.unicornComponent.transform.scale.x, lessThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
         });
       });
     });

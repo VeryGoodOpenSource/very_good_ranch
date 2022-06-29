@@ -24,7 +24,7 @@ class MovementBehavior extends Behavior<Unicorn>
           Vector2.random(gameRef.seed) * (gameRef.seed.nextBool() ? 1 : -1);
 
       final isFlipped = parent.unicornComponent.transform.scale.x < 0;
-      if (direction.x < 0) {
+      if (direction.x > 0) {
         // If it isn't flipped, flip it.
         if (!isFlipped) {
           parent.unicornComponent.flipHorizontallyAroundCenter();

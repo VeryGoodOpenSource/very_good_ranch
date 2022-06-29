@@ -243,7 +243,7 @@ void main() {
 
           game.update(10);
 
-          expect(unicorn.unicornComponent.transform.scale.x, lessThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
         });
 
         flameTester.test('flips it back', (game) async {
@@ -265,7 +265,7 @@ void main() {
 
           game.update(10);
 
-          expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, lessThan(0));
         });
       });
     });

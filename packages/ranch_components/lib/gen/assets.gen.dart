@@ -52,6 +52,10 @@ class $AssetsImagesGen {
   AssetGenImage get icecream =>
       const AssetGenImage('assets/images/icecream.png');
 
+  /// File path: assets/images/lined_tree.png
+  AssetGenImage get linedTree =>
+      const AssetGenImage('assets/images/lined_tree.png');
+
   /// File path: assets/images/lollipop.png
   AssetGenImage get lollipop =>
       const AssetGenImage('assets/images/lollipop.png');
@@ -60,14 +64,6 @@ class $AssetsImagesGen {
   AssetGenImage get pancakes =>
       const AssetGenImage('assets/images/pancakes.png');
 
-  /// File path: assets/images/teen_sprite.png
-  AssetGenImage get teenSprite =>
-      const AssetGenImage('assets/images/teen_sprite.png');
-
-  /// File path: assets/images/lined_tree.png
-  AssetGenImage get linedTree =>
-      const AssetGenImage('assets/images/lined_tree.png');
-
   /// File path: assets/images/short_tree.png
   AssetGenImage get shortTree =>
       const AssetGenImage('assets/images/short_tree.png');
@@ -75,6 +71,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/tall_tree.png
   AssetGenImage get tallTree =>
       const AssetGenImage('assets/images/tall_tree.png');
+
+  /// File path: assets/images/teen_sprite.png
+  AssetGenImage get teenSprite =>
+      const AssetGenImage('assets/images/teen_sprite.png');
 
   /// File path: assets/images/tree_trio.png
   AssetGenImage get treeTrio =>
@@ -99,7 +99,7 @@ class AssetGenImage {
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
-    double? scale = 1.0,
+    double? scale,
     double? width,
     double? height,
     Color? color,
@@ -147,6 +147,5 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  // Todo(renancaraujo): use generated code once this lands: https://github.com/FlutterGen/flutter_gen/pull/251
-  String get packagePath => 'packages/ranch_components/$_assetName';
+  String get keyName => 'packages/ranch_components/$_assetName';
 }

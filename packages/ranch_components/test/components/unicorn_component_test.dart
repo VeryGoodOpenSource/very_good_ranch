@@ -18,7 +18,6 @@ class MockImages extends Mock implements Images {}
 
 class MockSpriteAnimations extends Mock implements SpriteAnimation {}
 
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final flameTester = FlameTester(TestGame.new);

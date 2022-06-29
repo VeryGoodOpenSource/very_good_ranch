@@ -18,7 +18,7 @@ class _TestFactorBehavior extends FactorBehavior {
     return _TestFactorBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: UnicornComponent.dimensions.x,
+        size: UnicornComponent.dimensions.x + 10,
         thickness: 15,
         percentage: 1,
         color: Colors.lightBlue,

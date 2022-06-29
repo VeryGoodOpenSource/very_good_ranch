@@ -82,23 +82,23 @@ class FoodComponent extends SpriteComponent with HasGameRef {
       case FoodType.cake:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.cake.packagePath,
+          spritePath: Assets.images.cake.keyName,
         );
 
       case FoodType.lollipop:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.lollipop.packagePath,
+          spritePath: Assets.images.lollipop.keyName,
         );
       case FoodType.pancake:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.pancakes.packagePath,
+          spritePath: Assets.images.pancakes.keyName,
         );
       case FoodType.iceCream:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.icecream.packagePath,
+          spritePath: Assets.images.icecream.keyName,
         );
     }
   }

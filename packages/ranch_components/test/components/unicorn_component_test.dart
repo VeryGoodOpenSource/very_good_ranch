@@ -16,7 +16,7 @@ class _TestUnicornComponent extends UnicornComponent {
       : super(
           size: Vector2(90, 110.5),
           columns: 1,
-          filePath: Assets.images.adultSprite.packagePath,
+          filePath: Assets.images.adultSprite.keyName,
         );
 }
 

@@ -5,46 +5,30 @@ import 'package:sandbox/common/common.dart';
 
 void addUnicornComponentStories(Dashbook dashbook) {
   dashbook.storiesOf('UnicornComponent').add(
-    'idle',
+    'Playground',
     (context) {
+      final defaultUnicorn = BabyUnicornComponent();
       final unicorn = context.listProperty<UnicornComponent>(
         'Unicorn stage',
-        BabyUnicornComponent(),
+        defaultUnicorn,
         [
-          BabyUnicornComponent(),
+          defaultUnicorn,
           ChildUnicornComponent(),
           TeenUnicornComponent(),
           AdultUnicornComponent(),
         ],
       );
+      final unicornState = context.listProperty<UnicornState>(
+        'Unicorn state',
+        UnicornState.idle,
+        UnicornState.values,
+      );
+      unicorn.current = unicornState;
 
-      return GameWidget(
-        game: StoryGame(unicorn..current = UnicornState.idle),
-      );
-    },
-    info: '''
-      The UnicornComponent is a component that represents a unicorn.
-''',
-  ).add(
-    'roaming',
-    (context) {
-      final unicorn = context.listProperty<UnicornComponent>(
-        'Unicorn stage',
-        BabyUnicornComponent(),
-        [
-          BabyUnicornComponent(),
-          ChildUnicornComponent(),
-          TeenUnicornComponent(),
-          AdultUnicornComponent(),
-        ],
-      );
+      final game = context.storyGame(component: unicorn);
 
-      return GameWidget(
-        game: StoryGame(unicorn..current = UnicornState.roaming),
-      );
+      return GameWidget(game: game);
     },
-    info: '''
-      The UnicornComponent is a component that represents a unicorn.
-''',
+    info: 'The UnicornComponent is a component that represents a unicorn.',
   );
 }

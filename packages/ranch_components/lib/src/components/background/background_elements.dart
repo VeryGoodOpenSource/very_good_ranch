@@ -13,7 +13,7 @@ class Barn extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.barn.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.barn.keyName);
   }
 }
 
@@ -29,7 +29,7 @@ class TreeTrio extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.treeTrio.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.treeTrio.keyName);
   }
 }
 
@@ -45,7 +45,7 @@ class TallTree extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.tallTree.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.tallTree.keyName);
   }
 }
 
@@ -61,7 +61,7 @@ class ShortTree extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.shortTree.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.shortTree.keyName);
   }
 }
 
@@ -77,7 +77,7 @@ class Grass extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.grass.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.grass.keyName);
   }
 }
 
@@ -93,7 +93,7 @@ class FlowerSolo extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.flowerSolo.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.flowerSolo.keyName);
   }
 }
 
@@ -109,7 +109,7 @@ class FlowerDuo extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.flowerDuo.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.flowerDuo.keyName);
   }
 }
 
@@ -125,6 +125,6 @@ class FlowerGroup extends SpriteComponent with HasGameRef {
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite(Assets.images.flowerGroup.packagePath);
+    sprite = await gameRef.loadSprite(Assets.images.flowerGroup.keyName);
   }
 }

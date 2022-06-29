@@ -23,7 +23,7 @@ class BabyUnicornComponent extends UnicornComponent {
       : super(
           size: dimensions,
           columns: 1,
-          filePath: Assets.images.babySprite.packagePath,
+          filePath: Assets.images.babySprite.keyName,
         );
 
   /// The dimensions of the unicorn at this stage
@@ -39,7 +39,7 @@ class ChildUnicornComponent extends UnicornComponent {
       : super(
           size: dimensions,
           columns: 1,
-          filePath: Assets.images.childSprite.packagePath,
+          filePath: Assets.images.childSprite.keyName,
         );
 
   /// The dimensions of the unicorn at this stage
@@ -55,7 +55,7 @@ class TeenUnicornComponent extends UnicornComponent {
       : super(
           size: dimensions,
           columns: 1,
-          filePath: Assets.images.teenSprite.packagePath,
+          filePath: Assets.images.teenSprite.keyName,
         );
 
   /// The dimensions of the unicorn at this stage
@@ -71,7 +71,7 @@ class AdultUnicornComponent extends UnicornComponent {
       : super(
           size: dimensions,
           columns: 1,
-          filePath: Assets.images.adultSprite.packagePath,
+          filePath: Assets.images.adultSprite.keyName,
         );
 
   /// The dimensions of the unicorn at this stage

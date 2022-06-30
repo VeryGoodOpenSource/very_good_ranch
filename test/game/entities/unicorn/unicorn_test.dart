@@ -66,9 +66,9 @@ void main() {
           await game.ready();
           await game.ensureAdd(unicorn);
 
-          unicorn.state = UnicornState.roaming;
+          unicorn.state = UnicornState.walking;
 
-          expect(unicorn.state, UnicornState.roaming);
+          expect(unicorn.state, UnicornState.walking);
         },
       );
     });

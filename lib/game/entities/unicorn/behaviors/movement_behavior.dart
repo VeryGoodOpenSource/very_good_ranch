@@ -19,7 +19,7 @@ class MovementBehavior extends Behavior<Unicorn>
 
   void _onTick() {
     if (gameRef.seed.nextDouble() < 0.5) {
-      parent.state = UnicornState.roaming;
+      parent.state = UnicornState.walking;
       direction =
           Vector2.random(gameRef.seed) * (gameRef.seed.nextBool() ? 1 : -1);
 
@@ -43,7 +43,7 @@ class MovementBehavior extends Behavior<Unicorn>
 
   @override
   void update(double dt) {
-    if (parent.state == UnicornState.roaming) {
+    if (parent.state == UnicornState.walking) {
       parent.position += direction * (speed * dt);
 
       final origin = gameRef.background.pastureField.topLeft.toVector2();

@@ -9,26 +9,82 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsAnimationsGen {
+  const $AssetsAnimationsGen();
+
+  /// File path: assets/animations/adult_eat.png
+  AssetGenImage get adultEat =>
+      const AssetGenImage('assets/animations/adult_eat.png');
+
+  /// File path: assets/animations/adult_idle.png
+  AssetGenImage get adultIdle =>
+      const AssetGenImage('assets/animations/adult_idle.png');
+
+  /// File path: assets/animations/adult_petted.png
+  AssetGenImage get adultPetted =>
+      const AssetGenImage('assets/animations/adult_petted.png');
+
+  /// File path: assets/animations/adult_walk_cycle.png
+  AssetGenImage get adultWalkCycle =>
+      const AssetGenImage('assets/animations/adult_walk_cycle.png');
+
+  /// File path: assets/animations/baby_eat.png
+  AssetGenImage get babyEat =>
+      const AssetGenImage('assets/animations/baby_eat.png');
+
+  /// File path: assets/animations/baby_idle.png
+  AssetGenImage get babyIdle =>
+      const AssetGenImage('assets/animations/baby_idle.png');
+
+  /// File path: assets/animations/baby_petted.png
+  AssetGenImage get babyPetted =>
+      const AssetGenImage('assets/animations/baby_petted.png');
+
+  /// File path: assets/animations/baby_walk_cycle.png
+  AssetGenImage get babyWalkCycle =>
+      const AssetGenImage('assets/animations/baby_walk_cycle.png');
+
+  /// File path: assets/animations/child_eat.png
+  AssetGenImage get childEat =>
+      const AssetGenImage('assets/animations/child_eat.png');
+
+  /// File path: assets/animations/child_idle.png
+  AssetGenImage get childIdle =>
+      const AssetGenImage('assets/animations/child_idle.png');
+
+  /// File path: assets/animations/child_petted.png
+  AssetGenImage get childPetted =>
+      const AssetGenImage('assets/animations/child_petted.png');
+
+  /// File path: assets/animations/child_walk_cycle.png
+  AssetGenImage get childWalkCycle =>
+      const AssetGenImage('assets/animations/child_walk_cycle.png');
+
+  /// File path: assets/animations/teen_eat.png
+  AssetGenImage get teenEat =>
+      const AssetGenImage('assets/animations/teen_eat.png');
+
+  /// File path: assets/animations/teen_idle.png
+  AssetGenImage get teenIdle =>
+      const AssetGenImage('assets/animations/teen_idle.png');
+
+  /// File path: assets/animations/teen_petted.png
+  AssetGenImage get teenPetted =>
+      const AssetGenImage('assets/animations/teen_petted.png');
+
+  /// File path: assets/animations/teen_walk_cycle.png
+  AssetGenImage get teenWalkCycle =>
+      const AssetGenImage('assets/animations/teen_walk_cycle.png');
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
-
-  /// File path: assets/images/adult_sprite.png
-  AssetGenImage get adultSprite =>
-      const AssetGenImage('assets/images/adult_sprite.png');
-
-  /// File path: assets/images/baby_sprite.png
-  AssetGenImage get babySprite =>
-      const AssetGenImage('assets/images/baby_sprite.png');
 
   /// File path: assets/images/barn.png
   AssetGenImage get barn => const AssetGenImage('assets/images/barn.png');
 
   /// File path: assets/images/cake.png
   AssetGenImage get cake => const AssetGenImage('assets/images/cake.png');
-
-  /// File path: assets/images/child_sprite.png
-  AssetGenImage get childSprite =>
-      const AssetGenImage('assets/images/child_sprite.png');
 
   /// File path: assets/images/donut.png
   AssetGenImage get donut => const AssetGenImage('assets/images/donut.png');
@@ -72,9 +128,9 @@ class $AssetsImagesGen {
   AssetGenImage get tallTree =>
       const AssetGenImage('assets/images/tall_tree.png');
 
-  /// File path: assets/images/teen_sprite.png
-  AssetGenImage get teenSprite =>
-      const AssetGenImage('assets/images/teen_sprite.png');
+  /// File path: assets/images/teen_eat.png
+  AssetGenImage get teenEat =>
+      const AssetGenImage('assets/images/teen_eat.png');
 
   /// File path: assets/images/tree_trio.png
   AssetGenImage get treeTrio =>
@@ -84,6 +140,7 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
+  static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

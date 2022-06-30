@@ -35,23 +35,27 @@ void main() {
   final flameTester = FlameTester<TestGame>(TestGame.new);
 
   group('FactorBehavior', () {
+    late _MockLeavingBehavior leavingBehavior;
+    late Unicorn unicorn;
+    late FactorBehavior factorBehavior;
+
+    setUp(() {
+      leavingBehavior = _MockLeavingBehavior();
+      factorBehavior = _TestFactorBehavior();
+      unicorn = Unicorn.test(
+        position: Vector2.all(100),
+        behaviors: [
+          factorBehavior,
+          leavingBehavior,
+        ],
+      )..unicornComponent.current = null;
+    });
+
     group('gauge rendering', () {
       flameTester.testGameWidget(
         'Follows fullness and enjoyment factors: 100%',
         setUp: (game, tester) async {
-          final leavingBehavior = _MockLeavingBehavior();
           when(() => leavingBehavior.isLeaving).thenReturn(false);
-
-          final factorBehavior = _TestFactorBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              factorBehavior,
-              leavingBehavior,
-            ],
-          );
-
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 1.0;
           factorBehavior.makeGaugeTemporarilyVisible();
@@ -67,18 +71,8 @@ void main() {
       flameTester.testGameWidget(
         'Follows fullness and enjoyment factors: 50%',
         setUp: (game, tester) async {
-          final leavingBehavior = _MockLeavingBehavior();
           when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-          final factorBehavior = _TestFactorBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              factorBehavior,
-              leavingBehavior,
-            ],
-          );
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 0.5;
           factorBehavior.makeGaugeTemporarilyVisible();
@@ -95,18 +89,7 @@ void main() {
       flameTester.testGameWidget(
         'Do not render gauge when leaving',
         setUp: (game, tester) async {
-          final leavingBehavior = _MockLeavingBehavior();
           when(() => leavingBehavior.isLeaving).thenReturn(true);
-
-          final factorBehavior = _TestFactorBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              factorBehavior,
-              leavingBehavior,
-            ],
-          );
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 0.0;
           factorBehavior.makeGaugeTemporarilyVisible();
@@ -124,18 +107,8 @@ void main() {
       flameTester.testGameWidget(
         'gauge is not visible on start',
         setUp: (game, tester) async {
-          final leavingBehavior = _MockLeavingBehavior();
           when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-          final factorBehavior = _TestFactorBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              factorBehavior,
-              leavingBehavior,
-            ],
-          );
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 1.0;
         },
@@ -150,18 +123,8 @@ void main() {
         flameTester.testGameWidget(
           'on increase',
           setUp: (game, tester) async {
-            final leavingBehavior = _MockLeavingBehavior();
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-            final factorBehavior = _TestFactorBehavior();
-
-            final unicorn = Unicorn.test(
-              position: Vector2.all(100),
-              behaviors: [
-                factorBehavior,
-                leavingBehavior,
-              ],
-            );
             await game.ensureAdd(unicorn);
             factorBehavior.percentage = 1.0;
             factorBehavior.increaseBy(0.5);
@@ -184,18 +147,8 @@ void main() {
         flameTester.testGameWidget(
           'on decrease',
           setUp: (game, tester) async {
-            final leavingBehavior = _MockLeavingBehavior();
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-            final factorBehavior = _TestFactorBehavior();
-
-            final unicorn = Unicorn.test(
-              position: Vector2.all(100),
-              behaviors: [
-                factorBehavior,
-                leavingBehavior,
-              ],
-            );
             await game.ensureAdd(unicorn);
             factorBehavior.percentage = 1.0;
             factorBehavior.increaseBy(0.5);
@@ -218,18 +171,8 @@ void main() {
         flameTester.testGameWidget(
           'on reset',
           setUp: (game, tester) async {
-            final leavingBehavior = _MockLeavingBehavior();
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-            final factorBehavior = _TestFactorBehavior();
-
-            final unicorn = Unicorn.test(
-              position: Vector2.all(100),
-              behaviors: [
-                factorBehavior,
-                leavingBehavior,
-              ],
-            );
             await game.ensureAdd(unicorn);
             factorBehavior.percentage = 0.5;
             factorBehavior.reset();
@@ -253,18 +196,8 @@ void main() {
       flameTester.testGameWidget(
         'gauge is visible when percentage is below 25%',
         setUp: (game, tester) async {
-          final leavingBehavior = _MockLeavingBehavior();
           when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-          final factorBehavior = _TestFactorBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              factorBehavior,
-              leavingBehavior,
-            ],
-          );
           await game.ensureAdd(unicorn);
           factorBehavior.percentage = 0.1;
           game.update(GaugeComponent.animationDuration);

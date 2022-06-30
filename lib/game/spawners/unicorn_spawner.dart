@@ -26,7 +26,7 @@ class UnicornSpawner extends TimerComponent
     final pastureField = parent.pastureField;
     final position = Vector2.random(seed)
       ..multiply(
-        pastureField.size.toVector2() - BabyUnicornComponent.dimensions,
+        pastureField.size.toVector2() - UnicornComponent.dimensions,
       )
       ..add(pastureField.topLeft.toVector2());
 

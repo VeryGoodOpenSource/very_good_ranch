@@ -145,8 +145,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.idleAniationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -175,8 +175,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.eatAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -205,8 +205,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.pettedAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -235,8 +235,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.walkAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -265,8 +265,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.idleAniationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
           await expectLater(
             find.byGame<TestGame>(),
@@ -294,8 +294,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.eatAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -324,8 +324,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.pettedAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -354,8 +354,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.walkAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -384,8 +384,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.idleAniationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -414,8 +414,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.eatAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -444,8 +444,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.pettedAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -474,8 +474,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.walkAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -504,8 +504,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.idleAniationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
           await expectLater(
             find.byGame<TestGame>(),
@@ -533,8 +533,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.eatAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -563,8 +563,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.pettedAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(
@@ -593,8 +593,8 @@ void main() {
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
             i <= UnicornComponent.walkAnimationDuration;
-            i += 0.1, index++) {
-          game.update(0.1);
+            i += 0.3, index++) {
+          game.update(0.3);
           await tester.pump();
 
           await expectLater(

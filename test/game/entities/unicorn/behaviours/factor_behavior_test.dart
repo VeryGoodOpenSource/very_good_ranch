@@ -38,6 +38,7 @@ void main() {
     late _MockLeavingBehavior leavingBehavior;
     late Unicorn unicorn;
     late FactorBehavior factorBehavior;
+
     setUp(() {
       leavingBehavior = _MockLeavingBehavior();
       factorBehavior = _TestFactorBehavior();

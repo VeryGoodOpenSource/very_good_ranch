@@ -1,0 +1,19 @@
+name: gh_pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v2
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+      - name: ☁️ Deploy
+        uses: bluefireteam/flutter-gh-pages@v7
+        with:
+          webRenderer: canvaskit

@@ -16,6 +16,6 @@ jobs:
         uses: subosito/flutter-action@v2
 
       - name: ☁️ Deploy
-        uses: bluefireteam/flutter-gh-pages@v7
+        uses: bluefireteam/flutter-gh-pages@v8
         with:
           webRenderer: canvaskit

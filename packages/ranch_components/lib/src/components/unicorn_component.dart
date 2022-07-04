@@ -202,7 +202,7 @@ class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
         );
 
   /// The dimensions of the unicorn component in the canvas
-  static Vector2 get dimensions => Vector2(202, 242) * 0.7;
+  static Vector2 get dimensions => Vector2(202, 242);
 
   /// The Duration in seconds of the "eat" animation
   static const eatAnimationDuration = 1.5;

@@ -40,7 +40,7 @@ void main() {
       },
       verify: (game, tester) async {
         final unicorn = game.descendants().whereType<Unicorn>().first;
-        final leavingBehavior = unicorn.findBehavior<LeavingBehavior>()!;
+        final leavingBehavior = unicorn.findBehavior<LeavingBehavior>();
 
         expect(leavingBehavior.isLeaving, true);
         for (var i = 0; i < 5; i++) {

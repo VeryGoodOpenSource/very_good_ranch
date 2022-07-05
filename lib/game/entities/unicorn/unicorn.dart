@@ -59,16 +59,16 @@ class Unicorn extends Entity {
   int timesFed = 0;
 
   late final FullnessBehavior fullnessBehavior =
-      findBehavior<FullnessBehavior>()!;
+      findBehavior<FullnessBehavior>();
 
   late final EnjoymentBehavior enjoymentBehavior =
-      findBehavior<EnjoymentBehavior>()!;
+      findBehavior<EnjoymentBehavior>();
 
   double get happinessFactor =>
       fullnessBehavior.percentage * enjoymentBehavior.percentage;
 
   UnicornStage get currentStage =>
-      findBehavior<EvolutionBehavior>()!.currentStage;
+      findBehavior<EvolutionBehavior>().currentStage;
 
   UnicornComponent? _unicornComponent;
 

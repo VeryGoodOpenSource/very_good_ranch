@@ -85,10 +85,10 @@ class Food extends Entity {
   double get nutrition => type.nutrition;
 
   /// Indicates if the food is currently being dragged.
-  bool get beingDragged => findBehavior<DraggingBehavior>()!.beingDragged;
+  bool get beingDragged => findBehavior<DraggingBehavior>().beingDragged;
 
   /// Indicates if the food was dragged before.
-  bool get wasDragged => findBehavior<DraggingBehavior>()!.wasDragged;
+  bool get wasDragged => findBehavior<DraggingBehavior>().wasDragged;
 
   /// The type of food.
   final FoodType type;

@@ -12,8 +12,6 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
   final GaugeComponent _gaugeComponent;
 
-  late final leavingBehavior = parent.findBehavior<LeavingBehavior>();
-
   final _visibilityTimer = Timer(visibilityDuration, autoStart: false);
 
   double _percentage = 1;
@@ -60,9 +58,11 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
     _visibilityTimer.update(dt);
     _gaugeComponent.percentage = percentage;
-    final isLeaving = leavingBehavior?.isLeaving == true;
-    if (isLeaving) {
-      removeFromParent();
+    if (parent.hasBehavior<LeavingBehavior>()) {
+      final leavingBehavior = parent.findBehavior<LeavingBehavior>();
+      if (leavingBehavior.isLeaving == true) {
+        removeFromParent();
+      }
     }
   }
 

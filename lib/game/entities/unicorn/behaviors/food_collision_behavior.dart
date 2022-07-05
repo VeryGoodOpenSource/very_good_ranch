@@ -14,7 +14,8 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     if (other.beingDragged || !other.wasDragged) {
       return;
     }
-    if (parent.findBehavior<LeavingBehavior>()?.isLeaving == true) {
+    if (parent.hasBehavior<LeavingBehavior>() &&
+        parent.findBehavior<LeavingBehavior>().isLeaving == true) {
       return;
     }
     _feedTheUnicorn(other.type);
@@ -25,14 +26,14 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     final currentStage = parent.currentStage;
 
     final fullnessFeedFactor = currentStage.fullnessFeedFactor;
-    parent.findBehavior<FullnessBehavior>()?.increaseBy(fullnessFeedFactor);
+    parent.findBehavior<FullnessBehavior>().increaseBy(fullnessFeedFactor);
 
     final preferredFoodType = currentStage.preferredFoodType;
     final impactOnEnjoyment = preferredFoodType == foodType
         ? positiveImpactOnEnjoyment
         : negativeImpactOnEnjoyment;
 
-    parent.findBehavior<EnjoymentBehavior>()?.increaseBy(impactOnEnjoyment);
+    parent.findBehavior<EnjoymentBehavior>().increaseBy(impactOnEnjoyment);
   }
 }
 

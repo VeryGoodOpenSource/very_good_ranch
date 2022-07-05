@@ -32,8 +32,8 @@ class EvolutionBehavior extends Behavior<Unicorn> {
     final nextStage = getNextStage();
     _currentStage = nextStage;
 
-    parent.findBehavior<FullnessBehavior>()?.reset();
-    parent.findBehavior<EnjoymentBehavior>()?.reset();
+    parent.findBehavior<FullnessBehavior>().reset();
+    parent.findBehavior<EnjoymentBehavior>().reset();
   }
 
   bool get shouldEvolve {

@@ -56,7 +56,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
       UnicornStage.adult
     ].indexOf(stage);
     final amount = parent.unicorns
-        .where((u) => u.isMounted && u.currentStage == stage)
+        .where((u) => u.isLoaded && u.currentStage == stage)
         .length;
     final textSize = _textPaint.measureText('$amount');
 

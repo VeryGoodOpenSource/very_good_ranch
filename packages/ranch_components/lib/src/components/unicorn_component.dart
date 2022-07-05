@@ -34,7 +34,7 @@ class BabyUnicornComponent extends UnicornComponent {
           ),
           idleAnimationData: UnicornAnimationData(
             columnsAmount: 10,
-            frameAmount: 40,
+            frameAmount: 50,
             filePath: Assets.animations.babyIdle.keyName,
           ),
           pettedAnimationData: UnicornAnimationData(
@@ -43,8 +43,8 @@ class BabyUnicornComponent extends UnicornComponent {
             filePath: Assets.animations.babyPetted.keyName,
           ),
           walkAnimationData: UnicornAnimationData(
-            columnsAmount: 11,
-            frameAmount: 33,
+            columnsAmount: 7,
+            frameAmount: 34,
             filePath: Assets.animations.babyWalkCycle.keyName,
           ),
         );
@@ -58,13 +58,13 @@ class ChildUnicornComponent extends UnicornComponent {
   ChildUnicornComponent()
       : super(
           eatAnimationData: UnicornAnimationData(
-            columnsAmount: 12,
-            frameAmount: 91,
+            columnsAmount: 10,
+            frameAmount: 90,
             filePath: Assets.animations.childEat.keyName,
           ),
           idleAnimationData: UnicornAnimationData(
-            columnsAmount: 7,
-            frameAmount: 42,
+            columnsAmount: 10,
+            frameAmount: 50,
             filePath: Assets.animations.childIdle.keyName,
           ),
           pettedAnimationData: UnicornAnimationData(
@@ -73,8 +73,8 @@ class ChildUnicornComponent extends UnicornComponent {
             filePath: Assets.animations.childPetted.keyName,
           ),
           walkAnimationData: UnicornAnimationData(
-            columnsAmount: 11,
-            frameAmount: 33,
+            columnsAmount: 7,
+            frameAmount: 34,
             filePath: Assets.animations.childWalkCycle.keyName,
           ),
         );
@@ -88,23 +88,23 @@ class TeenUnicornComponent extends UnicornComponent {
   TeenUnicornComponent()
       : super(
           eatAnimationData: UnicornAnimationData(
-            columnsAmount: 12,
-            frameAmount: 91,
+            columnsAmount: 10,
+            frameAmount: 90,
             filePath: Assets.animations.teenEat.keyName,
           ),
           idleAnimationData: UnicornAnimationData(
-            columnsAmount: 11,
-            frameAmount: 43,
+            columnsAmount: 10,
+            frameAmount: 50,
             filePath: Assets.animations.teenIdle.keyName,
           ),
           pettedAnimationData: UnicornAnimationData(
-            columnsAmount: 12,
-            frameAmount: 105,
+            columnsAmount: 10,
+            frameAmount: 90,
             filePath: Assets.animations.teenPetted.keyName,
           ),
           walkAnimationData: UnicornAnimationData(
-            columnsAmount: 11,
-            frameAmount: 33,
+            columnsAmount: 7,
+            frameAmount: 34,
             filePath: Assets.animations.teenWalkCycle.keyName,
           ),
         );
@@ -128,8 +128,8 @@ class AdultUnicornComponent extends UnicornComponent {
             filePath: Assets.animations.adultIdle.keyName,
           ),
           pettedAnimationData: UnicornAnimationData(
-            columnsAmount: 12,
-            frameAmount: 105,
+            columnsAmount: 10,
+            frameAmount: 90,
             filePath: Assets.animations.adultPetted.keyName,
           ),
           walkAnimationData: UnicornAnimationData(

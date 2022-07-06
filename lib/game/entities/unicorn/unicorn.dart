@@ -16,7 +16,6 @@ class Unicorn extends Entity {
   Unicorn({
     required super.position,
   }) : super(
-          size: Vector2.all(32),
           behaviors: [
             EvolutionBehavior(),
             PropagatingCollisionBehavior(RectangleHitbox()),
@@ -27,7 +26,10 @@ class Unicorn extends Entity {
             LeavingBehavior(),
             PetBehavior(),
           ],
-        );
+        ) {
+    final unicornComponent = BabyUnicornComponent();
+    add(this.unicornComponent = unicornComponent);
+  }
 
   /// Creates a Unicorn without only the passed behaviors and a
   /// [PropagatingCollisionBehavior].
@@ -40,12 +42,17 @@ class Unicorn extends Entity {
   }) {
     final _unicornComponent = BabyUnicornComponent();
     final size = _unicornComponent.size;
-    return Unicorn._(
+    final unicorn = Unicorn._(
       position: position,
       size: size,
       behaviors: behaviors,
       unicornComponent: _unicornComponent,
-    )..add(_unicornComponent);
+    );
+    unicorn.add(_unicornComponent)?.then((value) {
+      unicorn.unicornComponent = _unicornComponent;
+    });
+
+    return unicorn;
   }
 
   Unicorn._({

@@ -9,7 +9,7 @@ class EnjoymentBehavior extends FactorBehavior {
     return EnjoymentBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: UnicornComponent.dimensions.x,
+        diameter: 0,
         thickness: 20,
         percentage: 1,
         color: Colors.lightBlue,
@@ -17,9 +17,12 @@ class EnjoymentBehavior extends FactorBehavior {
     );
   }
 
-  EnjoymentBehavior._(super.gauge);
+  EnjoymentBehavior._(super.gaugeComponent);
 
   static double decreaseInterval = 8;
+
+  @override
+  final double innerSpacing = 34;
 
   @override
   Future<void> onLoad() async {

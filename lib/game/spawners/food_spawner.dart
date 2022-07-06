@@ -14,7 +14,7 @@ class FoodSpawner extends TimerComponent
         FlameBlocListenable<GameBloc, GameState> {
   FoodSpawner({
     required this.seed,
-    double spawnThreshold = 60.0,
+    double spawnThreshold = 6.0,
   })  : _foodRarity = RarityList<FoodType>([
           Rarity(FoodType.cake, FoodType.cake.rarity),
           Rarity(FoodType.lollipop, FoodType.lollipop.rarity),

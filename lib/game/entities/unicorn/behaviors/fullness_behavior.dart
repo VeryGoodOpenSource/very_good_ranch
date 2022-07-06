@@ -9,7 +9,7 @@ class FullnessBehavior extends FactorBehavior {
     return FullnessBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        size: UnicornComponent.dimensions.x + 34,
+        diameter: 0,
         thickness: 20,
         percentage: 1,
         color: Colors.pink,
@@ -17,9 +17,12 @@ class FullnessBehavior extends FactorBehavior {
     );
   }
 
-  FullnessBehavior._(super.gauge);
+  FullnessBehavior._(super.gaugeComponent);
 
   static double decreaseInterval = 7;
+
+  @override
+  final double innerSpacing = 54;
 
   @override
   Future<void> onLoad() async {

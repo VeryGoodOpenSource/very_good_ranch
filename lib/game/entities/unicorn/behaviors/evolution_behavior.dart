@@ -12,17 +12,11 @@ class EvolutionBehavior extends Behavior<Unicorn> {
   @visibleForTesting
   EvolutionBehavior.withInitialStage(this._currentStage);
 
-  static const double happinessThresholdToEvolve = 0.9;
-  static const int timesThatMustBeFed = 4;
+  static const double happinessThresholdToEvolve = 0.1;
+  static const int timesThatMustBeFed = 1;
 
   UnicornStage get currentStage => _currentStage;
   UnicornStage _currentStage;
-
-  @override
-  Future<void> onLoad() async {
-    final unicornComponent = _currentStage.componentForStage;
-    await parent.add(parent.unicornComponent = unicornComponent);
-  }
 
   @override
   void update(double dt) {
@@ -32,14 +26,19 @@ class EvolutionBehavior extends Behavior<Unicorn> {
     final nextStage = getNextStage();
     _currentStage = nextStage;
 
+    parent.unicornComponent.removeFromParent();
+    parent.add(parent.unicornComponent = nextStage.componentForStage);
+
     parent.findBehavior<FullnessBehavior>()?.reset();
     parent.findBehavior<EnjoymentBehavior>()?.reset();
+    parent.timesFed = 0;
   }
 
   bool get shouldEvolve {
     if (currentStage == UnicornStage.adult) {
       return false;
     }
+
     return parent.timesFed >= timesThatMustBeFed &&
         parent.happinessFactor >= happinessThresholdToEvolve;
   }

@@ -6,11 +6,14 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 abstract class FactorBehavior extends Behavior<Unicorn> {
-  FactorBehavior(this._gaugeComponent) : super(children: [_gaugeComponent]);
+  FactorBehavior(this.gaugeComponent) : super(children: [gaugeComponent]);
+
+  /// The extra spacing the gauge should take from the unicorn size
+  double get innerSpacing;
 
   static double visibilityDuration = 1.5;
 
-  final GaugeComponent _gaugeComponent;
+  final GaugeComponent gaugeComponent;
 
   late final leavingBehavior = parent.findBehavior<LeavingBehavior>();
 
@@ -52,14 +55,17 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
   @mustCallSuper
   void update(double dt) {
     super.update(dt);
-    final currentPosition = Vector2.copy(_gaugeComponent.position);
+
+    gaugeComponent.diameter = parent.size.x + innerSpacing;
+
+    final currentPosition = Vector2.copy(gaugeComponent.position);
     final parentCenter = parent.size / 2;
     if (currentPosition != parentCenter) {
-      _gaugeComponent.position = parentCenter;
+      gaugeComponent.position = parentCenter;
     }
 
     _visibilityTimer.update(dt);
-    _gaugeComponent.percentage = percentage;
+    gaugeComponent.percentage = percentage;
     final isLeaving = leavingBehavior?.isLeaving == true;
     if (isLeaving) {
       removeFromParent();

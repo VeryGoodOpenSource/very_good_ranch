@@ -245,5 +245,35 @@ void main() {
         }
       });
     });
+
+    group('feeding unicorn impacts timesfed', () {
+      flameTester.test('summing one up', (game) async {
+        final evolutionBehavior = _MockEvolutionBehavior();
+        when(() => evolutionBehavior.currentStage)
+            .thenReturn(UnicornStage.baby);
+
+        final foodCollisionBehavior = FoodCollisionBehavior();
+        final unicorn = Unicorn.test(
+          position: Vector2.zero(),
+          behaviors: [
+            foodCollisionBehavior,
+            evolutionBehavior,
+          ],
+        );
+
+        await game.ensureAdd(unicorn);
+
+        final food = _MockFood();
+        when(() => food.type).thenReturn(FoodType.cake);
+        when(() => food.wasDragged).thenReturn(true);
+        when(() => food.beingDragged).thenReturn(false);
+
+        expect(unicorn.timesFed, 0);
+
+        foodCollisionBehavior.onCollision({Vector2.zero()}, food);
+
+        expect(unicorn.timesFed, 1);
+      });
+    });
   });
 }

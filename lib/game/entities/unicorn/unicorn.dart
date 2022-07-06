@@ -93,7 +93,7 @@ class Unicorn extends Entity {
     size = value.size;
   }
 
-  UnicornState? get state => _unicornComponent?.current;
+  UnicornState? get state => _unicornComponent?.spriteComponent.current;
 
-  set state(UnicornState? state) => _unicornComponent?.current = state;
+  set state(UnicornState? state) => _unicornComponent?.state = state;
 }

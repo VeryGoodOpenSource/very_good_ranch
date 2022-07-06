@@ -29,16 +29,16 @@ void main() {
   group('UnicornSpriteComponent', () {
     flameTester.test(
       'loads correctly',
-          (game) async {
+      (game) async {
         final animationData = MockUnicornAnimationData();
         when(
-              () => animationData.createAnimation(
+          () => animationData.createAnimation(
             images: any(named: 'images'),
             duration: any(named: 'duration'),
             loop: any(named: 'loop'),
           ),
         ).thenAnswer(
-              (invocation) => Future.value(MockSpriteAnimations()),
+          (invocation) => Future.value(MockSpriteAnimations()),
         );
 
         final unicorn = UnicornSpriteComponent(
@@ -58,53 +58,53 @@ void main() {
 
     flameTester.test(
       'sets up each animation',
-          (game) async {
+      (game) async {
         final eatAnimationData = MockUnicornAnimationData();
         final eatAnimation = MockSpriteAnimations();
         when(
-              () => eatAnimationData.createAnimation(
+          () => eatAnimationData.createAnimation(
             images: any(named: 'images'),
             duration: any(named: 'duration'),
             loop: any(named: 'loop'),
           ),
         ).thenAnswer(
-              (invocation) => Future.value(eatAnimation),
+          (invocation) => Future.value(eatAnimation),
         );
 
         final idleAnimationData = MockUnicornAnimationData();
         final idleAnimation = MockSpriteAnimations();
         when(
-              () => idleAnimationData.createAnimation(
+          () => idleAnimationData.createAnimation(
             images: any(named: 'images'),
             duration: any(named: 'duration'),
             loop: any(named: 'loop'),
           ),
         ).thenAnswer(
-              (invocation) => Future.value(idleAnimation),
+          (invocation) => Future.value(idleAnimation),
         );
 
         final pettedAnimationData = MockUnicornAnimationData();
         final pettedAnimation = MockSpriteAnimations();
         when(
-              () => pettedAnimationData.createAnimation(
+          () => pettedAnimationData.createAnimation(
             images: any(named: 'images'),
             duration: any(named: 'duration'),
             loop: any(named: 'loop'),
           ),
         ).thenAnswer(
-              (invocation) => Future.value(pettedAnimation),
+          (invocation) => Future.value(pettedAnimation),
         );
 
         final walkAnimationData = MockUnicornAnimationData();
         final walkAnimation = MockSpriteAnimations();
         when(
-              () => walkAnimationData.createAnimation(
+          () => walkAnimationData.createAnimation(
             images: any(named: 'images'),
             duration: any(named: 'duration'),
             loop: any(named: 'loop'),
           ),
         ).thenAnswer(
-              (invocation) => Future.value(walkAnimation),
+          (invocation) => Future.value(walkAnimation),
         );
 
         final unicorn = UnicornSpriteComponent(
@@ -146,8 +146,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.idleAniationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.idleAniationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -176,8 +176,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.eatAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.eatAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -206,8 +206,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.pettedAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -236,8 +236,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.walkAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.walkAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -266,8 +266,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.idleAniationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.idleAniationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
           await expectLater(
@@ -295,8 +295,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.eatAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.eatAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -325,8 +325,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.pettedAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -355,8 +355,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.walkAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.walkAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -385,8 +385,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.idleAniationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.idleAniationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -415,8 +415,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.eatAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.eatAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -445,8 +445,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.pettedAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -475,8 +475,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.walkAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.walkAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -505,8 +505,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.idleAniationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.idleAniationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
           await expectLater(
@@ -534,8 +534,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.eatAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.eatAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -564,8 +564,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.pettedAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 
@@ -594,8 +594,8 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-        i <= UnicornSpriteComponent.walkAnimationDuration;
-        i += 0.3, index++) {
+            i <= UnicornSpriteComponent.walkAnimationDuration;
+            i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
 

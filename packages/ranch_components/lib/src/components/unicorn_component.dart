@@ -219,7 +219,9 @@ class UnicornAnimationData {
 }
 
 /// {@template unicorn_component}
-/// A component that represents a unicorn.
+/// A [PositionComponent] that is responsible for containing a
+/// [UnicornSpriteComponent] and padding it to the portion of the sprite
+/// animation that actually paints a unicorn.
 /// {@endtemplate}
 abstract class UnicornComponent extends PositionComponent with HasPaint {
   /// {@macro unicorn_component}
@@ -314,6 +316,12 @@ class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
   set paint(Paint value) => parent.paint = value;
 
   @override
+  @visibleForTesting
+  set current(UnicornState? value) {
+    super.current = value;
+  }
+
+  @override
   Future<void> onLoad() async {
     final eatAnimation = await eatAnimationData.createAnimation(
       images: gameRef.images,
@@ -344,4 +352,8 @@ class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
       UnicornState.walking: walkAnimation,
     };
   }
+
+  /// A special debug color for this component
+  @override
+  Color get debugColor => const Color(0xFF7B0033);
 }

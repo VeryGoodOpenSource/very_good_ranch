@@ -20,10 +20,10 @@ void addUnicornComponentStories(Dashbook dashbook) {
       );
       final unicornState = context.listProperty<UnicornState>(
         'Unicorn state',
-        UnicornState.idle,
+        UnicornState.walking,
         UnicornState.values,
       );
-      unicorn.current = unicornState;
+      unicorn.state = unicornState;
 
       final game = context.storyGame(component: unicorn);
 

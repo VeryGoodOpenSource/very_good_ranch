@@ -159,7 +159,7 @@ void main() {
           game.update(0);
 
           expect(unicorn.currentStage, UnicornStage.adult);
-          expect(unicorn.timesFed,EvolutionBehavior.timesThatMustBeFed);
+          expect(unicorn.timesFed, EvolutionBehavior.timesThatMustBeFed);
         },
       );
 

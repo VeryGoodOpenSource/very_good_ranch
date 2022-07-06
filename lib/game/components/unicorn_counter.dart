@@ -3,6 +3,7 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
+import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 
@@ -56,7 +57,10 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
       UnicornStage.adult
     ].indexOf(stage);
     final amount = parent.unicorns
-        .where((u) => u.isLoaded && u.currentStage == stage)
+        .where((u) =>
+            u.isLoaded &&
+            u.hasBehavior<EvolutionBehavior>() &&
+            u.findBehavior<EvolutionBehavior>().currentStage == stage)
         .length;
     final textSize = _textPaint.measureText('$amount');
 

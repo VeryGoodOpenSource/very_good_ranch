@@ -144,7 +144,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAniationDuration;
+            i <= UnicornComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -264,7 +264,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAniationDuration;
+            i <= UnicornComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -383,7 +383,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAniationDuration;
+            i <= UnicornComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -503,7 +503,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAniationDuration;
+            i <= UnicornComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();

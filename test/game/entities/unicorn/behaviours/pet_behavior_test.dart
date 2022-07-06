@@ -10,8 +10,6 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 import '../../../../helpers/test_game.dart';
 
-class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
-
 class _MockEnjoymentBehavior extends Mock implements EnjoymentBehavior {}
 
 void main() {
@@ -29,18 +27,17 @@ void main() {
         flameTester.testGameWidget(
           'for $stage',
           setUp: (game, tester) async {
-            final evolutionBehavior = _MockEvolutionBehavior();
-            when(() => evolutionBehavior.currentStage).thenReturn(stage);
             final petBehavior = PetBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
+              unicornComponent: stage.componentForStage,
               behaviors: [
                 petBehavior,
-                evolutionBehavior,
                 enjoymentBehavior,
               ],
             );
-            when(() => enjoymentBehavior.percentage).thenReturn(0.5);
+            unicorn.enjoymentFactor = 0.5;
+
             await game.ensureAdd(unicorn);
           },
           verify: (game, tester) async {
@@ -66,19 +63,15 @@ void main() {
       flameTester.testGameWidget(
         'throttle prevents multiple taps',
         setUp: (game, tester) async {
-          final evolutionBehavior = _MockEvolutionBehavior();
-          when(() => evolutionBehavior.currentStage)
-              .thenReturn(UnicornStage.baby);
           final petBehavior = PetBehavior();
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
               petBehavior,
-              evolutionBehavior,
               enjoymentBehavior,
             ],
           );
-          when(() => enjoymentBehavior.percentage).thenReturn(0.5);
+          unicorn.enjoymentFactor = 0.5;
           await game.ensureAdd(unicorn);
         },
         verify: (game, tester) async {

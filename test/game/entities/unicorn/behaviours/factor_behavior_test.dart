@@ -16,7 +16,7 @@ class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
 class _TestFactorBehavior extends FactorBehavior {
   factory _TestFactorBehavior() {
     return _TestFactorBehavior._(
-      GaugeComponent(
+      gaugeComponent: GaugeComponent(
         position: Vector2.zero(),
         size: 120,
         thickness: 15,
@@ -26,7 +26,17 @@ class _TestFactorBehavior extends FactorBehavior {
     );
   }
 
-  _TestFactorBehavior._(super.gauge);
+  _TestFactorBehavior._({
+    required super.gaugeComponent,
+  });
+
+  double externalPercentage = 1;
+
+  @override
+  double getPercentage() => externalPercentage;
+
+  @override
+  void setPercentage(double value) => externalPercentage = value;
 }
 
 void main() {
@@ -57,7 +67,7 @@ void main() {
         setUp: (game, tester) async {
           when(() => leavingBehavior.isLeaving).thenReturn(false);
           await game.ensureAdd(unicorn);
-          factorBehavior.percentage = 1.0;
+          factorBehavior.setPercentage(1);
           factorBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
@@ -74,7 +84,7 @@ void main() {
           when(() => leavingBehavior.isLeaving).thenReturn(false);
 
           await game.ensureAdd(unicorn);
-          factorBehavior.percentage = 0.5;
+          factorBehavior.setPercentage(0.5);
           factorBehavior.makeGaugeTemporarilyVisible();
           game.update(GaugeComponent.animationDuration);
         },
@@ -91,7 +101,7 @@ void main() {
         setUp: (game, tester) async {
           when(() => leavingBehavior.isLeaving).thenReturn(true);
           await game.ensureAdd(unicorn);
-          factorBehavior.percentage = 0.0;
+          factorBehavior.setPercentage(0);
           factorBehavior.makeGaugeTemporarilyVisible();
           game.update(0.1);
         },
@@ -110,7 +120,7 @@ void main() {
           when(() => leavingBehavior.isLeaving).thenReturn(false);
 
           await game.ensureAdd(unicorn);
-          factorBehavior.percentage = 1.0;
+          factorBehavior.setPercentage(1);
         },
         verify: (game, tester) async {
           await expectLater(
@@ -126,7 +136,8 @@ void main() {
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
             await game.ensureAdd(unicorn);
-            factorBehavior.percentage = 1.0;
+
+            factorBehavior.setPercentage(1);
             factorBehavior.increaseBy(0.5);
           },
           verify: (game, tester) async {
@@ -150,7 +161,8 @@ void main() {
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
             await game.ensureAdd(unicorn);
-            factorBehavior.percentage = 1.0;
+
+            factorBehavior.setPercentage(1);
             factorBehavior.increaseBy(0.5);
           },
           verify: (game, tester) async {
@@ -174,7 +186,8 @@ void main() {
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
             await game.ensureAdd(unicorn);
-            factorBehavior.percentage = 0.5;
+
+            factorBehavior.setPercentage(0.5);
             factorBehavior.reset();
           },
           verify: (game, tester) async {
@@ -199,7 +212,8 @@ void main() {
           when(() => leavingBehavior.isLeaving).thenReturn(false);
 
           await game.ensureAdd(unicorn);
-          factorBehavior.percentage = 0.1;
+
+          factorBehavior.setPercentage(0.1);
           game.update(GaugeComponent.animationDuration);
         },
         verify: (game, tester) async {
@@ -213,21 +227,26 @@ void main() {
     group('percentage change', () {
       test('increase', () {
         final factorBehavior = _TestFactorBehavior();
-        factorBehavior.percentage = 0.0;
+
+        factorBehavior.setPercentage(0);
         factorBehavior.increaseBy(0.5);
-        expect(factorBehavior.percentage, equals(0.5));
+        expect(factorBehavior.getPercentage(), equals(0.5));
+        expect(factorBehavior.externalPercentage, equals(0.5));
       });
       test('decrease', () {
         final factorBehavior = _TestFactorBehavior();
-        factorBehavior.percentage = 1.0;
+
+        factorBehavior.setPercentage(1);
         factorBehavior.decreaseBy(0.5);
-        expect(factorBehavior.percentage, equals(0.5));
+        expect(factorBehavior.getPercentage(), equals(0.5));
+        expect(factorBehavior.externalPercentage, equals(0.5));
       });
       test('reset', () {
         final factorBehavior = _TestFactorBehavior();
-        factorBehavior.percentage = 0.5;
+        factorBehavior.setPercentage(0.5);
         factorBehavior.reset();
-        expect(factorBehavior.percentage, equals(1.0));
+        expect(factorBehavior.getPercentage(), equals(1.0));
+        expect(factorBehavior.externalPercentage, equals(1.0));
       });
     });
   });

@@ -6,7 +6,10 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 abstract class FactorBehavior extends Behavior<Unicorn> {
-  FactorBehavior(this._gaugeComponent) : super(children: [_gaugeComponent]);
+  FactorBehavior({
+    required GaugeComponent gaugeComponent,
+  })  : _gaugeComponent = gaugeComponent,
+        super(children: [gaugeComponent]);
 
   static double visibilityDuration = 1.5;
 
@@ -16,27 +19,32 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
   final _visibilityTimer = Timer(visibilityDuration, autoStart: false);
 
-  double _percentage = 1;
-
-  double get percentage => _percentage;
+  @visibleForTesting
+  @protected
+  void setPercentage(double value);
 
   @visibleForTesting
-  set percentage(double value) {
-    _percentage = value.clamp(0.0, 1.0);
+  @protected
+  double getPercentage();
+
+  double get _percentage => getPercentage();
+
+  set _percentage(double value) {
+    setPercentage(value.clamp(0.0, 1.0));
   }
 
   void increaseBy(double amount) {
-    percentage += amount;
+    _percentage += amount;
     makeGaugeTemporarilyVisible();
   }
 
   void decreaseBy(double amount) {
-    percentage -= amount;
+    _percentage -= amount;
     makeGaugeTemporarilyVisible();
   }
 
   void reset() {
-    percentage = 1;
+    _percentage = 1;
     makeGaugeTemporarilyVisible();
   }
 
@@ -59,7 +67,7 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
     }
 
     _visibilityTimer.update(dt);
-    _gaugeComponent.percentage = percentage;
+    _gaugeComponent.percentage = _percentage;
     final isLeaving = leavingBehavior?.isLeaving == true;
     if (isLeaving) {
       removeFromParent();

@@ -7,7 +7,7 @@ import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 class EnjoymentBehavior extends FactorBehavior {
   factory EnjoymentBehavior() {
     return EnjoymentBehavior._(
-      GaugeComponent(
+      gaugeComponent: GaugeComponent(
         position: Vector2.zero(),
         size: UnicornComponent.dimensions.x,
         thickness: 20,
@@ -17,7 +17,9 @@ class EnjoymentBehavior extends FactorBehavior {
     );
   }
 
-  EnjoymentBehavior._(super.gauge);
+  EnjoymentBehavior._({
+    required super.gaugeComponent,
+  });
 
   static double decreaseInterval = 8;
 
@@ -35,6 +37,12 @@ class EnjoymentBehavior extends FactorBehavior {
   void _decreaseEnjoyment() {
     decreaseBy(parent.currentStage.enjoymentDecreaseFactor);
   }
+
+  @override
+  double getPercentage() => parent.enjoymentFactor;
+
+  @override
+  void setPercentage(double value) => parent.enjoymentFactor = value;
 }
 
 extension on UnicornStage {

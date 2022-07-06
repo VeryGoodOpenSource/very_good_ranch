@@ -7,7 +7,7 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 class FullnessBehavior extends FactorBehavior {
   factory FullnessBehavior() {
     return FullnessBehavior._(
-      GaugeComponent(
+      gaugeComponent: GaugeComponent(
         position: Vector2.zero(),
         size: UnicornComponent.dimensions.x + 34,
         thickness: 20,
@@ -17,7 +17,9 @@ class FullnessBehavior extends FactorBehavior {
     );
   }
 
-  FullnessBehavior._(super.gauge);
+  FullnessBehavior._({
+    required super.gaugeComponent,
+  });
 
   static double decreaseInterval = 7;
 
@@ -34,6 +36,16 @@ class FullnessBehavior extends FactorBehavior {
 
   void _decreaseFullness() {
     decreaseBy(parent.currentStage.fullnessDecreaseFactor);
+  }
+
+  @override
+  double getPercentage() {
+    return parent.fullnessFactor;
+  }
+
+  @override
+  void setPercentage(double value) {
+    parent.fullnessFactor = value;
   }
 }
 

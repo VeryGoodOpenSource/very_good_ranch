@@ -5,14 +5,14 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 abstract class FactorBehavior extends Behavior<Unicorn> {
-  FactorBehavior({
-    required this.gaugeComponent,
-  }) : super(children: [gaugeComponent]);
+  FactorBehavior(
+    this.gaugeComponent,
+    this._innerSpacing,
+  ) : super(children: [gaugeComponent]);
 
   static double visibilityDuration = 1.5;
 
-  /// The extra spacing the gauge should take from the unicorn size
-  double get innerSpacing;
+  final double _innerSpacing;
 
   final GaugeComponent gaugeComponent;
 
@@ -33,7 +33,7 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
   @mustCallSuper
   void update(double dt) {
     super.update(dt);
-    gaugeComponent.diameter = parent.size.x + innerSpacing;
+    gaugeComponent.diameter = parent.size.x + _innerSpacing;
     final currentPosition = Vector2.copy(gaugeComponent.position);
     final parentCenter = parent.size / 2;
     if (currentPosition != parentCenter) {

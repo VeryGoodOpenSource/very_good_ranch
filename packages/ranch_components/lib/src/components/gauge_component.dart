@@ -12,9 +12,9 @@ class GaugeComponent extends PositionComponent {
   /// {macro gauge_component}
   GaugeComponent({
     required Vector2 position,
-    required double diameter,
     required double thickness,
     required Color color,
+    double diameter = 0,
     double percentage = 0,
   })  : assert(
           percentage >= 0 && percentage <= 1,

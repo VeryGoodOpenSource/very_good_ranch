@@ -15,8 +15,8 @@ class _TestFactorBehavior extends FactorBehavior {
     return _TestFactorBehavior._(
       gaugeComponent: GaugeComponent(
         position: Vector2.zero(),
-        diameter: 120,
-        thickness: 15,
+        diameter: 0,
+        thickness: 20,
         percentage: 1,
         color: Colors.lightBlue,
       ),
@@ -24,16 +24,13 @@ class _TestFactorBehavior extends FactorBehavior {
   }
 
   _TestFactorBehavior._({
-    required super.gaugeComponent,
-  });
+    required GaugeComponent gaugeComponent,
+  }) : super(gaugeComponent, 0);
 
   double externalPercentage = 1;
 
   @override
   double get percentage => externalPercentage;
-
-  @override
-  double get innerSpacing => 0;
 }
 
 void main() {

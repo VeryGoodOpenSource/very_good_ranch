@@ -7,24 +7,26 @@ import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 class EnjoymentBehavior extends FactorBehavior {
   factory EnjoymentBehavior() {
     return EnjoymentBehavior._(
-      gaugeComponent: GaugeComponent(
+      GaugeComponent(
         position: Vector2.zero(),
         diameter: 0,
         thickness: 20,
         percentage: 1,
         color: Colors.lightBlue,
       ),
+      innerSpacing,
     );
   }
 
-  EnjoymentBehavior._({
-    required super.gaugeComponent,
-  });
+  EnjoymentBehavior._(
+    super.gaugeComponent,
+    super.innerSpacing,
+  );
 
-  static double decreaseInterval = 8;
+  static const double decreaseInterval = 8;
 
-  @override
-  final double innerSpacing = 34;
+  /// The extra spacing the gauge should take from the unicorn size
+  static const double innerSpacing = 34;
 
   @override
   Future<void> onLoad() async {

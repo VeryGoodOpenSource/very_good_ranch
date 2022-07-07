@@ -33,6 +33,7 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
         : negativeImpactOnEnjoyment;
 
     parent.findBehavior<EnjoymentBehavior>()?.increaseBy(impactOnEnjoyment);
+    parent.timesFed++;
   }
 }
 

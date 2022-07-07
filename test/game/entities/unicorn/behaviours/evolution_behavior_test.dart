@@ -261,8 +261,8 @@ void main() {
 
           expect(unicorn.currentStage, UnicornStage.teen);
           expect(unicorn.timesFed, 0);
-          verify(enjoymentBehavior.reset).called(1);
-          verify(fullnessBehavior.reset).called(1);
+          expect(unicorn.fullnessFactor, 1);
+          expect(unicorn.enjoymentFactor, 1);
         },
       );
     });

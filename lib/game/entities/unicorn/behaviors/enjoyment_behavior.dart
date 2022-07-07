@@ -42,8 +42,7 @@ class EnjoymentBehavior extends FactorBehavior {
   double get percentage => parent.enjoymentFactor;
 
   @override
-  set percentage(double value) =>
-      parent.enjoymentFactor = value.clamp(0.0, 1.0);
+  set percentage(double value) => parent.enjoymentFactor = value;
 }
 
 extension on UnicornStage {

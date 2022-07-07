@@ -1,6 +1,5 @@
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 class EvolutionBehavior extends Behavior<Unicorn> {
   static const double happinessThresholdToEvolve = 0.9;

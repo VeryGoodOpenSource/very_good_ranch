@@ -229,17 +229,10 @@ void main() {
 
     group('feeding unicorn impacts timesfed', () {
       flameTester.test('summing one up', (game) async {
-        final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.baby);
-
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
-          behaviors: [
-            foodCollisionBehavior,
-            evolutionBehavior,
-          ],
+          behaviors: [foodCollisionBehavior],
         );
 
         await game.ensureAdd(unicorn);

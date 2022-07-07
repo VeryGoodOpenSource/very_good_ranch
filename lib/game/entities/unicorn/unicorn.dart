@@ -96,9 +96,25 @@ class Unicorn extends Entity {
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
-  double fullnessFactor = 1;
-  double enjoymentFactor = 1;
+  /// A state that describes the percentage of fullness of the unicorn
+  double get fullnessFactor => _fullnessFactor;
 
+  set fullnessFactor(double value) => _fullnessFactor = value.clamp(0.0, 1.0);
+
+  double _fullnessFactor = 1;
+
+  /// A state that describes the percentage of enjoyment of the unicorn
+  double get enjoymentFactor => _enjoymentFactor;
+
+  set enjoymentFactor(double value) => _enjoymentFactor = value.clamp(0.0, 1.0);
+
+  double _enjoymentFactor = 1;
+
+  /// [enjoymentFactor] and [fullnessFactor] composes the overall hapiness of
+  /// the unicorn which is used to define if it should leave or evolve.
+  ///
+  /// Too low will cause the unicorn to leace, too high will allow the
+  /// unicorn to evolve.
   double get happinessFactor => fullnessFactor * enjoymentFactor;
 
   UnicornComponent _unicornComponent;
@@ -109,7 +125,7 @@ class Unicorn extends Entity {
 
   UnicornStage get currentStage => UnicornStage.fromComponent(unicornComponent);
 
-  void set currentStage(UnicornStage stage) {
+  set currentStage(UnicornStage stage) {
     _unicornComponent.removeFromParent();
     add(_unicornComponent = stage.componentForStage);
   }

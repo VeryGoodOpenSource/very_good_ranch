@@ -13,7 +13,7 @@ class EvolutionBehavior extends Behavior<Unicorn> {
     }
     final nextStage = getNextStage();
     parent
-      ..setCurrentStage(nextStage)
+      ..currentStage = nextStage
       ..reset();
   }
 

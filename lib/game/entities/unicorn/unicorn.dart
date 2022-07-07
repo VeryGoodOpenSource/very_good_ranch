@@ -109,9 +109,9 @@ class Unicorn extends Entity {
 
   UnicornStage get currentStage => UnicornStage.fromComponent(unicornComponent);
 
-  Future<void> setCurrentStage(UnicornStage stage) async {
+  void set currentStage(UnicornStage stage) {
     _unicornComponent.removeFromParent();
-    return add(_unicornComponent = stage.componentForStage);
+    add(_unicornComponent = stage.componentForStage);
   }
 
   UnicornState? get state => _unicornComponent.current;

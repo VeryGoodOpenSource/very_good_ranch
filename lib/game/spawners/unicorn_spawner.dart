@@ -17,19 +17,18 @@ class UnicornSpawner extends TimerComponent
 
   @override
   void onTick() {
-    // TODO(wolfen): Before the random check, confirm that the overal happiness
+    // TODO(wolfen): Before the random check, confirm that the overall happiness
     // allows for a new friend to join.
     if (seed.nextDouble() < .5) {
       return;
     }
 
     final pastureField = parent.pastureField;
+    final unicorn = Unicorn(position: Vector2.zero());
     final position = Vector2.random(seed)
-      ..multiply(
-        pastureField.size.toVector2() - UnicornComponent.dimensions,
-      )
+      ..multiply(pastureField.size.toVector2() - unicorn.size)
       ..add(pastureField.topLeft.toVector2());
-
-    parent.add(Unicorn(position: position));
+    unicorn.position = position;
+    parent.add(unicorn);
   }
 }

@@ -48,7 +48,7 @@ void main() {
         behaviors: [
           factorBehavior,
         ],
-      )..unicornComponent.current = null;
+      )..unicornComponent.spriteComponent.current = null;
     });
 
     group('gauge rendering', () {

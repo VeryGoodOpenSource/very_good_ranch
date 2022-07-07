@@ -26,7 +26,7 @@ void main() {
     registerFallbackValue(MockImages());
   });
 
-  group('UnicornComponent', () {
+  group('UnicornSpriteComponent', () {
     flameTester.test(
       'loads correctly',
       (game) async {
@@ -41,7 +41,7 @@ void main() {
           (invocation) => Future.value(MockSpriteAnimations()),
         );
 
-        final unicorn = UnicornComponent(
+        final unicorn = UnicornSpriteComponent(
           eatAnimationData: animationData,
           idleAnimationData: animationData,
           pettedAnimationData: animationData,
@@ -107,7 +107,7 @@ void main() {
           (invocation) => Future.value(walkAnimation),
         );
 
-        final unicorn = UnicornComponent(
+        final unicorn = UnicornSpriteComponent(
           eatAnimationData: eatAnimationData,
           idleAnimationData: idleAnimationData,
           pettedAnimationData: pettedAnimationData,
@@ -130,6 +130,8 @@ void main() {
     );
   });
 
+  group('UnicornComponent', () {});
+
   group('BabyUnicornComponent', () {
     flameTester.testGameWidget(
       'idle animation',
@@ -144,7 +146,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAnimationDuration;
+            i <= UnicornSpriteComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -163,7 +165,7 @@ void main() {
       'eat animation',
       setUp: (game, tester) async {
         final unicorn = BabyUnicornComponent();
-        unicorn.current = UnicornState.eating;
+        unicorn.state = UnicornState.eating;
 
         await game.ensureAdd(
           PositionComponent(
@@ -174,7 +176,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.eatAnimationDuration;
+            i <= UnicornSpriteComponent.eatAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -193,7 +195,7 @@ void main() {
       'petted animation',
       setUp: (game, tester) async {
         final unicorn = BabyUnicornComponent();
-        unicorn.current = UnicornState.petted;
+        unicorn.state = UnicornState.petted;
 
         await game.ensureAdd(
           PositionComponent(
@@ -204,7 +206,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.pettedAnimationDuration;
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -223,7 +225,7 @@ void main() {
       'walking animation',
       setUp: (game, tester) async {
         final unicorn = BabyUnicornComponent();
-        unicorn.current = UnicornState.walking;
+        unicorn.state = UnicornState.walking;
 
         await game.ensureAdd(
           PositionComponent(
@@ -234,7 +236,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.walkAnimationDuration;
+            i <= UnicornSpriteComponent.walkAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -264,7 +266,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAnimationDuration;
+            i <= UnicornSpriteComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -282,7 +284,7 @@ void main() {
       'eat animation',
       setUp: (game, tester) async {
         final unicorn = ChildUnicornComponent();
-        unicorn.current = UnicornState.eating;
+        unicorn.state = UnicornState.eating;
 
         await game.ensureAdd(
           PositionComponent(
@@ -293,7 +295,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.eatAnimationDuration;
+            i <= UnicornSpriteComponent.eatAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -312,7 +314,7 @@ void main() {
       'petted animation',
       setUp: (game, tester) async {
         final unicorn = ChildUnicornComponent();
-        unicorn.current = UnicornState.petted;
+        unicorn.state = UnicornState.petted;
 
         await game.ensureAdd(
           PositionComponent(
@@ -323,7 +325,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.pettedAnimationDuration;
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -342,7 +344,7 @@ void main() {
       'walking animation',
       setUp: (game, tester) async {
         final unicorn = ChildUnicornComponent();
-        unicorn.current = UnicornState.walking;
+        unicorn.state = UnicornState.walking;
 
         await game.ensureAdd(
           PositionComponent(
@@ -353,7 +355,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.walkAnimationDuration;
+            i <= UnicornSpriteComponent.walkAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -383,7 +385,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAnimationDuration;
+            i <= UnicornSpriteComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -402,7 +404,7 @@ void main() {
       'eat animation',
       setUp: (game, tester) async {
         final unicorn = TeenUnicornComponent();
-        unicorn.current = UnicornState.eating;
+        unicorn.state = UnicornState.eating;
 
         await game.ensureAdd(
           PositionComponent(
@@ -413,7 +415,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.eatAnimationDuration;
+            i <= UnicornSpriteComponent.eatAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -432,7 +434,7 @@ void main() {
       'petted animation',
       setUp: (game, tester) async {
         final unicorn = TeenUnicornComponent();
-        unicorn.current = UnicornState.petted;
+        unicorn.state = UnicornState.petted;
 
         await game.ensureAdd(
           PositionComponent(
@@ -443,7 +445,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.pettedAnimationDuration;
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -462,7 +464,7 @@ void main() {
       'walking animation',
       setUp: (game, tester) async {
         final unicorn = TeenUnicornComponent();
-        unicorn.current = UnicornState.walking;
+        unicorn.state = UnicornState.walking;
 
         await game.ensureAdd(
           PositionComponent(
@@ -473,7 +475,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.walkAnimationDuration;
+            i <= UnicornSpriteComponent.walkAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -503,7 +505,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.idleAnimationDuration;
+            i <= UnicornSpriteComponent.idleAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -521,7 +523,7 @@ void main() {
       'eat animation',
       setUp: (game, tester) async {
         final unicorn = AdultUnicornComponent();
-        unicorn.current = UnicornState.eating;
+        unicorn.state = UnicornState.eating;
 
         await game.ensureAdd(
           PositionComponent(
@@ -532,7 +534,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.eatAnimationDuration;
+            i <= UnicornSpriteComponent.eatAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -551,7 +553,7 @@ void main() {
       'petted animation',
       setUp: (game, tester) async {
         final unicorn = AdultUnicornComponent();
-        unicorn.current = UnicornState.petted;
+        unicorn.state = UnicornState.petted;
 
         await game.ensureAdd(
           PositionComponent(
@@ -562,7 +564,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.pettedAnimationDuration;
+            i <= UnicornSpriteComponent.pettedAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();
@@ -581,7 +583,7 @@ void main() {
       'walking animation',
       setUp: (game, tester) async {
         final unicorn = AdultUnicornComponent();
-        unicorn.current = UnicornState.walking;
+        unicorn.state = UnicornState.walking;
 
         await game.ensureAdd(
           PositionComponent(
@@ -592,7 +594,7 @@ void main() {
       },
       verify: (game, tester) async {
         for (var i = 0.0, index = 0;
-            i <= UnicornComponent.walkAnimationDuration;
+            i <= UnicornSpriteComponent.walkAnimationDuration;
             i += 0.3, index++) {
           game.update(0.3);
           await tester.pump();

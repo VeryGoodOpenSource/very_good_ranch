@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 
@@ -27,25 +28,33 @@ class BabyUnicornComponent extends UnicornComponent {
   /// {@macro unicorn_component}
   BabyUnicornComponent()
       : super(
-          eatAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.babyEat.keyName,
+          spritePadding: const EdgeInsets.only(
+            top: 136,
+            left: 45,
+            right: 55,
+            bottom: 33,
           ),
-          idleAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 50,
-            filePath: Assets.animations.babyIdle.keyName,
-          ),
-          pettedAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.babyPetted.keyName,
-          ),
-          walkAnimationData: UnicornAnimationData(
-            columnsAmount: 7,
-            frameAmount: 34,
-            filePath: Assets.animations.babyWalkCycle.keyName,
+          spriteComponent: UnicornSpriteComponent(
+            eatAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.babyEat.keyName,
+            ),
+            idleAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 50,
+              filePath: Assets.animations.babyIdle.keyName,
+            ),
+            pettedAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.babyPetted.keyName,
+            ),
+            walkAnimationData: UnicornAnimationData(
+              columnsAmount: 7,
+              frameAmount: 34,
+              filePath: Assets.animations.babyWalkCycle.keyName,
+            ),
           ),
         );
 }
@@ -57,25 +66,33 @@ class ChildUnicornComponent extends UnicornComponent {
   /// {@macro child_unicorn_component}
   ChildUnicornComponent()
       : super(
-          eatAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.childEat.keyName,
+          spritePadding: const EdgeInsets.only(
+            top: 95,
+            left: 40,
+            right: 48,
+            bottom: 33,
           ),
-          idleAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 50,
-            filePath: Assets.animations.childIdle.keyName,
-          ),
-          pettedAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.childPetted.keyName,
-          ),
-          walkAnimationData: UnicornAnimationData(
-            columnsAmount: 7,
-            frameAmount: 34,
-            filePath: Assets.animations.childWalkCycle.keyName,
+          spriteComponent: UnicornSpriteComponent(
+            eatAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.childEat.keyName,
+            ),
+            idleAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 50,
+              filePath: Assets.animations.childIdle.keyName,
+            ),
+            pettedAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.childPetted.keyName,
+            ),
+            walkAnimationData: UnicornAnimationData(
+              columnsAmount: 7,
+              frameAmount: 34,
+              filePath: Assets.animations.childWalkCycle.keyName,
+            ),
           ),
         );
 }
@@ -87,25 +104,33 @@ class TeenUnicornComponent extends UnicornComponent {
   /// {@macro teen_unicorn_component}
   TeenUnicornComponent()
       : super(
-          eatAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.teenEat.keyName,
+          spritePadding: const EdgeInsets.only(
+            top: 72,
+            left: 34,
+            right: 34,
+            bottom: 33,
           ),
-          idleAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 50,
-            filePath: Assets.animations.teenIdle.keyName,
-          ),
-          pettedAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.teenPetted.keyName,
-          ),
-          walkAnimationData: UnicornAnimationData(
-            columnsAmount: 7,
-            frameAmount: 34,
-            filePath: Assets.animations.teenWalkCycle.keyName,
+          spriteComponent: UnicornSpriteComponent(
+            eatAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.teenEat.keyName,
+            ),
+            idleAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 50,
+              filePath: Assets.animations.teenIdle.keyName,
+            ),
+            pettedAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.teenPetted.keyName,
+            ),
+            walkAnimationData: UnicornAnimationData(
+              columnsAmount: 7,
+              frameAmount: 34,
+              filePath: Assets.animations.teenWalkCycle.keyName,
+            ),
           ),
         );
 }
@@ -117,25 +142,33 @@ class AdultUnicornComponent extends UnicornComponent {
   /// {@macro adult_unicorn_component}
   AdultUnicornComponent()
       : super(
-          eatAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.adultEat.keyName,
+          spritePadding: const EdgeInsets.only(
+            top: 36,
+            left: 25,
+            right: 34,
+            bottom: 33,
           ),
-          idleAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 50,
-            filePath: Assets.animations.adultIdle.keyName,
-          ),
-          pettedAnimationData: UnicornAnimationData(
-            columnsAmount: 10,
-            frameAmount: 90,
-            filePath: Assets.animations.adultPetted.keyName,
-          ),
-          walkAnimationData: UnicornAnimationData(
-            columnsAmount: 7,
-            frameAmount: 34,
-            filePath: Assets.animations.adultWalkCycle.keyName,
+          spriteComponent: UnicornSpriteComponent(
+            eatAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.adultEat.keyName,
+            ),
+            idleAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 50,
+              filePath: Assets.animations.adultIdle.keyName,
+            ),
+            pettedAnimationData: UnicornAnimationData(
+              columnsAmount: 10,
+              frameAmount: 90,
+              filePath: Assets.animations.adultPetted.keyName,
+            ),
+            walkAnimationData: UnicornAnimationData(
+              columnsAmount: 7,
+              frameAmount: 34,
+              filePath: Assets.animations.adultWalkCycle.keyName,
+            ),
           ),
         );
 }
@@ -187,23 +220,64 @@ class UnicornAnimationData {
 }
 
 /// {@template unicorn_component}
-/// A component that represents a unicorn.
+/// A [PositionComponent] that is responsible for containing a
+/// [UnicornSpriteComponent] and padding it to the portion of the sprite
+/// animation that actually paints a unicorn.
 /// {@endtemplate}
-class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
-    with HasGameRef {
+abstract class UnicornComponent extends PositionComponent with HasPaint {
   /// {@macro unicorn_component}
   UnicornComponent({
+    required this.spriteComponent,
+    required this.spritePadding,
+    super.children,
+  }) {
+    final _paddedRect = spritePadding
+        .deflateRect(UnicornSpriteComponent.dimensionsPans.toRect());
+    size = _paddedRect.toVector2();
+    // The padded offset is negatively appleid to the sprite component
+    spriteComponent.position = _paddedRect.topLeft.toVector2() * -1;
+  }
+
+  /// The contained [UnicornSpriteComponent] that should be padded off.
+  final UnicornSpriteComponent spriteComponent;
+
+  /// The padding to be applied to the [spriteComponent].
+  final EdgeInsets spritePadding;
+
+  @override
+  Future<void> onLoad() async {
+    await add(spriteComponent);
+  }
+
+  /// Get the current [UnicornState] being played by [spriteComponent].
+  UnicornState? get state => spriteComponent.current;
+
+  /// Make [spriteComponent] play a sprite animation for the [value].
+  set state(UnicornState? value) {
+    spriteComponent.current = value;
+  }
+}
+
+/// {@template unicorn_sprite_component}
+/// A [SpriteAnimationGroupComponent] that paints a group of animations,
+/// each for a [UnicornState]
+/// {@endtemplate}
+class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
+    with HasGameRef, ParentIsA<UnicornComponent> {
+  /// {@macro unicorn_sprite_component}
+  @visibleForTesting
+  UnicornSpriteComponent({
     required this.eatAnimationData,
     required this.idleAnimationData,
     required this.pettedAnimationData,
     required this.walkAnimationData,
   }) : super(
-          size: dimensions,
+          size: dimensionsPans,
           current: UnicornState.idle,
         );
 
   /// The dimensions of the unicorn component in the canvas
-  static Vector2 get dimensions => Vector2(202, 242);
+  static Vector2 get dimensionsPans => Vector2(202, 242);
 
   /// The Duration in seconds of the "eat" animation
   static const eatAnimationDuration = 1.5;
@@ -232,6 +306,21 @@ class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
   /// The [UnicornAnimationData] for the [SpriteAnimation] to be run when
   /// [current] is [UnicornState.walking].
   final UnicornAnimationData walkAnimationData;
+
+  /// Borrow the paint from the parent.
+  ///
+  /// Effects applied to the parent should be applied here.
+  @override
+  Paint get paint => parent.paint;
+
+  @override
+  set paint(Paint value) => parent.paint = value;
+
+  @override
+  @visibleForTesting
+  set current(UnicornState? value) {
+    super.current = value;
+  }
 
   @override
   Future<void> onLoad() async {
@@ -264,4 +353,8 @@ class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
       UnicornState.walking: walkAnimation,
     };
   }
+
+  /// A special debug color for this component
+  @override
+  Color get debugColor => const Color(0xFF7B0033);
 }

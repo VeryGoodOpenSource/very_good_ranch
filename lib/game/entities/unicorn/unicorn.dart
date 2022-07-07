@@ -136,9 +136,9 @@ class Unicorn extends Entity {
     add(_unicornComponent = evolutionStage.componentForEvolutionStage);
   }
 
-  UnicornState? get state => _unicornComponent.current;
+  UnicornState? get state => _unicornComponent.state;
 
-  set state(UnicornState? state) => _unicornComponent.current = state;
+  set state(UnicornState? state) => _unicornComponent.state = state;
 
   void reset() {
     timesFed = 0;

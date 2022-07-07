@@ -19,7 +19,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 0.4,
               thickness: 20,
               color: Colors.pink,
@@ -36,7 +36,7 @@ void main() {
           expect(
             () => GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: -0.1,
               thickness: 20,
               color: Colors.pink,
@@ -47,7 +47,7 @@ void main() {
           expect(
             () => GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 1.1,
               thickness: 20,
               color: Colors.pink,
@@ -64,7 +64,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 0.4,
               thickness: 20,
               color: Colors.pink,
@@ -88,7 +88,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 0.4,
               thickness: 20,
               color: Colors.pink,
@@ -112,7 +112,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 1,
               thickness: 20,
               color: Colors.pink,
@@ -136,7 +136,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               thickness: 20,
               color: Colors.pink,
             ),
@@ -158,7 +158,7 @@ void main() {
         await game.ensureAdd(
           GaugeComponent(
             position: Vector2.zero(),
-            size: 100,
+            diameter: 100,
             thickness: 20,
             color: Colors.pink,
           ),

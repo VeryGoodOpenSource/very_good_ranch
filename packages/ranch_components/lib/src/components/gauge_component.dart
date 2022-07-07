@@ -12,7 +12,7 @@ class GaugeComponent extends PositionComponent {
   /// {macro gauge_component}
   GaugeComponent({
     required Vector2 position,
-    required double size,
+    required double diameter,
     required double thickness,
     required Color color,
     double percentage = 0,
@@ -22,11 +22,11 @@ class GaugeComponent extends PositionComponent {
         ),
         super(
           position: position,
-          size: Vector2.all(size),
+          size: Vector2.all(diameter),
           anchor: Anchor.center,
           children: [
             _GaugeIndicator(
-              size: size,
+              radius: diameter / 2,
               percentage: percentage,
               thickness: thickness,
               color: color,
@@ -36,6 +36,24 @@ class GaugeComponent extends PositionComponent {
 
   /// The animation duration in seconds for intrinsic animations.
   static const double animationDuration = 0.15;
+
+  /// The diameter of the gauge in pixels
+  double get diameter => size.x;
+
+  set diameter(double value) {
+    if (diameter == value) {
+      return;
+    }
+
+    final indicator = firstChild<_GaugeIndicator>();
+
+    if (indicator == null) {
+      return;
+    }
+
+    size = Vector2.all(value);
+    indicator.radius = value / 2;
+  }
 
   /// returns the current percent of the gauge
   double get percentage => firstChild<_GaugeIndicator>()?.percentage ?? 0;
@@ -55,12 +73,12 @@ class GaugeComponent extends PositionComponent {
 
 class _GaugeIndicator extends PositionComponent with HasPaint {
   _GaugeIndicator({
-    required double size,
+    required double radius,
     required this.thickness,
     required this.percentage,
     required Color color,
-  })  : _radius = size / 2,
-        _center = Offset(size / 2, size / 2),
+  })  : _radius = radius,
+        _center = Offset(radius, radius),
         _color = color,
         super(anchor: Anchor.center, position: Vector2.zero());
 
@@ -74,12 +92,20 @@ class _GaugeIndicator extends PositionComponent with HasPaint {
     effectController,
   );
 
-  final double _radius;
-  final Offset _center;
   final double thickness;
   final Color _color;
 
+  Offset _center;
+  double _radius;
   double percentage;
+
+  double get radius => _radius;
+
+  set radius(double value) {
+    _radius = value;
+    _center = Offset(radius, radius);
+    _buildPath();
+  }
 
   late Path _path;
 

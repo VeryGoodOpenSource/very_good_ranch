@@ -39,14 +39,10 @@ class FullnessBehavior extends FactorBehavior {
   }
 
   @override
-  double getPercentage() {
-    return parent.fullnessFactor;
-  }
+  double get percentage => parent.fullnessFactor;
 
   @override
-  void setPercentage(double value) {
-    parent.fullnessFactor = value;
-  }
+  set percentage(double value) => parent.fullnessFactor = value.clamp(0.0, 1.0);
 }
 
 extension on UnicornStage {

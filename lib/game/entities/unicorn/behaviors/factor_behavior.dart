@@ -21,30 +21,19 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
   @visibleForTesting
   @protected
-  void setPercentage(double value);
+  set percentage(double value);
 
   @visibleForTesting
   @protected
-  double getPercentage();
-
-  double get _percentage => getPercentage();
-
-  set _percentage(double value) {
-    setPercentage(value.clamp(0.0, 1.0));
-  }
+  double get percentage;
 
   void increaseBy(double amount) {
-    _percentage += amount;
+    percentage += amount;
     makeGaugeTemporarilyVisible();
   }
 
   void decreaseBy(double amount) {
-    _percentage -= amount;
-    makeGaugeTemporarilyVisible();
-  }
-
-  void reset() {
-    _percentage = 1;
+    percentage -= amount;
     makeGaugeTemporarilyVisible();
   }
 
@@ -53,8 +42,7 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
     _visibilityTimer.start();
   }
 
-  bool get _isGaugeVisible =>
-      _percentage < 0.25 || _visibilityTimer.isRunning();
+  bool get _isGaugeVisible => percentage < 0.25 || _visibilityTimer.isRunning();
 
   @override
   @mustCallSuper
@@ -67,7 +55,7 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
     }
 
     _visibilityTimer.update(dt);
-    _gaugeComponent.percentage = _percentage;
+    _gaugeComponent.percentage = percentage;
     final isLeaving = leavingBehavior?.isLeaving == true;
     if (isLeaving) {
       removeFromParent();

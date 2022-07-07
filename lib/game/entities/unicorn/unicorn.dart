@@ -117,4 +117,10 @@ class Unicorn extends Entity {
   UnicornState? get state => _unicornComponent.current;
 
   set state(UnicornState? state) => _unicornComponent.current = state;
+
+  void reset() {
+    timesFed = 0;
+    fullnessFactor = 1;
+    enjoymentFactor = 1;
+  }
 }

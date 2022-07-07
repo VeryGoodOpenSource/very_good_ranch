@@ -12,11 +12,9 @@ class EvolutionBehavior extends Behavior<Unicorn> {
       return;
     }
     final nextStage = getNextStage();
-    parent.setCurrentStage(nextStage);
-
-    parent.findBehavior<FullnessBehavior>()!.reset();
-    parent.findBehavior<EnjoymentBehavior>()!.reset();
-    parent.timesFed = 0;
+    parent
+      ..setCurrentStage(nextStage)
+      ..reset();
   }
 
   bool get shouldEvolve {

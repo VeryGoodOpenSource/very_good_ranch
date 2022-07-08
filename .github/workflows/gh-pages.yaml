@@ -19,3 +19,4 @@ jobs:
         uses: bluefireteam/flutter-gh-pages@v8
         with:
           webRenderer: canvaskit
+          customArgs: --target="lib/main_production.dart"

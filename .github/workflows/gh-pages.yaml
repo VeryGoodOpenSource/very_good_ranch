@@ -20,3 +20,4 @@ jobs:
         with:
           webRenderer: canvaskit
           customArgs: --target="lib/main_production.dart"
+          baseHref: /very_good_ranch/

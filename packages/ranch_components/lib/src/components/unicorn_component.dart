@@ -231,8 +231,8 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
     required this.spritePadding,
     super.children,
   }) {
-    final _paddedRect = spritePadding
-        .deflateRect(UnicornSpriteComponent.dimensionsPans.toRect());
+    final _paddedRect =
+        spritePadding.deflateRect(UnicornSpriteComponent.dimensions.toRect());
     size = _paddedRect.toVector2();
     // The padded offset is negatively appleid to the sprite component
     spriteComponent.position = _paddedRect.topLeft.toVector2() * -1;
@@ -256,6 +256,16 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
   set state(UnicornState? value) {
     spriteComponent.current = value;
   }
+
+  /// Borrow the paint from the sprite component.
+  ///
+  /// Effects applied to this component should be
+  /// forwarded to the sprite component.
+  @override
+  Paint get paint => spriteComponent.paint;
+
+  @override
+  set paint(Paint value) => spriteComponent.paint = value;
 }
 
 /// {@template unicorn_sprite_component}
@@ -272,12 +282,12 @@ class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
     required this.pettedAnimationData,
     required this.walkAnimationData,
   }) : super(
-          size: dimensionsPans,
+          size: dimensions,
           current: UnicornState.idle,
         );
 
   /// The dimensions of the unicorn component in the canvas
-  static Vector2 get dimensionsPans => Vector2(202, 242);
+  static Vector2 get dimensions => Vector2(202, 242);
 
   /// The Duration in seconds of the "eat" animation
   static const eatAnimationDuration = 1.5;
@@ -306,15 +316,6 @@ class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
   /// The [UnicornAnimationData] for the [SpriteAnimation] to be run when
   /// [current] is [UnicornState.walking].
   final UnicornAnimationData walkAnimationData;
-
-  /// Borrow the paint from the parent.
-  ///
-  /// Effects applied to the parent should be applied here.
-  @override
-  Paint get paint => parent.paint;
-
-  @override
-  set paint(Paint value) => parent.paint = value;
 
   @override
   @visibleForTesting
@@ -353,8 +354,4 @@ class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
       UnicornState.walking: walkAnimation,
     };
   }
-
-  /// A special debug color for this component
-  @override
-  Color get debugColor => const Color(0xFF7B0033);
 }

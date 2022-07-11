@@ -18,6 +18,16 @@ class MockImages extends Mock implements Images {}
 
 class MockSpriteAnimations extends Mock implements SpriteAnimation {}
 
+class MockUnicornSpriteComponent extends Mock
+    implements UnicornSpriteComponent {}
+
+class TestUnicornComponent extends UnicornComponent {
+  TestUnicornComponent({
+    required super.spriteComponent,
+    required super.spritePadding,
+  });
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final flameTester = FlameTester(TestGame.new);
@@ -41,7 +51,7 @@ void main() {
           (invocation) => Future.value(MockSpriteAnimations()),
         );
 
-        final unicorn = UnicornSpriteComponent(
+        final unicornSpriteComponent = UnicornSpriteComponent(
           eatAnimationData: animationData,
           idleAnimationData: animationData,
           pettedAnimationData: animationData,
@@ -49,10 +59,15 @@ void main() {
         );
 
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.ensureAdd(
+          TestUnicornComponent(
+            spriteComponent: unicornSpriteComponent,
+            spritePadding: EdgeInsets.zero,
+          ),
+        );
 
-        expect(unicorn.current, UnicornState.idle);
-        expect(game.contains(unicorn), isTrue);
+        expect(unicornSpriteComponent.current, UnicornState.idle);
+        expect(game.descendants().contains(unicornSpriteComponent), isTrue);
       },
     );
 
@@ -107,7 +122,7 @@ void main() {
           (invocation) => Future.value(walkAnimation),
         );
 
-        final unicorn = UnicornSpriteComponent(
+        final unicornSpriteComponent = UnicornSpriteComponent(
           eatAnimationData: eatAnimationData,
           idleAnimationData: idleAnimationData,
           pettedAnimationData: pettedAnimationData,
@@ -115,10 +130,15 @@ void main() {
         );
 
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.ensureAdd(
+          TestUnicornComponent(
+            spriteComponent: unicornSpriteComponent,
+            spritePadding: EdgeInsets.zero,
+          ),
+        );
 
         expect(
-          unicorn.animations,
+          unicornSpriteComponent.animations,
           <UnicornState, SpriteAnimation>{
             UnicornState.eating: eatAnimation,
             UnicornState.idle: idleAnimation,
@@ -130,7 +150,70 @@ void main() {
     );
   });
 
-  group('UnicornComponent', () {});
+  group('UnicornComponent', () {
+    test('assumes the right size', () {
+      final unicornComponent = TestUnicornComponent(
+        spriteComponent: MockUnicornSpriteComponent(),
+        spritePadding: const EdgeInsets.all(20),
+      );
+
+      expect(unicornComponent.size, Vector2(162, 202));
+    });
+
+    test('proxies paint to spriteComponent', () {
+      final unicornSpriteComponent = UnicornSpriteComponent(
+        eatAnimationData: MockUnicornAnimationData(),
+        idleAnimationData: MockUnicornAnimationData(),
+        pettedAnimationData: MockUnicornAnimationData(),
+        walkAnimationData: MockUnicornAnimationData(),
+      );
+      final unicornComponent = TestUnicornComponent(
+        spriteComponent: unicornSpriteComponent,
+        spritePadding: EdgeInsets.zero,
+      );
+      expect(unicornComponent.paint, unicornSpriteComponent.paint);
+
+      final newPaint = Paint();
+
+      unicornComponent.paint = newPaint;
+      expect(unicornSpriteComponent.paint, newPaint);
+    });
+
+    flameTester.test(
+      'defines the correct animation',
+      (game) async {
+        final animationData = MockUnicornAnimationData();
+        when(
+          () => animationData.createAnimation(
+            images: any(named: 'images'),
+            duration: any(named: 'duration'),
+            loop: any(named: 'loop'),
+          ),
+        ).thenAnswer(
+          (invocation) => Future.value(MockSpriteAnimations()),
+        );
+
+        final unicornComponent = TestUnicornComponent(
+          spriteComponent: UnicornSpriteComponent(
+            eatAnimationData: animationData,
+            idleAnimationData: animationData,
+            pettedAnimationData: animationData,
+            walkAnimationData: animationData,
+          ),
+          spritePadding: EdgeInsets.zero,
+        );
+
+        await game.ready();
+        await game.ensureAdd(unicornComponent);
+
+        expect(unicornComponent.state, UnicornState.idle);
+
+        unicornComponent.state = UnicornState.walking;
+
+        expect(unicornComponent.state, UnicornState.walking);
+      },
+    );
+  });
 
   group('BabyUnicornComponent', () {
     flameTester.testGameWidget(

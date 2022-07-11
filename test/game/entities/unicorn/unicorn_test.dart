@@ -93,5 +93,38 @@ void main() {
         },
       );
     });
+
+    test('clamps percentages', () {
+      final unicorn = Unicorn(position: Vector2.zero());
+      expect(unicorn.fullnessFactor, 1.0);
+      unicorn.fullnessFactor = -1;
+      expect(unicorn.fullnessFactor, 0.0);
+      unicorn.fullnessFactor = 2;
+      expect(unicorn.fullnessFactor, 1.0);
+
+      expect(unicorn.enjoymentFactor, 1.0);
+      unicorn.enjoymentFactor = -1;
+      expect(unicorn.enjoymentFactor, 0.0);
+      unicorn.enjoymentFactor = 2;
+      expect(unicorn.enjoymentFactor, 1.0);
+    });
+
+    test('reset', () {
+      final unicorn = Unicorn(position: Vector2.zero());
+
+      expect(unicorn.timesFed, 0);
+      expect(unicorn.fullnessFactor, 1);
+      expect(unicorn.enjoymentFactor, 1);
+
+      unicorn.timesFed = 2;
+      unicorn.fullnessFactor = 0.5;
+      unicorn.enjoymentFactor = 0.5;
+
+      unicorn.reset();
+
+      expect(unicorn.timesFed, 0);
+      expect(unicorn.fullnessFactor, 1);
+      expect(unicorn.enjoymentFactor, 1);
+    });
   });
 }

@@ -208,7 +208,7 @@ class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
   static const eatAnimationDuration = 1.5;
 
   /// The Duration in seconds of the "idle" animation
-  static const idleAniationDuration = 1.0;
+  static const idleAnimationDuration = 1.0;
 
   /// The Duration in seconds of the "petted" animation
   static const pettedAnimationDuration = 1.0;
@@ -241,7 +241,7 @@ class UnicornComponent extends SpriteAnimationGroupComponent<UnicornState>
 
     final idleAnimation = await idleAnimationData.createAnimation(
       images: gameRef.images,
-      duration: eatAnimationDuration,
+      duration: idleAnimationDuration,
       loop: true,
     );
 

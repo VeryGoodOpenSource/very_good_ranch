@@ -9,25 +9,61 @@ enum UnicornStage {
   baby,
   child,
   teen,
-  adult,
+  adult;
+
+  factory UnicornStage.fromComponent(UnicornComponent component) {
+    if (component is BabyUnicornComponent) {
+      return baby;
+    }
+    if (component is ChildUnicornComponent) {
+      return child;
+    }
+    if (component is TeenUnicornComponent) {
+      return teen;
+    }
+
+    return adult;
+  }
+}
+
+extension UnicornStageX on UnicornStage {
+  UnicornComponent get componentForStage {
+    switch (this) {
+      case UnicornStage.baby:
+        return BabyUnicornComponent();
+      case UnicornStage.child:
+        return ChildUnicornComponent();
+      case UnicornStage.teen:
+        return TeenUnicornComponent();
+      case UnicornStage.adult:
+        return AdultUnicornComponent();
+    }
+  }
 }
 
 class Unicorn extends Entity {
-  Unicorn({
-    required super.position,
-  }) : super(
-          size: Vector2.all(32),
-          behaviors: [
-            EvolutionBehavior(),
-            PropagatingCollisionBehavior(RectangleHitbox()),
-            MovementBehavior(),
-            FoodCollisionBehavior(),
-            FullnessBehavior(),
-            EnjoymentBehavior(),
-            LeavingBehavior(),
-            PetBehavior(),
-          ],
-        );
+  factory Unicorn({
+    required Vector2 position,
+    UnicornComponent? unicornComponent,
+  }) {
+    final _unicornComponent = unicornComponent ?? BabyUnicornComponent();
+    final size = _unicornComponent.size;
+    return Unicorn._(
+      position: position,
+      size: size,
+      behaviors: [
+        EvolutionBehavior(),
+        PropagatingCollisionBehavior(RectangleHitbox()),
+        MovementBehavior(),
+        FoodCollisionBehavior(),
+        FullnessBehavior(),
+        EnjoymentBehavior(),
+        LeavingBehavior(),
+        PetBehavior(),
+      ],
+      unicornComponent: _unicornComponent,
+    );
+  }
 
   /// Creates a Unicorn without only the passed behaviors and a
   /// [PropagatingCollisionBehavior].
@@ -37,56 +73,70 @@ class Unicorn extends Entity {
   factory Unicorn.test({
     required Vector2 position,
     Iterable<Behavior<Unicorn>>? behaviors,
+    UnicornComponent? unicornComponent,
   }) {
-    final _unicornComponent = BabyUnicornComponent();
+    final _unicornComponent = unicornComponent ?? BabyUnicornComponent();
     final size = _unicornComponent.size;
     return Unicorn._(
       position: position,
       size: size,
       behaviors: behaviors,
       unicornComponent: _unicornComponent,
-    )..add(_unicornComponent);
+    );
   }
 
   Unicorn._({
     required super.position,
     required super.size,
+    required UnicornComponent unicornComponent,
     super.behaviors,
-    UnicornComponent? unicornComponent,
-  }) : _unicornComponent = unicornComponent;
+  })  : _unicornComponent = unicornComponent,
+        super(children: [unicornComponent]);
 
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
-  late final FullnessBehavior fullnessBehavior =
-      findBehavior<FullnessBehavior>()!;
+  /// A state that describes the percentage of fullness of the unicorn
+  double get fullnessFactor => _fullnessFactor;
 
-  late final EnjoymentBehavior enjoymentBehavior =
-      findBehavior<EnjoymentBehavior>()!;
+  set fullnessFactor(double value) => _fullnessFactor = value.clamp(0.0, 1.0);
 
-  double get happinessFactor =>
-      fullnessBehavior.percentage * enjoymentBehavior.percentage;
+  double _fullnessFactor = 1;
 
-  UnicornStage get currentStage =>
-      findBehavior<EvolutionBehavior>()!.currentStage;
+  /// A state that describes the percentage of enjoyment of the unicorn
+  double get enjoymentFactor => _enjoymentFactor;
 
-  UnicornComponent? _unicornComponent;
+  set enjoymentFactor(double value) => _enjoymentFactor = value.clamp(0.0, 1.0);
+
+  double _enjoymentFactor = 1;
+
+  /// [enjoymentFactor] and [fullnessFactor] composes the overall hapiness of
+  /// the unicorn which is used to define if it should leave or evolve.
+  ///
+  /// Too low will cause the unicorn to leace, too high will allow the
+  /// unicorn to evolve.
+  double get happinessFactor => fullnessFactor * enjoymentFactor;
+
+  UnicornComponent _unicornComponent;
 
   UnicornComponent get unicornComponent {
-    assert(
-      _unicornComponent != null,
-      'Make sure to access for the unicorn '
-      'component after the onLoad phase is complete.',
-    );
-    return _unicornComponent!;
+    return _unicornComponent;
   }
 
-  set unicornComponent(UnicornComponent value) {
-    _unicornComponent = value;
-    size = value.size;
+  UnicornStage get currentStage => UnicornStage.fromComponent(unicornComponent);
+
+  set currentStage(UnicornStage stage) {
+    _unicornComponent.removeFromParent();
+    add(_unicornComponent = stage.componentForStage);
   }
 
-  UnicornState? get state => _unicornComponent?.current;
+  UnicornState? get state => _unicornComponent.current;
 
-  set state(UnicornState? state) => _unicornComponent?.current = state;
+  set state(UnicornState? state) => _unicornComponent.current = state;
+
+  void reset() {
+    timesFed = 0;
+    fullnessFactor = 1;
+    enjoymentFactor = 1;
+  }
 }

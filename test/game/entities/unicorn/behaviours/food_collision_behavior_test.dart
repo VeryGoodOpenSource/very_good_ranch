@@ -122,11 +122,11 @@ void main() {
 
     group('feeding unicorn impacts enjoyment', () {
       group('with the right type of food', () {
-        for (final stage in UnicornStage.values) {
+        for (final evolutionStage in UnicornEvolutionStage.values) {
           flameTester
-              .test('${stage.name} prefers ${stage.preferredFoodType.name}',
+              .test('${evolutionStage.name} prefers ${evolutionStage.preferredFoodType.name}',
                   (game) async {
-            final preferredFoodType = stage.preferredFoodType;
+            final preferredFoodType = evolutionStage.preferredFoodType;
 
             final leavingBehavior = _MockLeavingBehavior();
             when(() => leavingBehavior.isLeaving).thenReturn(false);
@@ -136,7 +136,7 @@ void main() {
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: stage.componentForStage,
+              unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
                 foodCollisionBehavior,
                 leavingBehavior,
@@ -191,13 +191,13 @@ void main() {
     group('feeding unicorn impacts fullness', () {
       group('in a positive way', () {
         for (final stageFullnessResult in {
-          UnicornStage.baby: 0.3,
-          UnicornStage.child: 0.25,
-          UnicornStage.teen: 0.2,
-          UnicornStage.adult: 0.15,
+          UnicornEvolutionStage.baby: 0.3,
+          UnicornEvolutionStage.child: 0.25,
+          UnicornEvolutionStage.teen: 0.2,
+          UnicornEvolutionStage.adult: 0.15,
         }.entries) {
           flameTester.test('for ${stageFullnessResult.key.name}', (game) async {
-            final stage = stageFullnessResult.key;
+            final evolutionStage = stageFullnessResult.key;
             final fullnessResult = stageFullnessResult.value;
 
             final fullnessBehavior = _MockFullnessBehavior();
@@ -205,7 +205,7 @@ void main() {
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: stage.componentForStage,
+              unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
                 foodCollisionBehavior,
                 fullnessBehavior,

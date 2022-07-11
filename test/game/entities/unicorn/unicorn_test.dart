@@ -73,7 +73,7 @@ void main() {
       );
     });
 
-    group('unicorn stage', () {
+    group('unicorn evolution stage', () {
       flameTester.test(
         'proxies from the behavior',
         (game) async {
@@ -84,12 +84,12 @@ void main() {
 
           unicorn.state = UnicornState.idle;
 
-          expect(unicorn.currentStage, UnicornStage.baby);
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
           game.update(0);
 
-          expect(unicorn.currentStage, UnicornStage.child);
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
         },
       );
     });

@@ -9,7 +9,7 @@ void addUnicornComponentStories(Dashbook dashbook) {
     (context) {
       final defaultUnicorn = BabyUnicornComponent();
       final unicorn = context.listProperty<UnicornComponent>(
-        'Unicorn stage',
+        'Unicorn evolution stage',
         defaultUnicorn,
         [
           defaultUnicorn,

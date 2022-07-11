@@ -10,31 +10,31 @@ class EvolutionBehavior extends Behavior<Unicorn> {
     if (!shouldEvolve) {
       return;
     }
-    final nextStage = getNextStage();
+    final nextEvolutionStage = getNextEvolutionStage();
     parent
-      ..currentStage = nextStage
+      ..evolutionStage = nextEvolutionStage
       ..reset();
   }
 
   bool get shouldEvolve {
-    if (parent.currentStage == UnicornStage.adult) {
+    if (parent.evolutionStage == UnicornEvolutionStage.adult) {
       return false;
     }
     return parent.timesFed >= timesThatMustBeFed &&
         parent.happinessFactor >= happinessThresholdToEvolve;
   }
 
-  UnicornStage getNextStage() {
-    final currentStage = parent.currentStage;
-    if (currentStage == UnicornStage.baby) {
-      return UnicornStage.child;
+  UnicornEvolutionStage getNextEvolutionStage() {
+    final currentEvolutionStage = parent.evolutionStage;
+    if (currentEvolutionStage == UnicornEvolutionStage.baby) {
+      return UnicornEvolutionStage.child;
     }
-    if (currentStage == UnicornStage.child) {
-      return UnicornStage.teen;
+    if (currentEvolutionStage == UnicornEvolutionStage.child) {
+      return UnicornEvolutionStage.teen;
     }
-    if (currentStage == UnicornStage.teen) {
-      return UnicornStage.adult;
+    if (currentEvolutionStage == UnicornEvolutionStage.teen) {
+      return UnicornEvolutionStage.adult;
     }
-    return currentStage;
+    return currentEvolutionStage;
   }
 }

@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-enum UnicornStage {
+enum UnicornEvolutionStage {
   baby,
   child,
   teen,
   adult;
 
-  factory UnicornStage.fromComponent(UnicornComponent component) {
+  factory UnicornEvolutionStage.fromComponent(UnicornComponent component) {
     if (component is BabyUnicornComponent) {
       return baby;
     }
@@ -26,16 +26,16 @@ enum UnicornStage {
   }
 }
 
-extension UnicornStageX on UnicornStage {
-  UnicornComponent get componentForStage {
+extension UnicornEvolutionStageX on UnicornEvolutionStage {
+  UnicornComponent get componentForEvolutionStage {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return BabyUnicornComponent();
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return ChildUnicornComponent();
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return TeenUnicornComponent();
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return AdultUnicornComponent();
     }
   }
@@ -123,11 +123,13 @@ class Unicorn extends Entity {
     return _unicornComponent;
   }
 
-  UnicornStage get currentStage => UnicornStage.fromComponent(unicornComponent);
+  UnicornEvolutionStage get evolutionStage {
+    return UnicornEvolutionStage.fromComponent(unicornComponent);
+  }
 
-  set currentStage(UnicornStage stage) {
+  set evolutionStage(UnicornEvolutionStage evolutionStage) {
     _unicornComponent.removeFromParent();
-    add(_unicornComponent = stage.componentForStage);
+    add(_unicornComponent = evolutionStage.componentForEvolutionStage);
   }
 
   UnicornState? get state => _unicornComponent.current;

@@ -22,7 +22,7 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
   }
 
   void _feedTheUnicorn(FoodType foodType) {
-    final currentStage = parent.currentStage;
+    final currentStage = parent.evolutionStage;
 
     final fullnessFeedFactor = currentStage.fullnessFeedFactor;
     parent.findBehavior<FullnessBehavior>()?.increaseBy(fullnessFeedFactor);
@@ -38,16 +38,16 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
 }
 
 @visibleForTesting
-extension PreferredFoodType on UnicornStage {
+extension PreferredFoodType on UnicornEvolutionStage {
   FoodType get preferredFoodType {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return FoodType.cake;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return FoodType.lollipop;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return FoodType.iceCream;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return FoodType.pancake;
     }
   }
@@ -56,13 +56,13 @@ extension PreferredFoodType on UnicornStage {
   /// unicorn is fed.
   double get fullnessFeedFactor {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return 0.3;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return 0.25;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return 0.2;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return 0.15;
     }
   }

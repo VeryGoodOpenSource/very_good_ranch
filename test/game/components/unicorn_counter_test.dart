@@ -37,13 +37,13 @@ void main() {
 
   group('UnicornCounter', () {
     flameTester.testGameWidget(
-      'counts each stage of a unicorn',
+      'counts each evolution stage of a unicorn',
       setUp: (game, tester) async {
         await game.add(UnicornCounter(position: Vector2(game.size.x, 0)));
         await game.background.addAll(
-          UnicornStage.values.map(
+          UnicornEvolutionStage.values.map(
             (e) => Unicorn.test(
-              unicornComponent: e.componentForStage,
+              unicornComponent: e.componentForEvolutionStage,
               position: Vector2.zero(),
               behaviors: [EvolutionBehavior()],
             ),
@@ -56,7 +56,7 @@ void main() {
         final counter = game.firstChild<UnicornCounter>()!;
 
         expect(counter.unicorns.length, equals(4));
-        expect(counter.children.length, equals(UnicornStage.values.length));
+        expect(counter.children.length, equals(UnicornEvolutionStage.values.length));
       },
     );
   });

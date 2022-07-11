@@ -22,15 +22,15 @@ void main() {
         enjoymentBehavior = _MockEnjoymentBehavior();
       });
 
-      for (final stage in UnicornStage.values) {
-        final petEnjoymentIncrease = stage.petEnjoymentIncrease;
+      for (final evolutionStage in UnicornEvolutionStage.values) {
+        final petEnjoymentIncrease = evolutionStage.petEnjoymentIncrease;
         flameTester.testGameWidget(
-          'for $stage',
+          'for $evolutionStage',
           setUp: (game, tester) async {
             final petBehavior = PetBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: stage.componentForStage,
+              unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
                 petBehavior,
                 enjoymentBehavior,
@@ -96,7 +96,7 @@ void main() {
 
           verify(
             () => enjoymentBehavior.increaseBy(
-              UnicornStage.baby.petEnjoymentIncrease,
+              UnicornEvolutionStage.baby.petEnjoymentIncrease,
             ),
           ).called(1);
         },

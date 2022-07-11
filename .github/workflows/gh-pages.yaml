@@ -1,0 +1,23 @@
+name: gh_pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v2
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+
+      - name: ☁️ Deploy
+        uses: bluefireteam/flutter-gh-pages@v8
+        with:
+          webRenderer: canvaskit
+          customArgs: --target="lib/main_production.dart"
+          baseHref: /very_good_ranch/

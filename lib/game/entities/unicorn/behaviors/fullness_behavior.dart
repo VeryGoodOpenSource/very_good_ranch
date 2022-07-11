@@ -35,7 +35,7 @@ class FullnessBehavior extends FactorBehavior {
   }
 
   void _decreaseFullness() {
-    decreaseBy(parent.currentStage.fullnessDecreaseFactor);
+    decreaseBy(parent.evolutionStage.fullnessDecreaseFactor);
   }
 
   @override
@@ -45,16 +45,16 @@ class FullnessBehavior extends FactorBehavior {
   set percentage(double value) => parent.fullnessFactor = value;
 }
 
-extension on UnicornStage {
+extension on UnicornEvolutionStage {
   double get fullnessDecreaseFactor {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return 0.1;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return 0.1;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return 0.2;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return 0.3;
     }
   }

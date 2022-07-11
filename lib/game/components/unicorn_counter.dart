@@ -19,12 +19,12 @@ class UnicornCounter extends PositionComponent
     gameRef.background.children.register<Unicorn>();
     unicorns = gameRef.background.children.query<Unicorn>();
 
-    await addAll(UnicornStage.values.map(_UnicornHead.new));
+    await addAll(UnicornEvolutionStage.values.map(_UnicornHead.new));
   }
 }
 
 class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
-  _UnicornHead(this.stage);
+  _UnicornHead(this.evolutionStage);
 
   static final _textPaint = TextPaint(
     style: GoogleFonts.mouseMemoirs(
@@ -35,14 +35,14 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
     textDirection: TextDirection.rtl,
   );
 
-  final UnicornStage stage;
+  final UnicornEvolutionStage evolutionStage;
 
   late Sprite _head;
 
   @override
   Future<void> onLoad() async {
     _head = await parent.gameRef.loadSprite(
-      stage.headAssetPath,
+      evolutionStage.headAssetPath,
       srcSize: Vector2(40, 40),
     );
   }
@@ -50,13 +50,13 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
   @override
   void render(Canvas canvas) {
     final multiplier = const [
-      UnicornStage.baby,
-      UnicornStage.child,
-      UnicornStage.teen,
-      UnicornStage.adult
-    ].indexOf(stage);
+      UnicornEvolutionStage.baby,
+      UnicornEvolutionStage.child,
+      UnicornEvolutionStage.teen,
+      UnicornEvolutionStage.adult
+    ].indexOf(evolutionStage);
     final amount = parent.unicorns
-        .where((u) => u.isMounted && u.currentStage == stage)
+        .where((u) => u.isMounted && u.evolutionStage == evolutionStage)
         .length;
     final textSize = _textPaint.measureText('$amount');
 
@@ -80,16 +80,16 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
   }
 }
 
-extension on UnicornStage {
+extension on UnicornEvolutionStage {
   String get headAssetPath {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return Assets.images.babyHead.path;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return Assets.images.childHead.path;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return Assets.images.teenHead.path;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return Assets.images.adultHead.path;
     }
   }

@@ -26,7 +26,7 @@ class PetBehavior extends TappableBehavior<Unicorn> {
 
       parent
           .findBehavior<EnjoymentBehavior>()
-          ?.increaseBy(parent.currentStage.petEnjoymentIncrease);
+          ?.increaseBy(parent.evolutionStage.petEnjoymentIncrease);
 
       return false;
     }
@@ -35,16 +35,16 @@ class PetBehavior extends TappableBehavior<Unicorn> {
 }
 
 @visibleForTesting
-extension PetBehaviorIncreasePerStage on UnicornStage {
+extension PetBehaviorIncreasePerStage on UnicornEvolutionStage {
   double get petEnjoymentIncrease {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return 0.2;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return 0.16;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return 0.13;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return 0.1;
     }
   }

@@ -35,7 +35,7 @@ class EnjoymentBehavior extends FactorBehavior {
   }
 
   void _decreaseEnjoyment() {
-    decreaseBy(parent.currentStage.enjoymentDecreaseFactor);
+    decreaseBy(parent.evolutionStage.enjoymentDecreaseFactor);
   }
 
   @override
@@ -45,18 +45,18 @@ class EnjoymentBehavior extends FactorBehavior {
   set percentage(double value) => parent.enjoymentFactor = value;
 }
 
-extension on UnicornStage {
+extension on UnicornEvolutionStage {
   /// Percentage that of enjoyment lost every
   /// [EnjoymentBehavior.decreaseInterval].
   double get enjoymentDecreaseFactor {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return 0.3;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return 0.2;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return 0.1;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return 0.1;
     }
   }

@@ -123,9 +123,9 @@ void main() {
     group('feeding unicorn impacts enjoyment', () {
       group('with the right type of food', () {
         for (final evolutionStage in UnicornEvolutionStage.values) {
-          flameTester
-              .test('${evolutionStage.name} prefers ${evolutionStage.preferredFoodType.name}',
-                  (game) async {
+          flameTester.test(
+              '${evolutionStage.name} prefers '
+              '${evolutionStage.preferredFoodType.name}', (game) async {
             final preferredFoodType = evolutionStage.preferredFoodType;
 
             final leavingBehavior = _MockLeavingBehavior();

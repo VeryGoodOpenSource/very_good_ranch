@@ -56,7 +56,10 @@ void main() {
         final counter = game.firstChild<UnicornCounter>()!;
 
         expect(counter.unicorns.length, equals(4));
-        expect(counter.children.length, equals(UnicornEvolutionStage.values.length));
+        expect(
+          counter.children.length,
+          equals(UnicornEvolutionStage.values.length),
+        );
       },
     );
   });

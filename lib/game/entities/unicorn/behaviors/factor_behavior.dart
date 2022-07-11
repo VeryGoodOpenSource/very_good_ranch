@@ -6,7 +6,10 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 abstract class FactorBehavior extends Behavior<Unicorn> {
-  FactorBehavior(this._gaugeComponent) : super(children: [_gaugeComponent]);
+  FactorBehavior({
+    required GaugeComponent gaugeComponent,
+  })  : _gaugeComponent = gaugeComponent,
+        super(children: [gaugeComponent]);
 
   static double visibilityDuration = 1.5;
 
@@ -14,14 +17,13 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
   final _visibilityTimer = Timer(visibilityDuration, autoStart: false);
 
-  double _percentage = 1;
-
-  double get percentage => _percentage;
+  @visibleForTesting
+  @protected
+  set percentage(double value);
 
   @visibleForTesting
-  set percentage(double value) {
-    _percentage = value.clamp(0.0, 1.0);
-  }
+  @protected
+  double get percentage;
 
   void increaseBy(double amount) {
     percentage += amount;
@@ -33,18 +35,12 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
     makeGaugeTemporarilyVisible();
   }
 
-  void reset() {
-    percentage = 1;
-    makeGaugeTemporarilyVisible();
-  }
-
   @visibleForTesting
   void makeGaugeTemporarilyVisible() {
     _visibilityTimer.start();
   }
 
-  bool get _isGaugeVisible =>
-      _percentage < 0.25 || _visibilityTimer.isRunning();
+  bool get _isGaugeVisible => percentage < 0.25 || _visibilityTimer.isRunning();
 
   @override
   @mustCallSuper

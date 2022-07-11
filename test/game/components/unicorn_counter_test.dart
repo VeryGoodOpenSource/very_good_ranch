@@ -43,8 +43,9 @@ void main() {
         await game.background.addAll(
           UnicornStage.values.map(
             (e) => Unicorn.test(
+              unicornComponent: e.componentForStage,
               position: Vector2.zero(),
-              behaviors: [EvolutionBehavior.withInitialStage(e)],
+              behaviors: [EvolutionBehavior()],
             ),
           ),
         );

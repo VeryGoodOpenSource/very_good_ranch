@@ -15,8 +15,6 @@ import '../../../../helpers/helpers.dart';
 
 class _MockFood extends Mock implements Food {}
 
-class _MockEvolutionBehavior extends Mock implements EvolutionBehavior {}
-
 class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
 
 class _MockEnjoymentBehavior extends Mock implements EnjoymentBehavior {}
@@ -101,15 +99,11 @@ void main() {
         final leavingBehavior = _MockLeavingBehavior();
         when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-        final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.child);
-
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
+          unicornComponent: ChildUnicornComponent(),
           behaviors: [
-            evolutionBehavior,
             foodCollisionBehavior,
             leavingBehavior,
           ],
@@ -137,17 +131,13 @@ void main() {
             final leavingBehavior = _MockLeavingBehavior();
             when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-            final evolutionBehavior = _MockEvolutionBehavior();
-            when(() => evolutionBehavior.currentStage).thenReturn(stage);
-
             final enjoymentBehavior = _MockEnjoymentBehavior();
-            when(() => enjoymentBehavior.percentage).thenReturn(0.5);
 
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
+              unicornComponent: stage.componentForStage,
               behaviors: [
-                evolutionBehavior,
                 foodCollisionBehavior,
                 leavingBehavior,
                 enjoymentBehavior,
@@ -172,18 +162,13 @@ void main() {
         final leavingBehavior = _MockLeavingBehavior();
         when(() => leavingBehavior.isLeaving).thenReturn(false);
 
-        final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.child);
-
         final enjoymentBehavior = _MockEnjoymentBehavior();
-        when(() => enjoymentBehavior.percentage).thenReturn(0.5);
 
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
+          unicornComponent: ChildUnicornComponent(),
           behaviors: [
-            evolutionBehavior,
             foodCollisionBehavior,
             leavingBehavior,
             enjoymentBehavior,
@@ -215,17 +200,13 @@ void main() {
             final stage = stageFullnessResult.key;
             final fullnessResult = stageFullnessResult.value;
 
-            final evolutionBehavior = _MockEvolutionBehavior();
-            when(() => evolutionBehavior.currentStage).thenReturn(stage);
-
             final fullnessBehavior = _MockFullnessBehavior();
-            when(() => fullnessBehavior.percentage).thenReturn(0.5);
 
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
+              unicornComponent: stage.componentForStage,
               behaviors: [
-                evolutionBehavior,
                 foodCollisionBehavior,
                 fullnessBehavior,
               ],
@@ -248,17 +229,10 @@ void main() {
 
     group('feeding unicorn impacts timesfed', () {
       flameTester.test('summing one up', (game) async {
-        final evolutionBehavior = _MockEvolutionBehavior();
-        when(() => evolutionBehavior.currentStage)
-            .thenReturn(UnicornStage.baby);
-
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
-          behaviors: [
-            foodCollisionBehavior,
-            evolutionBehavior,
-          ],
+          behaviors: [foodCollisionBehavior],
         );
 
         await game.ensureAdd(unicorn);

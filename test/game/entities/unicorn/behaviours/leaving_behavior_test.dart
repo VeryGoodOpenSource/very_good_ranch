@@ -23,15 +23,14 @@ void main() {
             leavingBehavior,
           ],
         )
-          ..enjoymentFactor = 0.01
-          ..fullnessFactor = 0.01;
+          ..enjoyment.value = 0.01
+          ..fullness.value = 0.01;
         await game.ensureAdd(unicorn);
       },
       verify: (game, tester) async {
         final unicorn = game.descendants().whereType<Unicorn>().first;
-        final leavingBehavior = unicorn.findBehavior<LeavingBehavior>()!;
 
-        expect(leavingBehavior.isLeaving, true);
+        expect(unicorn.isLeaving, true);
         for (var i = 0; i < 5; i++) {
           await expectLater(
             find.byGame<TestGame>(),
@@ -54,13 +53,13 @@ void main() {
             leavingBehavior,
           ],
         )
-          ..enjoymentFactor = 0.01
-          ..fullnessFactor = 0.01;
+          ..enjoyment.value = 0.01
+          ..fullness.value = 0.01;
 
-        expect(leavingBehavior.isLeaving, false);
+        expect(unicorn.isLeaving, false);
         await game.ensureAdd(unicorn);
         game.update(0); // one extra bump to remove the component
-        expect(leavingBehavior.isLeaving, true);
+        expect(unicorn.isLeaving, true);
         game.update(LeavingBehavior.leavingAnimationDuration);
         await game.ready();
         expect(unicorn.isMounted, false);

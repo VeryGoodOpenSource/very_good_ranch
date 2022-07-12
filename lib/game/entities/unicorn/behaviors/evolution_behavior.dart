@@ -21,7 +21,7 @@ class EvolutionBehavior extends Behavior<Unicorn> {
       return false;
     }
     return parent.timesFed >= timesThatMustBeFed &&
-        parent.happinessFactor >= happinessThresholdToEvolve;
+        parent.happiness >= happinessThresholdToEvolve;
   }
 
   UnicornEvolutionStage getNextEvolutionStage() {

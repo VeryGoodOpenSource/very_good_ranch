@@ -60,8 +60,8 @@ void main() {
         expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-        unicorn.enjoymentFactor = 1;
-        unicorn.fullnessFactor = 1;
+        unicorn.enjoyment.value = 1;
+        unicorn.fullness.value = 1;
 
         game.update(0);
 
@@ -90,8 +90,8 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
-        unicorn.enjoymentFactor = 1;
-        unicorn.fullnessFactor = 1;
+        unicorn.enjoyment.value = 1;
+        unicorn.fullness.value = 1;
 
         game.update(0);
 
@@ -121,8 +121,8 @@ void main() {
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
         unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-        unicorn.enjoymentFactor = 1;
-        unicorn.fullnessFactor = 1;
+        unicorn.enjoyment.value = 1;
+        unicorn.fullness.value = 1;
 
         game.update(0);
 
@@ -153,8 +153,8 @@ void main() {
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
-          unicorn.enjoymentFactor = 1;
-          unicorn.fullnessFactor = 1;
+          unicorn.enjoyment.value = 1;
+          unicorn.fullness.value = 1;
 
           game.update(0);
 
@@ -186,8 +186,8 @@ void main() {
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           unicorn.timesFed = 0;
 
-          unicorn.enjoymentFactor = 1;
-          unicorn.fullnessFactor = 1;
+          unicorn.enjoyment.value = 1;
+          unicorn.fullness.value = 1;
 
           game.update(0);
 
@@ -218,8 +218,8 @@ void main() {
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           unicorn.timesFed = 1;
-          unicorn.enjoymentFactor = 0;
-          unicorn.fullnessFactor = 0;
+          unicorn.enjoyment.value = 0;
+          unicorn.fullness.value = 0;
 
           game.update(0);
 
@@ -254,15 +254,15 @@ void main() {
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
           // Setting happiness to above the threshold, but not full
-          unicorn.enjoymentFactor = 0.95;
-          unicorn.fullnessFactor = 0.95;
+          unicorn.enjoyment.value = 0.95;
+          unicorn.fullness.value = 0.95;
 
           game.update(0);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
           expect(unicorn.timesFed, 0);
-          expect(unicorn.fullnessFactor, 1);
-          expect(unicorn.enjoymentFactor, 1);
+          expect(unicorn.fullness.value, 1);
+          expect(unicorn.enjoyment.value, 1);
         },
       );
     });

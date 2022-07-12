@@ -61,6 +61,8 @@ class Unicorn extends Entity {
         LeavingBehavior(),
         PetBehavior(),
       ],
+      enjoyment: UnicornPercentage(1),
+      fullness: UnicornPercentage(1),
       unicornComponent: _unicornComponent,
     );
   }
@@ -74,6 +76,8 @@ class Unicorn extends Entity {
     required Vector2 position,
     Iterable<Behavior<Unicorn>>? behaviors,
     UnicornComponent? unicornComponent,
+    UnicornPercentage? enjoyment,
+    UnicornPercentage? fullness,
   }) {
     final _unicornComponent = unicornComponent ?? BabyUnicornComponent();
     final size = _unicornComponent.size;
@@ -81,6 +85,8 @@ class Unicorn extends Entity {
       position: position,
       size: size,
       behaviors: behaviors,
+      enjoyment: enjoyment ?? UnicornPercentage(1),
+      fullness: fullness ?? UnicornPercentage(1),
       unicornComponent: _unicornComponent,
     );
   }
@@ -89,6 +95,8 @@ class Unicorn extends Entity {
     required super.position,
     required super.size,
     required UnicornComponent unicornComponent,
+    required this.enjoyment,
+    required this.fullness,
     super.behaviors,
   })  : _unicornComponent = unicornComponent,
         super(children: [unicornComponent]);
@@ -96,26 +104,22 @@ class Unicorn extends Entity {
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
+  /// A state that describes if the unicorn is leaving the field due to low
+  /// [happiness].
+  bool isLeaving = false;
+
   /// A state that describes the percentage of fullness of the unicorn
-  double get fullnessFactor => _fullnessFactor;
-
-  set fullnessFactor(double value) => _fullnessFactor = value.clamp(0.0, 1.0);
-
-  double _fullnessFactor = 1;
+  final UnicornPercentage fullness;
 
   /// A state that describes the percentage of enjoyment of the unicorn
-  double get enjoymentFactor => _enjoymentFactor;
+  final UnicornPercentage enjoyment;
 
-  set enjoymentFactor(double value) => _enjoymentFactor = value.clamp(0.0, 1.0);
-
-  double _enjoymentFactor = 1;
-
-  /// [enjoymentFactor] and [fullnessFactor] composes the overall hapiness of
+  /// [enjoyment] and [fullness] composes the overall happiness of
   /// the unicorn which is used to define if it should leave or evolve.
   ///
   /// Too low will cause the unicorn to leace, too high will allow the
   /// unicorn to evolve.
-  double get happinessFactor => fullnessFactor * enjoymentFactor;
+  double get happiness => fullness.value * enjoyment.value;
 
   UnicornComponent _unicornComponent;
 
@@ -138,7 +142,38 @@ class Unicorn extends Entity {
 
   void reset() {
     timesFed = 0;
-    fullnessFactor = 1;
-    enjoymentFactor = 1;
+    fullness.reset();
+    enjoyment.reset();
+  }
+}
+
+/// A mutable state that represents a percentage of a [Unicorn] trait that
+/// affects its [Unicorn.happiness]
+class UnicornPercentage {
+  UnicornPercentage(this.initialPercentage)
+      : _value = initialPercentage,
+        assert(
+          initialPercentage <= 1.0 && initialPercentage >= 0.0,
+          'Initial percentage should be between 0 and 1',
+        );
+
+  final double initialPercentage;
+
+  double _value;
+
+  double get value => _value;
+
+  set value(double value) => _value = value.clamp(0.0, 1.0);
+
+  void reset() {
+    _value = initialPercentage;
+  }
+
+  void increaseBy(double amount) {
+    value += amount;
+  }
+
+  void decreaseBy(double amount) {
+    value -= amount;
   }
 }

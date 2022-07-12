@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/enjoyment_behavior.dart';
 
 class PetBehavior extends TappableBehavior<Unicorn> {
   static const petThrottleDuration = 1.0;
@@ -24,9 +23,7 @@ class PetBehavior extends TappableBehavior<Unicorn> {
     if (info.handled || !_throttlingTimer.timer.isRunning()) {
       _throttlingTimer.timer.start();
 
-      parent
-          .findBehavior<EnjoymentBehavior>()
-          ?.increaseBy(parent.evolutionStage.petEnjoymentIncrease);
+      parent.enjoyment.increaseBy(parent.evolutionStage.petEnjoymentIncrease);
 
       return false;
     }

@@ -35,14 +35,11 @@ class EnjoymentBehavior extends FactorBehavior {
   }
 
   void _decreaseEnjoyment() {
-    decreaseBy(parent.evolutionStage.enjoymentDecreaseFactor);
+    parent.enjoyment.decreaseBy(parent.evolutionStage.enjoymentDecreaseFactor);
   }
 
   @override
-  double get percentage => parent.enjoymentFactor;
-
-  @override
-  set percentage(double value) => parent.enjoymentFactor = value;
+  double get percentage => parent.enjoyment.value;
 }
 
 extension on UnicornEvolutionStage {

@@ -7,21 +7,25 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 class FullnessBehavior extends FactorBehavior {
   factory FullnessBehavior() {
     return FullnessBehavior._(
-      gaugeComponent: GaugeComponent(
+      GaugeComponent(
         position: Vector2.zero(),
-        size: UnicornComponent.dimensions.x + 34,
         thickness: 20,
         percentage: 1,
         color: Colors.pink,
       ),
+      innerSpacing,
     );
   }
 
-  FullnessBehavior._({
-    required super.gaugeComponent,
-  });
+  FullnessBehavior._(
+    super.gaugeComponent,
+    super.innerSpacing,
+  );
 
-  static double decreaseInterval = 7;
+  static const double decreaseInterval = 7;
+
+  /// The extra spacing the gauge should take from the unicorn size
+  static const double innerSpacing = 54;
 
   @override
   Future<void> onLoad() async {

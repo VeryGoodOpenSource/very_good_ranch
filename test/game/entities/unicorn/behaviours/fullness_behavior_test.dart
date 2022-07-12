@@ -98,6 +98,13 @@ void main() {
           fullnessBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
+          final fullnessBehavior =
+              game.descendants().whereType<FullnessBehavior>().first;
+          final unicorn = game.descendants().whereType<Unicorn>().first;
+          expect(
+            fullnessBehavior.gaugeComponent.diameter,
+            unicorn.size.x + FullnessBehavior.innerSpacing,
+          );
           await expectLater(
             find.byGame<TestGame>(),
             matchesGoldenFile(

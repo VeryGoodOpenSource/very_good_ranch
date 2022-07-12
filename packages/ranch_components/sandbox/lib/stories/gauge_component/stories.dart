@@ -11,7 +11,7 @@ void addGaugeComponentStories(Dashbook dashbook) {
     (context) {
       final innerGauge = GaugeComponent(
         position: Vector2.zero(),
-        size: 100,
+        diameter: 100,
         thickness: 20,
         percentage: double.tryParse(context.textProperty('inner', '0.9')) ?? 1,
         color: Colors.lightBlue,
@@ -19,7 +19,7 @@ void addGaugeComponentStories(Dashbook dashbook) {
 
       final outerGauge = GaugeComponent(
         position: Vector2.zero(),
-        size: 120,
+        diameter: 120,
         thickness: 20,
         percentage: double.tryParse(context.textProperty('outer', '0.7')) ?? 1,
         color: Colors.pink,

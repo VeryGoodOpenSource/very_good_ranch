@@ -99,6 +99,13 @@ void main() {
           enjoymentBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
+          final enjoymentBehavior =
+              game.descendants().whereType<EnjoymentBehavior>().first;
+          final unicorn = game.descendants().whereType<Unicorn>().first;
+          expect(
+            enjoymentBehavior.gaugeComponent.diameter,
+            unicorn.size.x + EnjoymentBehavior.innerSpacing,
+          );
           await expectLater(
             find.byGame<TestGame>(),
             matchesGoldenFile(

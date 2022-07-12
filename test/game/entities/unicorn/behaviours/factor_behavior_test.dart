@@ -68,17 +68,17 @@ void main() {
       );
 
       flameTester.testGameWidget(
-        'Follows fullness and enjoyment factors: 50%',
+        'Follows fullness and enjoyment factors: 40%',
         setUp: (game, tester) async {
           await game.ensureAdd(unicorn);
-          factorBehavior.externalPercentage = 0.5;
+          factorBehavior.externalPercentage = 0.4;
           factorBehavior.makeGaugeTemporarilyVisible();
           game.update(GaugeComponent.animationDuration);
         },
         verify: (game, tester) async {
           await expectLater(
             find.byGame<TestGame>(),
-            matchesGoldenFile('golden/gauge/has-half-gauge-50.png'),
+            matchesGoldenFile('golden/gauge/has-half-gauge-40.png'),
           );
         },
       );

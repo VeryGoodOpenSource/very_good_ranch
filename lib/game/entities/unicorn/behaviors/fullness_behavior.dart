@@ -9,7 +9,6 @@ class FullnessBehavior extends FactorBehavior {
     return FullnessBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
-        diameter: 0,
         thickness: 20,
         percentage: 1,
         color: Colors.pink,

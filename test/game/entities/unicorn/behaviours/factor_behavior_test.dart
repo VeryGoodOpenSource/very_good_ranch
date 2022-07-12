@@ -15,7 +15,6 @@ class _TestFactorBehavior extends FactorBehavior {
     return _TestFactorBehavior._(
       gaugeComponent: GaugeComponent(
         position: Vector2.zero(),
-        diameter: 0,
         thickness: 20,
         percentage: 1,
         color: Colors.lightBlue,

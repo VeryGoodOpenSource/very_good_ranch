@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 abstract class FactorBehavior extends Behavior<Unicorn> {
@@ -15,27 +14,11 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
   final GaugeComponent _gaugeComponent;
 
-  late final leavingBehavior = parent.findBehavior<LeavingBehavior>();
-
   final _visibilityTimer = Timer(visibilityDuration, autoStart: false);
 
   @visibleForTesting
   @protected
-  set percentage(double value);
-
-  @visibleForTesting
-  @protected
   double get percentage;
-
-  void increaseBy(double amount) {
-    percentage += amount;
-    makeGaugeTemporarilyVisible();
-  }
-
-  void decreaseBy(double amount) {
-    percentage -= amount;
-    makeGaugeTemporarilyVisible();
-  }
 
   @visibleForTesting
   void makeGaugeTemporarilyVisible() {
@@ -56,7 +39,7 @@ abstract class FactorBehavior extends Behavior<Unicorn> {
 
     _visibilityTimer.update(dt);
     _gaugeComponent.percentage = percentage;
-    final isLeaving = leavingBehavior?.isLeaving == true;
+    final isLeaving = parent.isLeaving == true;
     if (isLeaving) {
       removeFromParent();
     }

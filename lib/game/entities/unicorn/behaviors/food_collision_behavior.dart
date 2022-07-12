@@ -3,7 +3,6 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
   static const double positiveImpactOnEnjoyment = 0.3;
@@ -14,7 +13,7 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     if (other.beingDragged || !other.wasDragged) {
       return;
     }
-    if (parent.findBehavior<LeavingBehavior>()?.isLeaving == true) {
+    if (parent.isLeaving == true) {
       return;
     }
     _feedTheUnicorn(other.type);
@@ -25,14 +24,14 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     final currentStage = parent.evolutionStage;
 
     final fullnessFeedFactor = currentStage.fullnessFeedFactor;
-    parent.findBehavior<FullnessBehavior>()?.increaseBy(fullnessFeedFactor);
+    parent.fullness.increaseBy(fullnessFeedFactor);
 
     final preferredFoodType = currentStage.preferredFoodType;
     final impactOnEnjoyment = preferredFoodType == foodType
         ? positiveImpactOnEnjoyment
         : negativeImpactOnEnjoyment;
 
-    parent.findBehavior<EnjoymentBehavior>()?.increaseBy(impactOnEnjoyment);
+    parent.enjoyment.increaseBy(impactOnEnjoyment);
     parent.timesFed++;
   }
 }

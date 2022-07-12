@@ -3,14 +3,11 @@
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 import '../../../../helpers/helpers.dart';
-
-class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -30,9 +27,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(unicorn.enjoyment.value, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.7);
+        expect(unicorn.enjoyment.value, 0.7);
       });
 
       flameTester.test('for a child unicorn', (game) async {
@@ -46,9 +43,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(unicorn.enjoyment.value, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.8);
+        expect(unicorn.enjoyment.value, 0.8);
       });
 
       flameTester.test('for a teenager unicorn', (game) async {
@@ -62,9 +59,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(unicorn.enjoyment.value, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.9);
+        expect(unicorn.enjoyment.value, 0.9);
       });
 
       flameTester.test('for an adult unicorn', (game) async {
@@ -78,9 +75,9 @@ void main() {
         );
         await game.ensureAdd(unicorn);
 
-        expect(unicorn.enjoymentFactor, 1.0);
+        expect(unicorn.enjoyment.value, 1.0);
         game.update(EnjoymentBehavior.decreaseInterval);
-        expect(unicorn.enjoymentFactor, 0.9);
+        expect(unicorn.enjoyment.value, 0.9);
       });
     });
 
@@ -88,20 +85,17 @@ void main() {
       flameTester.testGameWidget(
         'with the right color and size',
         setUp: (game, tester) async {
-          final leavingBehavior = _MockLeavingBehavior();
-          when(() => leavingBehavior.isLeaving).thenReturn(false);
-
           final enjoymentBehavior = EnjoymentBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.all(100),
             behaviors: [
-              leavingBehavior,
               enjoymentBehavior,
             ],
           );
           await game.ensureAdd(unicorn);
-          unicorn.enjoymentFactor = 1.0;
+          unicorn.isLeaving = true;
+          unicorn.enjoyment.value = 1.0;
           enjoymentBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {

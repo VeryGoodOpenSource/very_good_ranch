@@ -35,14 +35,11 @@ class FullnessBehavior extends FactorBehavior {
   }
 
   void _decreaseFullness() {
-    decreaseBy(parent.evolutionStage.fullnessDecreaseFactor);
+    parent.fullness.decreaseBy(parent.evolutionStage.fullnessDecreaseFactor);
   }
 
   @override
-  double get percentage => parent.fullnessFactor;
-
-  @override
-  set percentage(double value) => parent.fullnessFactor = value;
+  double get percentage => parent.fullness.value;
 }
 
 extension on UnicornEvolutionStage {

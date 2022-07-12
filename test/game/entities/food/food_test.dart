@@ -5,14 +5,11 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
-import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 
 import '../../../helpers/helpers.dart';
-
-class _MockDraggingBehavior extends Mock implements DraggingBehavior {}
 
 void main() {
   late GameBloc gameBloc;
@@ -126,42 +123,6 @@ void main() {
           find.byGame<TestGame>(),
           matchesGoldenFile('golden/food/types/ice_cream.png'),
         );
-      },
-    );
-  });
-
-  group('food beingDragged', () {
-    flameTester.test(
-      'proxies from the behavior',
-      (game) async {
-        final draggingBehavior = _MockDraggingBehavior();
-
-        final food = Food.test(behaviors: [draggingBehavior]);
-        await game.ensureAdd(food);
-        await game.ready();
-
-        when(() => draggingBehavior.beingDragged).thenReturn(true);
-        expect(food.beingDragged, true);
-        when(() => draggingBehavior.beingDragged).thenReturn(false);
-        expect(food.beingDragged, false);
-      },
-    );
-  });
-
-  group('food wasDragged', () {
-    flameTester.test(
-      'proxies from the behavior',
-      (game) async {
-        final draggingBehavior = _MockDraggingBehavior();
-
-        final food = Food.test(behaviors: [draggingBehavior]);
-        await game.ensureAdd(food);
-        await game.ready();
-
-        when(() => draggingBehavior.wasDragged).thenReturn(true);
-        expect(food.wasDragged, true);
-        when(() => draggingBehavior.wasDragged).thenReturn(false);
-        expect(food.wasDragged, false);
       },
     );
   });

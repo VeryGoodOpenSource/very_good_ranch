@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 
 class DespawnBehavior extends Behavior<Food> {
   DespawnBehavior({
@@ -13,11 +12,8 @@ class DespawnBehavior extends Behavior<Food> {
 
   TimerComponent? _timer;
 
-  DraggingBehavior? draggable;
-
   @override
   Future<void> onLoad() async {
-    draggable = parent.findBehavior<DraggingBehavior>();
     await add(_timer = TimerComponent(period: despawnTime, onTick: onDespawn));
   }
 
@@ -28,7 +24,7 @@ class DespawnBehavior extends Behavior<Food> {
   @override
   void update(double dt) {
     // If it is currently being dragged stop the timer
-    if (draggable?.beingDragged == true) {
+    if (parent.beingDragged == true) {
       _timer?.timer.stop();
     } else {
       if (!(_timer?.timer.isRunning() ?? false)) {

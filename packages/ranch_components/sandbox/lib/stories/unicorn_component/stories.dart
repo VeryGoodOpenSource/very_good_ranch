@@ -23,7 +23,7 @@ void addUnicornComponentStories(Dashbook dashbook) {
         UnicornState.idle,
         UnicornState.values,
       );
-      unicorn.current = unicornState;
+      unicorn.state = unicornState;
 
       final game = context.storyGame(component: unicorn);
 

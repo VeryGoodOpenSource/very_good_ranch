@@ -49,10 +49,9 @@ void main() {
           await tester.pump();
         },
         verify: (game, tester) async {
-          final draggable =
-              game.descendants().whereType<DraggingBehavior>().first;
+          final food = game.descendants().whereType<Food>().first;
 
-          expect(draggable.beingDragged, isTrue);
+          expect(food.beingDragged, isTrue);
         },
       );
 
@@ -70,10 +69,9 @@ void main() {
           await tester.pump();
         },
         verify: (game, tester) async {
-          final draggable =
-              game.descendants().whereType<DraggingBehavior>().first;
+          final food = game.descendants().whereType<Food>().first;
 
-          expect(draggable.beingDragged, isFalse);
+          expect(food.beingDragged, isFalse);
         },
       );
 
@@ -92,10 +90,9 @@ void main() {
           await tester.pump();
         },
         verify: (game, tester) async {
-          final draggable =
-              game.descendants().whereType<DraggingBehavior>().first;
+          final food = game.descendants().whereType<Food>().first;
 
-          expect(draggable.beingDragged, isFalse);
+          expect(food.beingDragged, isFalse);
         },
       );
     });
@@ -115,10 +112,11 @@ void main() {
           await tester.pump();
         },
         verify: (game, tester) async {
+          final food = game.descendants().whereType<Food>().first;
           final draggable =
               game.descendants().whereType<DraggingBehavior>().first;
 
-          expect(draggable.wasDragged, isTrue);
+          expect(food.wasDragged, isTrue);
           expect(draggable.firstChild<TimerComponent>(), isNotNull);
         },
       );
@@ -137,16 +135,17 @@ void main() {
           await tester.pump();
         },
         verify: (game, tester) async {
+          final food = game.descendants().whereType<Food>().first;
           final draggable =
               game.descendants().whereType<DraggingBehavior>().first;
 
-          expect(draggable.wasDragged, isTrue);
+          expect(food.wasDragged, isTrue);
           expect(draggable.firstChild<TimerComponent>(), isNotNull);
 
           game.update(5);
           game.update(0);
 
-          expect(draggable.wasDragged, isFalse);
+          expect(food.wasDragged, isFalse);
           expect(draggable.firstChild<TimerComponent>(), isNull);
         },
       );

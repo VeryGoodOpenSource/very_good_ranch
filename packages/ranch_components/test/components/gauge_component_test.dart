@@ -19,7 +19,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 0.4,
               thickness: 20,
               color: Colors.pink,
@@ -36,7 +36,7 @@ void main() {
           expect(
             () => GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: -0.1,
               thickness: 20,
               color: Colors.pink,
@@ -47,7 +47,7 @@ void main() {
           expect(
             () => GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 1.1,
               thickness: 20,
               color: Colors.pink,
@@ -64,7 +64,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 0.4,
               thickness: 20,
               color: Colors.pink,
@@ -88,7 +88,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 0.4,
               thickness: 20,
               color: Colors.pink,
@@ -112,7 +112,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               percentage: 1,
               thickness: 20,
               color: Colors.pink,
@@ -136,7 +136,7 @@ void main() {
           await game.ensureAdd(
             GaugeComponent(
               position: Vector2.zero(),
-              size: 100,
+              diameter: 100,
               thickness: 20,
               color: Colors.pink,
             ),
@@ -152,13 +152,13 @@ void main() {
     });
 
     flameTester.testGameWidget(
-      'can be changed at runtime with animation',
+      'percentage can be changed at runtime with animation',
       setUp: (game, tester) async {
         game.camera.followVector2(Vector2.zero());
         await game.ensureAdd(
           GaugeComponent(
             position: Vector2.zero(),
-            size: 100,
+            diameter: 100,
             thickness: 20,
             color: Colors.pink,
           ),
@@ -167,7 +167,7 @@ void main() {
       verify: (game, tester) async {
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/gauge_component/changing/before.png'),
+          matchesGoldenFile('golden/gauge_component/percentage/before.png'),
         );
 
         game.firstChild<GaugeComponent>()?.percentage = 0.5;
@@ -177,7 +177,7 @@ void main() {
         await tester.pump();
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/gauge_component/changing/middle.png'),
+          matchesGoldenFile('golden/gauge_component/percentage/middle.png'),
         );
 
         game.update(GaugeComponent.animationDuration / 2);
@@ -185,7 +185,40 @@ void main() {
         await tester.pump();
         await expectLater(
           find.byGame<TestGame>(),
-          matchesGoldenFile('golden/gauge_component/changing/after.png'),
+          matchesGoldenFile('golden/gauge_component/percentage/after.png'),
+        );
+      },
+    );
+
+    flameTester.testGameWidget(
+      'diameter can be changed at runtime',
+      setUp: (game, tester) async {
+        game.camera.followVector2(Vector2.zero());
+
+        await game.ensureAdd(
+          GaugeComponent(
+            position: Vector2.zero(),
+            diameter: 100,
+            thickness: 20,
+            color: Colors.pink,
+            percentage: 1,
+          ),
+        );
+      },
+      verify: (game, tester) async {
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/gauge_component/diameter/before.png'),
+        );
+
+        game.firstChild<GaugeComponent>()?.diameter = 50;
+
+        game.update(0);
+
+        await tester.pump();
+        await expectLater(
+          find.byGame<TestGame>(),
+          matchesGoldenFile('golden/gauge_component/diameter/after.png'),
         );
       },
     );

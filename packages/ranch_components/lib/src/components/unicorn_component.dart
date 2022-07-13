@@ -141,7 +141,8 @@ class AdultUnicornComponent extends UnicornComponent {
 }
 
 /// {@template unicorn_animation_data}
-///  The metadata o of a animation of a unicorn in a specific stage and state.
+///  The metadata o of a animation of a unicorn in a specific evolution stage
+///  and state.
 /// {@endtemplate}
 @immutable
 class UnicornAnimationData {

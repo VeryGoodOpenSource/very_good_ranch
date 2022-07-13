@@ -3,7 +3,6 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
   static const double positiveImpactOnEnjoyment = 0.3;
@@ -14,8 +13,7 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     if (other.beingDragged || !other.wasDragged) {
       return;
     }
-    if (parent.hasBehavior<LeavingBehavior>() &&
-        parent.findBehavior<LeavingBehavior>().isLeaving == true) {
+    if (parent.isLeaving == true) {
       return;
     }
     _feedTheUnicorn(other.type);
@@ -23,32 +21,32 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
   }
 
   void _feedTheUnicorn(FoodType foodType) {
-    final currentStage = parent.currentStage;
+    final currentStage = parent.evolutionStage;
 
     final fullnessFeedFactor = currentStage.fullnessFeedFactor;
-    parent.findBehavior<FullnessBehavior>().increaseBy(fullnessFeedFactor);
+    parent.fullness.increaseBy(fullnessFeedFactor);
 
     final preferredFoodType = currentStage.preferredFoodType;
     final impactOnEnjoyment = preferredFoodType == foodType
         ? positiveImpactOnEnjoyment
         : negativeImpactOnEnjoyment;
 
-    parent.findBehavior<EnjoymentBehavior>().increaseBy(impactOnEnjoyment);
+    parent.enjoyment.increaseBy(impactOnEnjoyment);
     parent.timesFed++;
   }
 }
 
 @visibleForTesting
-extension PreferredFoodType on UnicornStage {
+extension PreferredFoodType on UnicornEvolutionStage {
   FoodType get preferredFoodType {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return FoodType.cake;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return FoodType.lollipop;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return FoodType.iceCream;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return FoodType.pancake;
     }
   }
@@ -57,13 +55,13 @@ extension PreferredFoodType on UnicornStage {
   /// unicorn is fed.
   double get fullnessFeedFactor {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return 0.3;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return 0.25;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return 0.2;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return 0.15;
     }
   }

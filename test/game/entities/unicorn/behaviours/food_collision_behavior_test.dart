@@ -15,11 +15,7 @@ import '../../../../helpers/helpers.dart';
 
 class _MockFood extends Mock implements Food {}
 
-class _MockLeavingBehavior extends Mock implements LeavingBehavior {}
-
-class _MockEnjoymentBehavior extends Mock implements EnjoymentBehavior {}
-
-class _MockFullnessBehavior extends Mock implements FullnessBehavior {}
+class _MockUnicornPercentage extends Mock implements UnicornPercentage {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -71,17 +67,13 @@ void main() {
     flameTester.test(
       'does not remove the food while unicorn is leaving',
       (game) async {
-        final leavingBehavior = _MockLeavingBehavior();
-        when(() => leavingBehavior.isLeaving).thenReturn(true);
-
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
-            leavingBehavior,
             foodCollisionBehavior,
           ],
-        );
+        )..isLeaving = true;
         await game.ensureAdd(unicorn);
 
         final food = _MockFood();
@@ -96,18 +88,14 @@ void main() {
     flameTester.test(
       'removes the food from parent when it was dragged',
       (game) async {
-        final leavingBehavior = _MockLeavingBehavior();
-        when(() => leavingBehavior.isLeaving).thenReturn(false);
-
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: ChildUnicornComponent(),
           behaviors: [
             foodCollisionBehavior,
-            leavingBehavior,
           ],
-        );
+        )..isLeaving = false;
         await game.ensureAdd(unicorn);
 
         final food = _MockFood();
@@ -122,27 +110,23 @@ void main() {
 
     group('feeding unicorn impacts enjoyment', () {
       group('with the right type of food', () {
-        for (final stage in UnicornStage.values) {
-          flameTester
-              .test('${stage.name} prefers ${stage.preferredFoodType.name}',
-                  (game) async {
-            final preferredFoodType = stage.preferredFoodType;
+        for (final evolutionStage in UnicornEvolutionStage.values) {
+          flameTester.test(
+              '${evolutionStage.name} prefers '
+              '${evolutionStage.preferredFoodType.name}', (game) async {
+            final preferredFoodType = evolutionStage.preferredFoodType;
 
-            final leavingBehavior = _MockLeavingBehavior();
-            when(() => leavingBehavior.isLeaving).thenReturn(false);
-
-            final enjoymentBehavior = _MockEnjoymentBehavior();
+            final enjoyment = _MockUnicornPercentage();
 
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: stage.componentForStage,
+              unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
                 foodCollisionBehavior,
-                leavingBehavior,
-                enjoymentBehavior,
               ],
-            );
+              enjoyment: enjoyment,
+            )..isLeaving = false;
 
             await game.ensureAdd(unicorn);
 
@@ -153,16 +137,13 @@ void main() {
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-            verify(() => enjoymentBehavior.increaseBy(0.3)).called(1);
+            verify(() => enjoyment.increaseBy(0.3)).called(1);
           });
         }
       });
 
       flameTester.test('with the wrong type of food', (game) async {
-        final leavingBehavior = _MockLeavingBehavior();
-        when(() => leavingBehavior.isLeaving).thenReturn(false);
-
-        final enjoymentBehavior = _MockEnjoymentBehavior();
+        final enjoyment = _MockUnicornPercentage();
 
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(
@@ -170,10 +151,9 @@ void main() {
           unicornComponent: ChildUnicornComponent(),
           behaviors: [
             foodCollisionBehavior,
-            leavingBehavior,
-            enjoymentBehavior,
           ],
-        );
+          enjoyment: enjoyment,
+        )..isLeaving = false;
 
         await game.ensureAdd(unicorn);
 
@@ -184,32 +164,32 @@ void main() {
 
         foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-        verify(() => enjoymentBehavior.increaseBy(-0.1)).called(1);
+        verify(() => enjoyment.increaseBy(-0.1)).called(1);
       });
     });
 
     group('feeding unicorn impacts fullness', () {
       group('in a positive way', () {
         for (final stageFullnessResult in {
-          UnicornStage.baby: 0.3,
-          UnicornStage.child: 0.25,
-          UnicornStage.teen: 0.2,
-          UnicornStage.adult: 0.15,
+          UnicornEvolutionStage.baby: 0.3,
+          UnicornEvolutionStage.child: 0.25,
+          UnicornEvolutionStage.teen: 0.2,
+          UnicornEvolutionStage.adult: 0.15,
         }.entries) {
           flameTester.test('for ${stageFullnessResult.key.name}', (game) async {
-            final stage = stageFullnessResult.key;
+            final evolutionStage = stageFullnessResult.key;
             final fullnessResult = stageFullnessResult.value;
 
-            final fullnessBehavior = _MockFullnessBehavior();
+            final fullness = _MockUnicornPercentage();
 
             final foodCollisionBehavior = FoodCollisionBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: stage.componentForStage,
+              unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
                 foodCollisionBehavior,
-                fullnessBehavior,
               ],
+              fullness: fullness,
             );
 
             await game.ensureAdd(unicorn);
@@ -221,7 +201,7 @@ void main() {
 
             foodCollisionBehavior.onCollision({Vector2.zero()}, food);
 
-            verify(() => fullnessBehavior.increaseBy(fullnessResult)).called(1);
+            verify(() => fullness.increaseBy(fullnessResult)).called(1);
           });
         }
       });

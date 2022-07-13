@@ -7,21 +7,25 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 class FullnessBehavior extends FactorBehavior {
   factory FullnessBehavior() {
     return FullnessBehavior._(
-      gaugeComponent: GaugeComponent(
+      GaugeComponent(
         position: Vector2.zero(),
-        size: UnicornComponent.dimensions.x + 34,
         thickness: 20,
         percentage: 1,
         color: Colors.pink,
       ),
+      innerSpacing,
     );
   }
 
-  FullnessBehavior._({
-    required super.gaugeComponent,
-  });
+  FullnessBehavior._(
+    super.gaugeComponent,
+    super.innerSpacing,
+  );
 
-  static double decreaseInterval = 7;
+  static const double decreaseInterval = 7;
+
+  /// The extra spacing the gauge should take from the unicorn size
+  static const double innerSpacing = 54;
 
   @override
   Future<void> onLoad() async {
@@ -35,26 +39,23 @@ class FullnessBehavior extends FactorBehavior {
   }
 
   void _decreaseFullness() {
-    decreaseBy(parent.currentStage.fullnessDecreaseFactor);
+    parent.fullness.decreaseBy(parent.evolutionStage.fullnessDecreaseFactor);
   }
 
   @override
-  double get percentage => parent.fullnessFactor;
-
-  @override
-  set percentage(double value) => parent.fullnessFactor = value;
+  double get percentage => parent.fullness.value;
 }
 
-extension on UnicornStage {
+extension on UnicornEvolutionStage {
   double get fullnessDecreaseFactor {
     switch (this) {
-      case UnicornStage.baby:
+      case UnicornEvolutionStage.baby:
         return 0.1;
-      case UnicornStage.child:
+      case UnicornEvolutionStage.child:
         return 0.1;
-      case UnicornStage.teen:
+      case UnicornEvolutionStage.teen:
         return 0.2;
-      case UnicornStage.adult:
+      case UnicornEvolutionStage.adult:
         return 0.3;
     }
   }

@@ -73,7 +73,7 @@ void main() {
       );
     });
 
-    group('unicorn stage', () {
+    group('unicorn evolution stage', () {
       flameTester.test(
         'proxies from the behavior',
         (game) async {
@@ -84,47 +84,100 @@ void main() {
 
           unicorn.state = UnicornState.idle;
 
-          expect(unicorn.currentStage, UnicornStage.baby);
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
           unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
 
           game.update(0);
 
-          expect(unicorn.currentStage, UnicornStage.child);
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
         },
       );
-    });
-
-    test('clamps percentages', () {
-      final unicorn = Unicorn(position: Vector2.zero());
-      expect(unicorn.fullnessFactor, 1.0);
-      unicorn.fullnessFactor = -1;
-      expect(unicorn.fullnessFactor, 0.0);
-      unicorn.fullnessFactor = 2;
-      expect(unicorn.fullnessFactor, 1.0);
-
-      expect(unicorn.enjoymentFactor, 1.0);
-      unicorn.enjoymentFactor = -1;
-      expect(unicorn.enjoymentFactor, 0.0);
-      unicorn.enjoymentFactor = 2;
-      expect(unicorn.enjoymentFactor, 1.0);
     });
 
     test('reset', () {
       final unicorn = Unicorn(position: Vector2.zero());
 
       expect(unicorn.timesFed, 0);
-      expect(unicorn.fullnessFactor, 1);
-      expect(unicorn.enjoymentFactor, 1);
+      expect(unicorn.fullness.value, 1);
+      expect(unicorn.enjoyment.value, 1);
 
       unicorn.timesFed = 2;
-      unicorn.fullnessFactor = 0.5;
-      unicorn.enjoymentFactor = 0.5;
+      unicorn.fullness.value = 0.5;
+      unicorn.enjoyment.value = 0.5;
 
       unicorn.reset();
 
       expect(unicorn.timesFed, 0);
-      expect(unicorn.fullnessFactor, 1);
-      expect(unicorn.enjoymentFactor, 1);
+      expect(unicorn.fullness.value, 1);
+      expect(unicorn.enjoyment.value, 1);
+    });
+  });
+
+  group('UnicornPercentage', () {
+    group('initial percentage', () {
+      test('is set on creation', () {
+        final percentage = UnicornPercentage(0.5);
+        expect(percentage.value, 0.5);
+      });
+
+      test('should be between 0 and 1', () {
+        expect(
+          () => UnicornPercentage(1.1),
+          throwsAssertionError,
+        );
+        expect(
+          () => UnicornPercentage(-0.1),
+          throwsAssertionError,
+        );
+      });
+    });
+
+    test('clamps percentage', () {
+      final percentage = UnicornPercentage(0.5);
+      expect(percentage.value, 0.5);
+      percentage.value = -1;
+      expect(percentage.value, 0.0);
+      percentage.value = 2;
+      expect(percentage.value, 1.0);
+    });
+
+    group('increase by', () {
+      test('increases percentage', () {
+        final percentage = UnicornPercentage(0.5);
+        expect(percentage.value, 0.5);
+        percentage.increaseBy(0.1);
+        expect(percentage.value, 0.6);
+      });
+      test('clamps percentage', () {
+        final percentage = UnicornPercentage(0.5);
+        expect(percentage.value, 0.5);
+        percentage.increaseBy(0.8);
+        expect(percentage.value, 1.0);
+      });
+    });
+
+    group('decrease by', () {
+      test('decreases percentage', () {
+        final percentage = UnicornPercentage(0.5);
+        expect(percentage.value, 0.5);
+        percentage.decreaseBy(0.1);
+        expect(percentage.value, 0.4);
+      });
+      test('clamps percentage', () {
+        final percentage = UnicornPercentage(0.5);
+        expect(percentage.value, 0.5);
+        percentage.decreaseBy(0.8);
+        expect(percentage.value, 0.0);
+      });
+    });
+
+    group('reset', () {
+      test('resets percentage to initial', () {
+        final percentage = UnicornPercentage(0.5);
+        percentage.value = 1;
+        percentage.reset();
+        expect(percentage.value, 0.5);
+      });
     });
   });
 }

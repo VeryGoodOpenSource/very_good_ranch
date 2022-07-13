@@ -11,12 +11,9 @@ class LeavingBehavior extends Behavior<Unicorn> {
 
   EffectController? _effectController;
 
-  bool get isLeaving => _effectController != null;
-
   @override
   void update(double dt) {
-    if (parent.happinessFactor <= happinessThresholdToLeave &&
-        _effectController == null) {
+    if (parent.happiness <= happinessThresholdToLeave && !parent.isLeaving) {
       _startLeaveAnimation();
     }
 
@@ -30,6 +27,8 @@ class LeavingBehavior extends Behavior<Unicorn> {
       leavingAnimationDuration,
       leavingAnimationCurve,
     );
+
+    parent.isLeaving = true;
 
     parent.unicornComponent
       ..add(OpacityEffect.fadeOut(effectController))

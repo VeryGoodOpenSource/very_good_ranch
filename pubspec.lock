@@ -144,12 +144,10 @@ packages:
   flame_behaviors:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e161daf360f49423355b4822ff4342bad00c6977
-      url: "https://github.com/VeryGoodOpenSource/flame_behaviors"
-    source: git
-    version: "0.0.1-dev.1"
+      name: flame_behaviors
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   flame_bloc:
     dependency: "direct main"
     description:

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flame/assets.dart';
+import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/gen/assets.gen.dart';

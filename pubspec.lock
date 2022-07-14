@@ -161,7 +161,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: "7b10c65df6d5d00e1ab966aab9193fdc2f95ef0c"
-      url: "git@github.com:VeryGoodOpenSource/flame_steering_behaviors.git"
+      url: "https://github.com/VeryGoodOpenSource/flame_steering_behaviors.git"
     source: git
     version: "0.0.1-dev.0"
   flame_test:

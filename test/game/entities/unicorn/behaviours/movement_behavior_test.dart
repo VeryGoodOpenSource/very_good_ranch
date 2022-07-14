@@ -76,10 +76,8 @@ void main() {
       });
 
       group('starts idling ', () {
-        flameTester.test('if left border is reached', (game) async {
-          final movementBehavior = MovementBehavior(
-            startingAngle: 180 * degrees2Radians,
-          );
+        flameTester.test('when randomness decides so', (game) async {
+          final movementBehavior = MovementBehavior();
 
           final pastureTop = game.background.pastureField.top;
           final pastureLeft = game.background.pastureField.left;
@@ -93,16 +91,43 @@ void main() {
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
+          game.update(10);
+          expect(unicorn.state, UnicornState.walking);
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
+
+          when(seed.nextDouble).thenReturn(1);
+          game.update(10);
+          expect(unicorn.state, UnicornState.idle);
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+        });
+
+        flameTester.test('if left border is reached', (game) async {
+          final movementBehavior = MovementBehavior();
+
+          final pastureLeft = game.background.pastureField.left;
+
+          final unicorn = Unicorn.test(
+            position: Vector2(pastureLeft, game.size.y / 2),
+            behaviors: [
+              movementBehavior,
+            ],
+          );
+          unicorn.velocity.x = -10;
+          await game.ensureAdd(unicorn);
+
+          when(seed.nextDouble).thenReturn(0);
           movementBehavior.simulateTick();
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
-          game.update(1); // Setup velocity.
-          game.update(1); // Update position.
+          game.update(0);
+          game.update(1);
 
           expect(
             unicorn.position,
-            closeToVector(pastureLeft + 10, pastureTop),
+            closeToVector(pastureLeft - 10, game.size.y / 2),
           );
           expect(unicorn.state, UnicornState.idle);
 
@@ -111,19 +136,17 @@ void main() {
         });
 
         flameTester.test('if top border is reached', (game) async {
-          final movementBehavior = MovementBehavior(
-            startingAngle: -90 * degrees2Radians,
-          );
+          final movementBehavior = MovementBehavior();
 
           final pastureTop = game.background.pastureField.top;
-          final pastureLeft = game.background.pastureField.left;
 
           final unicorn = Unicorn.test(
-            position: Vector2(pastureLeft, pastureTop + 100),
+            position: Vector2(game.size.x / 2, pastureTop),
             behaviors: [
               movementBehavior,
             ],
           );
+          unicorn.velocity.y = -10;
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
@@ -131,12 +154,12 @@ void main() {
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
-          game.update(1); // Setup velocity.
-          game.update(1); // Update position.
+          game.update(0);
+          game.update(1);
 
           expect(
             unicorn.position,
-            closeToVector(pastureLeft, pastureTop + 90),
+            closeToVector(game.size.x / 2, pastureTop - 10),
           );
           expect(unicorn.state, UnicornState.idle);
 
@@ -145,20 +168,17 @@ void main() {
         });
 
         flameTester.test('if bottom border is reached', (game) async {
-          final movementBehavior = MovementBehavior(
-            startingAngle: 90 * degrees2Radians,
-          );
+          final movementBehavior = MovementBehavior();
 
           final pastureBottom = game.background.pastureField.bottom;
-          final pastureLeft = game.background.pastureField.left;
 
           final unicorn = Unicorn.test(
-            position: Vector2(pastureLeft, pastureBottom),
+            position: Vector2(game.size.x / 2, pastureBottom),
             behaviors: [
               movementBehavior,
             ],
           );
-          unicorn.position.y -= unicorn.size.y + 10;
+          unicorn.velocity.y = 10;
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
@@ -166,12 +186,12 @@ void main() {
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
-          game.update(1); // Setup velocity.
-          game.update(1); // Update position.
+          game.update(0);
+          game.update(1);
 
           expect(
             unicorn.position,
-            closeToVector(pastureLeft, pastureBottom - unicorn.size.y),
+            closeToVector(game.size.x / 2, pastureBottom - unicorn.size.y + 10),
           );
           expect(unicorn.state, UnicornState.idle);
 
@@ -181,16 +201,16 @@ void main() {
 
         flameTester.test('if right border is reached', (game) async {
           final movementBehavior = MovementBehavior();
-          final pastureTop = game.background.pastureField.top;
           final pastureRight = game.background.pastureField.right;
 
           final unicorn = Unicorn.test(
-            position: Vector2(pastureRight, pastureTop),
+            position: Vector2(pastureRight, game.size.y / 2),
             behaviors: [
               movementBehavior,
             ],
           );
-          unicorn.position.x -= unicorn.size.x + 10;
+          unicorn.velocity.x = 10;
+          unicorn.position.x -= unicorn.size.x;
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
@@ -198,12 +218,12 @@ void main() {
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
-          game.update(1); // Setup velocity.
-          game.update(1); // Update position.
+          game.update(0);
+          game.update(1);
 
           expect(
             unicorn.position,
-            closeToVector(pastureRight - unicorn.size.x, pastureTop),
+            closeToVector(pastureRight - unicorn.size.x + 10, game.size.y / 2),
           );
           expect(unicorn.state, UnicornState.idle);
 
@@ -283,9 +303,7 @@ void main() {
           when(() => seed.nextBool()).thenReturn(false);
           when(() => seed.nextDouble()).thenReturn(0.25);
 
-          final movementBehavior = MovementBehavior(
-            startingAngle: 180 * degrees2Radians,
-          );
+          final movementBehavior = MovementBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),

@@ -9,12 +9,6 @@ import 'package:very_good_ranch/game/game.dart';
 
 class MovementBehavior extends Behavior<Unicorn>
     with HasGameRef<VeryGoodRanchGame> {
-  MovementBehavior({
-    @visibleForTesting double startingAngle = 0,
-  }) : _startingAngle = startingAngle;
-
-  late final double _startingAngle;
-
   late final WanderBehavior _wanderBehavior;
 
   @override
@@ -23,7 +17,7 @@ class MovementBehavior extends Behavior<Unicorn>
     _wanderBehavior = WanderBehavior(
       circleDistance: 10,
       maximumAngle: 15 * degrees2Radians,
-      startingAngle: _startingAngle,
+      startingAngle: 0,
       random: gameRef.seed,
     );
   }

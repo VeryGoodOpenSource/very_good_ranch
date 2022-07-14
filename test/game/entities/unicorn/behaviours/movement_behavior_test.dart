@@ -226,11 +226,10 @@ void main() {
             movementBehavior,
           ],
         );
-
-        await game.ready();
         await game.ensureAdd(unicorn);
 
         game.update(10);
+        await game.ready();
 
         expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
         expect(unicorn.state, UnicornState.walking);
@@ -270,21 +269,23 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.unicornComponent.transform.scale.x = -1;
+          unicorn.unicornComponent.transform.scale.x = 1;
+          unicorn.velocity.x = 1;
 
-          await game.ready();
           await game.ensureAdd(unicorn);
 
-          game.update(10);
+          game.update(0);
 
-          expect(unicorn.unicornComponent.transform.scale.x, lessThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, equals(-1));
         });
 
         flameTester.test('flips it back', (game) async {
           when(() => seed.nextBool()).thenReturn(false);
           when(() => seed.nextDouble()).thenReturn(0.25);
 
-          final movementBehavior = MovementBehavior();
+          final movementBehavior = MovementBehavior(
+            startingAngle: 180 * degrees2Radians,
+          );
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
@@ -292,14 +293,14 @@ void main() {
               movementBehavior,
             ],
           );
-          unicorn.unicornComponent.transform.scale.x = 1;
+          unicorn.unicornComponent.transform.scale.x = -1;
+          unicorn.velocity.x = -1;
 
-          await game.ready();
           await game.ensureAdd(unicorn);
 
-          game.update(10);
+          game.update(0);
 
-          expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, equals(1));
         });
 
         flameTester.test('flips it back on zero', (game) async {
@@ -315,13 +316,13 @@ void main() {
             ],
           );
           unicorn.unicornComponent.transform.scale.x = -1;
+          unicorn.velocity.x = 0;
 
-          await game.ready();
           await game.ensureAdd(unicorn);
 
-          game.update(10);
+          game.update(0);
 
-          expect(unicorn.unicornComponent.transform.scale.x, greaterThan(0));
+          expect(unicorn.unicornComponent.transform.scale.x, equals(1));
         });
       });
     });

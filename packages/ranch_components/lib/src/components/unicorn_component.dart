@@ -238,6 +238,35 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
     spriteComponent.position = _paddedRect.topLeft.toVector2() * -1;
   }
 
+  /// Preload all unicorn assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      // Adult
+      Assets.animations.adultEat.keyName,
+      Assets.animations.adultIdle.keyName,
+      Assets.animations.adultPetted.keyName,
+      Assets.animations.adultWalkCycle.keyName,
+
+      // Teen
+      Assets.animations.teenEat.keyName,
+      Assets.animations.teenIdle.keyName,
+      Assets.animations.teenPetted.keyName,
+      Assets.animations.teenWalkCycle.keyName,
+
+      // Child
+      Assets.animations.childEat.keyName,
+      Assets.animations.childIdle.keyName,
+      Assets.animations.childPetted.keyName,
+      Assets.animations.childWalkCycle.keyName,
+
+      // Baby
+      Assets.animations.babyEat.keyName,
+      Assets.animations.babyIdle.keyName,
+      Assets.animations.babyPetted.keyName,
+      Assets.animations.babyWalkCycle.keyName,
+    ]);
+  }
+
   /// The contained [UnicornSpriteComponent] that should be padded off.
   final UnicornSpriteComponent spriteComponent;
 

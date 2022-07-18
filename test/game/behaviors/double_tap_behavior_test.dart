@@ -5,7 +5,7 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_ranch/game/behaviors/double_tap_behavior.dart';
+import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 
 import '../../helpers/helpers.dart';
 

@@ -63,98 +63,48 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
     final delegate = getDelegate?.call(pastureField) ??
         BackgroundPositionDelegate(Random(), pastureField);
 
-    // Add barn
-    await add(
-      Barn(
-        position: delegate.getPositionForBarn(Barn.dimensions),
-      ),
-    );
+    await addAll([
+      // Add barn
+      Barn(position: delegate.getPositionForBarn(Barn.dimensions)),
 
-    // Add  tree trios:
-    // one at the top
-    await add(
-      TreeTrio(
-        position: delegate.getPositionForTreeTrio1(TreeTrio.dimensions),
-      ),
-    );
+      // Add tree trios:
+      // one at the top
+      TreeTrio(position: delegate.getPositionForTreeTrio1(TreeTrio.dimensions)),
+      // one at bottom left
+      TreeTrio(position: delegate.getPositionForTreeTrio2(TreeTrio.dimensions)),
+      // one at bottom left
+      TreeTrio(position: delegate.getPositionForTreeTrio3(TreeTrio.dimensions)),
 
-    // one at bottom left
-    await add(
-      TreeTrio(
-        position: delegate.getPositionForTreeTrio2(TreeTrio.dimensions),
-      )..priority = 1,
-    );
+      // Add trees to the left
+      for (final position
+          in delegate.getPositionsForLeftSideTrees(TallTree.dimensions))
+        TallTree(position: position),
 
-    // one at bottom left
-    await add(
-      TreeTrio(
-        position: delegate.getPositionForTreeTrio3(TreeTrio.dimensions),
-      )..priority = 1,
-    );
+      // Add trees to the right
+      for (final position in delegate.getPositionsForRightSideTrees(
+        ShortTree.dimensions,
+        size.x,
+      ))
+        ShortTree(position: position),
 
-    // Add trees to the left
-    final leftSideTreePositions =
-        delegate.getPositionsForLeftSideTrees(TallTree.dimensions);
-    for (final leftSideTreePosition in leftSideTreePositions) {
-      await add(
-        TallTree(
-          position: leftSideTreePosition,
-        ),
-      );
-    }
+      // Add all the grass
+      for (final position in delegate.getPositionsForGrasses(Grass.dimensions))
+        Grass(position: position),
 
-    // Add trees to the right
-    final rightSideTreePositions =
-        delegate.getPositionsForRightSideTrees(ShortTree.dimensions, size.x);
-    for (final rightSideTreePosition in rightSideTreePositions) {
-      await add(
-        ShortTree(
-          position: rightSideTreePosition,
-        ),
-      );
-    }
+      // Add flowers solo
+      for (final position
+          in delegate.getPositionsForFlowerSolo(FlowerSolo.dimensions))
+        FlowerSolo(position: position),
 
-    // Add all the grass
-    final grassesPositions = delegate.getPositionsForGrasses(Grass.dimensions);
-    for (final grassPosition in grassesPositions) {
-      await add(
-        Grass(
-          position: grassPosition,
-        ),
-      );
-    }
+      // Add flowers duo
+      for (final position
+          in delegate.getPositionsForFlowerDuo(FlowerDuo.dimensions))
+        FlowerDuo(position: position),
 
-    // Add flowers solo
-    final soloFlowersPositions =
-        delegate.getPositionsForFlowerSolo(FlowerSolo.dimensions);
-    for (final soloFlowersPosition in soloFlowersPositions) {
-      await add(
-        FlowerSolo(
-          position: soloFlowersPosition,
-        ),
-      );
-    }
-
-    // Add flowers duo
-    final duoFlowersPositions =
-        delegate.getPositionsForFlowerDuo(FlowerDuo.dimensions);
-    for (final duoFlowersPosition in duoFlowersPositions) {
-      await add(
-        FlowerDuo(
-          position: duoFlowersPosition,
-        ),
-      );
-    }
-
-    // Add groups of flowers
-    final flowerGroupPositions =
-        delegate.getPositionsForFlowerGroup(FlowerGroup.dimensions);
-    for (final flowerGroupPosition in flowerGroupPositions) {
-      await add(
-        FlowerGroup(
-          position: flowerGroupPosition,
-        ),
-      );
-    }
+      // Add groups of flowers
+      for (final position
+          in delegate.getPositionsForFlowerGroup(FlowerGroup.dimensions))
+        FlowerGroup(position: position)
+    ]);
   }
 }

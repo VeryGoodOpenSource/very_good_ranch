@@ -4,6 +4,7 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 enum UnicornEvolutionStage {
@@ -61,6 +62,7 @@ class Unicorn extends Entity with Steerable {
         EnjoymentBehavior(),
         LeavingBehavior(),
         PetBehavior(),
+        PositionalPriorityBehavior(anchor: Anchor.bottomCenter),
       ],
       enjoyment: UnicornPercentage(1),
       fullness: UnicornPercentage(1),

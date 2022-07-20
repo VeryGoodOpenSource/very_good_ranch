@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
+  $AssetsFontsAnybodyGen get anybody => const $AssetsFontsAnybodyGen();
   $AssetsFontsMouseMemoirsGen get mouseMemoirs =>
       const $AssetsFontsMouseMemoirsGen();
 }
@@ -42,6 +43,28 @@ class $AssetsImagesGen {
   /// File path: assets/images/title_hills.png
   AssetGenImage get titleHills =>
       const AssetGenImage('assets/images/title_hills.png');
+}
+
+class $AssetsFontsAnybodyGen {
+  const $AssetsFontsAnybodyGen();
+
+  /// File path: assets/fonts/anybody/Anybody-Black.ttf
+  String get anybodyBlack => 'assets/fonts/anybody/Anybody-Black.ttf';
+
+  /// File path: assets/fonts/anybody/Anybody-Bold.ttf
+  String get anybodyBold => 'assets/fonts/anybody/Anybody-Bold.ttf';
+
+  /// File path: assets/fonts/anybody/Anybody-Medium.ttf
+  String get anybodyMedium => 'assets/fonts/anybody/Anybody-Medium.ttf';
+
+  /// File path: assets/fonts/anybody/Anybody-Regular.ttf
+  String get anybodyRegular => 'assets/fonts/anybody/Anybody-Regular.ttf';
+
+  /// File path: assets/fonts/anybody/Anybody-SemiBold.ttf
+  String get anybodySemiBold => 'assets/fonts/anybody/Anybody-SemiBold.ttf';
+
+  /// File path: assets/fonts/anybody/OFL.txt
+  String get ofl => 'assets/fonts/anybody/OFL.txt';
 }
 
 class $AssetsFontsMouseMemoirsGen {

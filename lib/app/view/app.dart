@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
+import 'package:very_good_ranch/loading/cubit/cubit.dart';
+import 'package:very_good_ranch/loading/view/loading_page.dart';
 import 'package:very_good_ranch/settings/settings.dart';
-import 'package:very_good_ranch/title/title.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -25,6 +27,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => SettingsBloc()),
         BlocProvider(create: (_) => InventoryBloc()),
         BlocProvider(create: (_) => GameBloc()),
+        BlocProvider(create: (_) => PreloadCubit(UnprefixedImages()))
       ],
       child: const AppView(),
     );
@@ -39,7 +42,6 @@ class AppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF13B9FF),
         ),
@@ -51,7 +53,7 @@ class AppView extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const TitlePage(),
+      home: const LoadingPage(),
     );
   }
 }

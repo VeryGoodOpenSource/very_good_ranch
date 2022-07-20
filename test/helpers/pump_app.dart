@@ -24,8 +24,8 @@ extension PumpApp on WidgetTester {
     MockNavigator? navigator,
     SettingsBloc? settingsBloc,
     InventoryBloc? inventoryBloc,
-    PreloadCubit? preloadCubit,
     GameBloc? gameBloc,
+    PreloadCubit? preloadCubit,
   }) async {
     return pumpWidget(
       MultiBlocProvider(

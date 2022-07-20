@@ -10,26 +10,24 @@ class MockAssetBundle extends Mock implements AssetBundle {}
 
 void main() {
   group('UnprefixedImages', () {
-    test('there is no prefix', () {
+    test('should be there no prefix', () {
       final images = UnprefixedImages();
       expect(images.prefix, '');
     });
 
-    test('calls with no prefix', () async {
-      Flame.bundle = MockAssetBundle();
-      final images = UnprefixedImages();
-
-      /// Valid 10x10 empty bitmap
-      const contentSize = 400;
-      const fileLength = 122 + 400;
+    test('should load with no prefix', () async {
+      // Valid 10x10 empty bitmap
+      const contentSize = 400; // width * height * color channels (4);
+      const headerSize = 122;
+      const fileLength = headerSize + contentSize;
       final bd = Uint8List(fileLength).buffer.asByteData()
         ..setUint8(0x0, 0x42)
         ..setUint8(0x1, 0x4d)
         ..setInt32(0x2, fileLength, Endian.little)
-        ..setInt32(0xa, 122, Endian.little)
+        ..setInt32(0xa, headerSize, Endian.little)
         ..setUint32(0xe, 108, Endian.little)
-        ..setUint32(0x12, 10, Endian.little)
-        ..setUint32(0x16, -10, Endian.little)
+        ..setUint32(0x12, 10, Endian.little) // width
+        ..setUint32(0x16, -10, Endian.little) // height
         ..setUint16(0x1a, 1, Endian.little)
         ..setUint32(0x1c, 32, Endian.little) // pixel size
         ..setUint32(0x1e, 3, Endian.little) //BI_BITFIELDS
@@ -39,9 +37,12 @@ void main() {
         ..setUint32(0x3e, 0x00ff0000, Endian.little)
         ..setUint32(0x42, 0xff000000, Endian.little);
 
+      Flame.bundle = MockAssetBundle();
       when(() => Flame.bundle.load(any())).thenAnswer(
-        (_) => Future<ByteData>.value(bd),
+        (_) => Future.value(bd),
       );
+
+      final images = UnprefixedImages();
       await images.load('something.png');
       verify(() => Flame.bundle.load('something.png')).called(1);
     });

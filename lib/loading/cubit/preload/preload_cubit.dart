@@ -10,8 +10,7 @@ class PreloadCubit extends Cubit<PreloadState> {
 
   final UnprefixedImages images;
 
-  /// Load items sequentially because it is more beautiful
-  /// (still quite fast in release mode)
+  /// Load items sequentially allows display of what is being loaded
   Future<void> loadSequentially() async {
     final phases = <PreloadPhase>[
       PreloadPhase('counter', () => UnicornCounter.preloadAssets(images)),
@@ -24,15 +23,13 @@ class PreloadCubit extends Cubit<PreloadState> {
     ];
     emit(state.startLoading(phases.length));
     for (final phase in phases) {
-      final current = phase.start();
       emit(state.onStartPhase(phase.label));
-
-      /// Throttle phases to take at least 1/5 seconds
+      // Throttle phases to take at least 1/5 seconds
       await Future.wait([
-        current,
+        phase.start(),
         Future<void>.delayed(const Duration(milliseconds: 200)),
       ]);
-      emit(state.onFinishPhase(current));
+      emit(state.onFinishPhase());
     }
   }
 }

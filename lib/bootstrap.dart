@@ -15,6 +15,9 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 
+import 'gen/assets.gen.dart';
+import 'package:very_good_ranch/gen/assets.gen.dart';
+
 class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {

@@ -13,8 +13,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'gen/assets.gen.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 
 class AppBlocObserver extends BlocObserver {

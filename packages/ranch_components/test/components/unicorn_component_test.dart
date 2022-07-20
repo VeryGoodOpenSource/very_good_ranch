@@ -1,6 +1,5 @@
 // ignore_for_file: cascade_invocations
 
-
 import 'dart:ui';
 
 import 'package:flame/cache.dart';

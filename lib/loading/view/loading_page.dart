@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
+import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/loading/cubit/cubit.dart';
 import 'package:very_good_ranch/title/view/title_page.dart';
 
@@ -27,7 +28,7 @@ class _LoadingPageState extends State<LoadingPage> {
       return;
     }
     final navigator = Navigator.of(context);
-    await Future<void>.delayed(ProgressBar.intrinsicAnimationDuration);
+    await Future<void>.delayed(AnimatedProgressBar.intrinsicAnimationDuration);
     await navigator.pushReplacement<void, void>(TitlePage.route());
   }
 
@@ -52,9 +53,12 @@ class _LoadingInternal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryTextTheme = Theme.of(context).primaryTextTheme;
+    final l10n = context.l10n;
 
     return BlocBuilder<PreloadCubit, PreloadState>(
       builder: (context, state) {
+        final loadingLabel = l10n.loadingPhaseLabel(state.currentLabel);
+        final loadingMessage = l10n.loading(loadingLabel);
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -64,10 +68,10 @@ class _LoadingInternal extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: ProgressBar(progress: state.progress),
+              child: AnimatedProgressBar(progress: state.progress),
             ),
             Text(
-              'Loading ${state.currentLabel}...',
+              loadingMessage,
               style: primaryTextTheme.bodySmall!.copyWith(
                 color: const Color(0xFF0C5A4D),
                 fontWeight: FontWeight.w900,
@@ -80,8 +84,10 @@ class _LoadingInternal extends StatelessWidget {
   }
 }
 
-class ProgressBar extends StatelessWidget {
-  const ProgressBar({super.key, required this.progress})
+/// A [Widget] that renders a intrinsically animated progress bar
+@visibleForTesting
+class AnimatedProgressBar extends StatelessWidget {
+  const AnimatedProgressBar({super.key, required this.progress})
       : assert(
           progress >= 0.0 && progress <= 1.0,
           'Progress should be set between 0.0 and 1.0',

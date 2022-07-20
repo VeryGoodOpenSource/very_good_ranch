@@ -11,10 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_flame/ranch_flame.dart';
-
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
-import 'package:very_good_ranch/loading/cubit/cubit.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';

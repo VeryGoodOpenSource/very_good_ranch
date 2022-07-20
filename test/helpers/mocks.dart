@@ -5,7 +5,7 @@ import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/bloc/bloc.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
-import 'package:very_good_ranch/loading/cubit/cubit.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 class MockSettingsBloc extends MockBloc<SettingsEvent, SettingsState>

@@ -8,8 +8,7 @@ import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/game/widgets/widgets.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
-
-import 'package:very_good_ranch/loading/cubit/cubit.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({

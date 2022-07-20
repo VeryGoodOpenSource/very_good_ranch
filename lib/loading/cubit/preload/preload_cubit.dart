@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/components/components.dart';
-import 'package:very_good_ranch/loading/cubit/preload/preload_state.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 
 class PreloadCubit extends Cubit<PreloadState> {
   PreloadCubit(this.images) : super(const PreloadState.initial());

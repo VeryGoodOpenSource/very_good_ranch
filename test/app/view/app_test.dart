@@ -12,8 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_ranch/app/app.dart';
-import 'package:very_good_ranch/loading/cubit/cubit.dart';
-import 'package:very_good_ranch/loading/view/loading_page.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 
 import '../../helpers/mocks.dart';
 

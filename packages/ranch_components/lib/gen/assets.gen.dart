@@ -77,71 +77,65 @@ class $AssetsAnimationsGen {
       const AssetGenImage('assets/animations/teen_walk_cycle.png');
 }
 
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
+class $AssetsBackgroundGen {
+  const $AssetsBackgroundGen();
 
-  /// File path: assets/images/barn.png
-  AssetGenImage get barn => const AssetGenImage('assets/images/barn.png');
+  /// File path: assets/background/barn.png
+  AssetGenImage get barn => const AssetGenImage('assets/background/barn.png');
 
-  /// File path: assets/images/cake.png
-  AssetGenImage get cake => const AssetGenImage('assets/images/cake.png');
-
-  /// File path: assets/images/donut.png
-  AssetGenImage get donut => const AssetGenImage('assets/images/donut.png');
-
-  /// File path: assets/images/flower_duo.png
+  /// File path: assets/background/flower_duo.png
   AssetGenImage get flowerDuo =>
-      const AssetGenImage('assets/images/flower_duo.png');
+      const AssetGenImage('assets/background/flower_duo.png');
 
-  /// File path: assets/images/flower_group.png
+  /// File path: assets/background/flower_group.png
   AssetGenImage get flowerGroup =>
-      const AssetGenImage('assets/images/flower_group.png');
+      const AssetGenImage('assets/background/flower_group.png');
 
-  /// File path: assets/images/flower_solo.png
+  /// File path: assets/background/flower_solo.png
   AssetGenImage get flowerSolo =>
-      const AssetGenImage('assets/images/flower_solo.png');
+      const AssetGenImage('assets/background/flower_solo.png');
 
-  /// File path: assets/images/grass.png
-  AssetGenImage get grass => const AssetGenImage('assets/images/grass.png');
+  /// File path: assets/background/grass.png
+  AssetGenImage get grass => const AssetGenImage('assets/background/grass.png');
 
-  /// File path: assets/images/icecream.png
-  AssetGenImage get icecream =>
-      const AssetGenImage('assets/images/icecream.png');
-
-  /// File path: assets/images/lined_tree.png
-  AssetGenImage get linedTree =>
-      const AssetGenImage('assets/images/lined_tree.png');
-
-  /// File path: assets/images/lollipop.png
-  AssetGenImage get lollipop =>
-      const AssetGenImage('assets/images/lollipop.png');
-
-  /// File path: assets/images/pancakes.png
-  AssetGenImage get pancakes =>
-      const AssetGenImage('assets/images/pancakes.png');
-
-  /// File path: assets/images/short_tree.png
+  /// File path: assets/background/short_tree.png
   AssetGenImage get shortTree =>
-      const AssetGenImage('assets/images/short_tree.png');
+      const AssetGenImage('assets/background/short_tree.png');
 
-  /// File path: assets/images/tall_tree.png
+  /// File path: assets/background/tall_tree.png
   AssetGenImage get tallTree =>
-      const AssetGenImage('assets/images/tall_tree.png');
+      const AssetGenImage('assets/background/tall_tree.png');
 
-  /// File path: assets/images/teen_eat.png
-  AssetGenImage get teenEat =>
-      const AssetGenImage('assets/images/teen_eat.png');
-
-  /// File path: assets/images/tree_trio.png
+  /// File path: assets/background/tree_trio.png
   AssetGenImage get treeTrio =>
-      const AssetGenImage('assets/images/tree_trio.png');
+      const AssetGenImage('assets/background/tree_trio.png');
+}
+
+class $AssetsFoodGen {
+  const $AssetsFoodGen();
+
+  /// File path: assets/food/cake.png
+  AssetGenImage get cake => const AssetGenImage('assets/food/cake.png');
+
+  /// File path: assets/food/donut.png
+  AssetGenImage get donut => const AssetGenImage('assets/food/donut.png');
+
+  /// File path: assets/food/icecream.png
+  AssetGenImage get icecream => const AssetGenImage('assets/food/icecream.png');
+
+  /// File path: assets/food/lollipop.png
+  AssetGenImage get lollipop => const AssetGenImage('assets/food/lollipop.png');
+
+  /// File path: assets/food/pancakes.png
+  AssetGenImage get pancakes => const AssetGenImage('assets/food/pancakes.png');
 }
 
 class Assets {
   Assets._();
 
   static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
-  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsBackgroundGen background = $AssetsBackgroundGen();
+  static const $AssetsFoodGen food = $AssetsFoodGen();
 }
 
 class AssetGenImage {

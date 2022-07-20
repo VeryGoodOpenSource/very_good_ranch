@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_components/src/components/background/background_elements.dart';
 import 'package:ranch_components/src/components/background/background_position_delegate.dart';
@@ -21,6 +23,20 @@ typedef PositionDelegateGetter = BackgroundPositionDelegate Function(
 class BackgroundComponent extends PositionComponent with HasGameRef {
   /// {@macro background_component}
   BackgroundComponent({super.children, this.getDelegate});
+
+  /// Preload all background assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      Assets.background.barn.keyName,
+      Assets.background.flowerDuo.keyName,
+      Assets.background.flowerGroup.keyName,
+      Assets.background.flowerSolo.keyName,
+      Assets.background.grass.keyName,
+      Assets.background.shortTree.keyName,
+      Assets.background.tallTree.keyName,
+      Assets.background.treeTrio.keyName,
+    ]);
+  }
 
   /// Describes the amount of pixels in each side of the viewport that are
   /// reserved for visual elements in which the unicorns and playable elements

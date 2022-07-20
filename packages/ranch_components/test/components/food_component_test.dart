@@ -1,15 +1,45 @@
 // ignore_for_file: cascade_invocations
 
+import 'dart:ui';
+
+import 'package:flame/cache.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:ranch_components/ranch_components.dart';
 
 import '../helpers/helpers.dart';
+
+class MockImages extends Mock implements Images {}
 
 void main() {
   final flameTester = FlameTester(TestGame.new);
 
   group('FoodComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await FoodComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.food.icecream.keyName,
+              Assets.food.cake.keyName,
+              Assets.food.lollipop.keyName,
+              Assets.food.pancakes.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     flameTester.testGameWidget(
       'cake',
       setUp: (game, tester) async {

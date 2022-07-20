@@ -1,11 +1,14 @@
 // ignore_for_file: cascade_invocations
 
+import 'dart:ui';
+
 import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:ranch_components/ranch_components.dart';
 
 import '../helpers/helpers.dart';
@@ -151,6 +154,41 @@ void main() {
   });
 
   group('UnicornComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await UnicornComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.animations.adultEat.keyName,
+              Assets.animations.adultIdle.keyName,
+              Assets.animations.adultPetted.keyName,
+              Assets.animations.adultWalkCycle.keyName,
+              Assets.animations.teenEat.keyName,
+              Assets.animations.teenIdle.keyName,
+              Assets.animations.teenPetted.keyName,
+              Assets.animations.teenWalkCycle.keyName,
+              Assets.animations.childEat.keyName,
+              Assets.animations.childIdle.keyName,
+              Assets.animations.childPetted.keyName,
+              Assets.animations.childWalkCycle.keyName,
+              Assets.animations.babyEat.keyName,
+              Assets.animations.babyIdle.keyName,
+              Assets.animations.babyPetted.keyName,
+              Assets.animations.babyWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     test('assumes the right size', () {
       final unicornComponent = TestUnicornComponent(
         spriteComponent: MockUnicornSpriteComponent(),

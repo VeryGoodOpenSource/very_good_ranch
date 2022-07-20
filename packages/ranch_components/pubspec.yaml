@@ -21,7 +21,8 @@ dev_dependencies:
 flutter:
   generate: true
   assets:
-    - assets/images/
+    - assets/background/
+    - assets/food/
     - assets/animations/
 
 flutter_gen:

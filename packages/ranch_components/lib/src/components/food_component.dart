@@ -1,3 +1,4 @@
+import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
 
@@ -82,25 +83,35 @@ class FoodComponent extends SpriteComponent with HasGameRef {
       case FoodType.cake:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.cake.keyName,
+          spritePath: Assets.food.cake.keyName,
         );
 
       case FoodType.lollipop:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.lollipop.keyName,
+          spritePath: Assets.food.lollipop.keyName,
         );
       case FoodType.pancake:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.pancakes.keyName,
+          spritePath: Assets.food.pancakes.keyName,
         );
       case FoodType.iceCream:
         return FoodComponent._(
           type: foodType,
-          spritePath: Assets.images.icecream.keyName,
+          spritePath: Assets.food.icecream.keyName,
         );
     }
+  }
+
+  /// Preload all background assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      Assets.food.icecream.keyName,
+      Assets.food.cake.keyName,
+      Assets.food.lollipop.keyName,
+      Assets.food.pancakes.keyName,
+    ]);
   }
 
   /// The path to the sprite

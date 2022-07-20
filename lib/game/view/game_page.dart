@@ -37,8 +37,7 @@ class _GamePageState extends State<GamePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Retrieve preloaded images
-    final cubit = BlocProvider.of<PreloadCubit>(context);
-    preloadedImages = cubit.images;
+    preloadedImages = context.read<PreloadCubit>().images;
   }
 
   @override

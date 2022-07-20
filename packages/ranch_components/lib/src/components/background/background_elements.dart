@@ -20,7 +20,7 @@ abstract class BackgroundElement extends SpriteComponent with HasGameRef {
   @mustCallSuper
   Future<void> onLoad() async {
     sprite = await gameRef.loadSprite(asset);
-    priority = (positionOfAnchor(Anchor.bottomCenter).y).toInt();
+    priority = positionOfAnchor(Anchor.bottomCenter).y.toInt();
   }
 }
 

@@ -33,6 +33,6 @@ class PositionalPriorityBehavior<Parent extends Entity>
   }
 
   void _onPositionUpdate() {
-    parent.priority = (parent.positionOfAnchor(anchor).y).toInt();
+    parent.priority = parent.positionOfAnchor(anchor).y.toInt();
   }
 }

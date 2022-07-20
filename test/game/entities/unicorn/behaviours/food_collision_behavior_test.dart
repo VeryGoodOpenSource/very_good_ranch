@@ -207,7 +207,7 @@ void main() {
       });
     });
 
-    group('feeding unicorn impacts timesfed', () {
+    group('feeding unicorn impacts times fed', () {
       flameTester.test('summing one up', (game) async {
         final foodCollisionBehavior = FoodCollisionBehavior();
         final unicorn = Unicorn.test(

@@ -5,6 +5,7 @@ import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/behaviors/behaviors.dart';
+import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 enum UnicornEvolutionStage {
@@ -151,6 +152,26 @@ class Unicorn extends Entity with Steerable {
     fullness.reset();
     enjoyment.reset();
   }
+
+  void feed(Food food) {
+    final currentStage = evolutionStage;
+
+    final fullnessFeedFactor = currentStage.fullnessFeedFactor;
+    fullness.increaseBy(fullnessFeedFactor);
+
+    final preferredFoodType = currentStage.preferredFoodType;
+    final impactOnEnjoyment = preferredFoodType == food.type
+        ? positiveImpactOnEnjoyment
+        : negativeImpactOnEnjoyment;
+
+    enjoyment.increaseBy(impactOnEnjoyment);
+    timesFed++;
+
+    food.removeFromParent();
+  }
+
+  static const double positiveImpactOnEnjoyment = 0.3;
+  static const double negativeImpactOnEnjoyment = -0.1;
 }
 
 /// A mutable state that represents a percentage of a [Unicorn] trait that

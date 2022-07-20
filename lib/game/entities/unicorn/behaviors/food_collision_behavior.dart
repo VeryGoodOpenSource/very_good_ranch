@@ -5,9 +5,6 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
 class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
-  static const double positiveImpactOnEnjoyment = 0.3;
-  static const double negativeImpactOnEnjoyment = -0.1;
-
   @override
   void onCollision(Set<Vector2> intersectionPoints, Food other) {
     if (other.beingDragged || !other.wasDragged) {
@@ -16,23 +13,7 @@ class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
     if (parent.isLeaving == true) {
       return;
     }
-    _feedTheUnicorn(other.type);
-    other.removeFromParent();
-  }
-
-  void _feedTheUnicorn(FoodType foodType) {
-    final currentStage = parent.evolutionStage;
-
-    final fullnessFeedFactor = currentStage.fullnessFeedFactor;
-    parent.fullness.increaseBy(fullnessFeedFactor);
-
-    final preferredFoodType = currentStage.preferredFoodType;
-    final impactOnEnjoyment = preferredFoodType == foodType
-        ? positiveImpactOnEnjoyment
-        : negativeImpactOnEnjoyment;
-
-    parent.enjoyment.increaseBy(impactOnEnjoyment);
-    parent.timesFed++;
+    parent.feed(other);
   }
 }
 

@@ -44,6 +44,7 @@ class AppView extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
         textTheme: GoogleFonts.mouseMemoirsTextTheme(),
+        primaryTextTheme: GoogleFonts.anybodyTextTheme(),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

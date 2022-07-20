@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'gen/assets.gen.dart';
+import 'package:very_good_ranch/gen/assets.gen.dart';
+
 class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
@@ -33,11 +36,17 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
+  // Add font licenses
   LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString(
-      'assets/fonts/mouse_memoirs/OFL.txt',
+    final mouseMemoirsLicense = await rootBundle.loadString(
+      Assets.fonts.mouseMemoirs.ofl,
     );
-    yield LicenseEntryWithLineBreaks(['mouse_memoirs'], license);
+    yield LicenseEntryWithLineBreaks(['mouse_memoirs'], mouseMemoirsLicense);
+
+    final anybodyLicense = await rootBundle.loadString(
+      Assets.fonts.anybody.ofl,
+    );
+    yield LicenseEntryWithLineBreaks(['anybody'], anybodyLicense);
   });
 
   GoogleFonts.config.allowRuntimeFetching = false;

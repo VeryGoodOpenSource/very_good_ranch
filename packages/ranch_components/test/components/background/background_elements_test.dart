@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/src/components/background/background_elements.dart';
@@ -9,6 +10,22 @@ void main() {
   final flameTester = FlameTester(TestGame.new);
 
   group('Background elements', () {
+    flameTester.testGameWidget(
+      'sets the priority to the bottom center of the element',
+      setUp: (game, tester) async {
+        final barn = Barn();
+        await game.ensureAdd(barn);
+      },
+      verify: (game, tester) async {
+        final barn = game.firstChild<Barn>()!;
+
+        expect(
+          barn.priority,
+          equals(barn.positionOfAnchor(Anchor.bottomCenter).y),
+        );
+      },
+    );
+
     group('Barn', () {
       flameTester.testGameWidget(
         'renders a Barn',

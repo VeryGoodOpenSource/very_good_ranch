@@ -50,16 +50,16 @@ class FoodSpawner extends TimerComponent
 
     switch (type) {
       case FoodType.lollipop:
-        add(Food.lollipop(position: position));
+        parent.add(Food.lollipop(position: position));
         break;
       case FoodType.pancake:
-        add(Food.pancake(position: position));
+        parent.add(Food.pancake(position: position));
         break;
       case FoodType.iceCream:
-        add(Food.iceCream(position: position));
+        parent.add(Food.iceCream(position: position));
         break;
       case FoodType.cake:
-        add(Food.cake(position: position));
+        parent.add(Food.cake(position: position));
         break;
     }
   }

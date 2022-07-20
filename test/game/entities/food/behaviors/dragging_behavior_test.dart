@@ -4,8 +4,8 @@ import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
-import 'package:very_good_ranch/game/entities/food/food.dart';
 
 import '../../../../helpers/helpers.dart';
 
@@ -174,6 +174,31 @@ void main() {
             'golden/draggable/single_item_dragged.png',
           ),
         );
+      },
+    );
+
+    flameTester.testGameWidget(
+      'consume food on drag stop if there was a unicorn near it',
+      setUp: (game, tester) async {
+        final food = Food.test(behaviors: [DraggingBehavior()]);
+        await game.ensureAdd(food);
+        await game.ensureAdd(
+          Unicorn.test(
+            position: Vector2.zero(),
+            unicornComponent: AdultUnicornComponent(),
+            behaviors: [],
+          ),
+        );
+        await game.ready();
+
+        final gesture = await tester.createGesture();
+        await gesture.down(Offset.zero);
+        await gesture.moveTo(const Offset(100, 100));
+        await gesture.up();
+        await tester.pump();
+      },
+      verify: (game, tester) async {
+        expect(game.descendants().whereType<Food>(), isEmpty);
       },
     );
   });

@@ -54,13 +54,13 @@ extension on FoodType {
   AssetGenImage get assetGenImage {
     switch (this) {
       case FoodType.lollipop:
-        return Assets.images.lollipop;
+        return Assets.food.lollipop;
       case FoodType.pancake:
-        return Assets.images.pancakes;
+        return Assets.food.pancakes;
       case FoodType.iceCream:
-        return Assets.images.icecream;
+        return Assets.food.icecream;
       case FoodType.cake:
-        return Assets.images.cake;
+        return Assets.food.cake;
     }
   }
 }

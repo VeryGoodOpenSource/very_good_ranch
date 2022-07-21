@@ -3,15 +3,19 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:ranch_components/gen/assets.gen.dart';
 import 'package:ranch_components/ranch_components.dart';
 
 import '../../helpers/helpers.dart';
 
 class MockRandom extends Mock implements Random {}
+
+class MockImages extends Mock implements Images {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +25,33 @@ void main() {
   );
 
   group('BackgroundComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await BackgroundComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.background.barn.keyName,
+              Assets.background.flowerDuo.keyName,
+              Assets.background.flowerGroup.keyName,
+              Assets.background.flowerSolo.keyName,
+              Assets.background.grass.keyName,
+              Assets.background.shortTree.keyName,
+              Assets.background.tallTree.keyName,
+              Assets.background.treeTrio.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     flameTester.test('has a pasture field', (game) async {
       final backgroundComponent = BackgroundComponent();
       await game.ensureAdd(backgroundComponent);

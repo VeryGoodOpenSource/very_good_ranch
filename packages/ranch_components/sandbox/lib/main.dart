@@ -11,5 +11,7 @@ void main() {
 
   addFoodComponentStories(dashbook);
 
+  addClipComponentStories(dashbook);
+
   runApp(dashbook);
 }

@@ -23,7 +23,7 @@ class _LoadingPageState extends State<LoadingPage> {
     });
   }
 
-  Future<void> onPreloadComplete(PreloadCubit cubit) async {
+  Future<void> onPreloadComplete() async {
     if (mounted == false) {
       return;
     }

@@ -105,6 +105,9 @@ class Unicorn extends Entity with Steerable {
   })  : _unicornComponent = unicornComponent,
         super(children: [unicornComponent]);
 
+  static const double positiveImpactOnEnjoyment = 0.3;
+  static const double negativeImpactOnEnjoyment = -0.1;
+
   @override
   double get maxVelocity => 10;
 
@@ -169,9 +172,6 @@ class Unicorn extends Entity with Steerable {
 
     food.removeFromParent();
   }
-
-  static const double positiveImpactOnEnjoyment = 0.3;
-  static const double negativeImpactOnEnjoyment = -0.1;
 }
 
 /// A mutable state that represents a percentage of a [Unicorn] trait that

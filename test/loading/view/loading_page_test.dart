@@ -7,6 +7,7 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart' hide Image;
@@ -59,6 +60,12 @@ void main() {
         LoadingPage(),
         preloadCubit: preloadCubit,
       );
+
+      expect(textWidgetFinder().data, 'Loading  ...');
+
+      unawaited(preloadCubit.loadSequentially());
+
+      await tester.pump();
 
       expect(textWidgetFinder().data, 'Loading Unicorn heads...');
       await tester.pump(const Duration(milliseconds: 200));

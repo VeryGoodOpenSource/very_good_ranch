@@ -14,32 +14,28 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final cubit = BlocProvider.of<PreloadCubit>(context);
-    cubit.loadSequentially().then((_) {
-      onPreloadComplete(cubit);
-    });
-  }
-
-  Future<void> onPreloadComplete() async {
-    if (mounted == false) {
-      return;
-    }
+  Future<void> onPreloadComplete(BuildContext context) async {
     final navigator = Navigator.of(context);
     await Future<void>.delayed(AnimatedProgressBar.intrinsicAnimationDuration);
+    if (!mounted) {
+      return;
+    }
     await navigator.pushReplacement<void, void>(TitlePage.route());
   }
 
   @override
   Widget build(BuildContext context) {
-    return const GameViewport(
-      child: Scaffold(
-        body: ColoredBox(
-          color: Color(0xFF46B2A0),
-          child: Center(
-            child: _LoadingInternal(),
+    return BlocListener<PreloadCubit, PreloadState>(
+      listenWhen: (prevState, state) =>
+          !prevState.isComplete && state.isComplete,
+      listener: (context, state) => onPreloadComplete(context),
+      child: const GameViewport(
+        child: Scaffold(
+          body: ColoredBox(
+            color: Color(0xFF46B2A0),
+            child: Center(
+              child: _LoadingInternal(),
+            ),
           ),
         ),
       ),

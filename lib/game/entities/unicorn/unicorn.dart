@@ -175,10 +175,6 @@ class Unicorn extends Entity with Steerable {
 
     food.removeFromParent();
   }
-
-  @override
-  // TODO: implement debugMode
-  bool get debugMode => true;
 }
 
 /// A mutable state that represents a percentage of a [Unicorn] trait that

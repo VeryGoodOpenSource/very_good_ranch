@@ -10,9 +10,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-
+import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
@@ -20,14 +21,22 @@ import '../../helpers/helpers.dart';
 void main() {
   group('GamePage', () {
     late GameBloc gameBloc;
+    late PreloadCubit preloadCubit;
 
     setUp(() {
       gameBloc = MockGameBloc();
       when(() => gameBloc.state).thenReturn(GameState());
+
+      preloadCubit = MockPreloadCubit();
+      when(() => preloadCubit.images).thenReturn(UnprefixedImages());
     });
 
     testWidgets('renders GameView', (tester) async {
-      await tester.pumpApp(GamePage(), gameBloc: gameBloc);
+      await tester.pumpApp(
+        GamePage(),
+        gameBloc: gameBloc,
+        preloadCubit: preloadCubit,
+      );
       expect(find.byType(GameView), findsOneWidget);
     });
 
@@ -46,6 +55,7 @@ void main() {
           ),
         ),
         gameBloc: gameBloc,
+        preloadCubit: preloadCubit,
       );
 
       await tester.tap(find.text('Tap me'));
@@ -65,6 +75,7 @@ void main() {
           GamePage(game: game),
           gameBloc: gameBloc,
           settingsBloc: settingsBloc,
+          preloadCubit: preloadCubit,
         );
 
         // These three lines of code is needed to ensure that the game is
@@ -89,6 +100,7 @@ void main() {
         GamePage(game: game),
         gameBloc: gameBloc,
         inventoryBloc: inventoryBloc,
+        preloadCubit: preloadCubit,
       );
 
       // These three lines of code is needed to ensure that the game is
@@ -101,6 +113,19 @@ void main() {
       await tester.pump();
 
       expect(find.byType(InventoryDialog), findsOneWidget);
+    });
+
+    testWidgets('Passes preloaded images', (tester) async {
+      final images = UnprefixedImages();
+      when(() => preloadCubit.images).thenReturn(images);
+      await tester.pumpApp(
+        GamePage(),
+        gameBloc: gameBloc,
+        preloadCubit: preloadCubit,
+      );
+      final gameView =
+          find.byType(GameView).evaluate().first.widget as GameView;
+      expect(gameView.game.images, images);
     });
   });
 }

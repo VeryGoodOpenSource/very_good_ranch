@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
@@ -11,6 +12,16 @@ class UnicornCounter extends PositionComponent
   UnicornCounter({
     required super.position,
   });
+
+  /// Preload all unicorn head assets into [images].
+  static Future<void> preloadAssets(UnprefixedImages images) async {
+    await images.loadAll([
+      Assets.images.babyHead.path,
+      Assets.images.childHead.path,
+      Assets.images.teenHead.path,
+      Assets.images.adultHead.path,
+    ]);
+  }
 
   late List<Unicorn> unicorns;
 

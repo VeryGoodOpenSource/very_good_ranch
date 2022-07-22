@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/extensions.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/game.dart';
@@ -22,15 +22,18 @@ class VeryGoodRanchGame extends FlameGame
     required this.gameBloc,
     required this.inventoryBloc,
     required this.l10n,
+    UnprefixedImages? images,
     @visibleForTesting bool debugMode = false,
-  })  : _debugMode = debugMode,
-        seed = seed ?? Random() {
-    // Clearing the prefix allows us to load images from packages.
-    images.prefix = '';
-    Flame.images.prefix = '';
-  }
+  })  : _images = images ?? UnprefixedImages(),
+        _debugMode = debugMode,
+        seed = seed ?? Random();
 
   static const _virtualWidth = 800.0;
+
+  final UnprefixedImages _images;
+
+  @override
+  UnprefixedImages get images => _images;
 
   /// The random number generator for this game, allowing it to be seed-able.
   final Random seed;

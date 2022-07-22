@@ -75,7 +75,7 @@ void main() {
 
     group('unicorn evolution stage', () {
       flameTester.test(
-        'proxies from the behavior',
+        'evolves to next stage',
         (game) async {
           final unicorn = Unicorn(position: Vector2.zero());
 
@@ -90,6 +90,7 @@ void main() {
           game.update(0);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
+          expect(unicorn.size, ChildUnicornComponent().size);
         },
       );
     });
@@ -121,14 +122,8 @@ void main() {
       });
 
       test('should be between 0 and 1', () {
-        expect(
-          () => UnicornPercentage(1.1),
-          throwsAssertionError,
-        );
-        expect(
-          () => UnicornPercentage(-0.1),
-          throwsAssertionError,
-        );
+        expect(() => UnicornPercentage(1.1), throwsAssertionError);
+        expect(() => UnicornPercentage(-0.1), throwsAssertionError);
       });
     });
 

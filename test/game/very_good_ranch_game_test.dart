@@ -14,6 +14,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
@@ -62,6 +63,19 @@ void main() {
           l10n: l10n,
         ),
         isA<VeryGoodRanchGame>(),
+      );
+    });
+
+    test('can be instantiated with a images instance', () {
+      final images = UnprefixedImages();
+      expect(
+        VeryGoodRanchGame(
+          gameBloc: gameBloc,
+          inventoryBloc: MockInventoryBloc(),
+          l10n: l10n,
+          images: images,
+        ).images,
+        images,
       );
     });
 

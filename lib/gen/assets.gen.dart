@@ -32,6 +32,9 @@ class $AssetsImagesGen {
   AssetGenImage get childHead =>
       const AssetGenImage('assets/images/child_head.png');
 
+  /// File path: assets/images/loading.png
+  AssetGenImage get loading => const AssetGenImage('assets/images/loading.png');
+
   /// File path: assets/images/teen_head.png
   AssetGenImage get teenHead =>
       const AssetGenImage('assets/images/teen_head.png');

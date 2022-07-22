@@ -46,5 +46,23 @@
     "@inventory": {
         "description": "Text for Inventory title"
     },
-    "score": "Score"
+    "score": "Score",
+    "loading": "Loading {label}...",
+    "@loading": {
+      "description": "Text for the loading page",
+      "placeholders": {
+        "label": {
+          "type": "String",
+          "example": "Stuff",
+          "description": "Label for what is being loaded"
+        }
+      }
+    },
+    "loadingPhaseLabel": "{loadingPhase, select, counter{Unicorn heads} environment{Farmhouse} food{Snacks} unicorns{Unicorns} other{ }}",
+    "@loadingPhaseLabel": {
+      "description": "Loading phases",
+      "placeholders": {
+        "loadingPhase": {}
+      }
+    }
 }

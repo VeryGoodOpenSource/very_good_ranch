@@ -52,5 +52,5 @@ class RarityList<T> {
     return _probabilities[index].value;
   }
 
-  static int _raritySum(int sum, Rarity rarity) => sum + rarity.weight;
+  static int _raritySum<T>(int sum, Rarity<T> rarity) => sum + rarity.weight;
 }

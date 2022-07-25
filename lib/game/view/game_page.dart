@@ -18,7 +18,7 @@ class GamePage extends StatefulWidget {
 
   final FlameGame? game;
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(
       builder: (context) => const GamePage(),
     );

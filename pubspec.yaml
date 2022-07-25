@@ -25,6 +25,8 @@ dependencies:
     path: packages/ranch_components
   ranch_flame:
     path: packages/ranch_flame
+  ranch_ui:
+    path: packages/ranch_ui
 
 dev_dependencies:
   bloc_test: ^9.0.3

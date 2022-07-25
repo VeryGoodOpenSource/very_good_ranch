@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
@@ -76,57 +77,6 @@ class _LoadingInternal extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-/// A [Widget] that renders a intrinsically animated progress bar
-@visibleForTesting
-class AnimatedProgressBar extends StatelessWidget {
-  const AnimatedProgressBar({super.key, required this.progress})
-      : assert(
-          progress >= 0.0 && progress <= 1.0,
-          'Progress should be set between 0.0 and 1.0',
-        );
-
-  final double progress;
-
-  static const Duration intrinsicAnimationDuration =
-      Duration(milliseconds: 300);
-
-  @override
-  Widget build(BuildContext context) {
-    // Outer bar
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(2),
-      child: SizedBox(
-        height: 16,
-        width: 200,
-        child: ColoredBox(
-          color: const Color(0xFF0D6052),
-          child: Padding(
-            padding: const EdgeInsets.all(2),
-            // Animate the progress bar
-            child: TweenAnimationBuilder(
-              tween: Tween<double>(begin: 0, end: progress),
-              duration: intrinsicAnimationDuration,
-              builder: (BuildContext context, double progress, _) {
-                // Inner bar
-                return FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: progress,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(1),
-                    child: const ColoredBox(
-                      color: Color(0xFF99FDFF),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

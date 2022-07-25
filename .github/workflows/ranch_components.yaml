@@ -23,4 +23,3 @@ jobs:
       flutter_version: 3.0.0
       working_directory: packages/ranch_components
       coverage_excludes: "lib/gen/*.dart"
-      test_optimization: false

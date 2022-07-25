@@ -9,7 +9,7 @@ import 'package:very_good_ranch/settings/settings.dart';
 class TitlePage extends StatelessWidget {
   const TitlePage({super.key});
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(
       builder: (_) => const TitlePage(),
     );

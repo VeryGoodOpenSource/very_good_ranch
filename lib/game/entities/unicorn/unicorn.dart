@@ -142,8 +142,11 @@ class Unicorn extends Entity with Steerable {
   }
 
   set evolutionStage(UnicornEvolutionStage evolutionStage) {
+    final currentState = state;
     _unicornComponent.removeFromParent();
     add(_unicornComponent = evolutionStage.componentForEvolutionStage);
+    _unicornComponent.state = currentState;
+    size = _unicornComponent.size;
   }
 
   UnicornState? get state => _unicornComponent.state;

@@ -36,6 +36,9 @@ void main() {
 
         final future = cubit.loadSequentially();
 
+        // Each phase is called in the next tick, so we need to settle first.
+        await tester.pumpAndSettle(const Duration(microseconds: 1));
+
         verify(
           () => images.loadAll(
             [

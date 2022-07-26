@@ -445,6 +445,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  ranch_ui:
+    dependency: "direct main"
+    description:
+      path: "packages/ranch_ui"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   shelf:
     dependency: transitive
     description:

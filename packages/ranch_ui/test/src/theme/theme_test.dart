@@ -11,14 +11,17 @@ void main() {
     final textStyle = RanchUITheme.mainFontTextStyle;
     expect(textStyle, GoogleFonts.mouseMemoirs());
   });
+
   test('minorFontTextStyle is anybody', () {
     final textStyle = RanchUITheme.minorFontTextStyle;
     expect(textStyle, GoogleFonts.anybody());
   });
+
   test('themeData', () {
     final themeData = RanchUITheme.themeData;
-    expect(themeData, isA<ThemeData>);
+    expect(themeData, isA<ThemeData>());
   });
+
   test('setupFonts', () async {
     RanchUITheme.setupFonts();
 

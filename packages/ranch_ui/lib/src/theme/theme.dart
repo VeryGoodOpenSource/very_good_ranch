@@ -6,8 +6,6 @@ import 'package:ranch_ui/gen/assets.gen.dart';
 
 /// Theme related functions for the ranch UI
 class RanchUITheme {
-  RanchUITheme._();
-
   /// Obtain a standard [ThemeData]
   static ThemeData get themeData {
     return ThemeData(

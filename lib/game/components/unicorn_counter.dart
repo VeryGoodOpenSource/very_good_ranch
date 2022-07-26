@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
@@ -38,7 +38,7 @@ class _UnicornHead extends Component with ParentIsA<UnicornCounter> {
   _UnicornHead(this.evolutionStage);
 
   static final _textPaint = TextPaint(
-    style: GoogleFonts.mouseMemoirs(
+    style: RanchUITheme.mainFontTextStyle.copyWith(
       color: Colors.white,
       fontSize: 24,
       height: 1.2,

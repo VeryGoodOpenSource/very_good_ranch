@@ -1,3 +1,4 @@
 library ranch_ui;
 
-export 'src/progress_bar/progress_bar.dart';
+export 'src/theme/theme.dart';
+export 'src/widgets/widgets.dart';

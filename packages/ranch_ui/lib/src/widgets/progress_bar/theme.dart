@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:ranch_ui/src/progress_bar/widget.dart';
+import 'package:ranch_ui/src/widgets/progress_bar/widget.dart';
 
 /// {@template animated_progress_bar_theme}
 /// An inherited widget that defines visual properties for

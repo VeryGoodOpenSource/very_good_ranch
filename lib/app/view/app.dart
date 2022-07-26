@@ -8,8 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
@@ -42,13 +42,7 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
-        textTheme: GoogleFonts.mouseMemoirsTextTheme(),
-        primaryTextTheme: GoogleFonts.anybodyTextTheme(),
-      ),
+      theme: RanchUITheme.themeData,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game/game.dart';
 
 class ScoreIndicator extends PositionComponent
@@ -14,7 +14,7 @@ class ScoreIndicator extends PositionComponent
   PositionType get positionType => PositionType.game;
 
   static final _textPaint = TextPaint(
-    style: GoogleFonts.mouseMemoirs(
+    style: RanchUITheme.mainFontTextStyle.copyWith(
       color: Colors.white,
       fontSize: 24,
       height: 1.2,

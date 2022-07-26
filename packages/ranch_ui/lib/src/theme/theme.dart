@@ -18,7 +18,7 @@ class RanchUITheme {
   }
 
   /// Perform the relevant configurations related to the fonts used in the
-  /// ranchIU.
+  /// Ranch UI.
   static void setupFonts() {
     // Add font licenses
     LicenseRegistry.addLicense(() async* {

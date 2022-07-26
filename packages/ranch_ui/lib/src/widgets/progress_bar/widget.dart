@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ranch_ui/src/progress_bar/theme.dart';
+import 'package:ranch_ui/src/widgets/progress_bar/theme.dart';
+
 
 /// {@template animated_progress_bar}
 /// A [Widget] that renders a intrinsically animated progress bar.

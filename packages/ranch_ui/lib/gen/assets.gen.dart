@@ -9,41 +9,51 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
 
-  /// File path: assets/images/adult_head.png
-  AssetGenImage get adultHead =>
-      const AssetGenImage('assets/images/adult_head.png');
+  $AssetsFontsAnybodyGen get anybody => const $AssetsFontsAnybodyGen();
+  $AssetsFontsMouseMemoirsGen get mouseMemoirs =>
+      const $AssetsFontsMouseMemoirsGen();
+}
 
-  /// File path: assets/images/baby_head.png
-  AssetGenImage get babyHead =>
-      const AssetGenImage('assets/images/baby_head.png');
+class $AssetsFontsAnybodyGen {
+  const $AssetsFontsAnybodyGen();
 
-  /// File path: assets/images/child_head.png
-  AssetGenImage get childHead =>
-      const AssetGenImage('assets/images/child_head.png');
+  /// File path: assets/fonts/anybody/Anybody-Black.ttf
+  String get anybodyBlack => 'assets/fonts/anybody/Anybody-Black.ttf';
 
-  /// File path: assets/images/loading.png
-  AssetGenImage get loading => const AssetGenImage('assets/images/loading.png');
+  /// File path: assets/fonts/anybody/Anybody-Bold.ttf
+  String get anybodyBold => 'assets/fonts/anybody/Anybody-Bold.ttf';
 
-  /// File path: assets/images/teen_head.png
-  AssetGenImage get teenHead =>
-      const AssetGenImage('assets/images/teen_head.png');
+  /// File path: assets/fonts/anybody/Anybody-Medium.ttf
+  String get anybodyMedium => 'assets/fonts/anybody/Anybody-Medium.ttf';
 
-  /// File path: assets/images/title_header.png
-  AssetGenImage get titleHeader =>
-      const AssetGenImage('assets/images/title_header.png');
+  /// File path: assets/fonts/anybody/Anybody-Regular.ttf
+  String get anybodyRegular => 'assets/fonts/anybody/Anybody-Regular.ttf';
 
-  /// File path: assets/images/title_hills.png
-  AssetGenImage get titleHills =>
-      const AssetGenImage('assets/images/title_hills.png');
+  /// File path: assets/fonts/anybody/Anybody-SemiBold.ttf
+  String get anybodySemiBold => 'assets/fonts/anybody/Anybody-SemiBold.ttf';
+
+  /// File path: assets/fonts/anybody/OFL.txt
+  String get ofl => 'assets/fonts/anybody/OFL.txt';
+}
+
+class $AssetsFontsMouseMemoirsGen {
+  const $AssetsFontsMouseMemoirsGen();
+
+  /// File path: assets/fonts/mouse_memoirs/MouseMemoirs-Regular.ttf
+  String get mouseMemoirsRegular =>
+      'assets/fonts/mouse_memoirs/MouseMemoirs-Regular.ttf';
+
+  /// File path: assets/fonts/mouse_memoirs/OFL.txt
+  String get ofl => 'assets/fonts/mouse_memoirs/OFL.txt';
 }
 
 class Assets {
   Assets._();
 
-  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
 }
 
 class AssetGenImage {
@@ -71,7 +81,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package,
+    String? package = 'ranch_ui',
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -106,5 +116,5 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  String get keyName => _assetName;
+  String get keyName => 'packages/ranch_ui/$_assetName';
 }

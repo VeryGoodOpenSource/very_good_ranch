@@ -17,6 +17,13 @@ class $AssetsFontsGen {
       const $AssetsFontsMouseMemoirsGen();
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/board.png
+  AssetGenImage get board => const AssetGenImage('assets/images/board.png');
+}
+
 class $AssetsFontsAnybodyGen {
   const $AssetsFontsAnybodyGen();
 
@@ -54,6 +61,7 @@ class Assets {
   Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {

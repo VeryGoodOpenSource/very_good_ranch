@@ -31,13 +31,25 @@ class $AssetsImagesGen {
   AssetGenImage get teenHead =>
       const AssetGenImage('assets/images/teen_head.png');
 
-  /// File path: assets/images/title_header.png
-  AssetGenImage get titleHeader =>
-      const AssetGenImage('assets/images/title_header.png');
+  /// File path: assets/images/title_background.png
+  AssetGenImage get titleBackground =>
+      const AssetGenImage('assets/images/title_background.png');
 
-  /// File path: assets/images/title_hills.png
-  AssetGenImage get titleHills =>
-      const AssetGenImage('assets/images/title_hills.png');
+  /// File path: assets/images/title_barn.png
+  AssetGenImage get titleBarn =>
+      const AssetGenImage('assets/images/title_barn.png');
+
+  /// File path: assets/images/title_board.png
+  AssetGenImage get titleBoard =>
+      const AssetGenImage('assets/images/title_board.png');
+
+  /// File path: assets/images/title_rainbow.png
+  AssetGenImage get titleRainbow =>
+      const AssetGenImage('assets/images/title_rainbow.png');
+
+  /// File path: assets/images/title_unicorn.png
+  AssetGenImage get titleUnicorn =>
+      const AssetGenImage('assets/images/title_unicorn.png');
 }
 
 class Assets {

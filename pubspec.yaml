@@ -19,12 +19,13 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  google_fonts: ^3.0.1
   intl: ^0.17.0
   ranch_components:
     path: packages/ranch_components
   ranch_flame:
     path: packages/ranch_flame
+  ranch_ui:
+    path: packages/ranch_ui
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -33,7 +34,7 @@ dev_dependencies:
     sdk: flutter
   mockingjay: ^0.3.0-dev.1
   mocktail: ^0.3.0
-  very_good_analysis: ^3.0.0
+  very_good_analysis: 3.0.1
 
 
 flutter:
@@ -42,5 +43,3 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/fonts/anybody/
-    - assets/fonts/mouse_memoirs/

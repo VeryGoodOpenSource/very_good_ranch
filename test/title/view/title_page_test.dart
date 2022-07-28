@@ -4,7 +4,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:very_good_ranch/credits/credits.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 import 'package:very_good_ranch/title/title.dart';
@@ -13,13 +13,16 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('TitlePage', () {
-    testWidgets('renders correctly', (tester) async {
+    testWidgets('render correctly', (tester) async {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
       await tester.pumpApp(TitlePage());
 
-      expect(find.byType(ElevatedButton), findsNWidgets(3));
+      expect(find.byType(TitlePageSky), findsOneWidget);
+      expect(find.byType(TitlePageGround), findsOneWidget);
+      expect(find.byType(TitlePageMenu), findsOneWidget);
+
+      expect(find.byType(BoardButton), findsNWidgets(2));
       expect(find.text(l10n.play), findsOneWidget);
-      expect(find.text(l10n.credits), findsOneWidget);
       expect(find.text(l10n.settings), findsOneWidget);
     });
 
@@ -34,20 +37,9 @@ void main() {
         navigator: navigator,
       );
 
-      await tester.tap(find.widgetWithText(ElevatedButton, l10n.play));
+      await tester.tap(find.widgetWithText(BoardButton, l10n.play));
 
       verify(() => navigator.pushReplacement<void, void>(any())).called(1);
-    });
-
-    testWidgets('tapping on credits button displays dialog with CreditsDialog',
-        (tester) async {
-      final l10n = await AppLocalizations.delegate.load(Locale('en'));
-      await tester.pumpApp(TitlePage());
-
-      await tester.tap(find.widgetWithText(ElevatedButton, l10n.credits));
-      await tester.pump();
-
-      expect(find.byType(CreditsDialog), findsOneWidget);
     });
 
     testWidgets(
@@ -64,10 +56,69 @@ void main() {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
       await tester.pumpApp(TitlePage(), settingsBloc: settingsBloc);
 
-      await tester.tap(find.widgetWithText(ElevatedButton, l10n.settings));
+      await tester.tap(find.widgetWithText(BoardButton, l10n.settings));
       await tester.pump();
 
       expect(find.byType(SettingsDialog), findsOneWidget);
     });
   });
+
+  group('TitlePageSky', () {
+    testWidgets('renders correctly', (tester) async {
+      await tester.pumpApp(TitlePageSky());
+
+      await expectLater(
+        find.byType(TitlePageSky),
+        matchesGoldenFile('golden/sky.png'),
+      );
+    });
+  });
+
+  group('TitlePageGround', () {
+    testWidgets('renders correctly on 3:4', (tester) async {
+      await tester.pumpImageAssets(
+        Center(
+          child: AspectRatio(
+            aspectRatio: 3 / 4,
+            child: TitlePageGround(),
+          ),
+        ),
+      );
+
+      await expectLater(
+        find.byType(TitlePageGround),
+        matchesGoldenFile('golden/ground_3_4.png'),
+      );
+    });
+
+    testWidgets('renders correctly on 9:21', (tester) async {
+      await tester.pumpImageAssets(
+        Center(
+          child: AspectRatio(
+            aspectRatio: 9 / 21,
+            child: TitlePageGround(),
+          ),
+        ),
+      );
+
+      await expectLater(
+        find.byType(TitlePageGround),
+        matchesGoldenFile('golden/ground_9_21.png'),
+      );
+    });
+  });
+}
+
+extension on WidgetTester {
+  Future<void> pumpImageAssets(Widget widget) async {
+    await runAsync(() async {
+      await pumpApp(widget);
+      for (final element in find.byType(Image).evaluate()) {
+        final widget = element.widget as Image;
+        final image = widget.image;
+        await precacheImage(image, element);
+        await pumpAndSettle();
+      }
+    });
+  }
 }

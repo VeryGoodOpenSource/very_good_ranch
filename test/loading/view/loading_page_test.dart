@@ -14,6 +14,7 @@ import 'package:flutter/widgets.dart' hide Image;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
@@ -84,59 +85,5 @@ void main() {
     });
 
     testWidgets('redirects after loading', (tester) async {});
-
-    group('AnimatedProgressBar', () {
-      testWidgets('0%', (tester) async {
-        await tester.pumpWidget(
-          Center(
-            child: AnimatedProgressBar(
-              progress: 0,
-            ),
-          ),
-        );
-
-        /// flush animation timers
-        await tester.pumpAndSettle();
-
-        await expectLater(
-          find.byType(AnimatedProgressBar),
-          matchesGoldenFile('golden/progressbar/0.png'),
-        );
-      });
-      testWidgets('50%', (tester) async {
-        await tester.pumpWidget(
-          Center(
-            child: AnimatedProgressBar(
-              progress: 0.5,
-            ),
-          ),
-        );
-
-        /// flush animation timers
-        await tester.pumpAndSettle();
-
-        await expectLater(
-          find.byType(AnimatedProgressBar),
-          matchesGoldenFile('golden/progressbar/50.png'),
-        );
-      });
-      testWidgets('100%', (tester) async {
-        await tester.pumpWidget(
-          Center(
-            child: AnimatedProgressBar(
-              progress: 1,
-            ),
-          ),
-        );
-
-        /// flush animation timers
-        await tester.pumpAndSettle();
-
-        await expectLater(
-          find.byType(AnimatedProgressBar),
-          matchesGoldenFile('golden/progressbar/100.png'),
-        );
-      });
-    });
   });
 }

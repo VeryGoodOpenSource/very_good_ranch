@@ -1,0 +1,31 @@
+name: ranch_ui
+description: UI elements for Very Good Ranch
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  google_fonts: ^3.0.1
+  sprung: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.0.1
+
+flutter:
+  generate: true
+  assets:
+    - assets/images/
+    - assets/fonts/anybody/
+    - assets/fonts/mouse_memoirs/
+
+flutter_gen:
+  assets:
+    package_parameter_enabled: true

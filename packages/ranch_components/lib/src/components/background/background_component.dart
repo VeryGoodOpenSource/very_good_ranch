@@ -42,7 +42,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
   /// reserved for visual elements in which the unicorns and playable elements
   /// cannot be displaced to.
   static const paddingToPasture = EdgeInsets.only(
-    top: 170,
+    top: 120,
     left: 30,
     right: 30,
     bottom: 30,

@@ -52,15 +52,35 @@ class _GamePageState extends State<GamePage> {
 
     return GameViewport(
       child: Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              child: ClipRect(
-                child: GameView(game: _game!),
-              ),
+        body: DecoratedBox(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF46B2A0),
+                Color(0xFF92DED3),
+                Color(0xFF92DED3),
+                Color(0xFF46B2A0),
+              ],
+              stops: [
+                0.0,
+                0.15,
+                0.85,
+                1.0,
+              ],
             ),
-            FooterWidget(game: _game!),
-          ],
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: ClipRect(
+                  child: GameView(game: _game!),
+                ),
+              ),
+              FooterWidget(game: _game!),
+            ],
+          ),
         ),
       ),
     );

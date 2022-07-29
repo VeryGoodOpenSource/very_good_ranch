@@ -50,7 +50,7 @@ class VeryGoodRanchGame extends FlameGame
   bool get debugMode => _debugMode;
 
   @override
-  Color backgroundColor() => const Color(0xFF52C1B1);
+  Color backgroundColor() => Colors.transparent;
 
   int get score => 0;
 

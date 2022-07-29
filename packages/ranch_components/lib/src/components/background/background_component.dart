@@ -21,7 +21,6 @@ typedef PositionDelegateGetter = BackgroundPositionDelegate Function(
 /// which unicorns can eat and roam about
 /// {@endtemplate}
 class BackgroundComponent extends PositionComponent with HasGameRef {
-  /// {@macro background_component}
   BackgroundComponent({super.children, this.getDelegate});
 
   /// Preload all background assets into [images].

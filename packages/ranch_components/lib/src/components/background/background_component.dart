@@ -31,6 +31,7 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
   /// The safe area padding of the view.
   final EdgeInsets viewPadding;
 
+
   /// Preload all background assets into [images].
   static Future<void> preloadAssets(Images images) async {
     await images.loadAll([

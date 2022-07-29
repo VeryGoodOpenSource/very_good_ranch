@@ -3,52 +3,73 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame_audio/bgm.dart';
 import 'package:ranch_sounds/gen/assets.gen.dart';
-import 'package:ranch_sounds/src/no_prefix_audiocache.dart';
+import 'package:ranch_sounds/src/unprefixed_audiocache.dart';
 
-/// Type signature for callbacks that create a [Bgm] with an [audioCache]
-typedef CreateBGM = Bgm Function();
+/// Type signature for callbacks that create a [Bgm]
+typedef BGMCreator = Bgm Function();
+
+/// A collection of sounds typical of any Unicorn ranch.
+enum RanchSounds {
+  /// A [_RanchSound] of a cheerful music.
+  startBackground,
+
+  /// A [_RanchSound] of a pretty music.
+  gameBackground,
+}
 
 /// {@template ranch_sounds}
-/// A collection of sounds typical of any Unicorn ranch
-/// that share the same [audioCache].
+/// A helper class to load and maintain the [RanchSounds] in a shared
+/// [AudioCache].
 /// {@endtemplate}
-class RanchSounds {
+class RanchSoundPlayer {
   /// {@macro ranch_sounds}
-  RanchSounds({
-    required this.audioCache,
-    CreateBGM? createBGM,
-  }) {
-    final _createBGM = createBGM ?? () => Bgm(audioCache: audioCache);
-    startBackground = BackgroundSound._(
-      Assets.music.startBackground,
-      _createBGM(),
-    );
-    gameBackground = BackgroundSound._(
-      Assets.music.gameBackground,
-      _createBGM(),
-    );
+  RanchSoundPlayer({
+    UnprefixedAudioCache? audioCache,
+    BGMCreator? createBGM,
+  }) : audioCache = audioCache ?? UnprefixedAudioCache() {
+    final _createBGM = createBGM ??
+        () {
+          return Bgm(audioCache: this.audioCache);
+        };
+
+    _sounds = {
+      RanchSounds.startBackground: _BackgroundSound._(
+        Assets.music.startBackground,
+        _createBGM(),
+      ),
+      RanchSounds.gameBackground: _BackgroundSound._(
+        Assets.music.gameBackground,
+        _createBGM(),
+      ),
+    };
   }
 
-  /// Preload all sound assets into [audioCache].
-  Future<void> preloadAssets() {
-    return Future.wait([
-      startBackground._load(),
-      gameBackground._load(),
-    ]);
-  }
+  late final Map<RanchSounds, _RanchSound> _sounds;
 
   /// The [AudioCache] in wich the sounds are preloaded to.
   final UnprefixedAudioCache audioCache;
 
-  /// A [RanchSound] of a pretty music.
-  late final RanchSound startBackground;
+  /// Preload all sound assets into [audioCache].
+  Future<void> preloadAssets() {
+    return Future.wait(_sounds.values.map((e) => e.load()));
+  }
 
-  /// A [RanchSound] of a cheerful music.
-  late final RanchSound gameBackground;
+  /// Play a [ranchSound]
+  Future<void> play(RanchSounds ranchSound) async {
+    await _sounds[ranchSound]?.play();
+  }
 
-  void dispose() async {
-    startBackground._dispose();
-    gameBackground._dispose();
+  /// Stop playing a [ranchSound]
+  Future<void> stop(RanchSounds ranchSound) async {
+    await _sounds[ranchSound]?.stop();
+  }
+
+  /// Dispose the existing audio elements (such as bgm) and clear cache
+  Future<void> dispose() async {
+    for (final sound in _sounds.values) {
+      sound.dispose();
+    }
+    await audioCache.clearAll();
   }
 }
 
@@ -56,41 +77,45 @@ String _prefixFile(String file) {
   return 'packages/ranch_sounds/$file';
 }
 
-/// Represents a
-abstract class RanchSound {
-  RanchSound._(String path) {
+abstract class _RanchSound {
+  _RanchSound._(String path) {
     this.path = _prefixFile(path);
   }
 
   late final String path;
 
-  Future<void> _load();
+  Future<void> load();
 
-  Future<AudioPlayer> play();
+  Future<void> play();
 
-  void _dispose();
+  Future<void> stop();
+
+  void dispose();
 }
 
-class BackgroundSound extends RanchSound {
-  BackgroundSound._(String path, this.bgm) : super._(path);
+class _BackgroundSound extends _RanchSound {
+  _BackgroundSound._(super.path, this.bgm) : super._();
 
   final Bgm bgm;
 
   @override
-  Future<void> _load() async {
+  Future<void> load() async {
     bgm.initialize();
     await bgm.audioPlayer.audioCache.load(path);
   }
 
   @override
-  FutureOr<void> _dispose() {
+  void dispose() {
     bgm.dispose();
   }
 
   @override
-  Future<AudioPlayer> play() async {
+  Future<void> play() async {
     await bgm.play(path);
+  }
 
-    return bgm.audioPlayer;
+  @override
+  Future<void> stop() async {
+    await bgm.stop();
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
@@ -27,7 +28,10 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => InventoryBloc()),
         BlocProvider(create: (_) => GameBloc()),
         BlocProvider(
-          create: (_) => PreloadCubit(UnprefixedImages())..loadSequentially(),
+          create: (_) => PreloadCubit(
+            UnprefixedImages(),
+            RanchSoundPlayer(),
+          )..loadSequentially(),
         )
       ],
       child: const AppView(),

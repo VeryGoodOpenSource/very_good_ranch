@@ -24,6 +24,8 @@ dependencies:
     path: packages/ranch_components
   ranch_flame:
     path: packages/ranch_flame
+  ranch_sounds:
+    path: packages/ranch_sounds
   ranch_ui:
     path: packages/ranch_ui
 

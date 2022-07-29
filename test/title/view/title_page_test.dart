@@ -4,18 +4,37 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
+import 'package:very_good_ranch/loading/cubit/preload/preload_cubit.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 import 'package:very_good_ranch/title/title.dart';
 
 import '../../helpers/helpers.dart';
 
+class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
+
 void main() {
   group('TitlePage', () {
+    late PreloadCubit preloadCubit;
+    late MockRanchSoundPlayer sounds;
+    setUp(() {
+      sounds = MockRanchSoundPlayer();
+      preloadCubit = MockPreloadCubit();
+      when(() => preloadCubit.sounds).thenReturn(sounds);
+      when(() => sounds.play(RanchSounds.startBackground))
+          .thenAnswer((Invocation invocation) async {});
+      when(() => sounds.stop(RanchSounds.startBackground))
+          .thenAnswer((Invocation invocation) async {});
+    });
+
     testWidgets('render correctly', (tester) async {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
-      await tester.pumpApp(TitlePage());
+      await tester.pumpApp(
+        TitlePage(),
+        preloadCubit: preloadCubit,
+      );
 
       expect(find.byType(TitlePageSky), findsOneWidget);
       expect(find.byType(TitlePageGround), findsOneWidget);
@@ -34,6 +53,7 @@ void main() {
 
       await tester.pumpApp(
         TitlePage(),
+        preloadCubit: preloadCubit,
         navigator: navigator,
       );
 
@@ -43,24 +63,29 @@ void main() {
     });
 
     testWidgets(
-        'tapping on settings button displays dialog with SettingsDialog',
-        (tester) async {
-      final settingsBloc = MockSettingsBloc();
+      'tapping on settings button displays dialog with SettingsDialog',
+      (tester) async {
+        final settingsBloc = MockSettingsBloc();
 
-      whenListen(
-        settingsBloc,
-        const Stream<SettingsState>.empty(),
-        initialState: SettingsState(),
-      );
+        whenListen(
+          settingsBloc,
+          const Stream<SettingsState>.empty(),
+          initialState: SettingsState(),
+        );
 
-      final l10n = await AppLocalizations.delegate.load(Locale('en'));
-      await tester.pumpApp(TitlePage(), settingsBloc: settingsBloc);
+        final l10n = await AppLocalizations.delegate.load(Locale('en'));
+        await tester.pumpApp(
+          TitlePage(),
+          settingsBloc: settingsBloc,
+          preloadCubit: preloadCubit,
+        );
 
-      await tester.tap(find.widgetWithText(BoardButton, l10n.settings));
-      await tester.pump();
+        await tester.tap(find.widgetWithText(BoardButton, l10n.settings));
+        await tester.pump();
 
-      expect(find.byType(SettingsDialog), findsOneWidget);
-    });
+        expect(find.byType(SettingsDialog), findsOneWidget);
+      },
+    );
   });
 
   group('TitlePageSky', () {

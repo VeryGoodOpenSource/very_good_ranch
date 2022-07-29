@@ -13,9 +13,9 @@ class _MockURI extends Mock implements Uri {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('RanchSounds', () {
+  group('RanchSoundPlayer', () {
     test('can be instantiated', () {
-      expect(RanchSounds(audioCache: UnprefixedAudioCache()), isNotNull);
+      expect(RanchSoundPlayer(), isNotNull);
     });
 
     group('preloadAssets', () {
@@ -24,9 +24,9 @@ void main() {
         when(() => audioCache.load(any()))
             .thenAnswer((invocation) async => _MockURI());
 
-        final sounds = RanchSounds(audioCache: audioCache);
+        final player = RanchSoundPlayer(audioCache: audioCache);
 
-        await sounds.preloadAssets();
+        await player.preloadAssets();
 
         verify(
           () => audioCache.load(
@@ -52,19 +52,22 @@ void main() {
         when(() => audioCache.load(any()))
             .thenAnswer((invocation) async => _MockURI());
 
+        when(audioCache.clearAll).thenAnswer((invocation) async {});
+
         final bgm = _MockBgm();
 
         when(() => bgm.audioPlayer)
             .thenReturn(AudioPlayer()..audioCache = audioCache);
 
-        final sounds = RanchSounds(
+        final player = RanchSoundPlayer(
           audioCache: audioCache,
           createBGM: () => bgm,
         );
 
-        await sounds.preloadAssets();
-        sounds.dispose();
+        await player.preloadAssets();
+        await player.dispose();
 
+        verify(audioCache.clearAll).called(1);
         verify(bgm.dispose).called(2);
       });
     });
@@ -78,19 +81,35 @@ void main() {
         when(() => bgm.audioPlayer).thenReturn(ap);
         when(() => bgm.play(any())).thenAnswer((invocation) async {});
 
-        final startBackground = RanchSounds(
+        final player = RanchSoundPlayer(
           audioCache: audioCache,
           createBGM: () => bgm,
-        ).startBackground;
+        );
 
-        final result = await startBackground.play();
-
-        expect(result, ap);
+        await player.play(RanchSounds.startBackground);
 
         verify(
           () => bgm
               .play('packages/ranch_sounds/assets/music/start_background.wav'),
         ).called(1);
+      });
+
+      test('stop', () async {
+        final audioCache = _MockAudioCache();
+        final bgm = _MockBgm();
+        final ap = AudioPlayer()..audioCache = audioCache;
+
+        when(() => bgm.audioPlayer).thenReturn(ap);
+        when(bgm.stop).thenAnswer((invocation) async {});
+
+        final player = RanchSoundPlayer(
+          audioCache: audioCache,
+          createBGM: () => bgm,
+        );
+
+        await player.stop(RanchSounds.startBackground);
+
+        verify(bgm.stop).called(1);
       });
     });
 
@@ -103,20 +122,35 @@ void main() {
         when(() => bgm.audioPlayer).thenReturn(ap);
         when(() => bgm.play(any())).thenAnswer((invocation) async {});
 
-        final gameBackground = RanchSounds(
+        final player = RanchSoundPlayer(
           audioCache: audioCache,
           createBGM: () => bgm,
-        ).gameBackground;
+        );
 
-        final result = await gameBackground.play();
-
-        expect(result, ap);
+        await player.play(RanchSounds.gameBackground);
 
         verify(
           () => bgm
               .play('packages/ranch_sounds/assets/music/game_background.wav'),
         ).called(1);
-        ;
+      });
+
+      test('stop', () async {
+        final audioCache = _MockAudioCache();
+        final bgm = _MockBgm();
+        final ap = AudioPlayer()..audioCache = audioCache;
+
+        when(() => bgm.audioPlayer).thenReturn(ap);
+        when(bgm.stop).thenAnswer((invocation) async {});
+
+        final player = RanchSoundPlayer(
+          audioCache: audioCache,
+          createBGM: () => bgm,
+        );
+
+        await player.stop(RanchSounds.gameBackground);
+
+        verify(bgm.stop).called(1);
       });
     });
   });

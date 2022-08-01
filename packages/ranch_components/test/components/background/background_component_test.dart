@@ -58,7 +58,7 @@ void main() {
 
       final pastureField = backgroundComponent.pastureField;
 
-      expect(pastureField, const Rect.fromLTRB(30, 170, 870, 1570));
+      expect(pastureField, const Rect.fromLTRB(30, 120, 870, 1570));
     });
 
     flameTester.testGameWidget(

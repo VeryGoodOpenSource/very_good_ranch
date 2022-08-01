@@ -27,22 +27,15 @@ class BackgroundSoundWidget extends StatefulWidget {
 }
 
 class _BackgroundSoundWidgetState extends State<BackgroundSoundWidget> {
-  bool playingSound = false;
-
   @override
   void initState() {
     super.initState();
-    playingSound = true;
     widget.player.play(widget.ranchSound);
   }
 
   @override
   void dispose() {
-    final playingSound = this.playingSound;
-
-    if (playingSound) {
-      widget.player.stop(widget.ranchSound);
-    }
+    widget.player.stop(widget.ranchSound);
     super.dispose();
   }
 

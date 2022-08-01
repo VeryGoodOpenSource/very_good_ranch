@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
+import 'package:very_good_ranch/loading/cubit/preload/preload_cubit.dart';
+import 'package:very_good_ranch/loading/loading.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
 const _skyPercentageOnYAxis = 0.36;
@@ -19,18 +23,68 @@ class TitlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameViewport(
-      child: Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: const [
-            TitlePageSky(),
-            TitlePageGround(),
-            TitlePageMenu(),
-          ],
+    return _PageSoundBackground(
+      ranchSound: RanchSounds.startBackground,
+      child: GameViewport(
+        child: Scaffold(
+          body: Stack(
+            fit: StackFit.expand,
+            children: const [
+              TitlePageSky(),
+              TitlePageGround(),
+              TitlePageMenu(),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class _PageSoundBackground extends StatefulWidget {
+  const _PageSoundBackground({
+    required this.ranchSound,
+    required this.child,
+  });
+
+  final RanchSounds ranchSound;
+
+  final Widget child;
+
+  @override
+  State<_PageSoundBackground> createState() => _PageSoundBackgroundState();
+}
+
+class _PageSoundBackgroundState extends State<_PageSoundBackground> {
+  RanchSoundPlayer? player;
+
+  bool playingSound = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (this.player != null) {
+      return;
+    }
+    final player = this.player = context.read<PreloadCubit>().sounds;
+
+    playingSound = true;
+    player.play(widget.ranchSound);
+  }
+
+  @override
+  void dispose() {
+    final playingSound = this.playingSound;
+    final player = this.player;
+    if (player != null && playingSound) {
+      player.stop(widget.ranchSound);
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
   }
 }
 

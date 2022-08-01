@@ -14,6 +14,7 @@ import 'package:flutter/widgets.dart' hide Image;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/loading/loading.dart';
@@ -22,17 +23,29 @@ import '../../helpers/helpers.dart';
 
 class MockUnprefixedImages extends Mock implements UnprefixedImages {}
 
+class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
+
 void main() {
   group('LoadingPage', () {
     late PreloadCubit preloadCubit;
     late MockUnprefixedImages images;
+    late MockRanchSoundPlayer sounds;
 
     setUp(() {
-      preloadCubit = PreloadCubit(images = MockUnprefixedImages());
+      preloadCubit = PreloadCubit(
+        images = MockUnprefixedImages(),
+        sounds = MockRanchSoundPlayer(),
+      );
 
       when(
         () => images.loadAll(any()),
       ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+      when(sounds.preloadAssets).thenAnswer((Invocation invocation) async {});
+      when(() => sounds.play(RanchSounds.startBackground))
+          .thenAnswer((Invocation invocation) async {});
+      when(() => sounds.stop(RanchSounds.startBackground))
+          .thenAnswer((Invocation invocation) async {});
     });
 
     testWidgets('basic layout', (tester) async {
@@ -67,6 +80,9 @@ void main() {
       unawaited(preloadCubit.loadSequentially());
 
       await tester.pump();
+
+      expect(textWidgetFinder().data, 'Loading Delightful music...');
+      await tester.pump(const Duration(milliseconds: 200));
 
       expect(textWidgetFinder().data, 'Loading Unicorn heads...');
       await tester.pump(const Duration(milliseconds: 200));

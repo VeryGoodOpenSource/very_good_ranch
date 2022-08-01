@@ -22,7 +22,14 @@ typedef PositionDelegateGetter = BackgroundPositionDelegate Function(
 /// {@endtemplate}
 class BackgroundComponent extends PositionComponent with HasGameRef {
   /// {@macro background_component}
-  BackgroundComponent({super.children, this.getDelegate});
+  BackgroundComponent({
+    this.viewPadding = EdgeInsets.zero,
+    super.children,
+    this.getDelegate,
+  });
+
+  /// The safe area padding of the view.
+  final EdgeInsets viewPadding;
 
   /// Preload all background assets into [images].
   static Future<void> preloadAssets(Images images) async {
@@ -58,10 +65,14 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
   late final Rect pastureField;
 
   void _calculatePastureField() {
-    final paddingDeflection =
-        Vector2(paddingToPasture.horizontal, paddingToPasture.vertical);
-    final paddingPosition =
-        Vector2(paddingToPasture.left, paddingToPasture.top);
+    final paddingDeflection = Vector2(
+      paddingToPasture.horizontal + viewPadding.horizontal,
+      paddingToPasture.vertical + viewPadding.vertical,
+    );
+    final paddingPosition = Vector2(
+      paddingToPasture.left + viewPadding.left,
+      paddingToPasture.top + viewPadding.top,
+    );
     final pastureFieldSize = size - paddingDeflection;
     final pastureFieldPosition = paddingPosition;
 

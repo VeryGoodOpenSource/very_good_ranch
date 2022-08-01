@@ -10,16 +10,19 @@ class GameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(
-      game: game,
-      overlayBuilderMap: {
-        InventoryDialog.overlayKey: (context, game) {
-          return const InventoryDialog();
+    return SafeArea(
+      bottom: false,
+      child: GameWidget(
+        game: game,
+        overlayBuilderMap: {
+          InventoryDialog.overlayKey: (context, game) {
+            return const InventoryDialog();
+          },
+          SettingsDialog.overlayKey: (context, game) {
+            return const SettingsDialog();
+          }
         },
-        SettingsDialog.overlayKey: (context, game) {
-          return const SettingsDialog();
-        }
-      },
+      ),
     );
   }
 }

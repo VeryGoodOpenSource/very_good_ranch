@@ -48,6 +48,7 @@ class _GamePageState extends State<GamePage> {
           inventoryBloc: context.read<InventoryBloc>(),
           l10n: context.l10n,
           images: preloadedImages,
+          viewPadding: MediaQuery.of(context).viewPadding,
         );
 
     return GameViewport(

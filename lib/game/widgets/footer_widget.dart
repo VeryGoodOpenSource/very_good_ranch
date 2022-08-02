@@ -70,12 +70,6 @@ class FooterWidget extends StatelessWidget {
     required String except,
   }) {
     if (game.overlays.isActive(
-          InventoryDialog.overlayKey,
-        ) &&
-        except != InventoryDialog.overlayKey) {
-      game.overlays.remove(InventoryDialog.overlayKey);
-    }
-    if (game.overlays.isActive(
           SettingsDialog.overlayKey,
         ) &&
         except != SettingsDialog.overlayKey) {

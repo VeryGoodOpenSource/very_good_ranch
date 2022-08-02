@@ -69,5 +69,5 @@ class UnicornCounterThemeData extends Equatable {
   final double size;
 
   @override
-  List<Object?> get props => [activeColor, inactiveColor];
+  List<Object> get props => [activeColor, inactiveColor, textStyle, size];
 }

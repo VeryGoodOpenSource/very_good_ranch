@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
@@ -15,33 +16,50 @@ class FooterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        border: Border(top: BorderSide()),
-      ),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 28,
+        vertical: 28,
+      ).copyWith(top: 0),
       child: SafeArea(
         top: false,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            IconButton(
-              onPressed: () {
-                _clearOverlays(except: InventoryDialog.overlayKey);
-                if (!game.overlays.isActive(InventoryDialog.overlayKey)) {
-                  game.overlays.add(InventoryDialog.overlayKey);
-                }
-              },
-              icon: const Icon(Icons.inventory),
+            const UnicornCounter(
+              isActive: true,
+              type: UnicornType.baby,
+              child: Text('1'),
             ),
-            IconButton(
-              onPressed: () {
-                _clearOverlays(except: SettingsDialog.overlayKey);
-                if (!game.overlays.isActive(SettingsDialog.overlayKey)) {
-                  game.overlays.add(SettingsDialog.overlayKey);
-                }
-              },
-              icon: const Icon(Icons.settings),
-            )
+            const SizedBox(width: 16),
+            const UnicornCounter(
+              isActive: true,
+              type: UnicornType.child,
+              child: Text('1'),
+            ),
+            const SizedBox(width: 16),
+            const UnicornCounter(
+              isActive: true,
+              type: UnicornType.teen,
+              child: Text('1'),
+            ),
+            const SizedBox(width: 16),
+            const UnicornCounter(
+              isActive: false,
+              type: UnicornType.adult,
+              child: Text('0'),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  _clearOverlays(except: InventoryDialog.overlayKey);
+                  if (!game.overlays.isActive(InventoryDialog.overlayKey)) {
+                    game.overlays.add(InventoryDialog.overlayKey);
+                  }
+                },
+                child: const Center(child: Text('Inventory PLACEHOLDER')),
+              ),
+            ),
           ],
         ),
       ),

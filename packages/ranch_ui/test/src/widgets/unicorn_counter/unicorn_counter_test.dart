@@ -7,16 +7,11 @@ import 'package:ranch_ui/ranch_ui.dart';
 void main() {
   group('UnicornCounter', () {
     testWidgets('renders baby counter', (tester) async {
-      await tester.pumpWidget(
-        const Center(
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: UnicornCounter(
-              isActive: true,
-              type: UnicornType.baby,
-              child: SizedBox(),
-            ),
-          ),
+      await tester.pumpUnicornCounter(
+        UnicornCounter(
+          isActive: true,
+          type: UnicornType.baby,
+          child: SizedBox(),
         ),
       );
 
@@ -27,16 +22,11 @@ void main() {
     });
 
     testWidgets('renders child counter', (tester) async {
-      await tester.pumpWidget(
-        const Center(
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: UnicornCounter(
-              isActive: true,
-              type: UnicornType.child,
-              child: SizedBox(),
-            ),
-          ),
+      await tester.pumpUnicornCounter(
+        UnicornCounter(
+          isActive: true,
+          type: UnicornType.child,
+          child: SizedBox(),
         ),
       );
 
@@ -47,16 +37,11 @@ void main() {
     });
 
     testWidgets('renders teen counter', (tester) async {
-      await tester.pumpWidget(
-        const Center(
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: UnicornCounter(
-              isActive: true,
-              type: UnicornType.teen,
-              child: SizedBox(),
-            ),
-          ),
+      await tester.pumpUnicornCounter(
+        UnicornCounter(
+          isActive: true,
+          type: UnicornType.teen,
+          child: SizedBox(),
         ),
       );
 
@@ -67,16 +52,11 @@ void main() {
     });
 
     testWidgets('renders adult counter', (tester) async {
-      await tester.pumpWidget(
-        const Center(
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: UnicornCounter(
-              isActive: true,
-              type: UnicornType.adult,
-              child: SizedBox(),
-            ),
-          ),
+      await tester.pumpUnicornCounter(
+        UnicornCounter(
+          isActive: true,
+          type: UnicornType.adult,
+          child: SizedBox(),
         ),
       );
 
@@ -87,16 +67,11 @@ void main() {
     });
 
     testWidgets('renders inactive counter', (tester) async {
-      await tester.pumpWidget(
-        const Center(
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: UnicornCounter(
-              isActive: false,
-              type: UnicornType.adult,
-              child: SizedBox(),
-            ),
-          ),
+      await tester.pumpUnicornCounter(
+        UnicornCounter(
+          isActive: false,
+          type: UnicornType.adult,
+          child: SizedBox(),
         ),
       );
 
@@ -107,7 +82,7 @@ void main() {
     });
 
     testWidgets('custom theme', (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpUnicornCounter(
         const UnicornCounterTheme(
           data: UnicornCounterThemeData(
             activeColor: Color(0xFF2A020B),
@@ -115,15 +90,10 @@ void main() {
             textStyle: TextStyle(),
             size: 20,
           ),
-          child: Center(
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: UnicornCounter(
-                isActive: true,
-                type: UnicornType.baby,
-                child: SizedBox(),
-              ),
-            ),
+          child: UnicornCounter(
+            isActive: true,
+            type: UnicornType.baby,
+            child: SizedBox(),
           ),
         ),
       );
@@ -133,7 +103,7 @@ void main() {
         matchesGoldenFile('golden/unicorn_counter/theme.png'),
       );
 
-      await tester.pumpWidget(
+      await tester.pumpUnicornCounter(
         const UnicornCounterTheme(
           data: UnicornCounterThemeData(
             activeColor: Color(0xFF2A020B),
@@ -141,15 +111,10 @@ void main() {
             textStyle: TextStyle(),
             size: 20,
           ),
-          child: Center(
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: UnicornCounter(
-                isActive: true,
-                type: UnicornType.baby,
-                child: SizedBox(),
-              ),
-            ),
+          child: UnicornCounter(
+            isActive: true,
+            type: UnicornType.baby,
+            child: SizedBox(),
           ),
         ),
       );
@@ -181,4 +146,25 @@ void main() {
       ),
     );
   });
+}
+
+extension on WidgetTester {
+  Future<void> pumpUnicornCounter(Widget widget) async {
+    await runAsync(() async {
+      await pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(
+            child: widget,
+          ),
+        ),
+      );
+      for (final element in find.byType(Image).evaluate()) {
+        final widget = element.widget as Image;
+        final image = widget.image;
+        await precacheImage(image, element);
+        await pumpAndSettle();
+      }
+    });
+  }
 }

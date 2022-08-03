@@ -19,27 +19,40 @@ class ConfettiComponent extends PositionComponent {
     final random = Random();
     final noiseValue = confettiSize / 2;
     final noise = Tween<double>(begin: -noiseValue, end: noiseValue);
-    const lifespan = .8;
+    const lifespan = .6;
 
     await addAll([
       for (var i = 0; i < Colors.accents.length; i++)
         ParticleSystemComponent(
           particle: Particle.generate(
-            lifespan: lifespan,
             count: 30,
+            lifespan: lifespan +
+                lifespan *
+                    min(
+                      0.4,
+                      random.nextDouble(),
+                    ),
             generator: (p) {
+              final xDirection = noise.transform(random.nextDouble());
               return MovingParticle(
                 curve: Curves.decelerate,
                 to: Vector2(
-                      noise.transform(random.nextDouble()),
+                      xDirection,
                       random.nextDouble() * -noiseValue,
                     ) *
                     p.toDouble(),
                 child: RotatingParticle(
+                  to: xDirection > 0
+                      ? -pi / 2
+                      : pi / 2,
                   child: ComponentParticle(
                     component: RectangleComponent(
                       anchor: Anchor.center,
-                      size: Vector2(confettiSize, confettiSize),
+                      size: Vector2(confettiSize, confettiSize) *
+                          max(
+                            0.2,
+                            random.nextDouble(),
+                          ),
                       paint: Paint()..color = Colors.accents[i],
                     ),
                   ),

@@ -15,7 +15,6 @@ import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/loading/loading.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -77,32 +76,6 @@ void main() {
       expect(find.byType(GamePage), findsOneWidget);
     });
 
-    testWidgets('overlays SettingsDialog', (tester) async {
-      await tester.runAsync(() async {
-        final settingsBloc = MockSettingsBloc();
-        when(() => settingsBloc.state).thenReturn(SettingsState());
-        final game = TestGame();
-
-        await tester.pumpApp(
-          GamePage(game: game),
-          gameBloc: gameBloc,
-          settingsBloc: settingsBloc,
-          preloadCubit: preloadCubit,
-        );
-
-        // These three lines of code is needed to ensure that the game is
-        // attached to the GameRenderBox.
-        game.pauseEngine();
-        await tester.pumpAndSettle();
-        game.resumeEngine();
-
-        await tester.tap(find.byIcon(Icons.settings));
-        await tester.pump();
-
-        expect(find.byType(SettingsDialog), findsOneWidget);
-      });
-    });
-
     testWidgets('overlays InventoryDialog', (tester) async {
       final inventoryBloc = MockInventoryBloc();
       when(() => inventoryBloc.state).thenReturn(InventoryState());
@@ -121,7 +94,7 @@ void main() {
       await tester.pumpAndSettle();
       game.resumeEngine();
 
-      await tester.tap(find.byIcon(Icons.inventory));
+      await tester.tap(find.byType(GestureDetector));
       await tester.pump();
 
       expect(find.byType(InventoryDialog), findsOneWidget);

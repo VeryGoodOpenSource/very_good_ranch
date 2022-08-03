@@ -3,8 +3,6 @@
 ///  FlutterGen
 /// *****************************************************
 
-// coverage:ignore-file
-// ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
@@ -22,6 +20,8 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/board.png
   AssetGenImage get board => const AssetGenImage('assets/images/board.png');
+
+  $AssetsImagesHeadsGen get heads => const $AssetsImagesHeadsGen();
 }
 
 class $AssetsFontsAnybodyGen {
@@ -57,6 +57,26 @@ class $AssetsFontsMouseMemoirsGen {
   String get ofl => 'assets/fonts/mouse_memoirs/OFL.txt';
 }
 
+class $AssetsImagesHeadsGen {
+  const $AssetsImagesHeadsGen();
+
+  /// File path: assets/images/heads/adult_head.png
+  AssetGenImage get adultHead =>
+      const AssetGenImage('assets/images/heads/adult_head.png');
+
+  /// File path: assets/images/heads/baby_head.png
+  AssetGenImage get babyHead =>
+      const AssetGenImage('assets/images/heads/baby_head.png');
+
+  /// File path: assets/images/heads/child_head.png
+  AssetGenImage get childHead =>
+      const AssetGenImage('assets/images/heads/child_head.png');
+
+  /// File path: assets/images/heads/teen_head.png
+  AssetGenImage get teenHead =>
+      const AssetGenImage('assets/images/heads/teen_head.png');
+}
+
 class Assets {
   Assets._();
 
@@ -64,23 +84,19 @@ class Assets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
-class AssetGenImage {
-  const AssetGenImage(this._assetName);
-
-  final String _assetName;
+class AssetGenImage extends AssetImage {
+  const AssetGenImage(String assetName) : super(assetName, package: 'ranch_ui');
 
   Image image({
     Key? key,
-    AssetBundle? bundle,
     ImageFrameBuilder? frameBuilder,
+    ImageLoadingBuilder? loadingBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
-    double? scale,
     double? width,
     double? height,
     Color? color,
-    Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
@@ -89,24 +105,19 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package = 'ranch_ui',
     FilterQuality filterQuality = FilterQuality.low,
-    int? cacheWidth,
-    int? cacheHeight,
   }) {
-    return Image.asset(
-      _assetName,
+    return Image(
       key: key,
-      bundle: bundle,
+      image: this,
       frameBuilder: frameBuilder,
+      loadingBuilder: loadingBuilder,
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
       excludeFromSemantics: excludeFromSemantics,
-      scale: scale,
       width: width,
       height: height,
       color: color,
-      opacity: opacity,
       colorBlendMode: colorBlendMode,
       fit: fit,
       alignment: alignment,
@@ -115,14 +126,9 @@ class AssetGenImage {
       matchTextDirection: matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
-      package: package,
       filterQuality: filterQuality,
-      cacheWidth: cacheWidth,
-      cacheHeight: cacheHeight,
     );
   }
 
-  String get path => _assetName;
-
-  String get keyName => 'packages/ranch_ui/$_assetName';
+  String get path => assetName;
 }

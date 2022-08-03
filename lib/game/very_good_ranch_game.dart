@@ -24,13 +24,17 @@ class VeryGoodRanchGame extends FlameGame
     required this.l10n,
     UnprefixedImages? images,
     @visibleForTesting bool debugMode = false,
+    EdgeInsets viewPadding = EdgeInsets.zero,
   })  : _images = images ?? UnprefixedImages(),
+        _viewPadding = viewPadding,
         _debugMode = debugMode,
         seed = seed ?? Random();
 
   static const _virtualWidth = 800.0;
 
   final UnprefixedImages _images;
+
+  final EdgeInsets _viewPadding;
 
   @override
   UnprefixedImages get images => _images;
@@ -50,7 +54,7 @@ class VeryGoodRanchGame extends FlameGame
   bool get debugMode => _debugMode;
 
   @override
-  Color backgroundColor() => const Color(0xFF52C1B1);
+  Color backgroundColor() => Colors.transparent;
 
   int get score => 0;
 
@@ -74,6 +78,7 @@ class VeryGoodRanchGame extends FlameGame
         ],
         children: [
           background = BackgroundComponent(
+            viewPadding: _viewPadding,
             children: [
               FoodSpawner(seed: seed),
               UnicornSpawner(seed: seed),

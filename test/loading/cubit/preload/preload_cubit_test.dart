@@ -4,24 +4,37 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/gen/assets.gen.dart' as components_assets;
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
 class MockUnprefixedImages extends Mock implements UnprefixedImages {}
+
+class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('PreloadCubit', () {
     test('can be instantiated', () {
-      expect(PreloadCubit(UnprefixedImages()), isA<PreloadCubit>());
+      expect(
+        PreloadCubit(
+          UnprefixedImages(),
+          RanchSoundPlayer(),
+        ),
+        isA<PreloadCubit>(),
+      );
     });
     test('can be instantiated with images', () {
       final images = UnprefixedImages();
-      expect(PreloadCubit(images).images, images);
+      final sounds = RanchSoundPlayer();
+      expect(PreloadCubit(images, sounds).images, images);
     });
     test('can be instantiated with initial state', () {
-      final prelaodCubit = PreloadCubit(UnprefixedImages());
+      final prelaodCubit = PreloadCubit(
+        UnprefixedImages(),
+        RanchSoundPlayer(),
+      );
       expect(prelaodCubit.state, const PreloadState.initial());
     });
 
@@ -32,12 +45,20 @@ void main() {
           () => images.loadAll(any()),
         ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
 
-        final cubit = PreloadCubit(images);
+        final sounds = MockRanchSoundPlayer();
+        when(sounds.preloadAssets).thenAnswer((Invocation invocation) async {});
+
+        final cubit = PreloadCubit(images, sounds);
 
         final future = cubit.loadSequentially();
 
         // Each phase is called in the next tick, so we need to settle first.
         await tester.pumpAndSettle(const Duration(microseconds: 1));
+
+        verify(sounds.preloadAssets).called(1);
+        expect(cubit.state.isComplete, false);
+        expect(cubit.state.currentLabel, 'sounds');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         verify(
           () => images.loadAll(

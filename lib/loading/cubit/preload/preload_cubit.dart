@@ -2,17 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
 class PreloadCubit extends Cubit<PreloadState> {
-  PreloadCubit(this.images) : super(const PreloadState.initial());
+  PreloadCubit(this.images, this.sounds) : super(const PreloadState.initial());
 
   final UnprefixedImages images;
+  final RanchSoundPlayer sounds;
 
   /// Load items sequentially allows display of what is being loaded
   Future<void> loadSequentially() async {
     final phases = <PreloadPhase>[
+      PreloadPhase('sounds', sounds.preloadAssets),
       PreloadPhase('counter', () => UnicornCounter.preloadAssets(images)),
       PreloadPhase(
         'environment',
@@ -31,6 +34,12 @@ class PreloadCubit extends Cubit<PreloadState> {
       ]);
       emit(state.onFinishPhase());
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await sounds.dispose();
+    return super.close();
   }
 }
 

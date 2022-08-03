@@ -13,5 +13,7 @@ void main() {
 
   addClipComponentStories(dashbook);
 
+  addConfettiComponentStories(dashbook);
+
   runApp(dashbook);
 }

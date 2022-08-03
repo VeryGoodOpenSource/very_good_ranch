@@ -9,29 +9,34 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class ConfettiComponent extends PositionComponent {
   /// {@macro confetti_component}
-  ConfettiComponent({super.position, required this.confettiSize});
+  ConfettiComponent({
+    super.position,
+    required this.confettiSize,
+    this.maxLifespan = .8,
+  });
 
   /// The size of the confetti.
   final double confettiSize;
+
+  /// The max possible lifespan value of a confetti particle. (In seconds).
+  final double maxLifespan;
 
   @override
   Future<void> onLoad() async {
     final random = Random();
     final noiseValue = confettiSize / 2;
     final noise = Tween<double>(begin: -noiseValue, end: noiseValue);
-    const lifespan = .6;
 
     await addAll([
       for (var i = 0; i < Colors.accents.length; i++)
         ParticleSystemComponent(
           particle: Particle.generate(
             count: 30,
-            lifespan: lifespan +
-                lifespan *
-                    min(
-                      0.4,
-                      random.nextDouble(),
-                    ),
+            lifespan: (maxLifespan * .6) +
+                min(
+                  maxLifespan * .4,
+                  random.nextDouble() * maxLifespan,
+                ),
             generator: (p) {
               final xDirection = noise.transform(random.nextDouble());
               return MovingParticle(

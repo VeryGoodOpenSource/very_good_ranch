@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/loading/loading.dart';
@@ -18,10 +19,13 @@ import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
+class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
+
 void main() {
   group('GamePage', () {
     late GameBloc gameBloc;
     late PreloadCubit preloadCubit;
+    late MockRanchSoundPlayer sounds;
 
     setUp(() {
       gameBloc = MockGameBloc();
@@ -29,6 +33,14 @@ void main() {
 
       preloadCubit = MockPreloadCubit();
       when(() => preloadCubit.images).thenReturn(UnprefixedImages());
+
+      when(() => preloadCubit.sounds)
+          .thenReturn(sounds = MockRanchSoundPlayer());
+      when(sounds.preloadAssets).thenAnswer((Invocation invocation) async {});
+      when(() => sounds.play(RanchSounds.gameBackground))
+          .thenAnswer((Invocation invocation) async {});
+      when(() => sounds.stop(RanchSounds.gameBackground))
+          .thenAnswer((Invocation invocation) async {});
     });
 
     testWidgets('renders GameView', (tester) async {

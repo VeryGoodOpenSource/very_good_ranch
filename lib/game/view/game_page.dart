@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
@@ -51,36 +52,40 @@ class _GamePageState extends State<GamePage> {
           viewPadding: MediaQuery.of(context).viewPadding,
         );
 
-    return GameViewport(
-      child: Scaffold(
-        body: DecoratedBox(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF46B2A0),
-                Color(0xFF92DED3),
-                Color(0xFF92DED3),
-                Color(0xFF46B2A0),
-              ],
-              stops: [
-                0.0,
-                0.15,
-                0.85,
-                1.0,
+    return BackgroundSoundWidget(
+      ranchSound: RanchSounds.gameBackground,
+      player: context.read<PreloadCubit>().sounds,
+      child: GameViewport(
+        child: Scaffold(
+          body: DecoratedBox(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF46B2A0),
+                  Color(0xFF92DED3),
+                  Color(0xFF92DED3),
+                  Color(0xFF46B2A0),
+                ],
+                stops: [
+                  0.0,
+                  0.15,
+                  0.85,
+                  1.0,
+                ],
+              ),
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ClipRect(
+                    child: GameView(game: _game!),
+                  ),
+                ),
+                FooterWidget(game: _game!),
               ],
             ),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: ClipRect(
-                  child: GameView(game: _game!),
-                ),
-              ),
-              FooterWidget(game: _game!),
-            ],
           ),
         ),
       ),

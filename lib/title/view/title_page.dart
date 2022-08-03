@@ -23,8 +23,9 @@ class TitlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _PageSoundBackground(
+    return BackgroundSoundWidget(
       ranchSound: RanchSounds.startBackground,
+      player: context.read<PreloadCubit>().sounds,
       child: GameViewport(
         child: Scaffold(
           body: Stack(
@@ -38,53 +39,6 @@ class TitlePage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _PageSoundBackground extends StatefulWidget {
-  const _PageSoundBackground({
-    required this.ranchSound,
-    required this.child,
-  });
-
-  final RanchSounds ranchSound;
-
-  final Widget child;
-
-  @override
-  State<_PageSoundBackground> createState() => _PageSoundBackgroundState();
-}
-
-class _PageSoundBackgroundState extends State<_PageSoundBackground> {
-  RanchSoundPlayer? player;
-
-  bool playingSound = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (this.player != null) {
-      return;
-    }
-    final player = this.player = context.read<PreloadCubit>().sounds;
-
-    playingSound = true;
-    player.play(widget.ranchSound);
-  }
-
-  @override
-  void dispose() {
-    final playingSound = this.playingSound;
-    final player = this.player;
-    if (player != null && playingSound) {
-      player.stop(widget.ranchSound);
-    }
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
   }
 }
 

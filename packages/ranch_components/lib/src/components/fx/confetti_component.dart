@@ -42,9 +42,7 @@ class ConfettiComponent extends PositionComponent {
                     ) *
                     p.toDouble(),
                 child: RotatingParticle(
-                  to: xDirection > 0
-                      ? -pi / 2
-                      : pi / 2,
+                  to: xDirection > 0 ? -pi / 2 : pi / 2,
                   child: ComponentParticle(
                     component: RectangleComponent(
                       anchor: Anchor.center,

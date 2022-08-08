@@ -15,5 +15,7 @@ void main() {
 
   addConfettiComponentStories(dashbook);
 
+  addRainbowDropStories(dashbook);
+
   runApp(dashbook);
 }

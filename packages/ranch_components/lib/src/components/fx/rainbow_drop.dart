@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -15,10 +14,11 @@ class RainbowDrop extends PositionComponent with HasGameRef {
   RainbowDrop({
     /// The position that the [target] will be "dropped".
     required Vector2 position,
+
     /// The target that the drop will "carry" into the game.
     required PositionComponent target,
-  }) : _target = target,
-    super(position: position, anchor: Anchor.bottomCenter);
+  })  : _target = target,
+        super(position: position, anchor: Anchor.bottomCenter);
 
   final PositionComponent _target;
 
@@ -34,11 +34,11 @@ class RainbowDrop extends PositionComponent with HasGameRef {
   @override
   Future<void> onLoad() async {
     final targetY = y;
-    height = gameRef.size.y - position.y;
+    height = gameRef.size.y + position.y;
     y = -height;
 
-    const segmentSize = 4.0;
     const baseTime = .4;
+    final segmentSize = _target.size.y / _colors.length;
 
     unawaited(
       Future<void>.delayed(const Duration(milliseconds: 500)).then((_) {
@@ -46,6 +46,7 @@ class RainbowDrop extends PositionComponent with HasGameRef {
           ConfettiComponent(
             position: position + Vector2(_target.size.x / 2, 0),
             confettiSize: segmentSize,
+            priority: _target.priority + 1,
           ),
         );
       }),

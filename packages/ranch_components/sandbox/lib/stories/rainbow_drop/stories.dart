@@ -1,8 +1,8 @@
-import 'dart:ui';
-
 import 'package:dashbook/dashbook.dart';
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 
 class _RainbowDropGame extends FlameGame with TapDetector {
@@ -14,7 +14,10 @@ class _RainbowDropGame extends FlameGame with TapDetector {
     add(
       RainbowDrop(
         position: info.eventPosition.game,
-        target: BabyUnicornComponent(),
+        target: RectangleComponent.square(
+          size: 50,
+          paint: Paint()..color = Colors.blue,
+        ),
       ),
     );
   }

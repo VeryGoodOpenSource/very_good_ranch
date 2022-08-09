@@ -70,7 +70,7 @@ void main() {
             (e) => Unicorn.test(
               unicornComponent: e.componentForEvolutionStage,
               position: Vector2.zero(),
-              behaviors: [EvolutionBehavior()],
+              behaviors: [EvolvingBehavior()],
             ),
           ),
         );

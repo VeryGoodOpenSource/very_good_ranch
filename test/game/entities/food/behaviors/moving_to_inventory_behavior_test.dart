@@ -26,7 +26,7 @@ void main() {
 
   final flameTester = FlameTester(TestGame.new);
 
-  group('MoveToInventoryBehavior', () {
+  group('MovingToInventoryBehavior', () {
     flameTester.testGameWidget(
       'move to inventory on double tap',
       setUp: (game, tester) async {
@@ -34,7 +34,7 @@ void main() {
           flameBlocProvider(
             gameBloc: gameBloc,
             inventoryBloc: inventoryBloc,
-            child: Food.test(behaviors: [MoveToInventoryBehavior()]),
+            child: Food.test(behaviors: [MovingToInventoryBehavior()]),
           ),
         );
         await game.ready();

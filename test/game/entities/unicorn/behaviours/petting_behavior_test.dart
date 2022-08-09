@@ -15,7 +15,7 @@ class _MockUnicornPercentage extends Mock implements UnicornPercentage {}
 void main() {
   final flameTester = FlameTester(TestGame.new);
 
-  group('PetBehavior', () {
+  group('PettingBehavior', () {
     group('increases enjoyment', () {
       late UnicornPercentage enjoyment;
       setUp(() {
@@ -27,12 +27,12 @@ void main() {
         flameTester.testGameWidget(
           'for $evolutionStage',
           setUp: (game, tester) async {
-            final petBehavior = PetBehavior();
+            final pettingBehavior = PettingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
               unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
-                petBehavior,
+                pettingBehavior,
               ],
               enjoyment: enjoyment,
             );
@@ -61,11 +61,11 @@ void main() {
       flameTester.testGameWidget(
         'throttle prevents multiple taps',
         setUp: (game, tester) async {
-          final petBehavior = PetBehavior();
+          final pettingBehavior = PettingBehavior();
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
-              petBehavior,
+              pettingBehavior,
             ],
             enjoyment: enjoyment,
           );
@@ -77,13 +77,13 @@ void main() {
           verify(() => enjoyment.increaseBy(0.2)).called(1);
 
           // Do not wait full throttle time, pet again
-          game.update(PetBehavior.petThrottleDuration / 2);
+          game.update(PettingBehavior.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
 
           verifyNever(() => enjoyment.increaseBy(0.2));
 
           // Await for the rest of the throttle time, pet again
-          game.update(PetBehavior.petThrottleDuration / 2);
+          game.update(PettingBehavior.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
 
           /// Flush long press gesture timer

@@ -39,27 +39,27 @@ void main() {
     ),
   );
 
-  group('FoodCollisionBehavior', () {
+  group('FoodCollidingBehavior', () {
     test('does not remove the food while it is being dragged', () {
-      final foodCollisionBehavior = FoodCollisionBehavior();
+      final foodCollidingBehavior = FoodCollidingBehavior();
       final food = _MockFood();
 
       when(() => food.wasDragged).thenReturn(false);
       when(() => food.beingDragged).thenReturn(true);
 
-      foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+      foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
       verifyNever(food.removeFromParent);
     });
 
     test('does not remove the food while it was not being dragged before', () {
-      final foodCollisionBehavior = FoodCollisionBehavior();
+      final foodCollidingBehavior = FoodCollidingBehavior();
       final food = _MockFood();
 
       when(() => food.wasDragged).thenReturn(false);
       when(() => food.beingDragged).thenReturn(false);
 
-      foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+      foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
       verifyNever(food.removeFromParent);
     });
@@ -67,11 +67,11 @@ void main() {
     flameTester.test(
       'does not remove the food while unicorn is leaving',
       (game) async {
-        final foodCollisionBehavior = FoodCollisionBehavior();
+        final foodCollidingBehavior = FoodCollidingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
-            foodCollisionBehavior,
+            foodCollidingBehavior,
           ],
         )..isLeaving = true;
         await game.ensureAdd(unicorn);
@@ -79,7 +79,7 @@ void main() {
         final food = _MockFood();
         when(() => food.wasDragged).thenReturn(false);
         when(() => food.beingDragged).thenReturn(false);
-        foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+        foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
         verifyNever(food.removeFromParent);
       },
@@ -88,12 +88,12 @@ void main() {
     flameTester.test(
       'removes the food from parent when it was dragged',
       (game) async {
-        final foodCollisionBehavior = FoodCollisionBehavior();
+        final foodCollidingBehavior = FoodCollidingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: ChildUnicornComponent(),
           behaviors: [
-            foodCollisionBehavior,
+            foodCollidingBehavior,
           ],
         )..isLeaving = false;
         await game.ensureAdd(unicorn);
@@ -102,7 +102,7 @@ void main() {
         when(() => food.beingDragged).thenReturn(false);
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.type).thenReturn(FoodType.lollipop);
-        foodCollisionBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+        foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
         verify(food.removeFromParent).called(1);
       },
@@ -118,12 +118,12 @@ void main() {
 
             final enjoyment = _MockUnicornPercentage();
 
-            final foodCollisionBehavior = FoodCollisionBehavior();
+            final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
               unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
-                foodCollisionBehavior,
+                foodCollidingBehavior,
               ],
               enjoyment: enjoyment,
             )..isLeaving = false;
@@ -135,7 +135,7 @@ void main() {
             when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
 
-            foodCollisionBehavior.onCollision({Vector2.zero()}, food);
+            foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
             verify(() => enjoyment.increaseBy(0.3)).called(1);
           });
@@ -145,12 +145,12 @@ void main() {
       flameTester.test('with the wrong type of food', (game) async {
         final enjoyment = _MockUnicornPercentage();
 
-        final foodCollisionBehavior = FoodCollisionBehavior();
+        final foodCollidingBehavior = FoodCollidingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: ChildUnicornComponent(),
           behaviors: [
-            foodCollisionBehavior,
+            foodCollidingBehavior,
           ],
           enjoyment: enjoyment,
         )..isLeaving = false;
@@ -162,7 +162,7 @@ void main() {
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
 
-        foodCollisionBehavior.onCollision({Vector2.zero()}, food);
+        foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
         verify(() => enjoyment.increaseBy(-0.1)).called(1);
       });
@@ -182,12 +182,12 @@ void main() {
 
             final fullness = _MockUnicornPercentage();
 
-            final foodCollisionBehavior = FoodCollisionBehavior();
+            final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
               unicornComponent: evolutionStage.componentForEvolutionStage,
               behaviors: [
-                foodCollisionBehavior,
+                foodCollidingBehavior,
               ],
               fullness: fullness,
             );
@@ -199,7 +199,7 @@ void main() {
             when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
 
-            foodCollisionBehavior.onCollision({Vector2.zero()}, food);
+            foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
             verify(() => fullness.increaseBy(fullnessResult)).called(1);
           });
@@ -209,10 +209,10 @@ void main() {
 
     group('feeding unicorn impacts times fed', () {
       flameTester.test('summing one up', (game) async {
-        final foodCollisionBehavior = FoodCollisionBehavior();
+        final foodCollidingBehavior = FoodCollidingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
-          behaviors: [foodCollisionBehavior],
+          behaviors: [foodCollidingBehavior],
         );
 
         await game.ensureAdd(unicorn);
@@ -224,7 +224,7 @@ void main() {
 
         expect(unicorn.timesFed, 0);
 
-        foodCollisionBehavior.onCollision({Vector2.zero()}, food);
+        foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
         expect(unicorn.timesFed, 1);
       });

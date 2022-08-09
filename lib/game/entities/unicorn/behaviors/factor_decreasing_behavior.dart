@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
-abstract class FactorBehavior extends Behavior<Unicorn> {
-  FactorBehavior(
+abstract class FactorDecreasingBehavior extends Behavior<Unicorn> {
+  FactorDecreasingBehavior(
     this.gaugeComponent,
     this._innerSpacing,
   ) : super(children: [gaugeComponent]);

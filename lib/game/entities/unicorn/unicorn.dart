@@ -7,6 +7,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
+import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
 enum UnicornEvolutionStage {
   baby,
@@ -44,7 +45,7 @@ extension UnicornEvolutionStageX on UnicornEvolutionStage {
   }
 }
 
-class Unicorn extends Entity with Steerable {
+class Unicorn extends Entity with Steerable, HasGameRef<VeryGoodRanchGame> {
   factory Unicorn({
     required Vector2 position,
     UnicornComponent? unicornComponent,
@@ -124,6 +125,8 @@ class Unicorn extends Entity with Steerable {
   /// A state that describes the percentage of enjoyment of the unicorn
   final UnicornPercentage enjoyment;
 
+  late final WanderBehavior _wanderBehavior;
+
   /// [enjoyment] and [fullness] composes the overall happiness of
   /// the unicorn which is used to define if it should leave or evolve.
   ///
@@ -153,6 +156,16 @@ class Unicorn extends Entity with Steerable {
 
   set state(UnicornState? state) => _unicornComponent.state = state;
 
+  @override
+  Future<void> onLoad() async {
+    _wanderBehavior = WanderBehavior(
+      circleDistance: 10,
+      maximumAngle: 15 * degrees2Radians,
+      startingAngle: 0,
+      random: gameRef.seed,
+    );
+  }
+
   void reset() {
     timesFed = 0;
     fullness.reset();
@@ -174,6 +187,20 @@ class Unicorn extends Entity with Steerable {
     timesFed++;
 
     food.removeFromParent();
+  }
+
+  void startWalking() {
+    state = UnicornState.walking;
+    if (!hasBehavior<WanderBehavior>()) {
+      add(_wanderBehavior);
+    }
+  }
+
+  void stopWalking() {
+    if (hasBehavior<WanderBehavior>()) {
+      _wanderBehavior.removeFromParent();
+    }
+    state = UnicornState.idle;
   }
 }
 

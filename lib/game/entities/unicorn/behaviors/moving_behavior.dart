@@ -7,7 +7,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
 
-class MovementBehavior extends Behavior<Unicorn>
+class MovingBehavior extends Behavior<Unicorn>
     with HasGameRef<VeryGoodRanchGame> {
   late final WanderBehavior _wanderBehavior;
 

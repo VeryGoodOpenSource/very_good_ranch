@@ -17,12 +17,12 @@ void main() {
   group('FullnessDecreasingBehavior', () {
     group('decreases fullness', () {
       flameTester.test('for a baby unicorn', (game) async {
-        final fullnessBehavior = FullnessDecreasingBehavior();
+        final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: BabyUnicornComponent(),
           behaviors: [
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -33,12 +33,12 @@ void main() {
       });
 
       flameTester.test('for a child unicorn', (game) async {
-        final fullnessBehavior = FullnessDecreasingBehavior();
+        final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: ChildUnicornComponent(),
           behaviors: [
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -49,12 +49,12 @@ void main() {
       });
 
       flameTester.test('for a teenager unicorn', (game) async {
-        final fullnessBehavior = FullnessDecreasingBehavior();
+        final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: TeenUnicornComponent(),
           behaviors: [
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -65,12 +65,12 @@ void main() {
       });
 
       flameTester.test('for an adult unicorn', (game) async {
-        final fullnessBehavior = FullnessDecreasingBehavior();
+        final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: AdultUnicornComponent(),
           behaviors: [
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -85,24 +85,24 @@ void main() {
       flameTester.testGameWidget(
         'with the right color and size',
         setUp: (game, tester) async {
-          final fullnessBehavior = FullnessDecreasingBehavior();
+          final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.all(100),
             behaviors: [
-              fullnessBehavior,
+              fullnessDecreasingBehavior,
             ],
           );
           await game.ensureAdd(unicorn);
           unicorn.fullness.value = 1.0;
-          fullnessBehavior.makeGaugeTemporarilyVisible();
+          fullnessDecreasingBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
-          final fullnessBehavior =
+          final fullnessDecreasingBehavior =
               game.descendants().whereType<FullnessDecreasingBehavior>().first;
           final unicorn = game.descendants().whereType<Unicorn>().first;
           expect(
-            fullnessBehavior.gaugeComponent.diameter,
+            fullnessDecreasingBehavior.gaugeComponent.diameter,
             unicorn.size.x + FullnessDecreasingBehavior.innerSpacing,
           );
           await expectLater(

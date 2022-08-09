@@ -15,7 +15,7 @@ import '../../../../helpers/helpers.dart';
 class _MockEnjoymentDecreasingBehavior extends Mock
     implements EnjoymentDecreasingBehavior {}
 
-class _MockFullnessBehavior extends Mock implements FullnessDecreasingBehavior {}
+class _MockFullnessDecreasingBehavior extends Mock implements FullnessDecreasingBehavior {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +43,7 @@ void main() {
     group('evolves the unicorn', () {
       flameTester.test('from baby to kid', (game) async {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
-        final fullnessBehavior = _MockFullnessBehavior();
+        final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
         final evolvingBehavior = EvolvingBehavior();
 
@@ -51,7 +51,7 @@ void main() {
           position: Vector2.zero(),
           behaviors: [
             enjoymentDecreasingBehavior,
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
             evolvingBehavior,
           ],
         );
@@ -72,7 +72,7 @@ void main() {
 
       flameTester.test('from kid to teenager', (game) async {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
-        final fullnessBehavior = _MockFullnessBehavior();
+        final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
         final evolvingBehavior = EvolvingBehavior();
 
@@ -82,7 +82,7 @@ void main() {
           behaviors: [
             evolvingBehavior,
             enjoymentDecreasingBehavior,
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
           ],
         );
         await game.ready();
@@ -102,7 +102,7 @@ void main() {
 
       flameTester.test('from teenager to adult', (game) async {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
-        final fullnessBehavior = _MockFullnessBehavior();
+        final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
         final evolvingBehavior = EvolvingBehavior();
 
@@ -112,7 +112,7 @@ void main() {
           behaviors: [
             evolvingBehavior,
             enjoymentDecreasingBehavior,
-            fullnessBehavior,
+            fullnessDecreasingBehavior,
           ],
         );
         await game.ready();
@@ -136,7 +136,7 @@ void main() {
         (game) async {
           final enjoymentDecreasingBehavior =
               _MockEnjoymentDecreasingBehavior();
-          final fullnessBehavior = _MockFullnessBehavior();
+          final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
           final evolvingBehavior = EvolvingBehavior();
 
@@ -146,7 +146,7 @@ void main() {
             behaviors: [
               evolvingBehavior,
               enjoymentDecreasingBehavior,
-              fullnessBehavior,
+              fullnessDecreasingBehavior,
             ],
           );
           await game.ready();
@@ -170,7 +170,7 @@ void main() {
         (game) async {
           final enjoymentDecreasingBehavior =
               _MockEnjoymentDecreasingBehavior();
-          final fullnessBehavior = _MockFullnessBehavior();
+          final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
           final evolvingBehavior = EvolvingBehavior();
 
@@ -180,7 +180,7 @@ void main() {
             behaviors: [
               evolvingBehavior,
               enjoymentDecreasingBehavior,
-              fullnessBehavior,
+              fullnessDecreasingBehavior,
             ],
           );
           await game.ready();
@@ -204,7 +204,7 @@ void main() {
         (game) async {
           final enjoymentDecreasingBehavior =
               _MockEnjoymentDecreasingBehavior();
-          final fullnessBehavior = _MockFullnessBehavior();
+          final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
           final evolvingBehavior = EvolvingBehavior();
 
@@ -214,7 +214,7 @@ void main() {
             behaviors: [
               evolvingBehavior,
               enjoymentDecreasingBehavior,
-              fullnessBehavior,
+              fullnessDecreasingBehavior,
             ],
           );
           await game.ready();
@@ -239,7 +239,7 @@ void main() {
         (game) async {
           final enjoymentDecreasingBehavior =
               _MockEnjoymentDecreasingBehavior();
-          final fullnessBehavior = _MockFullnessBehavior();
+          final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
           final evolvingBehavior = EvolvingBehavior();
 
@@ -249,7 +249,7 @@ void main() {
             behaviors: [
               evolvingBehavior,
               enjoymentDecreasingBehavior,
-              fullnessBehavior,
+              fullnessDecreasingBehavior,
             ],
           );
           await game.ready();

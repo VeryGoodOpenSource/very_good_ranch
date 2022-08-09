@@ -45,22 +45,22 @@ void main() {
     ),
   );
 
-  group('MovementBehavior', () {
+  group('MovingBehavior', () {
     group('roaming', () {
       flameTester.test('roams towards direction', (game) async {
-        final movementBehavior = MovementBehavior();
+        final movingBehavior = MovingBehavior();
         final pastureTop = game.background.pastureField.topLeft.toVector2();
 
         final unicorn = Unicorn.test(
           position: pastureTop,
           behaviors: [
-            movementBehavior,
+            movingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
 
         when(seed.nextDouble).thenReturn(0);
-        movementBehavior.simulateTick();
+        movingBehavior.simulateTick();
         expect(unicorn.state, UnicornState.walking);
         await game.ready();
 
@@ -77,7 +77,7 @@ void main() {
 
       group('starts idling ', () {
         flameTester.test('when randomness decides so', (game) async {
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final pastureTop = game.background.pastureField.top;
           final pastureLeft = game.background.pastureField.left;
@@ -85,7 +85,7 @@ void main() {
           final unicorn = Unicorn.test(
             position: Vector2(pastureLeft + 20, pastureTop),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           await game.ensureAdd(unicorn);
@@ -104,21 +104,21 @@ void main() {
         });
 
         flameTester.test('if left border is reached', (game) async {
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final pastureLeft = game.background.pastureField.left;
 
           final unicorn = Unicorn.test(
             position: Vector2(pastureLeft, game.size.y / 2),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.velocity.x = -10;
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
-          movementBehavior.simulateTick();
+          movingBehavior.simulateTick();
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
@@ -136,21 +136,21 @@ void main() {
         });
 
         flameTester.test('if top border is reached', (game) async {
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final pastureTop = game.background.pastureField.top;
 
           final unicorn = Unicorn.test(
             position: Vector2(game.size.x / 2, pastureTop),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.velocity.y = -10;
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
-          movementBehavior.simulateTick();
+          movingBehavior.simulateTick();
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
@@ -168,21 +168,21 @@ void main() {
         });
 
         flameTester.test('if bottom border is reached', (game) async {
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final pastureBottom = game.background.pastureField.bottom;
 
           final unicorn = Unicorn.test(
             position: Vector2(game.size.x / 2, pastureBottom),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.velocity.y = 10;
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
-          movementBehavior.simulateTick();
+          movingBehavior.simulateTick();
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
@@ -200,13 +200,13 @@ void main() {
         });
 
         flameTester.test('if right border is reached', (game) async {
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
           final pastureRight = game.background.pastureField.right;
 
           final unicorn = Unicorn.test(
             position: Vector2(pastureRight, game.size.y / 2),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.velocity.x = 10;
@@ -214,7 +214,7 @@ void main() {
           await game.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
-          movementBehavior.simulateTick();
+          movingBehavior.simulateTick();
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
 
@@ -238,12 +238,12 @@ void main() {
         when(() => seed.nextBool()).thenReturn(true);
         when(() => seed.nextDouble()).thenReturn(0.25);
 
-        final movementBehavior = MovementBehavior();
+        final movingBehavior = MovingBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
-            movementBehavior,
+            movingBehavior,
           ],
         );
         await game.ensureAdd(unicorn);
@@ -258,12 +258,12 @@ void main() {
       flameTester.test('sets state to idle', (game) async {
         when(() => seed.nextDouble()).thenReturn(1);
 
-        final movementBehavior = MovementBehavior();
+        final movingBehavior = MovingBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
-            movementBehavior,
+            movingBehavior,
           ],
         );
 
@@ -281,12 +281,12 @@ void main() {
           when(() => seed.nextBool()).thenReturn(true);
           when(() => seed.nextDouble()).thenReturn(0.25);
 
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.unicornComponent.transform.scale.x = 1;
@@ -303,12 +303,12 @@ void main() {
           when(() => seed.nextBool()).thenReturn(false);
           when(() => seed.nextDouble()).thenReturn(0.25);
 
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.unicornComponent.transform.scale.x = -1;
@@ -325,12 +325,12 @@ void main() {
           when(() => seed.nextBool()).thenReturn(true);
           when(() => seed.nextDouble()).thenReturn(0);
 
-          final movementBehavior = MovementBehavior();
+          final movingBehavior = MovingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             behaviors: [
-              movementBehavior,
+              movingBehavior,
             ],
           );
           unicorn.unicornComponent.transform.scale.x = -1;

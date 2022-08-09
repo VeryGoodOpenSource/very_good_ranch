@@ -13,6 +13,7 @@ class ConfettiComponent extends PositionComponent {
     super.position,
     required this.confettiSize,
     this.maxLifespan = .8,
+    super.priority,
   });
 
   /// The size of the confetti.

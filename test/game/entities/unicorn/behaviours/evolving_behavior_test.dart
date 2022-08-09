@@ -45,21 +45,21 @@ void main() {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
         final fullnessBehavior = _MockFullnessBehavior();
 
-        final evolutionBehavior = EvolutionBehavior();
+        final evolvingBehavior = EvolvingBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           behaviors: [
             enjoymentDecreasingBehavior,
             fullnessBehavior,
-            evolutionBehavior,
+            evolvingBehavior,
           ],
         );
         await game.ready();
         await game.ensureAdd(unicorn);
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
-        unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+        unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
 
         unicorn.enjoyment.value = 1;
         unicorn.fullness.value = 1;
@@ -74,13 +74,13 @@ void main() {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
         final fullnessBehavior = _MockFullnessBehavior();
 
-        final evolutionBehavior = EvolutionBehavior();
+        final evolvingBehavior = EvolvingBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: ChildUnicornComponent(),
           behaviors: [
-            evolutionBehavior,
+            evolvingBehavior,
             enjoymentDecreasingBehavior,
             fullnessBehavior,
           ],
@@ -90,7 +90,7 @@ void main() {
         await game.ready();
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
-        unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+        unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
         unicorn.enjoyment.value = 1;
         unicorn.fullness.value = 1;
 
@@ -104,13 +104,13 @@ void main() {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
         final fullnessBehavior = _MockFullnessBehavior();
 
-        final evolutionBehavior = EvolutionBehavior();
+        final evolvingBehavior = EvolvingBehavior();
 
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
           unicornComponent: TeenUnicornComponent(),
           behaviors: [
-            evolutionBehavior,
+            evolvingBehavior,
             enjoymentDecreasingBehavior,
             fullnessBehavior,
           ],
@@ -120,7 +120,7 @@ void main() {
         game.update(5);
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
-        unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+        unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
 
         unicorn.enjoyment.value = 1;
         unicorn.fullness.value = 1;
@@ -138,13 +138,13 @@ void main() {
               _MockEnjoymentDecreasingBehavior();
           final fullnessBehavior = _MockFullnessBehavior();
 
-          final evolutionBehavior = EvolutionBehavior();
+          final evolvingBehavior = EvolvingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             unicornComponent: AdultUnicornComponent(),
             behaviors: [
-              evolutionBehavior,
+              evolvingBehavior,
               enjoymentDecreasingBehavior,
               fullnessBehavior,
             ],
@@ -153,7 +153,7 @@ void main() {
           await game.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
-          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+          unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
 
           unicorn.enjoyment.value = 1;
           unicorn.fullness.value = 1;
@@ -161,7 +161,7 @@ void main() {
           game.update(0);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
-          expect(unicorn.timesFed, EvolutionBehavior.timesThatMustBeFed);
+          expect(unicorn.timesFed, EvolvingBehavior.timesThatMustBeFed);
         },
       );
 
@@ -172,13 +172,13 @@ void main() {
               _MockEnjoymentDecreasingBehavior();
           final fullnessBehavior = _MockFullnessBehavior();
 
-          final evolutionBehavior = EvolutionBehavior();
+          final evolvingBehavior = EvolvingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             unicornComponent: ChildUnicornComponent(),
             behaviors: [
-              evolutionBehavior,
+              evolvingBehavior,
               enjoymentDecreasingBehavior,
               fullnessBehavior,
             ],
@@ -206,13 +206,13 @@ void main() {
               _MockEnjoymentDecreasingBehavior();
           final fullnessBehavior = _MockFullnessBehavior();
 
-          final evolutionBehavior = EvolutionBehavior();
+          final evolvingBehavior = EvolvingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             unicornComponent: ChildUnicornComponent(),
             behaviors: [
-              evolutionBehavior,
+              evolvingBehavior,
               enjoymentDecreasingBehavior,
               fullnessBehavior,
             ],
@@ -241,13 +241,13 @@ void main() {
               _MockEnjoymentDecreasingBehavior();
           final fullnessBehavior = _MockFullnessBehavior();
 
-          final evolutionBehavior = EvolutionBehavior();
+          final evolvingBehavior = EvolvingBehavior();
 
           final unicorn = Unicorn.test(
             position: Vector2.zero(),
             unicornComponent: ChildUnicornComponent(),
             behaviors: [
-              evolutionBehavior,
+              evolvingBehavior,
               enjoymentDecreasingBehavior,
               fullnessBehavior,
             ],
@@ -256,7 +256,7 @@ void main() {
           await game.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
-          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+          unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
 
           // Setting happiness to above the threshold, but not full
           unicorn.enjoyment.value = 0.95;

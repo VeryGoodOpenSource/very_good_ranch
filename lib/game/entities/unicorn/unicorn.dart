@@ -55,7 +55,7 @@ class Unicorn extends Entity with Steerable {
       position: position,
       size: size,
       behaviors: [
-        EvolutionBehavior(),
+        EvolvingBehavior(),
         PropagatingCollisionBehavior(RectangleHitbox()),
         MovementBehavior(),
         FoodCollisionBehavior(),

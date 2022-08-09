@@ -4,7 +4,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-class FullnessBehavior extends FactorBehavior {
+class FullnessBehavior extends FactorDecreasingBehavior {
   factory FullnessBehavior() {
     return FullnessBehavior._(
       GaugeComponent(

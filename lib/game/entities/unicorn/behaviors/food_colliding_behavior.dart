@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
-class FoodCollisionBehavior extends CollisionBehavior<Food, Unicorn> {
+class FoodCollidingBehavior extends CollisionBehavior<Food, Unicorn> {
   @override
   void onCollision(Set<Vector2> intersectionPoints, Food other) {
     if (other.beingDragged || !other.wasDragged) {

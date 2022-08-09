@@ -4,7 +4,7 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
-class EnjoymentDecreasingBehavior extends FactorBehavior {
+class EnjoymentDecreasingBehavior extends FactorDecreasingBehavior {
   factory EnjoymentDecreasingBehavior() {
     return EnjoymentDecreasingBehavior._(
       GaugeComponent(

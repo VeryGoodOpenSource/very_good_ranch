@@ -15,7 +15,8 @@ import '../../../../helpers/helpers.dart';
 class _MockEnjoymentDecreasingBehavior extends Mock
     implements EnjoymentDecreasingBehavior {}
 
-class _MockFullnessDecreasingBehavior extends Mock implements FullnessDecreasingBehavior {}
+class _MockFullnessDecreasingBehavior extends Mock
+    implements FullnessDecreasingBehavior {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

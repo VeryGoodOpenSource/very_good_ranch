@@ -10,7 +10,7 @@ import '../../../../helpers/helpers.dart';
 void main() {
   final flameTester = FlameTester(TestGame.new);
 
-  group('DespawnBehavior', () {
+  group('DespawningBehavior', () {
     flameTester.testGameWidget(
       'removes parent after given despawn time',
       setUp: (game, tester) async {
@@ -18,7 +18,7 @@ void main() {
           Food.test(
             behaviors: [
               DraggingBehavior(),
-              DespawnBehavior(despawnTime: 1),
+              DespawningBehavior(despawnTime: 1),
             ],
           ),
         );
@@ -43,7 +43,7 @@ void main() {
           Food.test(
             behaviors: [
               DraggingBehavior(),
-              DespawnBehavior(despawnTime: 1),
+              DespawningBehavior(despawnTime: 1),
             ],
           ),
         );

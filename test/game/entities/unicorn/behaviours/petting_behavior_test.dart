@@ -53,6 +53,50 @@ void main() {
       }
     });
 
+    group('when clicking on overlapping unicorns', () {
+      late UnicornPercentage enjoyment1;
+      late UnicornPercentage enjoyment2;
+      setUp(() {
+        enjoyment1 = _MockUnicornPercentage();
+        enjoyment2 = _MockUnicornPercentage();
+      });
+
+      flameTester.testGameWidget(
+        'only computes on the top unicorn',
+        setUp: (game, tester) async {
+          await game.ensureAdd(
+            Unicorn.test(
+              position: Vector2.zero(),
+              behaviors: [
+                PettingBehavior(),
+              ],
+              enjoyment: enjoyment1,
+            ),
+          );
+          await game.ensureAdd(
+            Unicorn.test(
+              position: Vector2.zero(),
+              behaviors: [
+                PettingBehavior(),
+              ],
+              enjoyment: enjoyment2,
+            ),
+          );
+        },
+        verify: (game, tester) async {
+          await tester.tapAt(Offset.zero);
+
+          /// Flush long press gesture timer
+          game.pauseEngine();
+          await tester.pumpAndSettle();
+          game.resumeEngine();
+
+          verifyNever(() => enjoyment1.increaseBy(any()));
+          verify(() => enjoyment2.increaseBy(any())).called(1);
+        },
+      );
+    });
+
     group('has a throttle time', () {
       late UnicornPercentage enjoyment;
       setUp(() {

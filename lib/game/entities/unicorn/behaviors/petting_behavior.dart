@@ -20,14 +20,15 @@ class PettingBehavior extends TappableBehavior<Unicorn> {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    if (info.handled || !_throttlingTimer.timer.isRunning()) {
-      _throttlingTimer.timer.start();
-
-      parent.enjoyment.increaseBy(parent.evolutionStage.petEnjoymentIncrease);
-
-      return false;
+    if (info.handled || _throttlingTimer.timer.isRunning()) {
+      return true;
     }
-    return true;
+
+    _throttlingTimer.timer.start();
+
+    parent.enjoyment.increaseBy(parent.evolutionStage.petEnjoymentIncrease);
+
+    return false;
   }
 }
 

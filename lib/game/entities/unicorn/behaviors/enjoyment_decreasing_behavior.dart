@@ -4,9 +4,9 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
-class EnjoymentBehavior extends FactorBehavior {
-  factory EnjoymentBehavior() {
-    return EnjoymentBehavior._(
+class EnjoymentDecreasingBehavior extends FactorBehavior {
+  factory EnjoymentDecreasingBehavior() {
+    return EnjoymentDecreasingBehavior._(
       GaugeComponent(
         position: Vector2.zero(),
         thickness: 20,
@@ -17,7 +17,7 @@ class EnjoymentBehavior extends FactorBehavior {
     );
   }
 
-  EnjoymentBehavior._(
+  EnjoymentDecreasingBehavior._(
     super.gaugeComponent,
     super.innerSpacing,
   );
@@ -48,7 +48,7 @@ class EnjoymentBehavior extends FactorBehavior {
 
 extension on UnicornEvolutionStage {
   /// Percentage that of enjoyment lost every
-  /// [EnjoymentBehavior.decreaseInterval].
+  /// [EnjoymentDecreasingBehavior.decreaseInterval].
   double get enjoymentDecreaseFactor {
     switch (this) {
       case UnicornEvolutionStage.baby:

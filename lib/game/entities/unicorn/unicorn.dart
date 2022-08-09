@@ -60,7 +60,7 @@ class Unicorn extends Entity with Steerable {
         MovementBehavior(),
         FoodCollisionBehavior(),
         FullnessBehavior(),
-        EnjoymentBehavior(),
+        EnjoymentDecreasingBehavior(),
         LeavingBehavior(),
         PetBehavior(),
         PositionalPriorityBehavior(anchor: Anchor.bottomCenter),

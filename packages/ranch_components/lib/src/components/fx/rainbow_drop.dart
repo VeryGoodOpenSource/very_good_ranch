@@ -41,7 +41,7 @@ class RainbowDrop extends PositionComponent with HasGameRef {
     final segmentSize = _target.size.y / _colors.length;
 
     unawaited(
-      Future<void>.delayed(const Duration(milliseconds: 500)).then((_) {
+      Future<void>.delayed(const Duration(milliseconds: 500), () {
         gameRef.add(
           ConfettiComponent(
             position: position + Vector2(_target.size.x / 2, 0),
@@ -53,8 +53,9 @@ class RainbowDrop extends PositionComponent with HasGameRef {
     );
 
     unawaited(
-      Future<void>.delayed(const Duration(milliseconds: 550)).then(
-        (_) {
+      Future<void>.delayed(
+        const Duration(milliseconds: 550),
+        () {
           if (_target is HasPaint) {
             (_target as HasPaint).setOpacity(0);
           }

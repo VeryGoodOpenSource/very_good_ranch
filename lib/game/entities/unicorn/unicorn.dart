@@ -160,8 +160,6 @@ class Unicorn extends Entity with Steerable {
   }
 
   void feed(Food food) {
-    food.wasUsed = true;
-
     final currentStage = evolutionStage;
     final fullnessFeedFactor = currentStage.fullnessFeedFactor;
     fullness.increaseBy(fullnessFeedFactor);

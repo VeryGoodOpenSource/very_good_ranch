@@ -92,9 +92,6 @@ class Food extends Entity {
   /// Indicates if the food was dragged before.
   bool wasDragged = false;
 
-  /// Indicates if the food was already used to feed something
-  bool wasUsed = false;
-
   /// The type of food.
   final FoodType type;
 }

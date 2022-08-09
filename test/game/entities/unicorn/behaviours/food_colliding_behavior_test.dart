@@ -47,7 +47,7 @@ void main() {
 
         when(() => food.wasDragged).thenReturn(false);
         when(() => food.beingDragged).thenReturn(true);
-        when(() => food.wasUsed).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
         foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -59,7 +59,7 @@ void main() {
 
         when(() => food.wasDragged).thenReturn(false);
         when(() => food.beingDragged).thenReturn(false);
-        when(() => food.wasUsed).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
         foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -71,7 +71,7 @@ void main() {
 
         when(() => food.beingDragged).thenReturn(false);
         when(() => food.wasDragged).thenReturn(true);
-        when(() => food.wasUsed).thenReturn(true);
+        when(() => food.isRemoving).thenReturn(true);
 
         foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -115,7 +115,7 @@ void main() {
         final food = _MockFood();
         when(() => food.beingDragged).thenReturn(false);
         when(() => food.wasDragged).thenReturn(true);
-        when(() => food.wasUsed).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
         when(() => food.type).thenReturn(FoodType.lollipop);
         foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -149,7 +149,7 @@ void main() {
             when(() => food.type).thenReturn(preferredFoodType);
             when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
-            when(() => food.wasUsed).thenReturn(false);
+            when(() => food.isRemoving).thenReturn(false);
 
             foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
@@ -177,7 +177,7 @@ void main() {
         when(() => food.type).thenReturn(FoodType.cake);
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
-        when(() => food.wasUsed).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
         foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
@@ -215,7 +215,7 @@ void main() {
             when(() => food.type).thenReturn(FoodType.cake);
             when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
-            when(() => food.wasUsed).thenReturn(false);
+            when(() => food.isRemoving).thenReturn(false);
 
             foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
@@ -239,7 +239,7 @@ void main() {
         when(() => food.type).thenReturn(FoodType.cake);
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
-        when(() => food.wasUsed).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
         expect(unicorn.timesFed, 0);
 
@@ -263,13 +263,13 @@ void main() {
         when(() => food.type).thenReturn(FoodType.cake);
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
-        when(() => food.wasUsed).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
-        verifyNever(() => food.wasUsed = true);
+        verifyNever(food.removeFromParent);
 
         foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
-        verify(() => food.wasUsed = true).called(1);
+        verify(food.removeFromParent).called(1);
       });
     });
   });

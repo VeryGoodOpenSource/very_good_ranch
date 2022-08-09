@@ -7,7 +7,7 @@ import 'package:very_good_ranch/game/entities/entities.dart';
 class FoodCollidingBehavior extends CollisionBehavior<Food, Unicorn> {
   @override
   void onCollision(Set<Vector2> intersectionPoints, Food other) {
-    if (other.beingDragged || !other.wasDragged) {
+    if (other.beingDragged || !other.wasDragged || other.wasUsed) {
       return;
     }
     if (parent.isLeaving == true) {

@@ -16,7 +16,7 @@ import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class VeryGoodRanchGame extends FlameGame
-    with HasDraggables, HasTappables, HasCollisionDetection {
+    with HasDraggables, HasTappables, HasCollisionDetection, SeedGame {
   VeryGoodRanchGame({
     Random? seed,
     required this.gameBloc,
@@ -39,7 +39,7 @@ class VeryGoodRanchGame extends FlameGame
   @override
   UnprefixedImages get images => _images;
 
-  /// The random number generator for this game, allowing it to be seed-able.
+  @override
   final Random seed;
 
   final GameBloc gameBloc;

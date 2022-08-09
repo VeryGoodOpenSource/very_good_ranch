@@ -38,5 +38,22 @@ void main() {
         greaterThan(0),
       );
     });
+
+    testWithFlameGame('is removed once finished', (game) async {
+      await game.ensureAdd(
+        RainbowDrop(
+          position: Vector2(0, 0),
+          target: CircleComponent(radius: 50),
+        ),
+      );
+
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      await game.ready();
+
+      expect(
+        game.descendants().whereType<RainbowDrop>().length,
+        equals(0),
+      );
+    });
   });
 }

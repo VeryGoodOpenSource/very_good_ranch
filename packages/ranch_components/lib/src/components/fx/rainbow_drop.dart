@@ -69,6 +69,7 @@ class RainbowDrop extends PositionComponent with HasGameRef {
                 ),
               ),
           );
+          removeFromParent();
         },
       ),
     );

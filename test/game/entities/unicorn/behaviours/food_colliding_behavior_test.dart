@@ -40,50 +40,64 @@ void main() {
   );
 
   group('FoodCollidingBehavior', () {
-    test('does not remove the food while it is being dragged', () {
-      final foodCollidingBehavior = FoodCollidingBehavior();
-      final food = _MockFood();
-
-      when(() => food.wasDragged).thenReturn(false);
-      when(() => food.beingDragged).thenReturn(true);
-
-      foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
-
-      verifyNever(food.removeFromParent);
-    });
-
-    test('does not remove the food while it was not being dragged before', () {
-      final foodCollidingBehavior = FoodCollidingBehavior();
-      final food = _MockFood();
-
-      when(() => food.wasDragged).thenReturn(false);
-      when(() => food.beingDragged).thenReturn(false);
-
-      foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
-
-      verifyNever(food.removeFromParent);
-    });
-
-    flameTester.test(
-      'does not remove the food while unicorn is leaving',
-      (game) async {
+    group('does not remove the food', () {
+      test('while it is being dragged', () {
         final foodCollidingBehavior = FoodCollidingBehavior();
-        final unicorn = Unicorn.test(
-          position: Vector2.zero(),
-          behaviors: [
-            foodCollidingBehavior,
-          ],
-        )..isLeaving = true;
-        await game.ensureAdd(unicorn);
-
         final food = _MockFood();
+
         when(() => food.wasDragged).thenReturn(false);
-        when(() => food.beingDragged).thenReturn(false);
+        when(() => food.beingDragged).thenReturn(true);
+        when(() => food.isRemoving).thenReturn(false);
+
         foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
         verifyNever(food.removeFromParent);
-      },
-    );
+      });
+      test('while it was not being dragged before', () {
+        final foodCollidingBehavior = FoodCollidingBehavior();
+        final food = _MockFood();
+
+        when(() => food.wasDragged).thenReturn(false);
+        when(() => food.beingDragged).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
+
+        foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+
+        verifyNever(food.removeFromParent);
+      });
+      test('when it as used', () {
+        final foodCollidingBehavior = FoodCollidingBehavior();
+        final food = _MockFood();
+
+        when(() => food.beingDragged).thenReturn(false);
+        when(() => food.wasDragged).thenReturn(true);
+        when(() => food.isRemoving).thenReturn(true);
+
+        foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+
+        verifyNever(food.removeFromParent);
+      });
+      flameTester.test(
+        'while unicorn is leaving',
+        (game) async {
+          final foodCollidingBehavior = FoodCollidingBehavior();
+          final unicorn = Unicorn.test(
+            position: Vector2.zero(),
+            behaviors: [
+              foodCollidingBehavior,
+            ],
+          )..isLeaving = true;
+          await game.ensureAdd(unicorn);
+
+          final food = _MockFood();
+          when(() => food.wasDragged).thenReturn(false);
+          when(() => food.beingDragged).thenReturn(false);
+          foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
+
+          verifyNever(food.removeFromParent);
+        },
+      );
+    });
 
     flameTester.test(
       'removes the food from parent when it was dragged',
@@ -101,6 +115,7 @@ void main() {
         final food = _MockFood();
         when(() => food.beingDragged).thenReturn(false);
         when(() => food.wasDragged).thenReturn(true);
+        when(() => food.isRemoving).thenReturn(false);
         when(() => food.type).thenReturn(FoodType.lollipop);
         foodCollidingBehavior.onCollision(<Vector2>{Vector2.zero()}, food);
 
@@ -134,6 +149,7 @@ void main() {
             when(() => food.type).thenReturn(preferredFoodType);
             when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
+            when(() => food.isRemoving).thenReturn(false);
 
             foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
@@ -161,6 +177,7 @@ void main() {
         when(() => food.type).thenReturn(FoodType.cake);
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
         foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
@@ -198,6 +215,7 @@ void main() {
             when(() => food.type).thenReturn(FoodType.cake);
             when(() => food.wasDragged).thenReturn(true);
             when(() => food.beingDragged).thenReturn(false);
+            when(() => food.isRemoving).thenReturn(false);
 
             foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
@@ -221,12 +239,37 @@ void main() {
         when(() => food.type).thenReturn(FoodType.cake);
         when(() => food.wasDragged).thenReturn(true);
         when(() => food.beingDragged).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
 
         expect(unicorn.timesFed, 0);
 
         foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
         expect(unicorn.timesFed, 1);
+      });
+    });
+
+    group('feeding unicorn impacts food used', () {
+      flameTester.test('setting it to true', (game) async {
+        final foodCollidingBehavior = FoodCollidingBehavior();
+        final unicorn = Unicorn.test(
+          position: Vector2.zero(),
+          behaviors: [foodCollidingBehavior],
+        );
+
+        await game.ensureAdd(unicorn);
+
+        final food = _MockFood();
+        when(() => food.type).thenReturn(FoodType.cake);
+        when(() => food.wasDragged).thenReturn(true);
+        when(() => food.beingDragged).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
+
+        verifyNever(food.removeFromParent);
+
+        foodCollidingBehavior.onCollision({Vector2.zero()}, food);
+
+        verify(food.removeFromParent).called(1);
       });
     });
   });

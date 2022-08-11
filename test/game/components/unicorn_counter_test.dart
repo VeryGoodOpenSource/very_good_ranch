@@ -4,6 +4,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/components/unicorn_counter.dart';
@@ -68,7 +69,7 @@ void main() {
         await game.background.addAll(
           UnicornEvolutionStage.values.map(
             (e) => Unicorn.test(
-              unicornComponent: e.componentForEvolutionStage,
+              unicornComponent: e.componentForEvolutionStage(UnicornState.idle),
               position: Vector2.zero(),
               behaviors: [EvolvingBehavior()],
             ),

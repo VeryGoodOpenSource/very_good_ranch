@@ -1,6 +1,7 @@
 // ignore_for_file: cascade_invocations
 
 import 'package:flame/extensions.dart';
+import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -136,7 +137,8 @@ void main() {
             final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: evolutionStage.componentForEvolutionStage,
+              unicornComponent:
+                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
               behaviors: [
                 foodCollidingBehavior,
               ],
@@ -202,7 +204,8 @@ void main() {
             final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: evolutionStage.componentForEvolutionStage,
+              unicornComponent:
+                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
               behaviors: [
                 foodCollidingBehavior,
               ],
@@ -270,6 +273,38 @@ void main() {
         foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
         verify(food.removeFromParent).called(1);
+      });
+    });
+
+    group('feeding unicorn starts eating animation', () {
+      flameTester.test('by changing state', (game) async {
+        final foodCollidingBehavior = FoodCollidingBehavior();
+        final unicorn = Unicorn.test(
+          position: Vector2.zero(),
+          behaviors: [foodCollidingBehavior],
+        );
+
+        await game.ensureAdd(unicorn);
+
+        final food = _MockFood();
+        when(() => food.type).thenReturn(FoodType.cake);
+        when(() => food.wasDragged).thenReturn(true);
+        when(() => food.beingDragged).thenReturn(false);
+        when(() => food.isRemoving).thenReturn(false);
+        expect(unicorn.timesFed, 0);
+        unicorn.startWalking();
+        await game.ready();
+
+        expect(unicorn.state, UnicornState.walking);
+        expect(unicorn.hasBehavior<WanderBehavior>(), true);
+
+        foodCollidingBehavior.onCollision({Vector2.zero()}, food);
+
+        final wanderBehavior =
+            game.descendants().whereType<WanderBehavior>().first;
+
+        expect(unicorn.state, UnicornState.eating);
+        expect(wanderBehavior.isRemoving, true);
       });
     });
   });

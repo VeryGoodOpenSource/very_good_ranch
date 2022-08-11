@@ -18,12 +18,12 @@ void addUnicornComponentStories(Dashbook dashbook) {
           AdultUnicornComponent(),
         ],
       );
-      final unicornState = context.listProperty<UnicornState>(
-        'Unicorn state',
-        UnicornState.idle,
-        UnicornState.values,
-      );
-      unicorn.state = unicornState;
+
+      for (final state in UnicornState.values) {
+        context.action('play ${state.name}', (context) {
+          unicorn.playAnimation(state);
+        });
+      }
 
       final game = context.storyGame(component: unicorn);
 

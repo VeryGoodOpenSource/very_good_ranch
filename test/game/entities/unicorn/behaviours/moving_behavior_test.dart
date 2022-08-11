@@ -255,6 +255,56 @@ void main() {
         expect(unicorn.state, UnicornState.walking);
       });
 
+      flameTester.test(
+        'does not set state to roaming when playing finite animation',
+        (game) async {
+          when(() => seed.nextBool()).thenReturn(true);
+          when(() => seed.nextDouble()).thenReturn(0.25);
+
+          final movingBehavior = MovingBehavior();
+
+          final unicorn = Unicorn.test(
+            position: Vector2.zero(),
+            behaviors: [
+              movingBehavior,
+            ],
+          );
+          await game.ensureAdd(unicorn);
+
+          unicorn.setUnicornState(UnicornState.petted);
+          movingBehavior.simulateTick();
+          await game.ready();
+
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.petted);
+        },
+      );
+
+      flameTester.test(
+        'sets state to roaming when playing looping animation',
+        (game) async {
+          when(() => seed.nextBool()).thenReturn(true);
+          when(() => seed.nextDouble()).thenReturn(0.25);
+
+          final movingBehavior = MovingBehavior();
+
+          final unicorn = Unicorn.test(
+            position: Vector2.zero(),
+            behaviors: [
+              movingBehavior,
+            ],
+          );
+          await game.ensureAdd(unicorn);
+
+          unicorn.setUnicornState(UnicornState.idle);
+          movingBehavior.simulateTick();
+          await game.ready();
+
+          expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
+          expect(unicorn.state, UnicornState.walking);
+        },
+      );
+
       flameTester.test('sets state to idle', (game) async {
         when(() => seed.nextDouble()).thenReturn(1);
 

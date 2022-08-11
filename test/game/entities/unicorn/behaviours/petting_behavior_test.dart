@@ -2,9 +2,11 @@
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
@@ -30,7 +32,8 @@ void main() {
             final pettingBehavior = PettingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent: evolutionStage.componentForEvolutionStage,
+              unicornComponent:
+                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
               behaviors: [
                 pettingBehavior,
               ],
@@ -143,5 +146,41 @@ void main() {
         },
       );
     });
+
+    flameTester.testGameWidget(
+      'starts animation',
+      setUp: (game, tester) async {
+        final pettingBehavior = PettingBehavior();
+        final unicorn = Unicorn.test(
+          position: Vector2.zero(),
+          behaviors: [
+            pettingBehavior,
+          ],
+        );
+
+        await game.ensureAdd(unicorn);
+        unicorn.startWalking();
+        await game.ready();
+      },
+      verify: (game, tester) async {
+        final unicorn = game.descendants().whereType<Unicorn>().first;
+
+        expect(unicorn.state, UnicornState.walking);
+        expect(unicorn.hasBehavior<WanderBehavior>(), true);
+
+        await tester.tapAt(Offset.zero);
+
+        /// Flush long press gesture timer
+        game.pauseEngine();
+        await tester.pumpAndSettle();
+        game.resumeEngine();
+
+        final wanderBehavior =
+            game.descendants().whereType<WanderBehavior>().first;
+
+        expect(unicorn.state, UnicornState.petted);
+        expect(wanderBehavior.isRemoving, true);
+      },
+    );
   });
 }

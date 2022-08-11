@@ -21,8 +21,7 @@ void main() {
     group('preloadAssets', () {
       test('preloads assets', () async {
         final audioCache = _MockAudioCache();
-        when(() => audioCache.load(any()))
-            .thenAnswer((invocation) async => _MockURI());
+        when(() => audioCache.load(any())).thenAnswer((_) async => _MockURI());
 
         final player = RanchSoundPlayer(audioCache: audioCache);
 
@@ -49,10 +48,9 @@ void main() {
       test('disposes', () async {
         final audioCache = _MockAudioCache();
 
-        when(() => audioCache.load(any()))
-            .thenAnswer((invocation) async => _MockURI());
+        when(() => audioCache.load(any())).thenAnswer((_) async => _MockURI());
 
-        when(audioCache.clearAll).thenAnswer((invocation) async {});
+        when(audioCache.clearAll).thenAnswer((_) async {});
 
         final bgm = _MockBgm();
 
@@ -79,7 +77,7 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
-        when(() => bgm.play(any())).thenAnswer((invocation) async {});
+        when(() => bgm.play(any())).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,
@@ -100,7 +98,7 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
-        when(bgm.stop).thenAnswer((invocation) async {});
+        when(bgm.stop).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,
@@ -120,7 +118,7 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
-        when(() => bgm.play(any())).thenAnswer((invocation) async {});
+        when(() => bgm.play(any())).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,
@@ -141,7 +139,7 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
-        when(bgm.stop).thenAnswer((invocation) async {});
+        when(bgm.stop).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,

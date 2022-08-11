@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
 class PettingBehavior extends TappableBehavior<Unicorn> {
@@ -26,7 +27,10 @@ class PettingBehavior extends TappableBehavior<Unicorn> {
 
     _throttlingTimer.timer.start();
 
-    parent.enjoyment.increaseBy(parent.evolutionStage.petEnjoymentIncrease);
+    parent
+      ..enjoyment.increaseBy(parent.evolutionStage.petEnjoymentIncrease)
+      ..stopWalking()
+      ..setUnicornState(UnicornState.petted);
 
     return false;
   }

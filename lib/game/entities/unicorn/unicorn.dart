@@ -31,16 +31,18 @@ enum UnicornEvolutionStage {
 }
 
 extension UnicornEvolutionStageX on UnicornEvolutionStage {
-  UnicornComponent get componentForEvolutionStage {
+  UnicornComponent componentForEvolutionStage(
+    UnicornState initialState,
+  ) {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return BabyUnicornComponent();
+        return BabyUnicornComponent(initialState: initialState);
       case UnicornEvolutionStage.child:
-        return ChildUnicornComponent();
+        return ChildUnicornComponent(initialState: initialState);
       case UnicornEvolutionStage.teen:
-        return TeenUnicornComponent();
+        return TeenUnicornComponent(initialState: initialState);
       case UnicornEvolutionStage.adult:
-        return AdultUnicornComponent();
+        return AdultUnicornComponent(initialState: initialState);
     }
   }
 }
@@ -79,7 +81,7 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   @visibleForTesting
   factory Unicorn.test({
     required Vector2 position,
-    Iterable<Behavior<Unicorn>>? behaviors,
+    Iterable<Behavior>? behaviors,
     UnicornComponent? unicornComponent,
     UnicornPercentage? enjoyment,
     UnicornPercentage? fullness,
@@ -145,16 +147,40 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   }
 
   set evolutionStage(UnicornEvolutionStage evolutionStage) {
-    final currentState = state;
-    _unicornComponent.removeFromParent();
-    add(_unicornComponent = evolutionStage.componentForEvolutionStage);
-    _unicornComponent.state = currentState;
-    size = _unicornComponent.size;
+    void updateStage() {
+      // preserve walking/idle animation
+      final currentState = state;
+
+      _unicornComponent.removeFromParent();
+      add(
+        _unicornComponent =
+            evolutionStage.componentForEvolutionStage(currentState),
+      );
+
+      size = _unicornComponent.size;
+    }
+
+    // Finish eat/petted animations before evolving
+    if (_unicornComponent.isPlayingFiniteAnimation) {
+      _unicornComponent.addPostAnimationCycleCallback(updateStage);
+    } else {
+      updateStage();
+    }
   }
 
-  UnicornState? get state => _unicornComponent.state;
+  UnicornState get state => _unicornComponent.state;
 
-  set state(UnicornState? state) => _unicornComponent.state = state;
+  void setUnicornState(UnicornState state) {
+    _unicornComponent.playAnimation(state);
+
+    if (_unicornComponent.isPlayingFiniteAnimation) {
+      _unicornComponent.addPostAnimationCycleCallback(
+        () {
+          _unicornComponent.playAnimation(UnicornState.idle);
+        },
+      );
+    }
+  }
 
   @override
   Future<void> onLoad() async {
@@ -189,7 +215,12 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   }
 
   void startWalking() {
-    state = UnicornState.walking;
+    // Unicorns cannot start to walk when in finite animations (eat/petted)
+    if (_unicornComponent.isPlayingFiniteAnimation) {
+      return;
+    }
+
+    setUnicornState(UnicornState.walking);
     if (!hasBehavior<WanderBehavior>()) {
       add(_wanderBehavior);
     }
@@ -199,7 +230,7 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     if (hasBehavior<WanderBehavior>()) {
       _wanderBehavior.removeFromParent();
     }
-    state = UnicornState.idle;
+    setUnicornState(UnicornState.idle);
   }
 }
 

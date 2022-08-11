@@ -26,8 +26,9 @@ enum UnicornState {
 /// {@endtemplate}
 class BabyUnicornComponent extends UnicornComponent {
   /// {@macro unicorn_component}
-  BabyUnicornComponent()
-      : super(
+  BabyUnicornComponent({
+    UnicornState? initialState,
+  }) : super(
           spritePadding: const EdgeInsets.only(
             top: 136,
             left: 45,
@@ -35,6 +36,7 @@ class BabyUnicornComponent extends UnicornComponent {
             bottom: 33,
           ),
           spriteComponent: UnicornSpriteComponent(
+            initialState: initialState,
             eatAnimationData: UnicornAnimationData(
               columnsAmount: 10,
               frameAmount: 90,
@@ -64,8 +66,9 @@ class BabyUnicornComponent extends UnicornComponent {
 /// {@endtemplate}
 class ChildUnicornComponent extends UnicornComponent {
   /// {@macro child_unicorn_component}
-  ChildUnicornComponent()
-      : super(
+  ChildUnicornComponent({
+    UnicornState? initialState,
+  }) : super(
           spritePadding: const EdgeInsets.only(
             top: 95,
             left: 40,
@@ -73,6 +76,7 @@ class ChildUnicornComponent extends UnicornComponent {
             bottom: 33,
           ),
           spriteComponent: UnicornSpriteComponent(
+            initialState: initialState,
             eatAnimationData: UnicornAnimationData(
               columnsAmount: 10,
               frameAmount: 90,
@@ -102,8 +106,9 @@ class ChildUnicornComponent extends UnicornComponent {
 /// {@endtemplate}
 class TeenUnicornComponent extends UnicornComponent {
   /// {@macro teen_unicorn_component}
-  TeenUnicornComponent()
-      : super(
+  TeenUnicornComponent({
+    UnicornState? initialState,
+  }) : super(
           spritePadding: const EdgeInsets.only(
             top: 72,
             left: 34,
@@ -111,6 +116,7 @@ class TeenUnicornComponent extends UnicornComponent {
             bottom: 33,
           ),
           spriteComponent: UnicornSpriteComponent(
+            initialState: initialState,
             eatAnimationData: UnicornAnimationData(
               columnsAmount: 10,
               frameAmount: 90,
@@ -140,8 +146,9 @@ class TeenUnicornComponent extends UnicornComponent {
 /// {@endtemplate}
 class AdultUnicornComponent extends UnicornComponent {
   /// {@macro adult_unicorn_component}
-  AdultUnicornComponent()
-      : super(
+  AdultUnicornComponent({
+    UnicornState? initialState,
+  }) : super(
           spritePadding: const EdgeInsets.only(
             top: 36,
             left: 25,
@@ -149,6 +156,7 @@ class AdultUnicornComponent extends UnicornComponent {
             bottom: 33,
           ),
           spriteComponent: UnicornSpriteComponent(
+            initialState: initialState,
             eatAnimationData: UnicornAnimationData(
               columnsAmount: 10,
               frameAmount: 90,
@@ -273,17 +281,39 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
   /// The padding to be applied to the [spriteComponent].
   final EdgeInsets spritePadding;
 
-  @override
-  Future<void> onLoad() async {
-    await add(spriteComponent);
-  }
+  TimerComponent? _afterAnimationTimer;
+
+  /// Indicates if the current unicorn animation does not loop
+  bool get isPlayingFiniteAnimation => spriteComponent.animation?.loop == false;
 
   /// Get the current [UnicornState] being played by [spriteComponent].
-  UnicornState? get state => spriteComponent.current;
+  UnicornState get state => spriteComponent.current!;
 
-  /// Make [spriteComponent] play a sprite animation for the [value].
-  set state(UnicornState? value) {
-    spriteComponent.current = value;
+  /// Schedules [onFinish] to be called after the current animation
+  /// end its current cycle.
+  void addPostAnimationCycleCallback(VoidCallback onFinish) {
+    final currentAnimation = spriteComponent.animation!;
+    final afterAnimationTimer = _afterAnimationTimer;
+    if (afterAnimationTimer != null) {
+      afterAnimationTimer.removeFromParent();
+      _afterAnimationTimer = null;
+    }
+    add(
+      _afterAnimationTimer = TimerComponent(
+        period: currentAnimation.totalDuration() - currentAnimation.elapsed,
+        removeOnFinish: true,
+        onTick: () {
+          onFinish.call();
+          _afterAnimationTimer = null;
+        },
+      ),
+    );
+  }
+
+  /// Make [spriteComponent] play a sprite animation for the given [state].
+  void playAnimation(UnicornState state) {
+    spriteComponent.current = state;
+    spriteComponent.animation!.reset();
   }
 
   /// Borrow the paint from the sprite component.
@@ -295,6 +325,11 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
 
   @override
   set paint(Paint value) => spriteComponent.paint = value;
+
+  @override
+  Future<void> onLoad() async {
+    await add(spriteComponent);
+  }
 }
 
 /// {@template unicorn_sprite_component}
@@ -310,9 +345,10 @@ class UnicornSpriteComponent extends SpriteAnimationGroupComponent<UnicornState>
     required this.idleAnimationData,
     required this.pettedAnimationData,
     required this.walkAnimationData,
+    UnicornState? initialState,
   }) : super(
           size: dimensions,
-          current: UnicornState.idle,
+          current: initialState ?? UnicornState.idle,
         );
 
   /// The dimensions of the unicorn component in the canvas

@@ -84,9 +84,6 @@ void main() {
       expect(textWidgetFinder().data, 'Loading Delightful music...');
       await tester.pump(const Duration(milliseconds: 200));
 
-      expect(textWidgetFinder().data, 'Loading Unicorn heads...');
-      await tester.pump(const Duration(milliseconds: 200));
-
       expect(textWidgetFinder().data, 'Loading Farmhouse...');
       await tester.pump(const Duration(milliseconds: 200));
 

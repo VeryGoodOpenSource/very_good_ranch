@@ -5,7 +5,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/gen/assets.gen.dart' as components_assets;
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
-import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
 class MockUnprefixedImages extends Mock implements UnprefixedImages {}
@@ -58,20 +57,6 @@ void main() {
         verify(sounds.preloadAssets).called(1);
         expect(cubit.state.isComplete, false);
         expect(cubit.state.currentLabel, 'sounds');
-        await tester.pumpAndSettle(const Duration(milliseconds: 200));
-
-        verify(
-          () => images.loadAll(
-            [
-              Assets.images.babyHead.path,
-              Assets.images.childHead.path,
-              Assets.images.teenHead.path,
-              Assets.images.adultHead.path,
-            ],
-          ),
-        ).called(1);
-        expect(cubit.state.isComplete, false);
-        expect(cubit.state.currentLabel, 'counter');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         verify(

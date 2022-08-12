@@ -30,7 +30,7 @@ class VeryGoodRanchGame extends FlameGame
         _debugMode = debugMode,
         seed = seed ?? Random();
 
-  static const _virtualWidth = 800.0;
+  static const _virtualWidth = 680.0;
 
   final UnprefixedImages _images;
 

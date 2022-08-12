@@ -5,8 +5,11 @@ import 'package:sandbox/stories/stories.dart';
 
 void main() {
   final dashbook = Dashbook(theme: ThemeData.light());
-  addUnicornComponentStories(dashbook);
+
   addBackgroundComponentStories(dashbook);
+
+  addUnicornComponentStories(dashbook);
+
   addGaugeComponentStories(dashbook);
 
   addFoodComponentStories(dashbook);

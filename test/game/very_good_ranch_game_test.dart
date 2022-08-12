@@ -101,7 +101,7 @@ void main() {
           gameSize: Vector2(4000, 4000),
         );
         configuredViewportTester.test('assumes aspect ratio', (game) {
-          expect(game.camera.viewport.effectiveSize, Vector2(800, 800));
+          expect(game.camera.viewport.effectiveSize, Vector2(680, 680));
         });
       });
 
@@ -110,7 +110,7 @@ void main() {
           gameSize: Vector2(1000, 4000),
         );
         configuredViewportTester.test('assumes aspect ratio', (game) {
-          expect(game.camera.viewport.effectiveSize, Vector2(800, 3200));
+          expect(game.camera.viewport.effectiveSize, Vector2(680, 2720));
         });
       });
 
@@ -119,7 +119,7 @@ void main() {
           gameSize: Vector2(500, 100),
         );
         configuredViewportTester.test('assumes aspect ratio', (game) {
-          expect(game.camera.viewport.effectiveSize, Vector2(800, 160));
+          expect(game.camera.viewport.effectiveSize, Vector2(680, 136));
         });
       });
     });

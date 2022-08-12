@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/extensions.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/src/components/background/background_component.dart';
+import 'package:ranch_components/src/components/background/background_elements.dart';
 
 /// {@template background_position_delegate}
 /// A delegate responsible for defining the position of the several visual
@@ -23,73 +24,86 @@ class BackgroundPositionDelegate {
   /// Get position for the barn.
   Vector2 getPositionForBarn(Vector2 size) {
     final x = _pastureField.left;
-    final y = _pastureField.top - size.y;
+    final y = _pastureField.top - 50;
     return Vector2(x, y);
   }
 
-  /// Get position for the first tree trio.
-  Vector2 getPositionForTreeTrio1(Vector2 size) {
-    return Vector2(
-      _pastureField.right - size.x - 50,
-      _pastureField.top - size.y,
-    );
+  /// Get position for the sheep.
+  Vector2 getPositionForSheep(Vector2 size) {
+    final right = _pastureField.right;
+    final rangeWidth = _pastureField.width * 0.5;
+
+    final x = right - rangeWidth * 0.8;
+    final y = _pastureField.top - 50;
+    return Vector2(x, y);
   }
 
-  /// Get position for the second tree trio.
-  Vector2 getPositionForTreeTrio2(Vector2 size) {
-    final xOffset = _pastureField.width / 2 * _seed.nextDouble();
-    return Vector2(
-      _pastureField.left + xOffset,
-      _pastureField.bottom - size.y + 10,
-    );
+  /// Get position for the small sheep.
+  Vector2 getPositionForSheepSmall(Vector2 size) {
+    final right = _pastureField.right;
+    final rangeWidth = _pastureField.width * 0.5;
+
+    final x = right - rangeWidth * 0.2;
+    final y = _pastureField.top - 70;
+    return Vector2(x, y);
   }
 
-  /// Get position for the third tree trio.
-  Vector2 getPositionForTreeTrio3(Vector2 size) {
-    final xOffset = _pastureField.width / 2 * _seed.nextDouble();
-    return Vector2(
-      _pastureField.right - size.x - xOffset,
-      _pastureField.bottom - size.y + 25,
-    );
+  /// Get position for the cow.
+  Vector2 getPositionForCow(Vector2 size) {
+    final right = _pastureField.right;
+    final rangeWidth = _pastureField.width * 0.5;
+
+    final x = right - rangeWidth * 0.5;
+    final y = _pastureField.top - 80;
+    return Vector2(x, y);
   }
 
-  List<Vector2> _getPositionsForSideTrees(
-    Vector2 size,
+  /// Calls [positionTree] to each tree that should be placed in the
+  /// background with the corresponding position and tree type.
+  List<E> positionSideTrees<E>({
+    required double minX,
+    required double maxX,
+    required E Function(BackgroundTreeType, Vector2) positionTree,
+  }) {
+    final types = _getTypesOfSideTrees();
+
+    final trees = <E>[];
+    for (var i = 0; i < types.length; i++) {
+      final type = types[i];
+      final position = _getPositionForSideTree(i, minX, maxX);
+      trees.add(positionTree(type, position));
+    }
+    return trees;
+  }
+
+  List<BackgroundTreeType> _getTypesOfSideTrees() {
+    final sideTreesSpacing = _config.sideTreesSpacing;
+
+    final numTrees = (_pastureField.height / sideTreesSpacing).floor();
+
+    const types = BackgroundTreeType.values;
+
+    return List.generate(numTrees, (index) {
+      return types[_seed.nextInt(types.length)];
+    });
+  }
+
+  Vector2 _getPositionForSideTree(
+    int index,
     double minX,
     double maxX,
   ) {
     final sideTreesSpacing = _config.sideTreesSpacing;
-    final numTrees = (_pastureField.height / sideTreesSpacing).floor();
 
-    final res = <Vector2>[];
-    for (var i = 0; i < numTrees; i++) {
-      final baseY = _pastureField.top + i * sideTreesSpacing;
-      final variationY = _seed.nextDouble() * sideTreesSpacing;
+    final baseY = _pastureField.top + index * sideTreesSpacing;
+    final variationY = _seed.nextDouble() * sideTreesSpacing;
 
-      final y = baseY + variationY;
+    final y = baseY + variationY;
 
-      final variationX = _seed.nextDouble() * (maxX - minX);
-      final x = minX + variationX;
+    final variationX = _seed.nextDouble() * (maxX - minX);
+    final x = minX + variationX;
 
-      res.add(Vector2(x, y));
-    }
-
-    return res;
-  }
-
-  /// Get positions for the trees to the left
-  List<Vector2> getPositionsForLeftSideTrees(Vector2 size) {
-    const minX = 0.0;
-    final maxX = _pastureField.left - size.x;
-
-    return _getPositionsForSideTrees(size, minX, maxX);
-  }
-
-  /// Get positions for the trees to the right
-  List<Vector2> getPositionsForRightSideTrees(Vector2 size, double maxX) {
-    final minX = _pastureField.right;
-
-    return _getPositionsForSideTrees(size, minX, maxX - size.x);
+    return Vector2(x, y);
   }
 
   /// Get positions for all the grasses
@@ -173,7 +187,7 @@ class BackgroundDelegateConfig {
 
   /// The default configuration for
   static const def = BackgroundDelegateConfig(
-    sideTreesSpacing: 150,
+    sideTreesSpacing: 200,
     grassScatter: 20000,
     numFlowersSolo: 6,
     numFlowersDuo: 3,

@@ -63,13 +63,17 @@ void main() {
           () => images.loadAll(
             [
               components_assets.Assets.background.barn.keyName,
+              components_assets.Assets.background.sheep.keyName,
+              components_assets.Assets.background.sheepSmall.keyName,
+              components_assets.Assets.background.cow.keyName,
               components_assets.Assets.background.flowerDuo.keyName,
               components_assets.Assets.background.flowerGroup.keyName,
               components_assets.Assets.background.flowerSolo.keyName,
               components_assets.Assets.background.grass.keyName,
               components_assets.Assets.background.shortTree.keyName,
               components_assets.Assets.background.tallTree.keyName,
-              components_assets.Assets.background.treeTrio.keyName,
+              components_assets.Assets.background.linedTree.keyName,
+              components_assets.Assets.background.linedTreeShort.keyName,
             ],
           ),
         ).called(1);

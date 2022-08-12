@@ -83,6 +83,9 @@ class $AssetsBackgroundGen {
   /// File path: assets/background/barn.png
   AssetGenImage get barn => const AssetGenImage('assets/background/barn.png');
 
+  /// File path: assets/background/cow.png
+  AssetGenImage get cow => const AssetGenImage('assets/background/cow.png');
+
   /// File path: assets/background/flower_duo.png
   AssetGenImage get flowerDuo =>
       const AssetGenImage('assets/background/flower_duo.png');
@@ -98,6 +101,21 @@ class $AssetsBackgroundGen {
   /// File path: assets/background/grass.png
   AssetGenImage get grass => const AssetGenImage('assets/background/grass.png');
 
+  /// File path: assets/background/lined_tree.png
+  AssetGenImage get linedTree =>
+      const AssetGenImage('assets/background/lined_tree.png');
+
+  /// File path: assets/background/lined_tree_short.png
+  AssetGenImage get linedTreeShort =>
+      const AssetGenImage('assets/background/lined_tree_short.png');
+
+  /// File path: assets/background/sheep.png
+  AssetGenImage get sheep => const AssetGenImage('assets/background/sheep.png');
+
+  /// File path: assets/background/sheep_small.png
+  AssetGenImage get sheepSmall =>
+      const AssetGenImage('assets/background/sheep_small.png');
+
   /// File path: assets/background/short_tree.png
   AssetGenImage get shortTree =>
       const AssetGenImage('assets/background/short_tree.png');
@@ -105,10 +123,6 @@ class $AssetsBackgroundGen {
   /// File path: assets/background/tall_tree.png
   AssetGenImage get tallTree =>
       const AssetGenImage('assets/background/tall_tree.png');
-
-  /// File path: assets/background/tree_trio.png
-  AssetGenImage get treeTrio =>
-      const AssetGenImage('assets/background/tree_trio.png');
 }
 
 class $AssetsFoodGen {

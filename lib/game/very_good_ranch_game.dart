@@ -89,11 +89,6 @@ class VeryGoodRanchGame extends FlameGame
     );
 
     await add(ScoreIndicator(position: Vector2.zero()));
-    await add(
-      UnicornCounter(
-        position: Vector2(camera.viewport.effectiveSize.x, 0),
-      ),
-    );
   }
 
   @override

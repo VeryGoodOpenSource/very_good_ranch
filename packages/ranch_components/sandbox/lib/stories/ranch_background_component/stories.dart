@@ -8,7 +8,7 @@ void addBackgroundComponentStories(Dashbook dashbook) {
     'type',
     (context) {
       final unicornX = context.numberProperty('unicorn x', 350);
-      final unicornY = context.numberProperty('unicorn y', 1200);
+      final unicornY = context.numberProperty('unicorn y', 120);
       final unicorn = AdultUnicornComponent()
         ..position = Vector2(unicornX, unicornY);
       return GameWidget(

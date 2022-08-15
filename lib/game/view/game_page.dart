@@ -79,9 +79,7 @@ class _GamePageState extends State<GamePage> {
             child: Column(
               children: [
                 Expanded(
-                  child: ClipRect(
-                    child: GameView(game: _game!),
-                  ),
+                  child: GameView(game: _game!),
                 ),
                 FooterWidget(game: _game!),
               ],

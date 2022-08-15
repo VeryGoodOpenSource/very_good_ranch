@@ -1,9 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/gen/assets.gen.dart';
+import 'package:ranch_components/ranch_components.dart';
 
 /// {@template background_element}
-/// A background element that can be added to the background.
+/// A background element that can be added to the [BackgroundComponent].
 /// {@endtemplate}
 abstract class BackgroundElement extends SpriteComponent with HasGameRef {
   /// {@macro tree_trio}
@@ -11,6 +12,7 @@ abstract class BackgroundElement extends SpriteComponent with HasGameRef {
     super.position,
     required Vector2 dimensions,
     required this.asset,
+    super.anchor,
   }) : super(size: dimensions);
 
   /// The asset to use for the background element.
@@ -33,25 +35,94 @@ class Barn extends BackgroundElement {
       : super(
           dimensions: dimensions,
           asset: Assets.background.barn.keyName,
+          anchor: Anchor.bottomLeft,
         );
 
   /// The dimensions of the barn
-  static final dimensions = Vector2(220.5, 140);
+  static final dimensions = Vector2(210, 140);
 }
 
-/// {@template tree_trio}
-/// A component that shows a tiny forest of three trees
+/// {@template sheep}
+/// A component that shows a sheep
 /// {@endtemplate}
-class TreeTrio extends BackgroundElement {
-  /// {@macro tree_trio}
-  TreeTrio({super.position})
+class Sheep extends BackgroundElement {
+  /// {@macro sheep}
+  Sheep({super.position})
       : super(
           dimensions: dimensions,
-          asset: Assets.background.treeTrio.keyName,
+          asset: Assets.background.sheep.keyName,
+          anchor: Anchor.bottomCenter,
         );
 
-  /// The dimensions of the tiny forest of three trees
-  static final dimensions = Vector2(68.3, 96);
+  /// The dimensions of the sheep
+  static final dimensions = Vector2(54.6, 47.8);
+}
+
+/// {@template sheep_small}
+/// A component that shows a small sheep
+/// {@endtemplate}
+class SheepSmall extends BackgroundElement {
+  /// {@macro sheep_small}
+  SheepSmall({super.position})
+      : super(
+          dimensions: dimensions,
+          asset: Assets.background.sheepSmall.keyName,
+          anchor: Anchor.bottomCenter,
+        );
+
+  /// The dimensions of the small sheep
+  static final dimensions = Vector2(38.7, 34.4);
+}
+
+/// {@template cow}
+/// A component that shows a cow
+/// {@endtemplate}
+class Cow extends BackgroundElement {
+  /// {@macro cow}
+  Cow({super.position})
+      : super(
+          dimensions: dimensions,
+          asset: Assets.background.cow.keyName,
+          anchor: Anchor.bottomCenter,
+        );
+
+  /// The dimensions of the cow
+  static final dimensions = Vector2(82.4, 54.6);
+}
+
+/// The different types of trees that can be position in the background.
+enum BackgroundTreeType {
+  /// Corresponding to [TallTree].
+  tall,
+
+  /// Corresponding to [ShortTree].
+  short,
+
+  /// Corresponding to [LinedTree].
+  lined,
+
+  /// Corresponding to [LinedTreeShort].
+  linedShort,
+}
+
+/// Adds [getBackgroundElement] to [BackgroundTreeType]
+///
+/// NOTE: This should be a 2.17 enum constructor but guess what, coverage
+/// doesn't work for that, see: https://github.com/dart-lang/coverage/issues/386
+extension BackgroundTreeTypeX on BackgroundTreeType {
+  /// Get hte corresponding [BackgroundElement] given a [BackgroundTreeType]
+  BackgroundElement getBackgroundElement(Vector2 position) {
+    switch (this) {
+      case BackgroundTreeType.tall:
+        return TallTree(position: position);
+      case BackgroundTreeType.short:
+        return ShortTree(position: position);
+      case BackgroundTreeType.lined:
+        return LinedTree(position: position);
+      case BackgroundTreeType.linedShort:
+        return LinedTreeShort(position: position);
+    }
+  }
 }
 
 /// {@template tall_tree}
@@ -63,10 +134,11 @@ class TallTree extends BackgroundElement {
       : super(
           dimensions: dimensions,
           asset: Assets.background.tallTree.keyName,
+          anchor: Anchor.bottomCenter,
         );
 
   /// The dimensions of the tall tree
-  static final dimensions = Vector2(24.5, 69);
+  static final dimensions = Vector2(61.4, 189.5);
 }
 
 /// {@template short_tree}
@@ -78,10 +150,43 @@ class ShortTree extends BackgroundElement {
       : super(
           dimensions: dimensions,
           asset: Assets.background.shortTree.keyName,
+          anchor: Anchor.bottomCenter,
         );
 
   /// The dimensions of the short tree
-  static final dimensions = Vector2(24, 51.5);
+  static final dimensions = Vector2(41, 126.3);
+}
+
+/// {@template lined_tree}
+/// A component that shows a tree with branches
+/// {@endtemplate}
+class LinedTree extends BackgroundElement {
+  /// {@macro lined_tree}
+  LinedTree({super.position})
+      : super(
+          dimensions: dimensions,
+          asset: Assets.background.linedTree.keyName,
+          anchor: Anchor.bottomCenter,
+        );
+
+  /// The dimensions of the lined tree
+  static final dimensions = Vector2(59.7, 174.1);
+}
+
+/// {@template lined_tree_short}
+/// A component that shows a short tree with branches
+/// {@endtemplate}
+class LinedTreeShort extends BackgroundElement {
+  /// {@macro lined_tree_short}
+  LinedTreeShort({super.position})
+      : super(
+          dimensions: dimensions,
+          asset: Assets.background.linedTreeShort.keyName,
+          anchor: Anchor.bottomCenter,
+        );
+
+  /// The dimensions of the lined tree
+  static final dimensions = Vector2(41, 126.3);
 }
 
 /// {@template grass}

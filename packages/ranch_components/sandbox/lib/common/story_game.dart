@@ -26,10 +26,16 @@ class StoryGame extends FlameGame {
   final bool center;
 
   @override
-  Color backgroundColor() => const Color(0xFF52C1B1);
+  Color backgroundColor() => const Color(0xFF92DED3);
 
   @override
   Future<void> onLoad() async {
+    final aspectRatio = size.x / size.y;
+    const width = 680.0;
+    final height = width / aspectRatio;
+
+    camera.viewport = FixedResolutionViewport(Vector2(width, height));
+
     if (center) {
       camera.followVector2(Vector2.zero());
     }

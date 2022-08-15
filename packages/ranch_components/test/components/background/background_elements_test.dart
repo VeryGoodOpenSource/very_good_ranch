@@ -7,7 +7,9 @@ import '../../helpers/helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final flameTester = FlameTester(TestGame.new);
+  final flameTester = FlameTester(
+    () => TestGame(center: true),
+  );
 
   group('Background elements', () {
     flameTester.testGameWidget(
@@ -42,17 +44,78 @@ void main() {
       );
     });
 
-    group('TreeTrio', () {
+    group('Sheep', () {
       flameTester.testGameWidget(
-        'renders a TreeTrio',
+        'renders a Sheep',
         setUp: (game, tester) async {
-          final treeTrio = TreeTrio();
-          await game.ensureAdd(treeTrio);
+          await game.ensureAdd(Sheep());
         },
         verify: (game, tester) async {
           await expectLater(
             find.byGame<TestGame>(),
-            matchesGoldenFile('golden/elements/treetrio.png'),
+            matchesGoldenFile('golden/elements/sheep.png'),
+          );
+        },
+      );
+    });
+
+    group('SheepSmall', () {
+      flameTester.testGameWidget(
+        'renders a SheepSmall',
+        setUp: (game, tester) async {
+          await game.ensureAdd(SheepSmall());
+        },
+        verify: (game, tester) async {
+          await expectLater(
+            find.byGame<TestGame>(),
+            matchesGoldenFile('golden/elements/sheep_small.png'),
+          );
+        },
+      );
+    });
+
+    group('Cow', () {
+      flameTester.testGameWidget(
+        'renders a Cow',
+        setUp: (game, tester) async {
+          await game.ensureAdd(Cow());
+        },
+        verify: (game, tester) async {
+          await expectLater(
+            find.byGame<TestGame>(),
+            matchesGoldenFile('golden/elements/cow.png'),
+          );
+        },
+      );
+    });
+
+    group('LinedTree', () {
+      flameTester.testGameWidget(
+        'renders a LinedTree',
+        setUp: (game, tester) async {
+          final linedTree = LinedTree();
+          await game.ensureAdd(linedTree);
+        },
+        verify: (game, tester) async {
+          await expectLater(
+            find.byGame<TestGame>(),
+            matchesGoldenFile('golden/elements/lined_tree.png'),
+          );
+        },
+      );
+    });
+
+    group('LinedTreeShort', () {
+      flameTester.testGameWidget(
+        'renders a LinedTreeShort',
+        setUp: (game, tester) async {
+          final linedTree = LinedTreeShort();
+          await game.ensureAdd(linedTree);
+        },
+        verify: (game, tester) async {
+          await expectLater(
+            find.byGame<TestGame>(),
+            matchesGoldenFile('golden/elements/lined_tree_short.png'),
           );
         },
       );

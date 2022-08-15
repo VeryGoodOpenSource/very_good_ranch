@@ -35,7 +35,7 @@ void main() {
         initialState: initialState,
       );
 
-      when(preloadCubit.loadSequentially).thenAnswer((invocation) async {});
+      when(preloadCubit.loadSequentially).thenAnswer((_) async {});
       await tester.pumpWidget(
         BlocProvider<PreloadCubit>.value(
           value: preloadCubit,

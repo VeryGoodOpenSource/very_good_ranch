@@ -1,10 +1,12 @@
 // ignore_for_file: cascade_invocations
 
-import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
+import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/behaviors/positional_priority_behavior.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/game.dart';
@@ -34,11 +36,50 @@ void main() {
     ),
   );
 
+  group('componentForEvolutionStage', () {
+    test('returns right component for each stage', () {
+      final babyComponent = UnicornEvolutionStage.baby
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(babyComponent, isA<BabyUnicornComponent>());
+      expect(babyComponent.state, UnicornState.walking);
+
+      final childComponent = UnicornEvolutionStage.child
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(childComponent, isA<ChildUnicornComponent>());
+      expect(childComponent.state, UnicornState.walking);
+
+      final teenComponent = UnicornEvolutionStage.teen
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(teenComponent, isA<TeenUnicornComponent>());
+      expect(teenComponent.state, UnicornState.walking);
+
+      final adultComponent = UnicornEvolutionStage.adult
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(adultComponent, isA<AdultUnicornComponent>());
+      expect(adultComponent.state, UnicornState.walking);
+    });
+  });
+
   group('Unicorn', () {
+    flameTester.test('has all behaviors', (game) async {
+      final unicorn = Unicorn(position: Vector2.all(1));
+      await game.ensureAdd(unicorn);
+
+      expect(unicorn.findBehavior<EvolvingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<PropagatingCollisionBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<MovingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<FoodCollidingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<FullnessDecreasingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<EnjoymentDecreasingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<LeavingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<PettingBehavior>(), isNotNull);
+      expect(unicorn.findBehavior<PositionalPriorityBehavior>(), isNotNull);
+    });
+
     flameTester.test(
       'loads correctly',
       (game) async {
-        final unicorn = Unicorn(position: Vector2.zero());
+        final unicorn = Unicorn(position: Vector2.all(1));
         await game.ready();
         await game.ensureAdd(unicorn);
 
@@ -51,24 +92,53 @@ void main() {
       flameTester.test(
         'is by default idle',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn(position: Vector2.all(1));
           await game.ready();
           await game.ensureAdd(unicorn);
 
           expect(unicorn.state, UnicornState.idle);
         },
       );
+    });
 
+    group('setUnicornState', () {
       flameTester.test(
-        'can be set',
+        'When setting loop animation, sticks to it',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn(
+            position: game.background.pastureField.topLeft.toVector2() +
+                Vector2.all(1),
+          );
           await game.ready();
           await game.ensureAdd(unicorn);
 
-          unicorn.state = UnicornState.walking;
+          unicorn.setUnicornState(UnicornState.walking);
 
           expect(unicorn.state, UnicornState.walking);
+
+          game.update(UnicornSpriteComponent.walkAnimationDuration);
+
+          expect(unicorn.state, UnicornState.walking);
+        },
+      );
+
+      flameTester.test(
+        'When setting finite animation, goes back to idle',
+        (game) async {
+          final unicorn = Unicorn(
+            position: game.background.pastureField.topLeft.toVector2() +
+                Vector2.all(1),
+          );
+          await game.ready();
+          await game.ensureAdd(unicorn);
+
+          unicorn.setUnicornState(UnicornState.eating);
+
+          expect(unicorn.state, UnicornState.eating);
+
+          game.update(UnicornSpriteComponent.eatAnimationDuration);
+
+          expect(unicorn.state, UnicornState.idle);
         },
       );
     });
@@ -77,17 +147,39 @@ void main() {
       flameTester.test(
         'evolves to next stage',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.zero());
+          final unicorn = Unicorn(position: Vector2.all(1));
 
           await game.ensureAdd(unicorn);
-          await game.ready();
-
-          unicorn.state = UnicornState.idle;
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
-          unicorn.timesFed = EvolutionBehavior.timesThatMustBeFed;
+          unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
 
           game.update(0);
+
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
+          expect(unicorn.size, ChildUnicornComponent().size);
+        },
+      );
+
+      flameTester.test(
+        'waits for finite animation to evolve',
+        (game) async {
+          final unicorn = Unicorn(position: Vector2.all(1));
+
+          await game.ensureAdd(unicorn);
+
+          // start finite animation
+          unicorn.setUnicornState(UnicornState.petted);
+
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
+          unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
+
+          game.update(0);
+
+          // still a baby
+          expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
+
+          game.update(UnicornSpriteComponent.pettedAnimationDuration);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           expect(unicorn.size, ChildUnicornComponent().size);
@@ -96,7 +188,7 @@ void main() {
     });
 
     test('reset', () {
-      final unicorn = Unicorn(position: Vector2.zero());
+      final unicorn = Unicorn(position: Vector2.all(1));
 
       expect(unicorn.timesFed, 0);
       expect(unicorn.fullness.value, 1);

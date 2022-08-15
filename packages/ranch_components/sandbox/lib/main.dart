@@ -18,5 +18,7 @@ void main() {
 
   addEvolveComponentStories(dashbook);
 
+  addRainbowDropStories(dashbook);
+
   runApp(dashbook);
 }

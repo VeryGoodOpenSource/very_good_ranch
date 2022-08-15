@@ -10,9 +10,9 @@ import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 import '../../../../helpers/helpers.dart';
 
-class _TestFactorBehavior extends FactorBehavior {
-  factory _TestFactorBehavior() {
-    return _TestFactorBehavior._(
+class _TestFactorDecreasingBehavior extends FactorDecreasingBehavior {
+  factory _TestFactorDecreasingBehavior() {
+    return _TestFactorDecreasingBehavior._(
       gaugeComponent: GaugeComponent(
         position: Vector2.zero(),
         thickness: 20,
@@ -22,7 +22,7 @@ class _TestFactorBehavior extends FactorBehavior {
     );
   }
 
-  _TestFactorBehavior._({
+  _TestFactorDecreasingBehavior._({
     required GaugeComponent gaugeComponent,
   }) : super(gaugeComponent, 0);
 
@@ -37,16 +37,16 @@ void main() {
 
   final flameTester = FlameTester<TestGame>(TestGame.new);
 
-  group('FactorBehavior', () {
+  group('FactorDecreasingBehavior', () {
     late Unicorn unicorn;
-    late _TestFactorBehavior factorBehavior;
+    late _TestFactorDecreasingBehavior factorDecreasingBehavior;
 
     setUp(() {
-      factorBehavior = _TestFactorBehavior();
+      factorDecreasingBehavior = _TestFactorDecreasingBehavior();
       unicorn = Unicorn.test(
         position: Vector2.all(100),
         behaviors: [
-          factorBehavior,
+          factorDecreasingBehavior,
         ],
       )..unicornComponent.spriteComponent.current = null;
     });
@@ -56,8 +56,8 @@ void main() {
         'Follows fullness and enjoyment factors: 100%',
         setUp: (game, tester) async {
           await game.ensureAdd(unicorn);
-          factorBehavior.externalPercentage = 1;
-          factorBehavior.makeGaugeTemporarilyVisible();
+          factorDecreasingBehavior.externalPercentage = 1;
+          factorDecreasingBehavior.makeGaugeTemporarilyVisible();
         },
         verify: (game, tester) async {
           await expectLater(
@@ -71,8 +71,8 @@ void main() {
         'Follows fullness and enjoyment factors: 40%',
         setUp: (game, tester) async {
           await game.ensureAdd(unicorn);
-          factorBehavior.externalPercentage = 0.4;
-          factorBehavior.makeGaugeTemporarilyVisible();
+          factorDecreasingBehavior.externalPercentage = 0.4;
+          factorDecreasingBehavior.makeGaugeTemporarilyVisible();
           game.update(GaugeComponent.animationDuration);
         },
         verify: (game, tester) async {
@@ -88,8 +88,8 @@ void main() {
         setUp: (game, tester) async {
           unicorn.isLeaving = true;
           await game.ensureAdd(unicorn);
-          factorBehavior.externalPercentage = 0;
-          factorBehavior.makeGaugeTemporarilyVisible();
+          factorDecreasingBehavior.externalPercentage = 0;
+          factorDecreasingBehavior.makeGaugeTemporarilyVisible();
           game.update(0.1);
         },
         verify: (game, tester) async {
@@ -105,7 +105,7 @@ void main() {
         'gauge is not visible on start',
         setUp: (game, tester) async {
           await game.ensureAdd(unicorn);
-          factorBehavior.externalPercentage = 1;
+          factorDecreasingBehavior.externalPercentage = 1;
         },
         verify: (game, tester) async {
           await expectLater(
@@ -120,8 +120,8 @@ void main() {
           setUp: (game, tester) async {
             await game.ensureAdd(unicorn);
 
-            factorBehavior.externalPercentage = 1;
-            factorBehavior.makeGaugeTemporarilyVisible();
+            factorDecreasingBehavior.externalPercentage = 1;
+            factorDecreasingBehavior.makeGaugeTemporarilyVisible();
           },
           verify: (game, tester) async {
             await expectLater(
@@ -129,7 +129,7 @@ void main() {
               matchesGoldenFile('golden/gauge/temporary-visibility-1.png'),
             );
 
-            game.update(FactorBehavior.visibilityDuration);
+            game.update(FactorDecreasingBehavior.visibilityDuration);
             await tester.pump();
 
             await expectLater(
@@ -144,7 +144,7 @@ void main() {
         setUp: (game, tester) async {
           await game.ensureAdd(unicorn);
 
-          factorBehavior.externalPercentage = 0.1;
+          factorDecreasingBehavior.externalPercentage = 0.1;
           game.update(GaugeComponent.animationDuration);
         },
         verify: (game, tester) async {

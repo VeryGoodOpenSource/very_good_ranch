@@ -58,7 +58,7 @@
         }
       }
     },
-    "loadingPhaseLabel": "{loadingPhase, select, sounds{Delightful music} counter{Unicorn heads} environment{Farmhouse} food{Snacks} unicorns{Unicorns} other{ }}",
+    "loadingPhaseLabel": "{loadingPhase, select, sounds{Delightful music} environment{Farmhouse} food{Snacks} unicorns{Unicorns} other{ }}",
     "@loadingPhaseLabel": {
       "description": "Loading phases",
       "placeholders": {

@@ -19,8 +19,8 @@ class Food extends Entity {
           ],
           behaviors: [
             DraggingBehavior(),
-            DespawnBehavior(despawnTime: despawnTime),
-            MoveToInventoryBehavior(),
+            DespawningBehavior(despawnTime: despawnTime),
+            MovingToInventoryBehavior(),
             PositionalPriorityBehavior(anchor: Anchor.bottomCenter),
           ],
         );

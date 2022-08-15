@@ -1,38 +1,23 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
-import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
 
-class MovementBehavior extends Behavior<Unicorn>
+class MovingBehavior extends Behavior<Unicorn>
     with HasGameRef<VeryGoodRanchGame> {
-  late final WanderBehavior _wanderBehavior;
-
   @override
   Future<void> onLoad() async {
     await add(TimerComponent(period: 10, repeat: true, onTick: _onTick));
-    _wanderBehavior = WanderBehavior(
-      circleDistance: 10,
-      maximumAngle: 15 * degrees2Radians,
-      startingAngle: 0,
-      random: gameRef.seed,
-    );
   }
 
   void _onTick() {
     if (gameRef.seed.nextDouble() < 0.5) {
-      parent.state = UnicornState.walking;
-      if (!parent.hasBehavior<WanderBehavior>()) {
-        parent.add(_wanderBehavior);
-      }
+      parent.startWalking();
     } else {
-      if (parent.hasBehavior<WanderBehavior>()) {
-        _wanderBehavior.removeFromParent();
-      }
-      parent.state = UnicornState.idle;
+      parent.stopWalking();
     }
   }
 
@@ -67,10 +52,7 @@ class MovementBehavior extends Behavior<Unicorn>
           (!goingRight && parentPosition.x == origin.x) ||
           (goingBottom && parentPosition.y == limit.y) ||
           (!goingBottom && parentPosition.y == origin.y)) {
-        parent.state = UnicornState.idle;
-        if (parent.hasBehavior<WanderBehavior>()) {
-          _wanderBehavior.removeFromParent();
-        }
+        parent.stopWalking();
       }
     }
 

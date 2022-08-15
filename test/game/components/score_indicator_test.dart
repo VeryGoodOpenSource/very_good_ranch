@@ -39,7 +39,6 @@ void main() {
         await game.toBeLoaded();
       },
       verify: (game, tester) async {
-        await tester.pump();
         verify(() => l10n.score).called(1);
       },
     );

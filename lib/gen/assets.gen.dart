@@ -12,24 +12,8 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/adult_head.png
-  AssetGenImage get adultHead =>
-      const AssetGenImage('assets/images/adult_head.png');
-
-  /// File path: assets/images/baby_head.png
-  AssetGenImage get babyHead =>
-      const AssetGenImage('assets/images/baby_head.png');
-
-  /// File path: assets/images/child_head.png
-  AssetGenImage get childHead =>
-      const AssetGenImage('assets/images/child_head.png');
-
   /// File path: assets/images/loading.png
   AssetGenImage get loading => const AssetGenImage('assets/images/loading.png');
-
-  /// File path: assets/images/teen_head.png
-  AssetGenImage get teenHead =>
-      const AssetGenImage('assets/images/teen_head.png');
 
   /// File path: assets/images/title_background.png
   AssetGenImage get titleBackground =>

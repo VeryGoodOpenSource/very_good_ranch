@@ -10,12 +10,12 @@ class UnicornSpawned extends BlessingEvent {
 }
 
 class UnicornDespawned extends BlessingEvent {
-  const UnicornDespawned(this.stage);
+  const UnicornDespawned(this.evolutionStage);
 
-  final UnicornEvolutionStage stage;
+  final UnicornEvolutionStage evolutionStage;
 
   @override
-  List<Object?> get props => [stage];
+  List<Object?> get props => [evolutionStage];
 }
 
 class UnicornEvolved extends BlessingEvent {

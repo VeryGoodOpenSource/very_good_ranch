@@ -25,7 +25,7 @@ class BlessingBloc extends Bloc<BlessingEvent, BlessingState> {
     UnicornDespawned event,
     Emitter<BlessingState> emit,
   ) {
-    switch (event.stage) {
+    switch (event.evolutionStage) {
       case UnicornEvolutionStage.baby:
         final newValue = state.babyUnicorns - 1;
         return emit(state.copyWith(babyUnicorns: newValue));

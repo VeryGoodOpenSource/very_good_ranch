@@ -17,6 +17,7 @@ class VeryGoodRanchGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection, SeedGame {
   VeryGoodRanchGame({
     Random? seed,
+    required this.blessingBloc,
     required this.gameBloc,
     required this.inventoryBloc,
     UnprefixedImages? images,
@@ -38,6 +39,8 @@ class VeryGoodRanchGame extends FlameGame
 
   @override
   final Random seed;
+
+  final BlessingBloc blessingBloc;
 
   final GameBloc gameBloc;
 
@@ -64,6 +67,9 @@ class VeryGoodRanchGame extends FlameGame
     await add(
       FlameMultiBlocProvider(
         providers: [
+          FlameBlocProvider<BlessingBloc, BlessingState>.value(
+            value: blessingBloc,
+          ),
           FlameBlocProvider<GameBloc, GameState>.value(value: gameBloc),
           FlameBlocProvider<InventoryBloc, InventoryState>.value(
             value: inventoryBloc,

@@ -1,6 +1,8 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_ui/ranch_ui.dart';
+import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/settings/settings.dart';
 
@@ -25,29 +27,13 @@ class FooterWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const UnicornCounter(
-              isActive: true,
-              type: UnicornType.baby,
-              child: Text('1'),
-            ),
+            const _UnicornCounter(type: UnicornType.baby),
             const SizedBox(width: 16),
-            const UnicornCounter(
-              isActive: true,
-              type: UnicornType.child,
-              child: Text('1'),
-            ),
+            const _UnicornCounter(type: UnicornType.child),
             const SizedBox(width: 16),
-            const UnicornCounter(
-              isActive: true,
-              type: UnicornType.teen,
-              child: Text('1'),
-            ),
+            const _UnicornCounter(type: UnicornType.teen),
             const SizedBox(width: 16),
-            const UnicornCounter(
-              isActive: false,
-              type: UnicornType.adult,
-              child: Text('0'),
-            ),
+            const _UnicornCounter(type: UnicornType.adult),
             const SizedBox(width: 16),
             Expanded(
               child: GestureDetector(
@@ -74,6 +60,44 @@ class FooterWidget extends StatelessWidget {
         ) &&
         except != SettingsDialog.overlayKey) {
       game.overlays.remove(SettingsDialog.overlayKey);
+    }
+  }
+}
+
+class _UnicornCounter extends StatelessWidget {
+  const _UnicornCounter({
+    Key? key,
+    required this.type,
+  }) : super(key: key);
+
+  final UnicornType type;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BlessingBloc, BlessingState>(
+      builder: (context, state) {
+        final count = state.getUnicornCountForType(type);
+        return UnicornCounter(
+          isActive: count > 0,
+          type: type,
+          child: Text(count.toString()),
+        );
+      },
+    );
+  }
+}
+
+extension on BlessingState {
+  int getUnicornCountForType(UnicornType type) {
+    switch (type) {
+      case UnicornType.baby:
+        return babyUnicorns;
+      case UnicornType.child:
+        return childUnicorns;
+      case UnicornType.teen:
+        return teenUnicorns;
+      case UnicornType.adult:
+        return adultUnicorns;
     }
   }
 }

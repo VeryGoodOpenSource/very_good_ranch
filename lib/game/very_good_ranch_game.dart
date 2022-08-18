@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
-import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
@@ -56,8 +55,6 @@ class VeryGoodRanchGame extends FlameGame
   @override
   Color backgroundColor() => Colors.transparent;
 
-  int get score => 0;
-
   late final BackgroundComponent background;
 
   @override
@@ -87,8 +84,6 @@ class VeryGoodRanchGame extends FlameGame
         ],
       ),
     );
-
-    await add(ScoreIndicator(position: Vector2.zero()));
   }
 
   @override

@@ -4,10 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
-import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/game/very_good_ranch_game.dart';
-import 'package:very_good_ranch/game/widgets/widgets.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 

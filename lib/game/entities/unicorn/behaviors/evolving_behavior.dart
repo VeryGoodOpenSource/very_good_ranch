@@ -18,7 +18,7 @@ class EvolvingBehavior extends Behavior<Unicorn>
       ..evolutionStage = nextEvolutionStage
       ..reset();
 
-    bloc.add(UnicornEvolved(nextEvolutionStage));
+    bloc.add(UnicornEvolved(to: nextEvolutionStage));
   }
 
   bool get shouldEvolve {

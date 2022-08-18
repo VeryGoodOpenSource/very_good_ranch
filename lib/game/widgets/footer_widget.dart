@@ -66,9 +66,8 @@ class FooterWidget extends StatelessWidget {
 
 class _UnicornCounter extends StatelessWidget {
   const _UnicornCounter({
-    Key? key,
     required this.type,
-  }) : super(key: key);
+  });
 
   final UnicornType type;
 

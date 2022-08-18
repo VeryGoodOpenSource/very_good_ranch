@@ -10,6 +10,9 @@ import 'package:very_good_ranch/settings/settings.dart';
 class MockSettingsBloc extends MockBloc<SettingsEvent, SettingsState>
     implements SettingsBloc {}
 
+class MockBlessingBloc extends MockBloc<BlessingEvent, BlessingState>
+    implements BlessingBloc {}
+
 class MockGameBloc extends MockBloc<GameEvent, GameState> implements GameBloc {}
 
 class MockInventoryBloc extends MockBloc<InventoryEvent, InventoryState>

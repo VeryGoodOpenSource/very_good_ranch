@@ -30,6 +30,7 @@ void main() {
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
+      blessingBloc: MockBlessingBloc(),
       inventoryBloc: MockInventoryBloc(),
     ),
   );

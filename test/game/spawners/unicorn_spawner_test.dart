@@ -33,6 +33,7 @@ void main() {
     () => VeryGoodRanchGame(
       seed: seed,
       gameBloc: gameBloc,
+      blessingBloc: MockBlessingBloc(),
       inventoryBloc: MockInventoryBloc(),
     ),
   );

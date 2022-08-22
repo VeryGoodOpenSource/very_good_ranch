@@ -106,6 +106,9 @@ enum BackgroundTreeType {
 }
 
 /// Adds [getBackgroundElement] to [BackgroundTreeType]
+///
+/// NOTE: This should be a 2.17 enum constructor but guess what, coverage
+/// doesn't work for that, see: https://github.com/dart-lang/coverage/issues/386
 extension BackgroundTreeTypeX on BackgroundTreeType {
   /// Get hte corresponding [BackgroundElement] given a [BackgroundTreeType]
   BackgroundElement getBackgroundElement(Vector2 position) {

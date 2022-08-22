@@ -12,7 +12,6 @@ import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
-import 'package:very_good_ranch/l10n/l10n.dart';
 
 class VeryGoodRanchGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection, SeedGame {
@@ -20,7 +19,6 @@ class VeryGoodRanchGame extends FlameGame
     Random? seed,
     required this.gameBloc,
     required this.inventoryBloc,
-    required this.l10n,
     UnprefixedImages? images,
     @visibleForTesting bool debugMode = false,
     EdgeInsets viewPadding = EdgeInsets.zero,
@@ -46,8 +44,6 @@ class VeryGoodRanchGame extends FlameGame
   final InventoryBloc inventoryBloc;
 
   final bool _debugMode;
-
-  final AppLocalizations l10n;
 
   @override
   bool get debugMode => _debugMode;

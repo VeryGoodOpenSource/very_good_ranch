@@ -12,14 +12,12 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
-import 'package:very_good_ranch/l10n/l10n.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   late Random seed;
   late GameBloc gameBloc;
-  late AppLocalizations l10n;
 
   setUp(() {
     seed = MockRandom();
@@ -29,9 +27,6 @@ void main() {
 
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
-
-    l10n = MockAppLocalizations();
-    when(() => l10n.score).thenReturn('score');
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
@@ -39,7 +34,6 @@ void main() {
       seed: seed,
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
-      l10n: l10n,
     ),
   );
 

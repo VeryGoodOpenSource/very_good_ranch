@@ -48,7 +48,7 @@ void main() {
         expect(unicorn.enjoyment.value, 0.8);
       });
 
-      flameTester.test('for a teenager unicorn', (game) async {
+      flameTester.test('for a teen unicorn', (game) async {
         final enjoymentDecreasingBehavior = EnjoymentDecreasingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
@@ -79,41 +79,6 @@ void main() {
         game.update(EnjoymentDecreasingBehavior.decreaseInterval);
         expect(unicorn.enjoyment.value, 0.9);
       });
-    });
-
-    group('renders a gauge', () {
-      flameTester.testGameWidget(
-        'with the right color and size',
-        setUp: (game, tester) async {
-          final enjoymentDecreasingBehavior = EnjoymentDecreasingBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              enjoymentDecreasingBehavior,
-            ],
-          );
-          await game.ensureAdd(unicorn);
-          unicorn.isLeaving = true;
-          unicorn.enjoyment.value = 1.0;
-          enjoymentDecreasingBehavior.makeGaugeTemporarilyVisible();
-        },
-        verify: (game, tester) async {
-          final enjoymentDecreasingBehavior =
-              game.descendants().whereType<EnjoymentDecreasingBehavior>().first;
-          final unicorn = game.descendants().whereType<Unicorn>().first;
-          expect(
-            enjoymentDecreasingBehavior.gaugeComponent.diameter,
-            unicorn.size.x + EnjoymentDecreasingBehavior.innerSpacing,
-          );
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile(
-              'golden/enjoyment/has-gauge.png',
-            ),
-          );
-        },
-      );
     });
   });
 }

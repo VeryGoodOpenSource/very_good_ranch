@@ -71,7 +71,7 @@ void main() {
         expect(unicorn.timesFed, 0);
       });
 
-      flameTester.test('from kid to teenager', (game) async {
+      flameTester.test('from kid to teen', (game) async {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
         final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 
@@ -101,7 +101,7 @@ void main() {
         expect(unicorn.timesFed, 0);
       });
 
-      flameTester.test('from teenager to adult', (game) async {
+      flameTester.test('from teen to adult', (game) async {
         final enjoymentDecreasingBehavior = _MockEnjoymentDecreasingBehavior();
         final fullnessDecreasingBehavior = _MockFullnessDecreasingBehavior();
 

@@ -1,31 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
-import 'package:ranch_components/ranch_components.dart';
+import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
-import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-class FullnessDecreasingBehavior extends FactorDecreasingBehavior {
-  factory FullnessDecreasingBehavior() {
-    return FullnessDecreasingBehavior._(
-      GaugeComponent(
-        position: Vector2.zero(),
-        thickness: 20,
-        percentage: 1,
-        color: Colors.pink,
-      ),
-      innerSpacing,
-    );
-  }
-
-  FullnessDecreasingBehavior._(
-    super.gaugeComponent,
-    super.innerSpacing,
-  );
-
+class FullnessDecreasingBehavior extends Behavior<Unicorn> {
   static const double decreaseInterval = 7;
-
-  /// The extra spacing the gauge should take from the unicorn size
-  static const double innerSpacing = 54;
 
   @override
   Future<void> onLoad() async {
@@ -41,9 +19,6 @@ class FullnessDecreasingBehavior extends FactorDecreasingBehavior {
   void _decreaseFullness() {
     parent.fullness.decreaseBy(parent.evolutionStage.fullnessDecreaseFactor);
   }
-
-  @override
-  double get percentage => parent.fullness.value;
 }
 
 extension on UnicornEvolutionStage {

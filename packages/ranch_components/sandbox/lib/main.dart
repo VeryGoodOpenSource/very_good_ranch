@@ -10,8 +10,6 @@ void main() {
 
   addUnicornComponentStories(dashbook);
 
-  addGaugeComponentStories(dashbook);
-
   addFoodComponentStories(dashbook);
 
   addClipComponentStories(dashbook);

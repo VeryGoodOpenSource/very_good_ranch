@@ -4,7 +4,7 @@
 
 ### Unicorn
 
-A unicorn is a mystical animal that roams your ranch, it can be either a baby, kid, teenager or an adult. These are the stages of a unicorn. 
+A unicorn is a mystical animal that roams your ranch, it can be either a baby, kid, teen or an adult. These are the stages of a unicorn. 
 
 Each unicorn has a happiness counter, this can be influenced by a few game aspects:
 - Feeding the preferred food.

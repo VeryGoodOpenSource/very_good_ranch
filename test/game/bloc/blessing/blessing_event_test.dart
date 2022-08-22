@@ -30,12 +30,15 @@ void main() {
     });
     group('UnicornEvolved', () {
       test('can be instantiated', () {
-        expect(const UnicornEvolved(UnicornEvolutionStage.adult), isNotNull);
+        expect(
+          const UnicornEvolved(to: UnicornEvolutionStage.adult),
+          isNotNull,
+        );
       });
       test('supports value equality', () {
         expect(
-          UnicornEvolved(UnicornEvolutionStage.teen),
-          equals(UnicornEvolved(UnicornEvolutionStage.teen)),
+          UnicornEvolved(to: UnicornEvolutionStage.teen),
+          equals(UnicornEvolved(to: UnicornEvolutionStage.teen)),
         );
       });
     });

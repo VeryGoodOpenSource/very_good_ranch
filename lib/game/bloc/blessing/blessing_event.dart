@@ -19,7 +19,7 @@ class UnicornDespawned extends BlessingEvent {
 }
 
 class UnicornEvolved extends BlessingEvent {
-  const UnicornEvolved(this.to);
+  const UnicornEvolved({required this.to});
 
   final UnicornEvolutionStage to;
 

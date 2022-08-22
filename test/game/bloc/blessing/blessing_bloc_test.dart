@@ -29,14 +29,13 @@ void main() {
       blocTest<BlessingBloc, BlessingState>(
         'from baby until adult',
         build: BlessingBloc.new,
+        seed: () => BlessingState.zero(babyUnicorns: 1),
         act: (bloc) {
           bloc
-            ..add(UnicornSpawned())
-            ..add(const UnicornEvolved(UnicornEvolutionStage.child))
-            ..add(const UnicornEvolved(UnicornEvolutionStage.teen))
-            ..add(const UnicornEvolved(UnicornEvolutionStage.adult));
+            ..add(const UnicornEvolved(to: UnicornEvolutionStage.child))
+            ..add(const UnicornEvolved(to: UnicornEvolutionStage.teen))
+            ..add(const UnicornEvolved(to: UnicornEvolutionStage.adult));
         },
-        skip: 1,
         expect: () {
           return [
             BlessingState.zero(childUnicorns: 1),
@@ -52,7 +51,7 @@ void main() {
         act: (bloc) {
           bloc
             ..add(UnicornSpawned())
-            ..add(const UnicornEvolved(UnicornEvolutionStage.baby));
+            ..add(const UnicornEvolved(to: UnicornEvolutionStage.baby));
         },
         errors: () => [isA<StateError>()],
       );
@@ -61,7 +60,7 @@ void main() {
         'cannot evolve a unicorn that does not exist',
         build: BlessingBloc.new,
         act: (bloc) {
-          bloc.add(const UnicornEvolved(UnicornEvolutionStage.teen));
+          bloc.add(const UnicornEvolved(to: UnicornEvolutionStage.teen));
         },
         errors: () => [isA<StateError>()],
       );
@@ -71,16 +70,10 @@ void main() {
       blocTest<BlessingBloc, BlessingState>(
         'de-spawns a baby unicorn',
         build: BlessingBloc.new,
+        seed: () => BlessingState.zero(babyUnicorns: 1),
         act: (bloc) {
-          bloc
-
-            /// Add baby unicorn
-            ..add(UnicornSpawned())
-
-            /// de-spawn baby unicorn
-            ..add(const UnicornDespawned(UnicornEvolutionStage.baby));
+          bloc.add(const UnicornDespawned(UnicornEvolutionStage.baby));
         },
-        skip: 1,
         expect: () {
           return [BlessingState.zero()];
         },
@@ -89,19 +82,10 @@ void main() {
       blocTest<BlessingBloc, BlessingState>(
         'de-spawns a child unicorn',
         build: BlessingBloc.new,
+        seed: () => BlessingState.zero(childUnicorns: 1),
         act: (bloc) {
-          bloc
-
-            /// Add baby unicorn
-            ..add(UnicornSpawned())
-
-            /// Evolve to child
-            ..add(const UnicornEvolved(UnicornEvolutionStage.child))
-
-            /// de-spawn baby unicorn
-            ..add(const UnicornDespawned(UnicornEvolutionStage.child));
+          bloc.add(const UnicornDespawned(UnicornEvolutionStage.child));
         },
-        skip: 2,
         expect: () {
           return [BlessingState.zero()];
         },
@@ -110,20 +94,10 @@ void main() {
       blocTest<BlessingBloc, BlessingState>(
         'de-spawns a teen unicorn',
         build: BlessingBloc.new,
+        seed: () => BlessingState.zero(teenUnicorns: 1),
         act: (bloc) {
-          bloc
-
-            /// Add baby unicorn
-            ..add(UnicornSpawned())
-
-            /// Evolve to teen
-            ..add(const UnicornEvolved(UnicornEvolutionStage.child))
-            ..add(const UnicornEvolved(UnicornEvolutionStage.teen))
-
-            /// de-spawn teen unicorn
-            ..add(const UnicornDespawned(UnicornEvolutionStage.teen));
+          bloc.add(const UnicornDespawned(UnicornEvolutionStage.teen));
         },
-        skip: 3,
         expect: () {
           return [BlessingState.zero()];
         },
@@ -132,21 +106,10 @@ void main() {
       blocTest<BlessingBloc, BlessingState>(
         'de-spawns an adult unicorn',
         build: BlessingBloc.new,
+        seed: () => BlessingState.zero(adultUnicorns: 1),
         act: (bloc) {
-          bloc
-
-            /// Add baby unicorn
-            ..add(UnicornSpawned())
-
-            /// Evolve to adult
-            ..add(const UnicornEvolved(UnicornEvolutionStage.child))
-            ..add(const UnicornEvolved(UnicornEvolutionStage.teen))
-            ..add(const UnicornEvolved(UnicornEvolutionStage.adult))
-
-            /// de-spawn adult unicorn
-            ..add(const UnicornDespawned(UnicornEvolutionStage.adult));
+          bloc.add(const UnicornDespawned(UnicornEvolutionStage.adult));
         },
-        skip: 4,
         expect: () {
           return [BlessingState.zero()];
         },

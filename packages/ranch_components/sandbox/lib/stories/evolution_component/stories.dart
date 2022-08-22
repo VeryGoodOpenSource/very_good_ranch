@@ -6,8 +6,8 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:ranch_components/ranch_components.dart';
 
-class EvolveComponentExample extends FlameGame {
-  EvolveComponentExample() {
+class EvolutionComponentExample extends FlameGame {
+  EvolutionComponentExample() {
     images.prefix = '';
     Flame.images.prefix = '';
   }
@@ -52,11 +52,11 @@ class EvolveComponentExample extends FlameGame {
   Color backgroundColor() => const Color(0xFF52C1B1);
 }
 
-void addEvolveComponentStories(Dashbook dashbook) {
-  dashbook.storiesOf('EvolveComponent').add(
+void addEvolutionComponentStories(Dashbook dashbook) {
+  dashbook.storiesOf('Evolution').add(
     'basic',
     (context) {
-      final game = EvolveComponentExample();
+      final game = EvolutionComponentExample();
       context.action('evolve', (_) {
         game.evolve();
       });

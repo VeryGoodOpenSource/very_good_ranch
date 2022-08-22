@@ -1,6 +1,5 @@
 import 'package:dashbook/dashbook.dart';
 import 'package:flutter/material.dart';
-import 'package:sandbox/stories/evolve_component/stories.dart';
 import 'package:sandbox/stories/ranch_background_component/stories.dart';
 import 'package:sandbox/stories/stories.dart';
 
@@ -16,7 +15,7 @@ void main() {
 
   addConfettiComponentStories(dashbook);
 
-  addEvolveComponentStories(dashbook);
+  addEvolutionComponentStories(dashbook);
 
   addRainbowDropStories(dashbook);
 

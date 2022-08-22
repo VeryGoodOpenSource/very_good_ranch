@@ -24,6 +24,7 @@ extension PumpApp on WidgetTester {
     MockNavigator? navigator,
     SettingsBloc? settingsBloc,
     InventoryBloc? inventoryBloc,
+    BlessingBloc? blessingBloc,
     GameBloc? gameBloc,
     PreloadCubit? preloadCubit,
   }) async {
@@ -31,6 +32,7 @@ extension PumpApp on WidgetTester {
       MultiBlocProvider(
         providers: [
           BlocProvider.value(value: settingsBloc ?? MockSettingsBloc()),
+          BlocProvider.value(value: blessingBloc ?? BlessingBloc()),
           BlocProvider.value(value: gameBloc ?? MockGameBloc()),
           BlocProvider.value(value: inventoryBloc ?? MockInventoryBloc()),
           BlocProvider.value(value: preloadCubit ?? MockPreloadCubit()),

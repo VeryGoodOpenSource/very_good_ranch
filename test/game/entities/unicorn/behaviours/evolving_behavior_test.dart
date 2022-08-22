@@ -21,8 +21,15 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late GameBloc gameBloc;
+  late BlessingBloc blessingBloc;
+
+  setUpAll(() {
+    registerFallbackValue(MockBlessingEvent());
+  });
 
   setUp(() {
+    blessingBloc = MockBlessingBloc();
+
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
   });
@@ -30,7 +37,7 @@ void main() {
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
-      blessingBloc: MockBlessingBloc(),
+      blessingBloc: blessingBloc,
       inventoryBloc: MockInventoryBloc(),
     ),
   );
@@ -52,7 +59,7 @@ void main() {
           ],
         );
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
         unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
@@ -64,6 +71,11 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
         expect(unicorn.timesFed, 0);
+        verify(
+          () => blessingBloc.add(
+            const UnicornEvolved(to: UnicornEvolutionStage.child),
+          ),
+        ).called(1);
       });
 
       flameTester.test('from kid to teen', (game) async {
@@ -82,7 +94,7 @@ void main() {
           ],
         );
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
         await game.ready();
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
@@ -94,6 +106,11 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
         expect(unicorn.timesFed, 0);
+        verify(
+          () => blessingBloc.add(
+            const UnicornEvolved(to: UnicornEvolutionStage.teen),
+          ),
+        ).called(1);
       });
 
       flameTester.test('from teen to adult', (game) async {
@@ -112,7 +129,7 @@ void main() {
           ],
         );
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
         game.update(5);
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
@@ -125,6 +142,11 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
         expect(unicorn.timesFed, 0);
+        verify(
+          () => blessingBloc.add(
+            const UnicornEvolved(to: UnicornEvolutionStage.adult),
+          ),
+        ).called(1);
       });
 
       flameTester.test(
@@ -146,7 +168,7 @@ void main() {
             ],
           );
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
           unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
@@ -158,6 +180,7 @@ void main() {
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
           expect(unicorn.timesFed, EvolvingBehavior.timesThatMustBeFed);
+          verifyNever(() => blessingBloc.add(any(that: isA<UnicornEvolved>())));
         },
       );
 
@@ -180,7 +203,7 @@ void main() {
             ],
           );
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           unicorn.timesFed = 0;
@@ -192,6 +215,7 @@ void main() {
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           expect(unicorn.timesFed, 0);
+          verifyNever(() => blessingBloc.add(any(that: isA<UnicornEvolved>())));
         },
       );
 
@@ -214,7 +238,7 @@ void main() {
             ],
           );
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           unicorn.timesFed = 1;
@@ -225,6 +249,7 @@ void main() {
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           expect(unicorn.timesFed, 1);
+          verifyNever(() => blessingBloc.add(any(that: isA<UnicornEvolved>())));
         },
       );
     });
@@ -249,7 +274,7 @@ void main() {
             ],
           );
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;

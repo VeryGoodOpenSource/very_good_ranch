@@ -35,13 +35,17 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
   static Future<void> preloadAssets(Images images) async {
     await images.loadAll([
       Assets.background.barn.keyName,
+      Assets.background.sheep.keyName,
+      Assets.background.sheepSmall.keyName,
+      Assets.background.cow.keyName,
       Assets.background.flowerDuo.keyName,
       Assets.background.flowerGroup.keyName,
       Assets.background.flowerSolo.keyName,
       Assets.background.grass.keyName,
       Assets.background.shortTree.keyName,
       Assets.background.tallTree.keyName,
-      Assets.background.treeTrio.keyName,
+      Assets.background.linedTree.keyName,
+      Assets.background.linedTreeShort.keyName,
     ]);
   }
 
@@ -49,9 +53,9 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
   /// reserved for visual elements in which the unicorns and playable elements
   /// cannot be displaced to.
   static const paddingToPasture = EdgeInsets.only(
-    top: 120,
-    left: 30,
-    right: 30,
+    top: 220,
+    left: 42,
+    right: 42,
     bottom: 30,
   );
 
@@ -95,25 +99,27 @@ class BackgroundComponent extends PositionComponent with HasGameRef {
       // Add barn
       Barn(position: delegate.getPositionForBarn(Barn.dimensions)),
 
-      // Add tree trios:
-      // one at the top
-      TreeTrio(position: delegate.getPositionForTreeTrio1(TreeTrio.dimensions)),
-      // one at bottom left
-      TreeTrio(position: delegate.getPositionForTreeTrio2(TreeTrio.dimensions)),
-      // one at bottom left
-      TreeTrio(position: delegate.getPositionForTreeTrio3(TreeTrio.dimensions)),
+      Sheep(position: delegate.getPositionForSheep(Sheep.dimensions)),
+
+      SheepSmall(
+        position: delegate.getPositionForSheepSmall(SheepSmall.dimensions),
+      ),
+
+      Cow(position: delegate.getPositionForCow(Cow.dimensions)),
 
       // Add trees to the left
-      for (final position
-          in delegate.getPositionsForLeftSideTrees(TallTree.dimensions))
-        TallTree(position: position),
+      ...delegate.positionSideTrees(
+        minX: 0,
+        maxX: pastureField.left,
+        positionTree: (type, position) => type.getBackgroundElement(position),
+      ),
 
       // Add trees to the right
-      for (final position in delegate.getPositionsForRightSideTrees(
-        ShortTree.dimensions,
-        size.x,
-      ))
-        ShortTree(position: position),
+      ...delegate.positionSideTrees(
+        minX: pastureField.right,
+        maxX: size.x,
+        positionTree: (type, position) => type.getBackgroundElement(position),
+      ),
 
       // Add all the grass
       for (final position in delegate.getPositionsForGrasses(Grass.dimensions))

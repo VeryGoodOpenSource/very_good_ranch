@@ -20,7 +20,9 @@ class MockImages extends Mock implements Images {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final flameTester = FlameTester(
-    () => TestGame(const Color(0xFF52C1B1)),
+    () => TestGame(
+      backgroundColor: const Color(0xFF92DED3),
+    ),
     gameSize: Vector2(900, 1600),
   );
 
@@ -39,13 +41,17 @@ void main() {
           () => images.loadAll(
             [
               Assets.background.barn.keyName,
+              Assets.background.sheep.keyName,
+              Assets.background.sheepSmall.keyName,
+              Assets.background.cow.keyName,
               Assets.background.flowerDuo.keyName,
               Assets.background.flowerGroup.keyName,
               Assets.background.flowerSolo.keyName,
               Assets.background.grass.keyName,
               Assets.background.shortTree.keyName,
               Assets.background.tallTree.keyName,
-              Assets.background.treeTrio.keyName,
+              Assets.background.linedTree.keyName,
+              Assets.background.linedTreeShort.keyName,
             ],
           ),
         ).called(1);
@@ -58,7 +64,7 @@ void main() {
 
       final pastureField = backgroundComponent.pastureField;
 
-      expect(pastureField, const Rect.fromLTRB(30, 120, 870, 1570));
+      expect(pastureField, const Rect.fromLTRB(42, 220, 858, 1570));
     });
 
     flameTester.testGameWidget(
@@ -66,6 +72,7 @@ void main() {
       setUp: (game, tester) async {
         final seed = MockRandom();
         when(seed.nextDouble).thenReturn(0.5);
+        when(() => seed.nextInt(any())).thenReturn(0);
         final backgroundComponent = BackgroundComponent(
           getDelegate: (pastureField) =>
               BackgroundPositionDelegate(seed, pastureField),

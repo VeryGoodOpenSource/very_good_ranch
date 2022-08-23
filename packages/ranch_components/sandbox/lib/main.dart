@@ -18,6 +18,8 @@ void main() {
 
   addConfettiComponentStories(dashbook);
 
+  addEvolutionComponentStories(dashbook);
+
   addRainbowDropStories(dashbook);
 
   runApp(dashbook);

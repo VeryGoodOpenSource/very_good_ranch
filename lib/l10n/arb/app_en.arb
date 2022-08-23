@@ -46,7 +46,6 @@
     "@inventory": {
         "description": "Text for Inventory title"
     },
-    "score": "Score",
     "loading": "Loading {label}...",
     "@loading": {
       "description": "Text for the loading page",

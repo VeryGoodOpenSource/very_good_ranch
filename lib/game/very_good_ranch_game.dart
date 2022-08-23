@@ -9,11 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
-import 'package:very_good_ranch/game/components/components.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
-import 'package:very_good_ranch/l10n/l10n.dart';
 
 class VeryGoodRanchGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection, SeedGame {
@@ -21,7 +19,6 @@ class VeryGoodRanchGame extends FlameGame
     Random? seed,
     required this.gameBloc,
     required this.inventoryBloc,
-    required this.l10n,
     UnprefixedImages? images,
     @visibleForTesting bool debugMode = false,
     EdgeInsets viewPadding = EdgeInsets.zero,
@@ -48,15 +45,11 @@ class VeryGoodRanchGame extends FlameGame
 
   final bool _debugMode;
 
-  final AppLocalizations l10n;
-
   @override
   bool get debugMode => _debugMode;
 
   @override
   Color backgroundColor() => Colors.transparent;
-
-  int get score => 0;
 
   late final BackgroundComponent background;
 
@@ -87,8 +80,6 @@ class VeryGoodRanchGame extends FlameGame
         ],
       ),
     );
-
-    await add(ScoreIndicator(position: Vector2.zero()));
   }
 
   @override

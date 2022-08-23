@@ -2,27 +2,38 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame_bloc/flame_bloc.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
+import 'package:very_good_ranch/game/game.dart';
 
 class UnicornSpawner extends TimerComponent
-    with ParentIsA<BackgroundComponent> {
+    with
+        ParentIsA<BackgroundComponent>,
+        FlameBlocReader<BlessingBloc, BlessingState> {
   UnicornSpawner({
     required this.seed,
     double spawnThreshold = 20.0,
   }) : super(repeat: true, period: spawnThreshold);
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    addUnicorn();
+  }
 
   /// The random number generator for spawning unicorn.
   final Random seed;
 
   @override
   void onTick() {
-    // TODO(wolfen): Before the random check, confirm that the overall happiness
-    // allows for a new friend to join.
     if (seed.nextDouble() < .5) {
       return;
     }
+    addUnicorn();
+  }
 
+  void addUnicorn() {
     final pastureField = parent.pastureField;
     final unicorn = Unicorn(position: Vector2.zero());
     final position = Vector2.random(seed)
@@ -30,5 +41,6 @@ class UnicornSpawner extends TimerComponent
       ..add(pastureField.topLeft.toVector2());
     unicorn.position = position;
     parent.add(unicorn);
+    bloc.add(UnicornSpawned());
   }
 }

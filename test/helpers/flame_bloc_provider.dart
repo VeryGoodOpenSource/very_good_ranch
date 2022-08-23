@@ -8,10 +8,14 @@ import 'helpers.dart';
 FlameMultiBlocProvider flameBlocProvider({
   GameBloc? gameBloc,
   InventoryBloc? inventoryBloc,
+  BlessingBloc? blessingBloc,
   required Component child,
 }) {
   return FlameMultiBlocProvider(
     providers: [
+      FlameBlocProvider<BlessingBloc, BlessingState>.value(
+        value: blessingBloc ?? MockBlessingBloc(),
+      ),
       FlameBlocProvider<GameBloc, GameState>.value(
         value: gameBloc ?? MockGameBloc(),
       ),

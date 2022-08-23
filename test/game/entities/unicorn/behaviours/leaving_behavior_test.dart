@@ -5,13 +5,17 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
+import 'package:very_good_ranch/game/game.dart';
 
-import '../../../../helpers/test_game.dart';
+import '../../../../helpers/helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final flameTester = FlameTester(TestGame.new);
-
+  late BlessingBloc blessingBloc;
+  setUp(() {
+    blessingBloc = MockBlessingBloc();
+  });
   group('LeavingBehavior', () {
     flameTester.testGameWidget(
       'Start movement and opacity Effect',
@@ -25,7 +29,12 @@ void main() {
         )
           ..enjoyment.value = 0.01
           ..fullness.value = 0.01;
-        await game.ensureAdd(unicorn);
+        await game.ensureAdd(
+          flameBlocProvider(
+            blessingBloc: blessingBloc,
+            child: unicorn,
+          ),
+        );
       },
       verify: (game, tester) async {
         final unicorn = game.descendants().whereType<Unicorn>().first;
@@ -57,7 +66,13 @@ void main() {
           ..fullness.value = 0.01;
 
         expect(unicorn.isLeaving, false);
-        await game.ensureAdd(unicorn);
+        await game.ensureAdd(
+          flameBlocProvider(
+            blessingBloc: blessingBloc,
+            child: unicorn,
+          ),
+        );
+
         game.update(0); // one extra bump to remove the component
         expect(unicorn.isLeaving, true);
         game.update(LeavingBehavior.leavingAnimationDuration);

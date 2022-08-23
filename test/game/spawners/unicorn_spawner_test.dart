@@ -11,19 +11,21 @@ import 'package:ranch_components/ranch_components.dart';
 
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/game/spawners/spawners.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   late Random seed;
   late GameBloc gameBloc;
+  late BlessingBloc blessingBloc;
 
   setUp(() {
     seed = MockRandom();
     when(() => seed.nextInt(any())).thenReturn(0);
     when(() => seed.nextDouble()).thenReturn(0);
     when(() => seed.nextBool()).thenReturn(false);
+
+    blessingBloc = MockBlessingBloc();
 
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
@@ -33,6 +35,7 @@ void main() {
     () => VeryGoodRanchGame(
       seed: seed,
       gameBloc: gameBloc,
+      blessingBloc: blessingBloc,
       inventoryBloc: MockInventoryBloc(),
     ),
   );
@@ -42,29 +45,29 @@ void main() {
       'spawns a unicorn',
       setUp: (game, tester) async {
         when(() => seed.nextDouble()).thenReturn(1);
-        await game.add(
-          BackgroundComponent(
-            children: [
-              UnicornSpawner(seed: seed),
-            ],
-          ),
-        );
-
-        await game.ready();
-        game.update(20);
         await game.ready();
       },
       verify: (game, tester) async {
         final backgroundComponent =
-            game.children.whereType<BackgroundComponent>().first;
-        final unicornComponents =
+            game.descendants().whereType<BackgroundComponent>().first;
+
+        final unicornComponentsBefore =
             backgroundComponent.children.whereType<Unicorn>();
 
-        expect(unicornComponents.length, 1);
+        expect(unicornComponentsBefore.length, 1);
+
+        game.update(20);
+        await tester.pump();
+        backgroundComponent.processPendingLifecycleEvents();
+
+        final unicornComponentsAfter =
+            backgroundComponent.children.whereType<Unicorn>();
+
+        expect(unicornComponentsAfter.length, 2);
         expect(
-          unicornComponents.first.position,
+          unicornComponentsAfter.first.position,
           backgroundComponent.pastureField.bottomRight.toVector2() -
-              unicornComponents.first.size,
+              unicornComponentsAfter.first.size,
         );
       },
     );

@@ -6,16 +6,16 @@ abstract class BlessingEvent extends Equatable {
 
 class UnicornSpawned extends BlessingEvent {
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class UnicornDespawned extends BlessingEvent {
-  const UnicornDespawned(this.stage);
+  const UnicornDespawned(this.evolutionStage);
 
-  final UnicornEvolutionStage stage;
+  final UnicornEvolutionStage evolutionStage;
 
   @override
-  List<Object?> get props => [stage];
+  List<Object> get props => [evolutionStage];
 }
 
 class UnicornEvolved extends BlessingEvent {
@@ -24,5 +24,5 @@ class UnicornEvolved extends BlessingEvent {
   final UnicornEvolutionStage to;
 
   @override
-  List<Object?> get props => [to];
+  List<Object> get props => [to];
 }

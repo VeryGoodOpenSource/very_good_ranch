@@ -21,12 +21,15 @@ import '../helpers/helpers.dart';
 
 void main() {
   late Random seed;
+  late BlessingBloc blessingBloc;
   late GameBloc gameBloc;
 
   setUp(() {
     seed = MockRandom();
     when(() => seed.nextDouble()).thenReturn(0);
     when(() => seed.nextBool()).thenReturn(false);
+
+    blessingBloc = MockBlessingBloc();
 
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
@@ -35,6 +38,7 @@ void main() {
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       seed: seed,
+      blessingBloc: blessingBloc,
       gameBloc: gameBloc,
       inventoryBloc: MockInventoryBloc(),
     ),
@@ -52,6 +56,7 @@ void main() {
     test('can be instantiated', () {
       expect(
         VeryGoodRanchGame(
+          blessingBloc: blessingBloc,
           gameBloc: gameBloc,
           inventoryBloc: MockInventoryBloc(),
         ),
@@ -63,6 +68,7 @@ void main() {
       final images = UnprefixedImages();
       expect(
         VeryGoodRanchGame(
+          blessingBloc: blessingBloc,
           gameBloc: gameBloc,
           inventoryBloc: MockInventoryBloc(),
           images: images,

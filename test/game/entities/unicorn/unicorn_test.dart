@@ -15,17 +15,21 @@ import '../../../helpers/helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-
   late GameBloc gameBloc;
+  late BlessingBloc blessingBloc;
 
   setUp(() {
     gameBloc = MockGameBloc();
     when(() => gameBloc.state).thenReturn(const GameState());
+
+    blessingBloc = MockBlessingBloc();
+    when(() => blessingBloc.state).thenReturn(BlessingState.initial());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       gameBloc: gameBloc,
+      blessingBloc: blessingBloc,
       inventoryBloc: MockInventoryBloc(),
     ),
   );
@@ -57,7 +61,7 @@ void main() {
   group('Unicorn', () {
     flameTester.test('has all behaviors', (game) async {
       final unicorn = Unicorn(position: Vector2.all(1));
-      await game.ensureAdd(unicorn);
+      await game.background.ensureAdd(unicorn);
 
       expect(unicorn.findBehavior<EvolvingBehavior>(), isNotNull);
       expect(unicorn.findBehavior<PropagatingCollisionBehavior>(), isNotNull);
@@ -75,9 +79,8 @@ void main() {
       (game) async {
         final unicorn = Unicorn(position: Vector2.all(1));
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
-        expect(game.contains(unicorn), isTrue);
         expect(unicorn.state, UnicornState.idle);
       },
     );
@@ -88,7 +91,7 @@ void main() {
         (game) async {
           final unicorn = Unicorn(position: Vector2.all(1));
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           expect(unicorn.state, UnicornState.idle);
         },
@@ -104,7 +107,7 @@ void main() {
                 Vector2.all(1),
           );
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           unicorn.setUnicornState(UnicornState.walking);
 
@@ -124,7 +127,7 @@ void main() {
                 Vector2.all(1),
           );
           await game.ready();
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           unicorn.setUnicornState(UnicornState.eating);
 
@@ -143,7 +146,7 @@ void main() {
         (game) async {
           final unicorn = Unicorn(position: Vector2.all(1));
 
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
           unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
@@ -160,7 +163,7 @@ void main() {
         (game) async {
           final unicorn = Unicorn(position: Vector2.all(1));
 
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           // start finite animation
           unicorn.setUnicornState(UnicornState.petted);

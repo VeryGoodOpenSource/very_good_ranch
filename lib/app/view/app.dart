@@ -27,6 +27,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => SettingsBloc()),
         BlocProvider(create: (_) => InventoryBloc()),
         BlocProvider(create: (_) => GameBloc()),
+        BlocProvider(create: (_) => BlessingBloc()),
         BlocProvider(
           create: (_) => PreloadCubit(
             UnprefixedImages(),

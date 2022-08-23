@@ -23,12 +23,16 @@ class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
 void main() {
   group('GamePage', () {
     late GameBloc gameBloc;
+    late BlessingBloc blessingBloc;
     late PreloadCubit preloadCubit;
     late MockRanchSoundPlayer sounds;
 
     setUp(() {
       gameBloc = MockGameBloc();
       when(() => gameBloc.state).thenReturn(GameState());
+
+      blessingBloc = MockBlessingBloc();
+      when(() => blessingBloc.state).thenReturn(BlessingState.initial());
 
       preloadCubit = MockPreloadCubit();
       when(() => preloadCubit.images).thenReturn(UnprefixedImages());
@@ -45,6 +49,7 @@ void main() {
     testWidgets('renders GameView', (tester) async {
       await tester.pumpApp(
         GamePage(),
+        blessingBloc: blessingBloc,
         gameBloc: gameBloc,
         preloadCubit: preloadCubit,
       );

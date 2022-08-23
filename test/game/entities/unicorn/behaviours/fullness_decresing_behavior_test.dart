@@ -48,7 +48,7 @@ void main() {
         expect(unicorn.fullness.value, 0.9);
       });
 
-      flameTester.test('for a teenager unicorn', (game) async {
+      flameTester.test('for a teen unicorn', (game) async {
         final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
         final unicorn = Unicorn.test(
           position: Vector2.zero(),
@@ -79,40 +79,6 @@ void main() {
         game.update(FullnessDecreasingBehavior.decreaseInterval);
         expect(unicorn.fullness.value, 0.7);
       });
-    });
-
-    group('renders a gauge', () {
-      flameTester.testGameWidget(
-        'with the right color and size',
-        setUp: (game, tester) async {
-          final fullnessDecreasingBehavior = FullnessDecreasingBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.all(100),
-            behaviors: [
-              fullnessDecreasingBehavior,
-            ],
-          );
-          await game.ensureAdd(unicorn);
-          unicorn.fullness.value = 1.0;
-          fullnessDecreasingBehavior.makeGaugeTemporarilyVisible();
-        },
-        verify: (game, tester) async {
-          final fullnessDecreasingBehavior =
-              game.descendants().whereType<FullnessDecreasingBehavior>().first;
-          final unicorn = game.descendants().whereType<Unicorn>().first;
-          expect(
-            fullnessDecreasingBehavior.gaugeComponent.diameter,
-            unicorn.size.x + FullnessDecreasingBehavior.innerSpacing,
-          );
-          await expectLater(
-            find.byGame<TestGame>(),
-            matchesGoldenFile(
-              'golden/fullness/has-gauge.png',
-            ),
-          );
-        },
-      );
     });
   });
 }

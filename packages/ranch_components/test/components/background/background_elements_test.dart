@@ -28,6 +28,27 @@ void main() {
       },
     );
 
+    group('BackgroundTreeType', () {
+      test('getBackgroundElement', () {
+        expect(
+          BackgroundTreeType.tall.getBackgroundElement(Vector2.zero()),
+          isA<TallTree>(),
+        );
+        expect(
+          BackgroundTreeType.short.getBackgroundElement(Vector2.zero()),
+          isA<ShortTree>(),
+        );
+        expect(
+          BackgroundTreeType.lined.getBackgroundElement(Vector2.zero()),
+          isA<LinedTree>(),
+        );
+        expect(
+          BackgroundTreeType.linedShort.getBackgroundElement(Vector2.zero()),
+          isA<LinedTreeShort>(),
+        );
+      });
+    });
+
     group('Barn', () {
       flameTester.testGameWidget(
         'renders a Barn',

@@ -47,7 +47,8 @@ extension UnicornEvolutionStageX on UnicornEvolutionStage {
   }
 }
 
-class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
+class Unicorn extends Entity
+    with Steerable, HasGameRef<SeedGame>, ParentIsA<Component> {
   factory Unicorn({
     required Vector2 position,
     UnicornComponent? unicornComponent,
@@ -114,6 +115,8 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   @override
   double get maxVelocity => 10;
 
+  bool isGaugeVisible = true;
+
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 
@@ -137,6 +140,7 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   double get happiness => fullness.value * enjoyment.value;
 
   UnicornComponent _unicornComponent;
+  late GaugeComponent _gaugeComponent;
 
   UnicornComponent get unicornComponent {
     return _unicornComponent;
@@ -190,6 +194,29 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
       startingAngle: 0,
       random: gameRef.seed,
     );
+    _gaugeComponent = GaugeComponent(
+      offset: Vector2(0, 10),
+      priority: 10000,
+      positionGetter: (gauge) {
+        return positionOfAnchor(gauge.anchorOnParent);
+      },
+      percentages: [
+        () => enjoyment.value,
+        () => fullness.value,
+      ],
+    );
+  }
+
+  @override
+  void onMount() {
+    super.onMount();
+    parent.add(_gaugeComponent);
+  }
+
+  @override
+  void onRemove() {
+    super.onRemove();
+    parent.remove(_gaugeComponent);
   }
 
   void reset() {

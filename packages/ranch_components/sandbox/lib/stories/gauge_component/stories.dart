@@ -15,8 +15,8 @@ void addGaugeComponentStories(Dashbook dashbook) {
             GaugeComponent(
               offset: Vector2(0.0, 10),
               percentages: [
-                1.0,
-                0.6,
+                () => 1.0,
+                () => 0.6,
               ],
             ),
           ),

@@ -8,12 +8,22 @@ import 'package:flutter/rendering.dart';
 ///
 typedef GaugeForegroundColorGetter = Color Function(double percentage);
 
+typedef GaugePositionGetter = Vector2 Function(GaugeComponent component);
+
 ///
 Color defaultGaugeForegroundColorGetter(double percentage) {
   if (percentage > 0.66) return const Color(0xFF46B2A0);
   if (percentage > 0.33) return const Color(0xFFFFD645);
   return const Color(0xFFFF5045);
 }
+
+Vector2 defaultGaugePositionGetter(GaugeComponent thisGauge) {
+  return thisGauge.parent.parentToLocal(
+    thisGauge.parent.positionOfAnchor(thisGauge.anchorOnParent),
+  );
+}
+
+bool defaultVisibilityPredicate() => true;
 
 ///
 class GaugeComponent extends PositionComponent
@@ -35,10 +45,14 @@ class GaugeComponent extends PositionComponent
     super.angle,
     super.anchor = Anchor.topCenter,
     super.children,
-    super.priority,
+    super.priority = -10000,
+    ValueGetter<bool>? visibilityPredicate,
+    GaugePositionGetter? positionGetter,
   })  : foregroundColorGetter =
             foregroundColorGetter ?? defaultGaugeForegroundColorGetter,
         offset = offset ?? Vector2.zero(),
+        visibilityPredicate = visibilityPredicate ?? defaultVisibilityPredicate,
+        positionGetter = positionGetter ?? defaultGaugePositionGetter,
         assert(
           percentages.isNotEmpty,
           'Pass at least one percentage measurement',
@@ -54,7 +68,9 @@ class GaugeComponent extends PositionComponent
   Anchor anchorOnParent;
   Vector2 offset;
 
-  final List<double> percentages;
+  final GaugePositionGetter positionGetter;
+  final ValueGetter<bool> visibilityPredicate;
+  final List<ValueGetter<double>> percentages;
   final GaugeForegroundColorGetter foregroundColorGetter;
 
   double marginSize;
@@ -86,7 +102,7 @@ class GaugeComponent extends PositionComponent
   @override
   void update(double dt) {
     super.update(dt);
-    position = parent.positionOfAnchor(anchorOnParent) + offset;
+    position = positionGetter(this) + offset;
   }
 
   @override
@@ -122,7 +138,7 @@ class GaugeComponent extends PositionComponent
     );
 
     // foreground
-    final percentage = percentages[index];
+    final percentage = percentages[index]();
     final foregroundColor = foregroundColorGetter(percentage);
     final paint = Paint()..color = foregroundColor;
     final percentageXSize = xSize * percentage;

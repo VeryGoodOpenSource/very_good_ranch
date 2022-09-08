@@ -90,7 +90,7 @@ class VeryGoodRanchGame extends FlameGame
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
-    if (overlays.value.isNotEmpty) {
+    if (overlays.activeOverlays.isNotEmpty) {
       overlays.clear();
     }
     return super.onTapUp(pointerId, info);

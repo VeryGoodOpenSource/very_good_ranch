@@ -1,4 +1,4 @@
-import 'package:flame/game.dart';
+import 'package:flame/game.dart' hide Route;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_flame/ranch_flame.dart';

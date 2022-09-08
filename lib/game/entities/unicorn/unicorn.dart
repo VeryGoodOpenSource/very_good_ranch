@@ -47,11 +47,14 @@ extension UnicornEvolutionStageX on UnicornEvolutionStage {
   }
 }
 
-class Unicorn extends Entity
-    with Steerable, HasGameRef<SeedGame>, ParentIsA<Component> {
+typedef UnicornGaugeCallback = void Function(GaugeComponent gauge);
+
+class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   factory Unicorn({
     required Vector2 position,
     UnicornComponent? unicornComponent,
+    required UnicornGaugeCallback onMountGauge,
+    required UnicornGaugeCallback onUnmountGauge,
   }) {
     final _unicornComponent = unicornComponent ?? BabyUnicornComponent();
     final size = _unicornComponent.size;
@@ -72,6 +75,8 @@ class Unicorn extends Entity
       enjoyment: UnicornPercentage(1),
       fullness: UnicornPercentage(1),
       unicornComponent: _unicornComponent,
+      onMountGauge: onMountGauge,
+      onUnmountGauge: onUnmountGauge,
     );
   }
 
@@ -86,6 +91,8 @@ class Unicorn extends Entity
     UnicornComponent? unicornComponent,
     UnicornPercentage? enjoyment,
     UnicornPercentage? fullness,
+    UnicornGaugeCallback? onMountGauge,
+    UnicornGaugeCallback? onUnmountGauge,
   }) {
     final _unicornComponent = unicornComponent ?? BabyUnicornComponent();
     final size = _unicornComponent.size;
@@ -96,6 +103,8 @@ class Unicorn extends Entity
       enjoyment: enjoyment ?? UnicornPercentage(1),
       fullness: fullness ?? UnicornPercentage(1),
       unicornComponent: _unicornComponent,
+      onMountGauge: onMountGauge ?? (_) {},
+      onUnmountGauge: onUnmountGauge ?? (_) {},
     );
   }
 
@@ -105,6 +114,8 @@ class Unicorn extends Entity
     required UnicornComponent unicornComponent,
     required this.enjoyment,
     required this.fullness,
+    required this.onMountGauge,
+    required this.onUnmountGauge,
     super.behaviors,
   })  : _unicornComponent = unicornComponent,
         super(children: [unicornComponent]);
@@ -129,6 +140,10 @@ class Unicorn extends Entity
 
   /// A state that describes the percentage of enjoyment of the unicorn
   final UnicornPercentage enjoyment;
+
+  final UnicornGaugeCallback onMountGauge;
+
+  final UnicornGaugeCallback onUnmountGauge;
 
   late final WanderBehavior _wanderBehavior;
 
@@ -210,13 +225,14 @@ class Unicorn extends Entity
   @override
   void onMount() {
     super.onMount();
-    parent.add(_gaugeComponent);
+
+    onMountGauge(_gaugeComponent);
   }
 
   @override
   void onRemove() {
     super.onRemove();
-    parent.remove(_gaugeComponent);
+    onUnmountGauge(_gaugeComponent);
   }
 
   void reset() {

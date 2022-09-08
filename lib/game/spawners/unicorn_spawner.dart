@@ -35,7 +35,15 @@ class UnicornSpawner extends TimerComponent
 
   void addUnicorn() {
     final pastureField = parent.pastureField;
-    final unicorn = Unicorn(position: Vector2.zero());
+    final unicorn = Unicorn(
+      position: Vector2.zero(),
+      onMountGauge: (gauge) {
+        parent.add(gauge);
+      },
+      onUnmountGauge: (gauge) {
+        parent.remove(gauge);
+      },
+    );
     final position = Vector2.random(seed)
       ..multiply(pastureField.size.toVector2() - unicorn.size)
       ..add(pastureField.topLeft.toVector2());

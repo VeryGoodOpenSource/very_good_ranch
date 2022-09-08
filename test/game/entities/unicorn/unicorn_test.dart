@@ -60,7 +60,15 @@ void main() {
 
   group('Unicorn', () {
     flameTester.test('has all behaviors', (game) async {
-      final unicorn = Unicorn(position: Vector2.all(1));
+      final unicorn = Unicorn(
+        position: Vector2.all(1),
+        onMountGauge: (gauge) {
+          game.background.add(gauge);
+        },
+        onUnmountGauge: (gauge) {
+          game.background.remove(gauge);
+        },
+      );
       await game.background.ensureAdd(unicorn);
 
       expect(unicorn.findBehavior<EvolvingBehavior>(), isNotNull);
@@ -77,7 +85,15 @@ void main() {
     flameTester.test(
       'loads correctly',
       (game) async {
-        final unicorn = Unicorn(position: Vector2.all(1));
+        final unicorn = Unicorn(
+          position: Vector2.all(1),
+          onMountGauge: (gauge) {
+            game.background.add(gauge);
+          },
+          onUnmountGauge: (gauge) {
+            game.background.remove(gauge);
+          },
+        );
         await game.ready();
         await game.background.ensureAdd(unicorn);
 
@@ -89,7 +105,15 @@ void main() {
       flameTester.test(
         'is by default idle',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.all(1));
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {
+              game.background.add(gauge);
+            },
+            onUnmountGauge: (gauge) {
+              game.background.remove(gauge);
+            },
+          );
           await game.ready();
           await game.background.ensureAdd(unicorn);
 
@@ -105,6 +129,12 @@ void main() {
           final unicorn = Unicorn(
             position: game.background.pastureField.topLeft.toVector2() +
                 Vector2.all(1),
+            onMountGauge: (gauge) {
+              game.background.add(gauge);
+            },
+            onUnmountGauge: (gauge) {
+              game.background.remove(gauge);
+            },
           );
           await game.ready();
           await game.background.ensureAdd(unicorn);
@@ -125,6 +155,12 @@ void main() {
           final unicorn = Unicorn(
             position: game.background.pastureField.topLeft.toVector2() +
                 Vector2.all(1),
+            onMountGauge: (gauge) {
+              game.background.add(gauge);
+            },
+            onUnmountGauge: (gauge) {
+              game.background.remove(gauge);
+            },
           );
           await game.ready();
           await game.background.ensureAdd(unicorn);
@@ -144,7 +180,15 @@ void main() {
       flameTester.test(
         'evolves to next stage',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.all(1));
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {
+              game.background.add(gauge);
+            },
+            onUnmountGauge: (gauge) {
+              game.background.remove(gauge);
+            },
+          );
 
           await game.background.ensureAdd(unicorn);
 
@@ -161,7 +205,15 @@ void main() {
       flameTester.test(
         'waits for finite animation to evolve',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.all(1));
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {
+              game.background.add(gauge);
+            },
+            onUnmountGauge: (gauge) {
+              game.background.remove(gauge);
+            },
+          );
 
           await game.background.ensureAdd(unicorn);
 
@@ -185,7 +237,11 @@ void main() {
     });
 
     test('reset', () {
-      final unicorn = Unicorn(position: Vector2.all(1));
+      final unicorn = Unicorn(
+        position: Vector2.all(1),
+        onMountGauge: (gauge) {},
+        onUnmountGauge: (gauge) {},
+      );
 
       expect(unicorn.timesFed, 0);
       expect(unicorn.fullness.value, 1);

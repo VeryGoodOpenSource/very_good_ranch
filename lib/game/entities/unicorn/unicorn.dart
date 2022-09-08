@@ -198,7 +198,7 @@ class Unicorn extends Entity
       offset: Vector2(0, 10),
       priority: 10000,
       positionGetter: (gauge) {
-        return positionOfAnchor(gauge.anchorOnParent);
+        return positionOfAnchor(Anchor.bottomCenter);
       },
       percentages: [
         () => enjoyment.value,

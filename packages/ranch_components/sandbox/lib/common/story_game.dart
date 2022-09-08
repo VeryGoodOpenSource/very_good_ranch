@@ -42,6 +42,4 @@ class StoryGame extends FlameGame {
 
     await add(_component);
   }
-
-
 }

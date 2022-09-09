@@ -22,6 +22,15 @@ void main() {
       when(() => blessingBloc.state).thenReturn(
         BlessingState.zero(babyUnicorns: 1),
       );
+
+      game.overlays.addEntry(
+        'inventory',
+        (context, game) => const SizedBox.shrink(),
+      );
+      game.overlays.addEntry(
+        'settings',
+        (context, game) => const SizedBox.shrink(),
+      );
     });
 
     testWidgets('renders correctly', (tester) async {

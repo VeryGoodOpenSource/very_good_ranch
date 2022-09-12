@@ -27,9 +27,9 @@ class UnicornSpawner extends TimerComponent
 
   @override
   void onTick() {
-    ///if (seed.nextDouble() < .5) {
-    ///  return;
-    ///}
+    if (seed.nextDouble() < .5) {
+      return;
+    }
     addUnicorn();
   }
 

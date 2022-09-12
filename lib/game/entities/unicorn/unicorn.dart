@@ -9,44 +9,9 @@ import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
-enum UnicornEvolutionStage {
-  baby,
-  child,
-  teen,
-  adult;
-
-  factory UnicornEvolutionStage.fromComponent(UnicornComponent component) {
-    if (component is BabyUnicornComponent) {
-      return baby;
-    }
-    if (component is ChildUnicornComponent) {
-      return child;
-    }
-    if (component is TeenUnicornComponent) {
-      return teen;
-    }
-
-    return adult;
-  }
-}
-
-extension UnicornEvolutionStageX on UnicornEvolutionStage {
-  UnicornComponent componentForEvolutionStage(
-    UnicornState initialState,
-  ) {
-    switch (this) {
-      case UnicornEvolutionStage.baby:
-        return BabyUnicornComponent(initialState: initialState);
-      case UnicornEvolutionStage.child:
-        return ChildUnicornComponent(initialState: initialState);
-      case UnicornEvolutionStage.teen:
-        return TeenUnicornComponent(initialState: initialState);
-      case UnicornEvolutionStage.adult:
-        return AdultUnicornComponent(initialState: initialState);
-    }
-  }
-}
-
+/// A type signature for callbacks that are invoked during a lifecycle method
+/// of [Unicorn] that triggers the attachment o detachment of a gauge from the
+/// component tree.
 typedef UnicornGaugeCallback = void Function(GaugeComponent gauge);
 
 class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
@@ -141,8 +106,12 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   /// A state that describes the percentage of enjoyment of the unicorn
   final UnicornPercentage enjoyment;
 
+  /// Callback that should take care of adding the gauge in the component
+  /// tree in such a way it occludes all relevant elements.
   final UnicornGaugeCallback onMountGauge;
 
+  /// Callback that should take care of removing the gauge from the component
+  /// tree, after added by [onMountGauge].
   final UnicornGaugeCallback onUnmountGauge;
 
   late final WanderBehavior _wanderBehavior;
@@ -225,7 +194,6 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   @override
   void onMount() {
     super.onMount();
-
     onMountGauge(_gaugeComponent);
   }
 
@@ -274,6 +242,44 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
       _wanderBehavior.removeFromParent();
     }
     setUnicornState(UnicornState.idle);
+  }
+}
+
+enum UnicornEvolutionStage {
+  baby,
+  child,
+  teen,
+  adult;
+
+  factory UnicornEvolutionStage.fromComponent(UnicornComponent component) {
+    if (component is BabyUnicornComponent) {
+      return baby;
+    }
+    if (component is ChildUnicornComponent) {
+      return child;
+    }
+    if (component is TeenUnicornComponent) {
+      return teen;
+    }
+
+    return adult;
+  }
+}
+
+extension UnicornEvolutionStageX on UnicornEvolutionStage {
+  UnicornComponent componentForEvolutionStage(
+    UnicornState initialState,
+  ) {
+    switch (this) {
+      case UnicornEvolutionStage.baby:
+        return BabyUnicornComponent(initialState: initialState);
+      case UnicornEvolutionStage.child:
+        return ChildUnicornComponent(initialState: initialState);
+      case UnicornEvolutionStage.teen:
+        return TeenUnicornComponent(initialState: initialState);
+      case UnicornEvolutionStage.adult:
+        return AdultUnicornComponent(initialState: initialState);
+    }
   }
 }
 

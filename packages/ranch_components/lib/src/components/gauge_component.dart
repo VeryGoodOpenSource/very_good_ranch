@@ -78,7 +78,7 @@ class GaugeComponent extends PositionComponent
     recomputeSize();
   }
 
-  /// An offset that the compoennt will take from the position returned
+  /// An offset that the component will take from the position returned
   /// by [positionGetter]
   Vector2 offset;
 
@@ -120,21 +120,6 @@ class GaugeComponent extends PositionComponent
     final marginsInBetween = gaugeAmount - 1;
     final y = marginExtent * (2 + marginsInBetween) + gaugeAmount * gaugeHeight;
     size = NotifyingVector2(x, y);
-  }
-
-  /// The current background color.
-  Color get backgroundColor => getPaint('backgroundColor').color;
-
-  set backgroundColor(Color value) {
-    setPaint('backgroundColor', Paint()..color = value);
-  }
-
-  /// The current background of the not filled parts of each gauge.
-  Color get inactiveForegroundColor =>
-      getPaint('inactiveForegroundColor').color;
-
-  set inactiveForegroundColor(Color value) {
-    setPaint('inactiveForegroundColor', Paint()..color = value);
   }
 
   @override

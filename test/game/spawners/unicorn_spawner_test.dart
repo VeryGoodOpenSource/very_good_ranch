@@ -41,34 +41,25 @@ void main() {
   );
 
   group('UnicornSpawner', () {
-    flameTester.testGameWidget(
+    TestWidgetsFlutterBinding.ensureInitialized();
+    flameTester.test(
       'spawns a unicorn',
-      setUp: (game, tester) async {
+      (game) async {
         when(() => seed.nextDouble()).thenReturn(1);
-        await game.ready();
-      },
-      verify: (game, tester) async {
         final backgroundComponent =
             game.descendants().whereType<BackgroundComponent>().first;
 
-        final unicornComponentsBefore =
-            backgroundComponent.children.whereType<Unicorn>();
+        var rainbowCarringUnicorns =
+            backgroundComponent.children.whereType<RainbowDrop>();
 
-        expect(unicornComponentsBefore.length, 1);
+        expect(rainbowCarringUnicorns.length, equals(1));
 
         game.update(20);
-        await tester.pump();
-        backgroundComponent.processPendingLifecycleEvents();
 
-        final unicornComponentsAfter =
-            backgroundComponent.children.whereType<Unicorn>();
+        rainbowCarringUnicorns =
+            backgroundComponent.children.whereType<RainbowDrop>();
 
-        expect(unicornComponentsAfter.length, 2);
-        expect(
-          unicornComponentsAfter.first.position,
-          backgroundComponent.pastureField.bottomRight.toVector2() -
-              unicornComponentsAfter.first.size,
-        );
+        expect(rainbowCarringUnicorns.length, equals(1));
       },
     );
   });

@@ -10,7 +10,7 @@ import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
 /// A type signature for callbacks that are invoked during a lifecycle method
-/// of [Unicorn] that triggers the attachment o detachment of a gauge from the
+/// of [Unicorn] that triggers the attachment or detachment of a gauge from the
 /// component tree.
 typedef UnicornGaugeCallback = void Function(GaugeComponent gauge);
 

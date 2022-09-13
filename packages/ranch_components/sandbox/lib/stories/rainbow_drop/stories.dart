@@ -18,6 +18,7 @@ class _RainbowDropGame extends FlameGame with TapDetector {
           size: 50,
           paint: Paint()..color = Colors.blue,
         ),
+        sprite: SpriteComponent(),
       ),
     );
   }

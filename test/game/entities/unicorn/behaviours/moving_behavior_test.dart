@@ -52,7 +52,7 @@ void main() {
             movingBehavior,
           ],
         );
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         when(seed.nextDouble).thenReturn(0);
         movingBehavior.simulateTick();
@@ -83,7 +83,7 @@ void main() {
               movingBehavior,
             ],
           );
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
           game.update(10);
@@ -110,7 +110,7 @@ void main() {
             ],
           );
           unicorn.velocity.x = -10;
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
           movingBehavior.simulateTick();
@@ -142,7 +142,7 @@ void main() {
             ],
           );
           unicorn.velocity.y = -10;
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
           movingBehavior.simulateTick();
@@ -174,7 +174,7 @@ void main() {
             ],
           );
           unicorn.velocity.y = 10;
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
           movingBehavior.simulateTick();
@@ -206,7 +206,7 @@ void main() {
           );
           unicorn.velocity.x = 10;
           unicorn.position.x -= unicorn.size.x;
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
           movingBehavior.simulateTick();
@@ -241,7 +241,7 @@ void main() {
             movingBehavior,
           ],
         );
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         game.update(10);
         await game.ready();
@@ -264,7 +264,7 @@ void main() {
               movingBehavior,
             ],
           );
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           unicorn.setUnicornState(UnicornState.petted);
           movingBehavior.simulateTick();
@@ -289,7 +289,7 @@ void main() {
               movingBehavior,
             ],
           );
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           unicorn.setUnicornState(UnicornState.idle);
           movingBehavior.simulateTick();
@@ -313,7 +313,7 @@ void main() {
         );
 
         await game.ready();
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         game.update(10);
 
@@ -337,7 +337,7 @@ void main() {
           unicorn.unicornComponent.transform.scale.x = 1;
           unicorn.velocity.x = 1;
 
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           game.update(0);
 
@@ -359,7 +359,7 @@ void main() {
           unicorn.unicornComponent.transform.scale.x = -1;
           unicorn.velocity.x = -1;
 
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           game.update(0);
 
@@ -381,7 +381,7 @@ void main() {
           unicorn.unicornComponent.transform.scale.x = -1;
           unicorn.velocity.x = 0;
 
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           game.update(0);
 

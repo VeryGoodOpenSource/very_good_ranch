@@ -34,33 +34,13 @@ void main() {
     ),
   );
 
-  group('componentForEvolutionStage', () {
-    test('returns right component for each stage', () {
-      final babyComponent = UnicornEvolutionStage.baby
-          .componentForEvolutionStage(UnicornState.walking);
-      expect(babyComponent, isA<BabyUnicornComponent>());
-      expect(babyComponent.state, UnicornState.walking);
-
-      final childComponent = UnicornEvolutionStage.child
-          .componentForEvolutionStage(UnicornState.walking);
-      expect(childComponent, isA<ChildUnicornComponent>());
-      expect(childComponent.state, UnicornState.walking);
-
-      final teenComponent = UnicornEvolutionStage.teen
-          .componentForEvolutionStage(UnicornState.walking);
-      expect(teenComponent, isA<TeenUnicornComponent>());
-      expect(teenComponent.state, UnicornState.walking);
-
-      final adultComponent = UnicornEvolutionStage.adult
-          .componentForEvolutionStage(UnicornState.walking);
-      expect(adultComponent, isA<AdultUnicornComponent>());
-      expect(adultComponent.state, UnicornState.walking);
-    });
-  });
-
   group('Unicorn', () {
     flameTester.test('has all behaviors', (game) async {
-      final unicorn = Unicorn(position: Vector2.all(1));
+      final unicorn = Unicorn(
+        position: Vector2.all(1),
+        onMountGauge: (gauge) {},
+        onUnmountGauge: (gauge) {},
+      );
       await game.background.ensureAdd(unicorn);
 
       expect(unicorn.findBehavior<EvolvingBehavior>(), isNotNull);
@@ -77,7 +57,11 @@ void main() {
     flameTester.test(
       'loads correctly',
       (game) async {
-        final unicorn = Unicorn(position: Vector2.all(1));
+        final unicorn = Unicorn(
+          position: Vector2.all(1),
+          onMountGauge: (gauge) {},
+          onUnmountGauge: (gauge) {},
+        );
         await game.ready();
         await game.background.ensureAdd(unicorn);
 
@@ -89,7 +73,11 @@ void main() {
       flameTester.test(
         'is by default idle',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.all(1));
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
           await game.ready();
           await game.background.ensureAdd(unicorn);
 
@@ -105,6 +93,8 @@ void main() {
           final unicorn = Unicorn(
             position: game.background.pastureField.topLeft.toVector2() +
                 Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
           );
           await game.ready();
           await game.background.ensureAdd(unicorn);
@@ -125,6 +115,8 @@ void main() {
           final unicorn = Unicorn(
             position: game.background.pastureField.topLeft.toVector2() +
                 Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
           );
           await game.ready();
           await game.background.ensureAdd(unicorn);
@@ -144,7 +136,11 @@ void main() {
       flameTester.test(
         'evolves to next stage',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.all(1));
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
 
           await game.background.ensureAdd(unicorn);
 
@@ -161,7 +157,11 @@ void main() {
       flameTester.test(
         'waits for finite animation to evolve',
         (game) async {
-          final unicorn = Unicorn(position: Vector2.all(1));
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
 
           await game.background.ensureAdd(unicorn);
 
@@ -185,7 +185,11 @@ void main() {
     });
 
     test('reset', () {
-      final unicorn = Unicorn(position: Vector2.all(1));
+      final unicorn = Unicorn(
+        position: Vector2.all(1),
+        onMountGauge: (gauge) {},
+        onUnmountGauge: (gauge) {},
+      );
 
       expect(unicorn.timesFed, 0);
       expect(unicorn.fullness.value, 1);
@@ -200,6 +204,42 @@ void main() {
       expect(unicorn.timesFed, 0);
       expect(unicorn.fullness.value, 1);
       expect(unicorn.enjoyment.value, 1);
+    });
+
+    group('gauge ', () {
+      group('add gauge', () {
+        flameTester.test('add gauge on mount', (game) async {
+          var hasAddedGauge = false;
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {
+              hasAddedGauge = true;
+            },
+            onUnmountGauge: (gauge) {},
+          );
+
+          await game.background.ensureAdd(unicorn);
+          expect(hasAddedGauge, isTrue);
+        });
+      });
+
+      flameTester.test('remove gauge on remove', (game) async {
+        var hasRemovedGauge = false;
+        final unicorn = Unicorn(
+          position: Vector2.all(1),
+          onMountGauge: (gauge) {},
+          onUnmountGauge: (gauge) {
+            hasRemovedGauge = true;
+          },
+        );
+
+        await game.background.ensureAdd(unicorn);
+
+        game.background.remove(unicorn);
+        await game.ready();
+
+        expect(hasRemovedGauge, isTrue);
+      });
     });
   });
 
@@ -262,6 +302,30 @@ void main() {
         percentage.reset();
         expect(percentage.value, 0.5);
       });
+    });
+  });
+
+  group('componentForEvolutionStage', () {
+    test('returns right component for each stage', () {
+      final babyComponent = UnicornEvolutionStage.baby
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(babyComponent, isA<BabyUnicornComponent>());
+      expect(babyComponent.state, UnicornState.walking);
+
+      final childComponent = UnicornEvolutionStage.child
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(childComponent, isA<ChildUnicornComponent>());
+      expect(childComponent.state, UnicornState.walking);
+
+      final teenComponent = UnicornEvolutionStage.teen
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(teenComponent, isA<TeenUnicornComponent>());
+      expect(teenComponent.state, UnicornState.walking);
+
+      final adultComponent = UnicornEvolutionStage.adult
+          .componentForEvolutionStage(UnicornState.walking);
+      expect(adultComponent, isA<AdultUnicornComponent>());
+      expect(adultComponent.state, UnicornState.walking);
     });
   });
 }

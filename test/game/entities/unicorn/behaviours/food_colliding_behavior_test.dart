@@ -83,7 +83,7 @@ void main() {
               foodCollidingBehavior,
             ],
           )..isLeaving = true;
-          await game.ensureAdd(unicorn);
+          await game.background.ensureAdd(unicorn);
 
           final food = _MockFood();
           when(() => food.wasDragged).thenReturn(false);
@@ -106,7 +106,7 @@ void main() {
             foodCollidingBehavior,
           ],
         )..isLeaving = false;
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         final food = _MockFood();
         when(() => food.beingDragged).thenReturn(false);
@@ -140,7 +140,7 @@ void main() {
               enjoyment: enjoyment,
             )..isLeaving = false;
 
-            await game.ensureAdd(unicorn);
+            await game.background.ensureAdd(unicorn);
 
             final food = _MockFood();
             when(() => food.type).thenReturn(preferredFoodType);
@@ -168,7 +168,7 @@ void main() {
           enjoyment: enjoyment,
         )..isLeaving = false;
 
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         final food = _MockFood();
         when(() => food.type).thenReturn(FoodType.cake);
@@ -207,7 +207,7 @@ void main() {
               fullness: fullness,
             );
 
-            await game.ensureAdd(unicorn);
+            await game.background.ensureAdd(unicorn);
 
             final food = _MockFood();
             when(() => food.type).thenReturn(FoodType.cake);
@@ -231,7 +231,7 @@ void main() {
           behaviors: [foodCollidingBehavior],
         );
 
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         final food = _MockFood();
         when(() => food.type).thenReturn(FoodType.cake);
@@ -255,7 +255,7 @@ void main() {
           behaviors: [foodCollidingBehavior],
         );
 
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         final food = _MockFood();
         when(() => food.type).thenReturn(FoodType.cake);
@@ -279,7 +279,7 @@ void main() {
           behaviors: [foodCollidingBehavior],
         );
 
-        await game.ensureAdd(unicorn);
+        await game.background.ensureAdd(unicorn);
 
         final food = _MockFood();
         when(() => food.type).thenReturn(FoodType.cake);

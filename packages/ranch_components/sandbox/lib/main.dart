@@ -6,6 +6,8 @@ import 'package:sandbox/stories/stories.dart';
 void main() {
   final dashbook = Dashbook(theme: ThemeData.light());
 
+  addGaugeComponentStories(dashbook);
+
   addBackgroundComponentStories(dashbook);
 
   addUnicornComponentStories(dashbook);

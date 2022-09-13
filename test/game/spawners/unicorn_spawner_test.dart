@@ -1,5 +1,4 @@
 // ignore_for_file: cascade_invocations
-
 import 'dart:math';
 
 import 'package:flame_test/flame_test.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/game/entities/entities.dart';
 
 import 'package:very_good_ranch/game/game.dart';
 
@@ -60,5 +60,24 @@ void main() {
         expect(rainbowCarryingUnicorns.length, equals(1));
       },
     );
+
+    flameTester.test('adds gauges to background', (game) async {
+      when(() => seed.nextDouble()).thenReturn(1);
+      await Future<void>.delayed(const Duration(milliseconds: 550));
+      await game.ready();
+      game.update(1);
+
+      final unicorns = game.background.children.whereType<Unicorn>();
+      expect(unicorns.length, 1);
+      final gauges = game.background.children.whereType<GaugeComponent>();
+      expect(gauges.length, 1);
+
+      unicorns.first.removeFromParent();
+      await game.ready();
+
+      final gaugesAfterRemoval =
+          game.background.children.whereType<GaugeComponent>();
+      expect(gaugesAfterRemoval.length, 0);
+    });
   });
 }

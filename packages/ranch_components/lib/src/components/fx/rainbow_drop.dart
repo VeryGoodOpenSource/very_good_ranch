@@ -17,10 +17,15 @@ class RainbowDrop extends PositionComponent with HasGameRef {
 
     /// The target that the drop will "carry" into the game.
     required PositionComponent target,
+
+    /// The target sprite.
+    required HasPaint sprite,
   })  : _target = target,
-        super(position: position, anchor: Anchor.bottomCenter);
+        _sprite = sprite,
+        super(position: position, anchor: Anchor.bottomCenter, priority: 999);
 
   final PositionComponent _target;
+  final HasPaint _sprite;
 
   static const _colors = [
     Color(0xFFEF6C6C),
@@ -42,11 +47,11 @@ class RainbowDrop extends PositionComponent with HasGameRef {
 
     unawaited(
       Future<void>.delayed(const Duration(milliseconds: 500), () {
-        gameRef.add(
+        parent?.add(
           ConfettiComponent(
             position: position + Vector2(_target.size.x / 2, 0),
             confettiSize: segmentSize,
-            priority: _target.priority + 1,
+            priority: _sprite.priority + 1,
           ),
         );
       }),
@@ -56,18 +61,16 @@ class RainbowDrop extends PositionComponent with HasGameRef {
       Future<void>.delayed(
         const Duration(milliseconds: 550),
         () {
-          if (_target is HasPaint) {
-            (_target as HasPaint).setOpacity(0);
-          }
-          gameRef.add(
-            _target
-              ..position = Vector2(x, targetY)
-              ..add(
-                OpacityEffect.to(
-                  1,
-                  CurvedEffectController(baseTime, Curves.easeOutCubic),
-                ),
-              ),
+          _sprite.setOpacity(0);
+          parent?.add(
+            _target..position = Vector2(x, targetY),
+          );
+
+          _sprite.add(
+            OpacityEffect.to(
+              1,
+              CurvedEffectController(baseTime, Curves.easeOutCubic),
+            ),
           );
           removeFromParent();
         },

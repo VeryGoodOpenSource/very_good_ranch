@@ -39,8 +39,14 @@ class UnicornSpawner extends TimerComponent
     final position = Vector2.random(seed)
       ..multiply(pastureField.size.toVector2() - unicorn.size)
       ..add(pastureField.topLeft.toVector2());
-    unicorn.position = position;
-    parent.add(unicorn);
+
+    parent.add(
+      RainbowDrop(
+        position: position,
+        target: unicorn,
+        sprite: unicorn.unicornComponent,
+      ),
+    );
     bloc.add(UnicornSpawned());
   }
 }

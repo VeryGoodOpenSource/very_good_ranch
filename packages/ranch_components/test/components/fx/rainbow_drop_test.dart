@@ -6,10 +6,12 @@ import 'package:ranch_components/ranch_components.dart';
 void main() {
   group('RainbowDrop', () {
     testWithFlameGame('adds the target in the game', (game) async {
+      final component = CircleComponent(radius: 50);
       await game.ensureAdd(
         RainbowDrop(
           position: Vector2(0, 0),
-          target: CircleComponent(radius: 50),
+          target: component,
+          sprite: component,
         ),
       );
 
@@ -23,10 +25,12 @@ void main() {
     });
 
     testWithFlameGame('adds a confetti in the game', (game) async {
+      final component = CircleComponent(radius: 50);
       await game.ensureAdd(
         RainbowDrop(
           position: Vector2(0, 0),
-          target: CircleComponent(radius: 50),
+          target: component,
+          sprite: component,
         ),
       );
 
@@ -40,10 +44,12 @@ void main() {
     });
 
     testWithFlameGame('is removed once finished', (game) async {
+      final component = CircleComponent(radius: 50);
       await game.ensureAdd(
         RainbowDrop(
           position: Vector2(0, 0),
-          target: CircleComponent(radius: 50),
+          target: component,
+          sprite: component,
         ),
       );
 

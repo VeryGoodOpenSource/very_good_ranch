@@ -2,14 +2,12 @@
 
 import 'dart:math';
 
-import 'package:flame/extensions.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import 'package:ranch_components/ranch_components.dart';
 
-import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
 
 import '../../helpers/helpers.dart';
@@ -41,34 +39,25 @@ void main() {
   );
 
   group('UnicornSpawner', () {
-    flameTester.testGameWidget(
+    TestWidgetsFlutterBinding.ensureInitialized();
+    flameTester.test(
       'spawns a unicorn',
-      setUp: (game, tester) async {
+      (game) async {
         when(() => seed.nextDouble()).thenReturn(1);
-        await game.ready();
-      },
-      verify: (game, tester) async {
         final backgroundComponent =
             game.descendants().whereType<BackgroundComponent>().first;
 
-        final unicornComponentsBefore =
-            backgroundComponent.children.whereType<Unicorn>();
+        var rainbowCarryingUnicorns =
+            backgroundComponent.children.whereType<RainbowDrop>();
 
-        expect(unicornComponentsBefore.length, 1);
+        expect(rainbowCarryingUnicorns.length, equals(1));
 
         game.update(20);
-        await tester.pump();
-        backgroundComponent.processPendingLifecycleEvents();
 
-        final unicornComponentsAfter =
-            backgroundComponent.children.whereType<Unicorn>();
+        rainbowCarryingUnicorns =
+            backgroundComponent.children.whereType<RainbowDrop>();
 
-        expect(unicornComponentsAfter.length, 2);
-        expect(
-          unicornComponentsAfter.first.position,
-          backgroundComponent.pastureField.bottomRight.toVector2() -
-              unicornComponentsAfter.first.size,
-        );
+        expect(rainbowCarryingUnicorns.length, equals(1));
       },
     );
   });

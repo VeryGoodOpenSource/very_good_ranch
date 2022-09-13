@@ -47,17 +47,17 @@ void main() {
         final backgroundComponent =
             game.descendants().whereType<BackgroundComponent>().first;
 
-        var rainbowCarringUnicorns =
+        var rainbowCarryingUnicorns =
             backgroundComponent.children.whereType<RainbowDrop>();
 
-        expect(rainbowCarringUnicorns.length, equals(1));
+        expect(rainbowCarryingUnicorns.length, equals(1));
 
         game.update(20);
 
-        rainbowCarringUnicorns =
+        rainbowCarryingUnicorns =
             backgroundComponent.children.whereType<RainbowDrop>();
 
-        expect(rainbowCarringUnicorns.length, equals(1));
+        expect(rainbowCarryingUnicorns.length, equals(1));
       },
     );
   });

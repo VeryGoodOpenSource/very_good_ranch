@@ -100,6 +100,8 @@ class GaugeComponent extends PositionComponent
   /// specify at lest one.
   final List<ValueGetter<double>> percentages;
 
+  List<double> _percentagesValues = [];
+
   /// The amount of pixels between gauges.
   double marginExtent;
 
@@ -126,6 +128,8 @@ class GaugeComponent extends PositionComponent
   void update(double dt) {
     super.update(dt);
     position = positionGetter(this) + offset;
+    _percentagesValues =
+        percentages.map<double>((percentage) => percentage()).toList();
   }
 
   @override
@@ -136,7 +140,7 @@ class GaugeComponent extends PositionComponent
       return;
     }
     _renderBackground(canvas);
-    for (final i in Iterable<int>.generate(percentages.length)) {
+    for (final i in Iterable<int>.generate(_percentagesValues.length)) {
       _renderGauge(canvas, i);
     }
   }
@@ -165,7 +169,7 @@ class GaugeComponent extends PositionComponent
     );
 
     // foreground
-    final percentage = percentages[index]();
+    final percentage = _percentagesValues[index];
     final foregroundColor = foregroundColorGetter(percentage);
     final paint = Paint()..color = foregroundColor;
     final percentageXSize = xSize * percentage;

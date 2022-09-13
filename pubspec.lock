@@ -84,7 +84,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.3"
+    version: "8.1.0"
   bloc_test:
     dependency: "direct dev"
     description:
@@ -182,14 +182,14 @@ packages:
       name: flame
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.3.0"
   flame_audio:
     dependency: transitive
     description:
       name: flame_audio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.0"
+    version: "1.3.1"
   flame_behaviors:
     dependency: "direct main"
     description:

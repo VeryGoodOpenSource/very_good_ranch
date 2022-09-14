@@ -15,5 +15,8 @@ void main() {
       expect(exponentialDecay(100, 0.1, 1), closeTo(90, epsilon));
       expect(exponentialDecay(100, 0.1, 2), closeTo(81, epsilon));
     });
+    test('validates rate', () {
+      expect(() => exponentialDecay(100, 1.1, 0), throwsAssertionError);
+    });
   });
 }

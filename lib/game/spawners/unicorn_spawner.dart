@@ -14,13 +14,13 @@ class UnicornSpawner extends Component
         FlameBlocReader<BlessingBloc, BlessingState> {
   UnicornSpawner({
     required this.seed,
-    this.secondSpawnThreshold = 30.0,
+    this.initialSpawnThreshold = 30.0,
     this.spawnThreshold = 25.0,
     this.varyThresholdBy = 0.3,
   });
 
   final double spawnThreshold;
-  final double secondSpawnThreshold;
+  final double initialSpawnThreshold;
   final double varyThresholdBy;
 
   late Timer _timer;
@@ -33,20 +33,22 @@ class UnicornSpawner extends Component
     _spawnUnicorn();
   }
 
-  /// The random number generator for spawning unicorn.
-  final Random seed;
-
-  void _spawnUnicorn() {
-    _spawnedUnicorns++;
-
+  void scheduleNextUnicorn() {
     final double nextLimit;
-    if (_spawnedUnicorns == 0) {
-      nextLimit = secondSpawnThreshold;
+    if (_spawnedUnicorns == 1) {
+      nextLimit = initialSpawnThreshold;
     } else {
       final variation = varyThresholdBy * spawnThreshold;
       nextLimit = spawnThreshold + exponentialDistribution(seed) * variation;
     }
     _timer = Timer(nextLimit, onTick: _spawnUnicorn);
+  }
+
+  /// The random number generator for spawning unicorn.
+  final Random seed;
+
+  void _spawnUnicorn() {
+    _spawnedUnicorns++;
 
     final pastureField = parent.pastureField;
     final unicorn = Unicorn(
@@ -70,6 +72,8 @@ class UnicornSpawner extends Component
       ),
     );
     bloc.add(UnicornSpawned());
+
+    scheduleNextUnicorn();
   }
 
   @override

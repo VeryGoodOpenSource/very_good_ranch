@@ -15,21 +15,21 @@ class FoodSpawner extends Component
         FlameBlocListenable<GameBloc, GameState> {
   FoodSpawner({
     required this.seed,
-    this.secondSpawnThreshold = 15.0,
+    this.initialSpawnThreshold = 15.0,
     this.spawnThreshold = 12.0,
     this.varyThresholdBy = 0.2,
   }) : _foodRarity = RarityList<FoodType>([
-          Rarity(FoodType.cake, FoodType.cake.rarity),
-          Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
-          Rarity(FoodType.pancake, FoodType.pancake.rarity),
-          Rarity(FoodType.iceCream, FoodType.iceCream.rarity),
-        ]);
+    Rarity(FoodType.cake, FoodType.cake.rarity),
+    Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
+    Rarity(FoodType.pancake, FoodType.pancake.rarity),
+    Rarity(FoodType.iceCream, FoodType.iceCream.rarity),
+  ]);
 
   /// The random number generator for spawning food.
   final Random seed;
 
   final double spawnThreshold;
-  final double secondSpawnThreshold;
+  final double initialSpawnThreshold;
   final double varyThresholdBy;
 
   late Timer _timer;
@@ -52,7 +52,9 @@ class FoodSpawner extends Component
   }
 
   int get numberOfUnicorns {
-    return parent.children.whereType<Unicorn>().length;
+    return parent.children
+        .whereType<Unicorn>()
+        .length;
   }
 
   /// Decay [spawnThreshold] by 8% for each existing unicorn.
@@ -62,19 +64,18 @@ class FoodSpawner extends Component
   double get decayedSpawnThreshold {
     final minimalThreshold = spawnThreshold * 0.2;
     return exponentialDecay(
-          spawnThreshold - minimalThreshold,
-          0.08,
-          numberOfUnicorns,
-        ) +
+      spawnThreshold - minimalThreshold,
+      0.08,
+      numberOfUnicorns,
+    ) +
         minimalThreshold;
   }
 
-  void _spawnFood([FoodType? foodType]) {
-    _spawnedFood++;
 
+  void scheduleNextFood() {
     final double nextLimit;
-    if (_spawnedFood < 2) {
-      nextLimit = secondSpawnThreshold;
+    if (_spawnedFood < 3) {
+      nextLimit = initialSpawnThreshold;
     } else {
       final decayedSpawnThreshold = this.decayedSpawnThreshold;
       final variation = varyThresholdBy * decayedSpawnThreshold;
@@ -82,9 +83,12 @@ class FoodSpawner extends Component
           decayedSpawnThreshold + exponentialDistribution(seed) * variation;
     }
     _timer = Timer(nextLimit, onTick: _spawnFood);
+  }
+
+  void _spawnFood([FoodType? foodType]) {
+    _spawnedFood++;
 
     final type = foodType ?? _foodRarity.getRandom(seed);
-
     final pastureField = parent.pastureField;
     final position = Vector2.random(seed)
       ..multiply(pastureField.size.toVector2())
@@ -105,6 +109,8 @@ class FoodSpawner extends Component
         parent.add(Food.cake(position: position));
         break;
     }
+
+    scheduleNextFood();
   }
 
   @override

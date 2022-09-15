@@ -57,7 +57,7 @@ class FoodSpawner extends Component
 
   /// Decay [spawnThreshold] by 8% for each existing unicorn.
   ///
-  /// The decau is only applied to the top 80% of the original
+  /// The decay is only applied to the top 80% of the original
   /// [spawnThreshold] value to prevent the resulting value tending to zero.
   @visibleForTesting
   double get decayedSpawnThreshold {

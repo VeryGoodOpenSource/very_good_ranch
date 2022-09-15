@@ -33,7 +33,7 @@ class UnicornSpawner extends Component
     _spawnUnicorn();
   }
 
-  void scheduleNextUnicorn() {
+  void _scheduleNextUnicorn() {
     final double nextLimit;
     if (_spawnedUnicorns == 1) {
       nextLimit = initialSpawnThreshold;
@@ -73,7 +73,7 @@ class UnicornSpawner extends Component
     );
     bloc.add(UnicornSpawned());
 
-    scheduleNextUnicorn();
+    _scheduleNextUnicorn();
   }
 
   @override

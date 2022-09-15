@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
@@ -15,15 +16,16 @@ class FoodSpawner extends Component
         FlameBlocListenable<GameBloc, GameState> {
   FoodSpawner({
     required this.seed,
+    required this.countUnicorns,
     this.initialSpawnThreshold = 15.0,
     this.spawnThreshold = 12.0,
     this.varyThresholdBy = 0.2,
   }) : _foodRarity = RarityList<FoodType>([
-    Rarity(FoodType.cake, FoodType.cake.rarity),
-    Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
-    Rarity(FoodType.pancake, FoodType.pancake.rarity),
-    Rarity(FoodType.iceCream, FoodType.iceCream.rarity),
-  ]);
+          Rarity(FoodType.cake, FoodType.cake.rarity),
+          Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
+          Rarity(FoodType.pancake, FoodType.pancake.rarity),
+          Rarity(FoodType.iceCream, FoodType.iceCream.rarity),
+        ]);
 
   /// The random number generator for spawning food.
   final Random seed;
@@ -31,6 +33,8 @@ class FoodSpawner extends Component
   final double spawnThreshold;
   final double initialSpawnThreshold;
   final double varyThresholdBy;
+
+  final ValueGetter<int> countUnicorns;
 
   late Timer _timer;
 
@@ -51,28 +55,22 @@ class FoodSpawner extends Component
     }
   }
 
-  int get numberOfUnicorns {
-    return parent.children
-        .whereType<Unicorn>()
-        .length;
-  }
-
   /// Decay [spawnThreshold] by 8% for each existing unicorn.
   ///
   /// The decau is only applied to the top 80% of the original
   /// [spawnThreshold] value to prevent the resulting value tending to zero.
+  @visibleForTesting
   double get decayedSpawnThreshold {
     final minimalThreshold = spawnThreshold * 0.2;
     return exponentialDecay(
-      spawnThreshold - minimalThreshold,
-      0.08,
-      numberOfUnicorns,
-    ) +
+          spawnThreshold - minimalThreshold,
+          0.08,
+          countUnicorns(),
+        ) +
         minimalThreshold;
   }
 
-
-  void scheduleNextFood() {
+  void _scheduleNextFood() {
     final double nextLimit;
     if (_spawnedFood < 3) {
       nextLimit = initialSpawnThreshold;
@@ -110,7 +108,7 @@ class FoodSpawner extends Component
         break;
     }
 
-    scheduleNextFood();
+    _scheduleNextFood();
   }
 
   @override

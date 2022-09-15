@@ -46,7 +46,7 @@ void main() {
             inventoryBloc: inventoryBloc,
             child: BackgroundComponent(
               children: [
-                FoodSpawner(seed: seed),
+                FoodSpawner(seed: seed, countUnicorns: () => 0),
               ],
             ),
           ),
@@ -73,7 +73,7 @@ void main() {
             inventoryBloc: inventoryBloc,
             child: BackgroundComponent(
               children: [
-                FoodSpawner(seed: seed),
+                FoodSpawner(seed: seed, countUnicorns: () => 0),
               ],
             ),
           ),
@@ -100,7 +100,7 @@ void main() {
             inventoryBloc: inventoryBloc,
             child: BackgroundComponent(
               children: [
-                FoodSpawner(seed: seed),
+                FoodSpawner(seed: seed, countUnicorns: () => 0),
               ],
             ),
           ),
@@ -128,7 +128,7 @@ void main() {
             inventoryBloc: inventoryBloc,
             child: BackgroundComponent(
               children: [
-                FoodSpawner(seed: seed),
+                FoodSpawner(seed: seed, countUnicorns: () => 0),
               ],
             ),
           ),
@@ -155,7 +155,7 @@ void main() {
             inventoryBloc: inventoryBloc,
             child: BackgroundComponent(
               children: [
-                FoodSpawner(seed: seed),
+                FoodSpawner(seed: seed, countUnicorns: () => 0),
               ],
             ),
           ),
@@ -167,8 +167,51 @@ void main() {
       },
       verify: (game, tester) async {
         final foodComponents = game.descendants().whereType<FoodComponent>();
-        expect(foodComponents.length, equals(1));
+        expect(foodComponents.length, equals(2));
         expect(foodComponents.first.type, equals(FoodType.cake));
+      },
+    );
+
+    flameTester.testGameWidget(
+      'spawns food timely',
+      setUp: (game, tester) async {
+        final gameBloc = GameBloc();
+        await game.ensureAdd(
+          flameBlocProvider(
+            gameBloc: gameBloc,
+            child: BackgroundComponent(
+              children: [
+                FoodSpawner(seed: seed, countUnicorns: () => 0),
+              ],
+            ),
+          ),
+        );
+      },
+      verify: (game, tester) async {
+        when(() => seed.nextDouble()).thenReturn(0.5);
+        int countFoodComponents() {
+          return game.descendants().whereType<FoodComponent>().length;
+        }
+
+        expect(countFoodComponents(), equals(1));
+
+        game.update(15);
+        await tester.pump();
+        await tester.pump();
+
+        expect(countFoodComponents(), equals(2));
+
+        game.update(15);
+        await tester.pump();
+        await tester.pump();
+
+        expect(countFoodComponents(), equals(3));
+
+        game.update(12);
+        await tester.pump();
+        await tester.pump();
+
+        expect(countFoodComponents(), equals(4));
       },
     );
   });

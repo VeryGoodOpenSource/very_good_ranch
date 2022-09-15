@@ -10,10 +10,9 @@ import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/bloc/blessing/blessing_bloc.dart';
 import 'package:very_good_ranch/game/bloc/game/game_bloc.dart';
+import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/spawners/spawners.dart';
 import 'package:very_good_ranch/inventory/inventory.dart';
-
-import 'entities/entities.dart';
 
 class VeryGoodRanchGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection, SeedGame {

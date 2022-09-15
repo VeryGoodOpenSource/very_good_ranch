@@ -29,6 +29,30 @@ class Config {
     teen: 0.0010,
     adult: 0.0005,
   );
+
+  /// Feeding
+  static const wrongFoodImpactOnEnjoyment = StageProperty(
+    baby: 0.3,
+    child: 0.25,
+    teen: 0.2,
+    adult: 0.15,
+  );
+
+  /// Evolving
+  static const double happinessThresholdToEvolve = 0.9;
+  static const int timesThatMustBeFedToEvolve = 3;
+
+  /// Leaving
+  static const double happinessThresholdToLeave = 0.1;
+
+  /// Moving
+  static const double movingEvaluationCycle = 5;
+  static const double probabilityToStartMoving = 0.8;
+
+  /// Wander
+  static const double circleDistance = 10;
+  static const double maximumAngleDegree = 15;
+  static const double startingAngleDegree = 0;
 }
 
 @immutable

@@ -3,6 +3,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/game.dart';
 
@@ -10,14 +11,20 @@ class MovingBehavior extends Behavior<Unicorn>
     with HasGameRef<VeryGoodRanchGame> {
   @override
   Future<void> onLoad() async {
-    await add(TimerComponent(period: 5, repeat: true, onTick: _onTick));
+    await add(
+      TimerComponent(
+        period: Config.movingEvaluationCycle,
+        repeat: true,
+        onTick: _onTick,
+      ),
+    );
   }
 
   void _onTick() {
     if (parent.beingDragged) {
       return;
     }
-    if (gameRef.seed.nextDouble() < 0.8) {
+    if (gameRef.seed.nextDouble() < Config.probabilityToStartMoving) {
       parent.startWalking();
     } else {
       parent.stopWalking();

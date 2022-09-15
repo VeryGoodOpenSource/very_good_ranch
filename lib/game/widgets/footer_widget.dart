@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/inventory/inventory.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({
@@ -26,41 +24,20 @@ class FooterWidget extends StatelessWidget {
         top: false,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const _UnicornCounter(type: UnicornType.baby),
-            const SizedBox(width: 16),
-            const _UnicornCounter(type: UnicornType.child),
-            const SizedBox(width: 16),
-            const _UnicornCounter(type: UnicornType.teen),
-            const SizedBox(width: 16),
-            const _UnicornCounter(type: UnicornType.adult),
-            const SizedBox(width: 16),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  _clearOverlays(except: InventoryDialog.overlayKey);
-                  if (!game.overlays.isActive(InventoryDialog.overlayKey)) {
-                    game.overlays.add(InventoryDialog.overlayKey);
-                  }
-                },
-                child: const Center(child: Text('Inventory PLACEHOLDER')),
-              ),
-            ),
+          children: const [
+            _UnicornCounter(type: UnicornType.baby),
+            SizedBox(width: 16),
+            _UnicornCounter(type: UnicornType.child),
+            SizedBox(width: 16),
+            _UnicornCounter(type: UnicornType.teen),
+            SizedBox(width: 16),
+            _UnicornCounter(type: UnicornType.adult),
+            SizedBox(width: 16),
+            Expanded(child: SizedBox()),
           ],
         ),
       ),
     );
-  }
-
-  void _clearOverlays({
-    required String except,
-  }) {
-    if (game.overlays.isActive(
-          SettingsDialog.overlayKey,
-        ) &&
-        except != SettingsDialog.overlayKey) {
-      game.overlays.remove(SettingsDialog.overlayKey);
-    }
   }
 }
 

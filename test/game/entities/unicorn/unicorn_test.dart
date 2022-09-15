@@ -15,23 +15,15 @@ import '../../../helpers/helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late GameBloc gameBloc;
   late BlessingBloc blessingBloc;
 
   setUp(() {
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
-
     blessingBloc = MockBlessingBloc();
     when(() => blessingBloc.state).thenReturn(BlessingState.initial());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
-    () => VeryGoodRanchGame(
-      gameBloc: gameBloc,
-      blessingBloc: blessingBloc,
-      inventoryBloc: MockInventoryBloc(),
-    ),
+    () => VeryGoodRanchGame(blessingBloc: blessingBloc),
   );
 
   group('Unicorn', () {

@@ -5,7 +5,6 @@ import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
 class GamePage extends StatefulWidget {
@@ -43,8 +42,6 @@ class _GamePageState extends State<GamePage> {
     _game ??= widget.game ??
         VeryGoodRanchGame(
           blessingBloc: context.read<BlessingBloc>(),
-          gameBloc: context.read<GameBloc>(),
-          inventoryBloc: context.read<InventoryBloc>(),
           images: preloadedImages,
           viewPadding: MediaQuery.of(context).viewPadding,
         );

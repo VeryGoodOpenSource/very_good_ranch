@@ -14,7 +14,6 @@ import '../../helpers/helpers.dart';
 
 void main() {
   late Random seed;
-  late GameBloc gameBloc;
   late BlessingBloc blessingBloc;
 
   setUp(() {
@@ -24,17 +23,12 @@ void main() {
     when(() => seed.nextBool()).thenReturn(false);
 
     blessingBloc = MockBlessingBloc();
-
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       seed: seed,
-      gameBloc: gameBloc,
       blessingBloc: blessingBloc,
-      inventoryBloc: MockInventoryBloc(),
     ),
   );
 

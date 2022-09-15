@@ -19,24 +19,18 @@ class MockFood extends Mock implements FoodComponent {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late Random seed;
-  late GameBloc gameBloc;
 
   setUp(() {
     seed = MockRandom();
     when(() => seed.nextInt(any())).thenReturn(0);
     when(() => seed.nextDouble()).thenReturn(0);
     when(() => seed.nextBool()).thenReturn(false);
-
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       seed: seed,
-      gameBloc: gameBloc,
       blessingBloc: MockBlessingBloc(),
-      inventoryBloc: MockInventoryBloc(),
     ),
   );
 

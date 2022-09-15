@@ -1,6 +1,5 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:very_good_ranch/inventory/inventory.dart';
 
 class GameView extends StatelessWidget {
   const GameView({super.key, required this.game});
@@ -11,14 +10,7 @@ class GameView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-      child: GameWidget(
-        game: game,
-        overlayBuilderMap: {
-          InventoryDialog.overlayKey: (context, game) {
-            return const InventoryDialog();
-          },
-        },
-      ),
+      child: GameWidget(game: game),
     );
   }
 }

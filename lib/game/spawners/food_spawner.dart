@@ -2,18 +2,13 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
-import 'package:very_good_ranch/game/game.dart';
 
-class FoodSpawner extends Component
-    with
-        ParentIsA<BackgroundComponent>,
-        FlameBlocListenable<GameBloc, GameState> {
+class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
   FoodSpawner({
     required this.seed,
     required this.countUnicorns,
@@ -46,13 +41,6 @@ class FoodSpawner extends Component
   Future<void> onLoad() async {
     await super.onLoad();
     _spawnFood(UnicornEvolutionStage.baby.preferredFoodType);
-  }
-
-  @override
-  void onNewState(GameState state) {
-    if (state.food != null) {
-      _spawnFood(state.food);
-    }
   }
 
   /// Decay [spawnThreshold] by 8% for each existing unicorn.

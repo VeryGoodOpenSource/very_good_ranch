@@ -20,7 +20,6 @@ class _MockFullnessDecreasingBehavior extends Mock
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late GameBloc gameBloc;
   late BlessingBloc blessingBloc;
 
   setUpAll(() {
@@ -29,17 +28,10 @@ void main() {
 
   setUp(() {
     blessingBloc = MockBlessingBloc();
-
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
-    () => VeryGoodRanchGame(
-      gameBloc: gameBloc,
-      blessingBloc: blessingBloc,
-      inventoryBloc: MockInventoryBloc(),
-    ),
+    () => VeryGoodRanchGame(blessingBloc: blessingBloc),
   );
 
   group('Evolution Behavior', () {

@@ -20,19 +20,8 @@ class _MockUnicornPercentage extends Mock implements UnicornPercentage {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late GameBloc gameBloc;
-
-  setUp(() {
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
-  });
-
   final flameTester = FlameTester<VeryGoodRanchGame>(
-    () => VeryGoodRanchGame(
-      gameBloc: gameBloc,
-      blessingBloc: MockBlessingBloc(),
-      inventoryBloc: MockInventoryBloc(),
-    ),
+    () => VeryGoodRanchGame(blessingBloc: MockBlessingBloc()),
   );
 
   group('FoodCollidingBehavior', () {

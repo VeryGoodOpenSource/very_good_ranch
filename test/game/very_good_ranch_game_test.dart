@@ -22,7 +22,6 @@ import '../helpers/helpers.dart';
 void main() {
   late Random seed;
   late BlessingBloc blessingBloc;
-  late GameBloc gameBloc;
 
   setUp(() {
     seed = MockRandom();
@@ -30,17 +29,12 @@ void main() {
     when(() => seed.nextBool()).thenReturn(false);
 
     blessingBloc = MockBlessingBloc();
-
-    gameBloc = MockGameBloc();
-    when(() => gameBloc.state).thenReturn(const GameState());
   });
 
   final flameTester = FlameTester<VeryGoodRanchGame>(
     () => VeryGoodRanchGame(
       seed: seed,
       blessingBloc: blessingBloc,
-      gameBloc: gameBloc,
-      inventoryBloc: MockInventoryBloc(),
     ),
     createGameWidget: (game) {
       return GameWidget(
@@ -55,11 +49,7 @@ void main() {
   group('VeryGoodRanchGame', () {
     test('can be instantiated', () {
       expect(
-        VeryGoodRanchGame(
-          blessingBloc: blessingBloc,
-          gameBloc: gameBloc,
-          inventoryBloc: MockInventoryBloc(),
-        ),
+        VeryGoodRanchGame(blessingBloc: blessingBloc),
         isA<VeryGoodRanchGame>(),
       );
     });
@@ -69,8 +59,6 @@ void main() {
       expect(
         VeryGoodRanchGame(
           blessingBloc: blessingBloc,
-          gameBloc: gameBloc,
-          inventoryBloc: MockInventoryBloc(),
           images: images,
         ).images,
         images,

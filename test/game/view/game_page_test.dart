@@ -13,7 +13,6 @@ import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
 import '../../helpers/helpers.dart';
@@ -22,15 +21,11 @@ class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
 
 void main() {
   group('GamePage', () {
-    late GameBloc gameBloc;
     late BlessingBloc blessingBloc;
     late PreloadCubit preloadCubit;
     late MockRanchSoundPlayer sounds;
 
     setUp(() {
-      gameBloc = MockGameBloc();
-      when(() => gameBloc.state).thenReturn(GameState());
-
       blessingBloc = MockBlessingBloc();
       when(() => blessingBloc.state).thenReturn(BlessingState.initial());
 
@@ -50,7 +45,6 @@ void main() {
       await tester.pumpApp(
         GamePage(),
         blessingBloc: blessingBloc,
-        gameBloc: gameBloc,
         preloadCubit: preloadCubit,
       );
       expect(find.byType(GameView), findsOneWidget);
@@ -70,7 +64,6 @@ void main() {
             },
           ),
         ),
-        gameBloc: gameBloc,
         preloadCubit: preloadCubit,
       );
 
@@ -81,36 +74,11 @@ void main() {
       expect(find.byType(GamePage), findsOneWidget);
     });
 
-    testWidgets('overlays InventoryDialog', (tester) async {
-      final inventoryBloc = MockInventoryBloc();
-      when(() => inventoryBloc.state).thenReturn(InventoryState());
-      final game = TestGame();
-
-      await tester.pumpApp(
-        GamePage(game: game),
-        gameBloc: gameBloc,
-        inventoryBloc: inventoryBloc,
-        preloadCubit: preloadCubit,
-      );
-
-      // These three lines of code is needed to ensure that the game is
-      // attached to the GameRenderBox.
-      game.pauseEngine();
-      await tester.pumpAndSettle();
-      game.resumeEngine();
-
-      await tester.tap(find.byType(GestureDetector));
-      await tester.pump();
-
-      expect(find.byType(InventoryDialog), findsOneWidget);
-    });
-
     testWidgets('Passes preloaded images', (tester) async {
       final images = UnprefixedImages();
       when(() => preloadCubit.images).thenReturn(images);
       await tester.pumpApp(
         GamePage(),
-        gameBloc: gameBloc,
         preloadCubit: preloadCubit,
       );
       final gameView =

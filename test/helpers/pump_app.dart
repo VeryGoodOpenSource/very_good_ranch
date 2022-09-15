@@ -11,7 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:very_good_ranch/game/game.dart';
-import 'package:very_good_ranch/inventory/inventory.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 import 'package:very_good_ranch/settings/settings.dart';
@@ -23,9 +22,7 @@ extension PumpApp on WidgetTester {
     Widget widget, {
     MockNavigator? navigator,
     SettingsBloc? settingsBloc,
-    InventoryBloc? inventoryBloc,
     BlessingBloc? blessingBloc,
-    GameBloc? gameBloc,
     PreloadCubit? preloadCubit,
   }) async {
     return pumpWidget(
@@ -33,8 +30,6 @@ extension PumpApp on WidgetTester {
         providers: [
           BlocProvider.value(value: settingsBloc ?? MockSettingsBloc()),
           BlocProvider.value(value: blessingBloc ?? BlessingBloc()),
-          BlocProvider.value(value: gameBloc ?? MockGameBloc()),
-          BlocProvider.value(value: inventoryBloc ?? MockInventoryBloc()),
           BlocProvider.value(value: preloadCubit ?? MockPreloadCubit()),
         ],
         child: MaterialApp(

@@ -10,14 +10,14 @@ class MovingBehavior extends Behavior<Unicorn>
     with HasGameRef<VeryGoodRanchGame> {
   @override
   Future<void> onLoad() async {
-    await add(TimerComponent(period: 10, repeat: true, onTick: _onTick));
+    await add(TimerComponent(period: 5, repeat: true, onTick: _onTick));
   }
 
   void _onTick() {
     if (parent.beingDragged) {
       return;
     }
-    if (gameRef.seed.nextDouble() < 0.5) {
+    if (gameRef.seed.nextDouble() < 0.8) {
       parent.startWalking();
     } else {
       parent.stopWalking();

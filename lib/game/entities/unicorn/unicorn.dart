@@ -236,11 +236,6 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   }
 
   void startWalking() {
-    // Unicorns cannot start to walk when in finite animations (eat/petted)
-    if (_unicornComponent.isPlayingFiniteAnimation) {
-      return;
-    }
-
     setUnicornState(UnicornState.walking);
     if (!hasBehavior<WanderBehavior>()) {
       add(_wanderBehavior);

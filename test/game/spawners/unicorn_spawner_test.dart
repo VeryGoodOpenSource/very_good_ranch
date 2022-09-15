@@ -79,5 +79,25 @@ void main() {
           game.background.children.whereType<GaugeComponent>();
       expect(gaugesAfterRemoval.length, 0);
     });
+
+    flameTester.test('spawns unicorns timely', (game) async {
+      when(() => seed.nextDouble()).thenReturn(0.5);
+
+      verify(() => blessingBloc.add(UnicornSpawned())).called(1);
+
+      game.update(30);
+
+      verify(() => blessingBloc.add(UnicornSpawned())).called(1);
+
+      when(() => seed.nextDouble()).thenReturn(0);
+
+      game.update(25);
+
+      verify(() => blessingBloc.add(UnicornSpawned())).called(1);
+
+      game.update(17.5);
+
+      verify(() => blessingBloc.add(UnicornSpawned())).called(1);
+    });
   });
 }

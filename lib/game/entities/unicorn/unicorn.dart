@@ -27,6 +27,7 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
       position: position,
       size: size,
       behaviors: [
+        DraggingBehavior(),
         EvolvingBehavior(),
         PropagatingCollisionBehavior(RectangleHitbox()),
         MovingBehavior(),
@@ -183,6 +184,9 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
       priority: 10000,
       positionGetter: (gauge) {
         return positionOfAnchor(Anchor.bottomCenter);
+      },
+      visibilityPredicate: () {
+        return isGaugeVisible;
       },
       percentages: [
         () => enjoyment.value,

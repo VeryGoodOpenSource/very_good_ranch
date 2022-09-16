@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
 class FoodCollidingBehavior extends CollisionBehavior<Food, Unicorn> {
@@ -40,13 +41,13 @@ extension PreferredFoodType on UnicornEvolutionStage {
   double get fullnessFeedFactor {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return 0.3;
+        return Config.wrongFoodImpactOnEnjoyment.baby;
       case UnicornEvolutionStage.child:
-        return 0.25;
+        return Config.wrongFoodImpactOnEnjoyment.child;
       case UnicornEvolutionStage.teen:
-        return 0.2;
+        return Config.wrongFoodImpactOnEnjoyment.teen;
       case UnicornEvolutionStage.adult:
-        return 0.15;
+        return Config.wrongFoodImpactOnEnjoyment.adult;
     }
   }
 }

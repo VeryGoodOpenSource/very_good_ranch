@@ -1,18 +1,14 @@
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
 class EnjoymentDecreasingBehavior extends Behavior<Unicorn> {
-  static const double decreaseInterval = 8;
-
-  /// The extra spacing the gauge should take from the unicorn size
-  static const double innerSpacing = 34;
-
   @override
   Future<void> onLoad() async {
     await add(
       TimerComponent(
-        period: decreaseInterval,
+        period: Config.enjoymentDecreaseInterval,
         repeat: true,
         onTick: _decreaseEnjoyment,
       ),
@@ -26,17 +22,17 @@ class EnjoymentDecreasingBehavior extends Behavior<Unicorn> {
 
 extension on UnicornEvolutionStage {
   /// Percentage that of enjoyment lost every
-  /// [EnjoymentDecreasingBehavior.decreaseInterval].
+  /// [Config.enjoymentDecreaseInterval].
   double get enjoymentDecreaseFactor {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return 0.3;
+        return Config.enjoymentDecreaseFactor.baby;
       case UnicornEvolutionStage.child:
-        return 0.2;
+        return Config.enjoymentDecreaseFactor.child;
       case UnicornEvolutionStage.teen:
-        return 0.1;
+        return Config.enjoymentDecreaseFactor.teen;
       case UnicornEvolutionStage.adult:
-        return 0.1;
+        return Config.enjoymentDecreaseFactor.adult;
     }
   }
 }

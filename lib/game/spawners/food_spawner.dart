@@ -5,6 +5,7 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
@@ -12,9 +13,9 @@ class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
   FoodSpawner({
     required this.seed,
     required this.countUnicorns,
-    this.initialSpawnThreshold = 15.0,
-    this.spawnThreshold = 12.0,
-    this.varyThresholdBy = 0.2,
+    this.initialSpawnThreshold = Config.foodInitialSpawnThreshold,
+    this.spawnThreshold = Config.foodSpawnThreshold,
+    this.varyThresholdBy = Config.foodVaryThresholdBy,
   }) : _foodRarity = RarityList<FoodType>([
           Rarity(FoodType.cake, FoodType.cake.rarity),
           Rarity(FoodType.lollipop, FoodType.lollipop.rarity),
@@ -52,7 +53,7 @@ class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
     final minimalThreshold = spawnThreshold * 0.2;
     return exponentialDecay(
           spawnThreshold - minimalThreshold,
-          0.08,
+          Config.foodSpawnDecayRate,
           countUnicorns(),
         ) +
         minimalThreshold;
@@ -75,7 +76,7 @@ class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
     _spawnedFood++;
 
     final type = foodType ?? _foodRarity.getRandom(seed);
-    final pastureField = parent.pastureField;
+    final pastureField = parent.pastureField.deflate(50);
     final position = Vector2.random(seed)
       ..multiply(pastureField.size.toVector2())
       ..add(pastureField.topLeft.toVector2())

@@ -5,6 +5,7 @@ import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
@@ -181,9 +182,9 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   @override
   Future<void> onLoad() async {
     _wanderBehavior = WanderBehavior(
-      circleDistance: 10,
-      maximumAngle: 15 * degrees2Radians,
-      startingAngle: 0,
+      circleDistance: Config.circleDistance,
+      maximumAngle: Config.maximumAngleDegree * degrees2Radians,
+      startingAngle: Config.startingAngleDegree * degrees2Radians,
       random: gameRef.seed,
     );
     _gaugeComponent = GaugeComponent(
@@ -236,11 +237,6 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   }
 
   void startWalking() {
-    // Unicorns cannot start to walk when in finite animations (eat/petted)
-    if (_unicornComponent.isPlayingFiniteAnimation) {
-      return;
-    }
-
     setUnicornState(UnicornState.walking);
     if (!hasBehavior<WanderBehavior>()) {
       add(_wanderBehavior);

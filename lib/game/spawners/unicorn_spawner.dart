@@ -5,6 +5,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 import 'package:very_good_ranch/game/game.dart';
 
@@ -14,9 +15,9 @@ class UnicornSpawner extends Component
         FlameBlocReader<BlessingBloc, BlessingState> {
   UnicornSpawner({
     required this.seed,
-    this.initialSpawnThreshold = 30.0,
-    this.spawnThreshold = 25.0,
-    this.varyThresholdBy = 0.3,
+    this.initialSpawnThreshold = Config.unicornInitialSpawnThreshold,
+    this.spawnThreshold = Config.unicornSpawnThreshold,
+    this.varyThresholdBy = Config.unicornVaryThresholdBy,
   });
 
   final double spawnThreshold;

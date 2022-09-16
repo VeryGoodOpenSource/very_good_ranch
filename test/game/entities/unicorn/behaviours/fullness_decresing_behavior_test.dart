@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
@@ -28,8 +29,8 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
-        expect(unicorn.fullness.value, 0.9);
+        game.update(Config.fullnessDecreaseInterval);
+        expect(unicorn.fullness.value, 0.995);
       });
 
       flameTester.test('for a child unicorn', (game) async {
@@ -44,8 +45,8 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
-        expect(unicorn.fullness.value, 0.9);
+        game.update(Config.fullnessDecreaseInterval);
+        expect(unicorn.fullness.value, 0.99);
       });
 
       flameTester.test('for a teen unicorn', (game) async {
@@ -60,8 +61,8 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
-        expect(unicorn.fullness.value, 0.8);
+        game.update(Config.fullnessDecreaseInterval);
+        expect(unicorn.fullness.value, 0.985);
       });
 
       flameTester.test('for an adult unicorn', (game) async {
@@ -76,8 +77,8 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
-        expect(unicorn.fullness.value, 0.7);
+        game.update(Config.fullnessDecreaseInterval);
+        expect(unicorn.fullness.value, 0.98);
       });
     });
   });

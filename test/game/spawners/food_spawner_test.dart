@@ -138,19 +138,19 @@ void main() {
 
         expect(countFoodComponents(), equals(1));
 
-        game.update(15);
+        game.update(10);
         await tester.pump();
         await tester.pump();
 
         expect(countFoodComponents(), equals(2));
 
-        game.update(15);
+        game.update(10);
         await tester.pump();
         await tester.pump();
 
         expect(countFoodComponents(), equals(3));
 
-        game.update(12);
+        game.update(5);
         await tester.pump();
         await tester.pump();
 

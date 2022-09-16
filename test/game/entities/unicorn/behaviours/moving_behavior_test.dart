@@ -8,6 +8,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 import 'package:very_good_ranch/game/game.dart';
@@ -80,13 +81,13 @@ void main() {
           await game.background.ensureAdd(unicorn);
 
           when(seed.nextDouble).thenReturn(0);
-          game.update(10);
+          game.update(Config.movingEvaluationCycle);
           expect(unicorn.state, UnicornState.walking);
           await game.ready();
           expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
 
           when(seed.nextDouble).thenReturn(1);
-          game.update(10);
+          game.update(Config.movingEvaluationCycle);
           expect(unicorn.state, UnicornState.idle);
           await game.ready();
           expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
@@ -237,37 +238,12 @@ void main() {
         );
         await game.background.ensureAdd(unicorn);
 
-        game.update(10);
+        game.update(Config.movingEvaluationCycle);
         await game.ready();
 
         expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
         expect(unicorn.state, UnicornState.walking);
       });
-
-      flameTester.test(
-        'does not set state to roaming when playing finite animation',
-        (game) async {
-          when(() => seed.nextBool()).thenReturn(true);
-          when(() => seed.nextDouble()).thenReturn(0.25);
-
-          final movingBehavior = MovingBehavior();
-
-          final unicorn = Unicorn.test(
-            position: Vector2.zero(),
-            behaviors: [
-              movingBehavior,
-            ],
-          );
-          await game.background.ensureAdd(unicorn);
-
-          unicorn.setUnicornState(UnicornState.petted);
-          movingBehavior.simulateTick();
-          await game.ready();
-
-          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
-          expect(unicorn.state, UnicornState.petted);
-        },
-      );
 
       flameTester.test(
         'sets state to roaming when playing looping animation',
@@ -309,7 +285,7 @@ void main() {
         await game.ready();
         await game.background.ensureAdd(unicorn);
 
-        game.update(10);
+        game.update(Config.movingEvaluationCycle);
 
         expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
         expect(unicorn.state, UnicornState.idle);

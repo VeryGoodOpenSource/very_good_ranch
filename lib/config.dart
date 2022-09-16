@@ -39,7 +39,7 @@ class Config {
   );
 
   /// Evolving
-  static const double happinessThresholdToEvolve = 0.9;
+  static const double happinessThresholdToEvolve = 0.6;
   static const int timesThatMustBeFedToEvolve = 3;
 
   /// Leaving

@@ -85,11 +85,11 @@ void main() {
 
       when(() => seed.nextDouble()).thenReturn(0);
 
-      game.update(25);
+      game.update(50);
 
       verify(() => blessingBloc.add(UnicornSpawned())).called(1);
 
-      game.update(17.5);
+      game.update(25);
 
       verify(() => blessingBloc.add(UnicornSpawned())).called(1);
     });

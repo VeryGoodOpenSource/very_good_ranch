@@ -94,6 +94,11 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
 
   bool isGaugeVisible = true;
 
+  int? overridePriority;
+
+  @override
+  int get priority => overridePriority ?? super.priority;
+
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
 

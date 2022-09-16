@@ -91,6 +91,11 @@ class Food extends Entity {
   /// Indicates if the food was dragged before.
   bool wasDragged = false;
 
+  int? overridePriority;
+
+  @override
+  int get priority => overridePriority ?? super.priority;
+
   /// The type of food.
   final FoodType type;
 }

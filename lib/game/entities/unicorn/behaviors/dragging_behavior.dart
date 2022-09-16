@@ -132,6 +132,8 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
         parent
           ..position = parent.positionOfAnchor(anchorBefore)
           ..anchor = anchorBefore;
+
+        this.anchorBefore = null;
       }
     });
     _addRotateEffect(0);
@@ -140,7 +142,6 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
     _dropUnicorn();
 
     positionBefore = null;
-    anchorBefore = null;
   }
 
   void _dropUnicorn() {

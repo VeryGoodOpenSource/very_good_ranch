@@ -232,7 +232,6 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
 
     enjoyment.increaseBy(impactOnEnjoyment);
     timesFed++;
-
     food.removeFromParent();
   }
 

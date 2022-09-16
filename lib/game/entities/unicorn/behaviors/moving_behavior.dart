@@ -14,6 +14,9 @@ class MovingBehavior extends Behavior<Unicorn>
   }
 
   void _onTick() {
+    if (parent.beingDragged) {
+      return;
+    }
     if (gameRef.seed.nextDouble() < 0.5) {
       parent.startWalking();
     } else {

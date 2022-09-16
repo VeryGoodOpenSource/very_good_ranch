@@ -103,5 +103,16 @@ void main() {
         );
       },
     );
+
+    test('overridePriority overrides normal priority', () {
+      final food = Food.iceCream(position: Vector2.zero());
+
+      food.priority = 100;
+      food.overridePriority = null;
+      expect(food.priority, 100);
+
+      food.overridePriority = 10;
+      expect(food.priority, 10);
+    });
   });
 }

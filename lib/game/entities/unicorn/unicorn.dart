@@ -27,6 +27,7 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
       position: position,
       size: size,
       behaviors: [
+        DraggingBehavior(),
         EvolvingBehavior(),
         PropagatingCollisionBehavior(RectangleHitbox()),
         MovingBehavior(),
@@ -92,6 +93,13 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   double get maxVelocity => 10;
 
   bool isGaugeVisible = true;
+
+  bool beingDragged = false;
+
+  int? overridePriority;
+
+  @override
+  int get priority => overridePriority ?? super.priority;
 
   /// A state that describes how many times the unicorn ate food.
   int timesFed = 0;
@@ -184,6 +192,9 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
       positionGetter: (gauge) {
         return positionOfAnchor(Anchor.bottomCenter);
       },
+      visibilityPredicate: () {
+        return isGaugeVisible;
+      },
       percentages: [
         () => enjoyment.value,
         () => fullness.value,
@@ -221,7 +232,6 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
 
     enjoyment.increaseBy(impactOnEnjoyment);
     timesFed++;
-
     food.removeFromParent();
   }
 

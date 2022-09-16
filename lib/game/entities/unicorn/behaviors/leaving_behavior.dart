@@ -31,12 +31,11 @@ class LeavingBehavior extends Behavior<Unicorn>
       leavingAnimationCurve,
     );
 
+    bloc.add(UnicornDespawned(parent.evolutionStage));
     parent.isLeaving = true;
 
     parent.unicornComponent
       ..add(OpacityEffect.fadeOut(effectController))
       ..add(MoveByEffect(Vector2(0, -100), effectController));
-
-    bloc.add(UnicornDespawned(parent.evolutionStage));
   }
 }

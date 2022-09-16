@@ -8,7 +8,8 @@ class DraggingBehavior extends DraggableBehavior<Food> with HasGameRef {
   bool onDragStart(DragStartInfo info) {
     parent
       ..wasDragged = false
-      ..beingDragged = true;
+      ..beingDragged = true
+      ..overridePriority = 10001;
     return false;
   }
 
@@ -33,15 +34,22 @@ class DraggingBehavior extends DraggableBehavior<Food> with HasGameRef {
     }
 
     _wasDraggedBefore();
-    parent.beingDragged = false;
+    _finishDragging();
 
     return false;
   }
 
   @override
   bool onDragCancel() {
-    parent.beingDragged = false;
+    _finishDragging();
+
     return false;
+  }
+
+  void _finishDragging() {
+    parent
+      ..overridePriority = null
+      ..beingDragged = false;
   }
 
   void _wasDraggedBefore() {

@@ -199,20 +199,18 @@ void main() {
     });
 
     group('gauge ', () {
-      group('add gauge', () {
-        flameTester.test('add gauge on mount', (game) async {
-          var hasAddedGauge = false;
-          final unicorn = Unicorn(
-            position: Vector2.all(1),
-            onMountGauge: (gauge) {
-              hasAddedGauge = true;
-            },
-            onUnmountGauge: (gauge) {},
-          );
+      flameTester.test('add gauge on mount', (game) async {
+        var hasAddedGauge = false;
+        final unicorn = Unicorn(
+          position: Vector2.all(1),
+          onMountGauge: (gauge) {
+            hasAddedGauge = true;
+          },
+          onUnmountGauge: (gauge) {},
+        );
 
-          await game.background.ensureAdd(unicorn);
-          expect(hasAddedGauge, isTrue);
-        });
+        await game.background.ensureAdd(unicorn);
+        expect(hasAddedGauge, isTrue);
       });
 
       flameTester.test('remove gauge on remove', (game) async {
@@ -232,6 +230,42 @@ void main() {
 
         expect(hasRemovedGauge, isTrue);
       });
+
+      flameTester.test('controls gauge visibility', (game) async {
+        GaugeComponent? gaugeComponent;
+        final unicorn = Unicorn(
+          position: Vector2.all(1),
+          onMountGauge: (gauge) {
+            gaugeComponent = gauge;
+          },
+          onUnmountGauge: (gauge) {
+            gaugeComponent = null;
+          },
+        );
+
+        await game.background.ensureAdd(unicorn);
+
+        unicorn.isGaugeVisible = true;
+        expect(gaugeComponent?.visibilityPredicate(), isTrue);
+
+        unicorn.isGaugeVisible = false;
+        expect(gaugeComponent?.visibilityPredicate(), isFalse);
+      });
+    });
+
+    test('overridePriority overrides normal priority', () {
+      final unicorn = Unicorn(
+        position: Vector2.all(1),
+        onMountGauge: (gauge) {},
+        onUnmountGauge: (gauge) {},
+      );
+
+      unicorn.priority = 100;
+      unicorn.overridePriority = null;
+      expect(unicorn.priority, 100);
+
+      unicorn.overridePriority = 10;
+      expect(unicorn.priority, 10);
     });
   });
 

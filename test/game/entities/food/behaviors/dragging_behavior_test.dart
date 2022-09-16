@@ -97,6 +97,68 @@ void main() {
       );
     });
 
+    group('overridePriority', () {
+      flameTester.testGameWidget(
+        'set it to value on drag start',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggingBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final food = game.descendants().whereType<Food>().first;
+
+          expect(food.overridePriority, 10001);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'set it to null on drag stop',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggingBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await gesture.up();
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final food = game.descendants().whereType<Food>().first;
+
+          expect(food.overridePriority, null);
+        },
+      );
+
+      flameTester.testGameWidget(
+        'set it to null on drag cancel',
+        setUp: (game, tester) async {
+          final food = Food.test(behaviors: [DraggingBehavior()]);
+          await game.ensureAdd(food);
+          await game.ready();
+
+          final gesture = await tester.createGesture();
+          await gesture.down(Offset.zero);
+          await gesture.moveTo(const Offset(100, 100));
+          await gesture.cancel();
+          await tester.pump();
+          await tester.pump();
+        },
+        verify: (game, tester) async {
+          final food = game.descendants().whereType<Food>().first;
+
+          expect(food.overridePriority, null);
+        },
+      );
+    });
+
     group('wasDragged', () {
       flameTester.testGameWidget(
         'set it to true on drag stop',

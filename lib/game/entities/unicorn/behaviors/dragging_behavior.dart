@@ -16,6 +16,7 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
   bool? goingRight;
 
   RotateEffect? currentRotateEffect;
+  double? currentDestination;
 
   void _addRotateEffect(double to) {
     currentRotateEffect?.pause();
@@ -68,8 +69,10 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
   @override
   bool onDragStart(DragStartInfo info) {
     anchorBefore = parent.anchor;
+    parent
+      ..beingDragged = true
+      ..anchor = Anchor.center;
 
-    parent.anchor = Anchor.center;
     final localEventPosition =
         parent.transform.globalToLocal(info.eventPosition.game);
 
@@ -118,8 +121,8 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
 
   void _finishDragging() {
     goingRight = null;
-
     parent
+      ..beingDragged = false
       ..isGaugeVisible = true
       ..overridePriority = null;
 

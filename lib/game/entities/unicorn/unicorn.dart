@@ -94,6 +94,8 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
 
   bool isGaugeVisible = true;
 
+  bool beingDragged = false;
+
   int? overridePriority;
 
   @override

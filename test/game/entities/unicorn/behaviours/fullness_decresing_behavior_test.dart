@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 
@@ -28,7 +29,7 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
+        game.update(Config.fullnessDecreaseInterval);
         expect(unicorn.fullness.value, 0.9);
       });
 
@@ -44,7 +45,7 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
+        game.update(Config.fullnessDecreaseInterval);
         expect(unicorn.fullness.value, 0.9);
       });
 
@@ -60,7 +61,7 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
+        game.update(Config.fullnessDecreaseInterval);
         expect(unicorn.fullness.value, 0.8);
       });
 
@@ -76,7 +77,7 @@ void main() {
         await game.ensureAdd(unicorn);
 
         expect(unicorn.fullness.value, 1.0);
-        game.update(FullnessDecreasingBehavior.decreaseInterval);
+        game.update(Config.fullnessDecreaseInterval);
         expect(unicorn.fullness.value, 0.7);
       });
     });

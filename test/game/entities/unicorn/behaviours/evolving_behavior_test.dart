@@ -5,6 +5,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
 import 'package:very_good_ranch/game/game.dart';
@@ -54,7 +55,7 @@ void main() {
         await game.background.ensureAdd(unicorn);
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
-        unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
+        unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
 
         unicorn.enjoyment.value = 1;
         unicorn.fullness.value = 1;
@@ -90,7 +91,7 @@ void main() {
         await game.ready();
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
-        unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
+        unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
         unicorn.enjoyment.value = 1;
         unicorn.fullness.value = 1;
 
@@ -125,7 +126,7 @@ void main() {
         game.update(5);
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
-        unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
+        unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
 
         unicorn.enjoyment.value = 1;
         unicorn.fullness.value = 1;
@@ -163,7 +164,7 @@ void main() {
           await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
-          unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
+          unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
 
           unicorn.enjoyment.value = 1;
           unicorn.fullness.value = 1;
@@ -171,7 +172,7 @@ void main() {
           game.update(0);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
-          expect(unicorn.timesFed, EvolvingBehavior.timesThatMustBeFed);
+          expect(unicorn.timesFed, Config.timesThatMustBeFedToEvolve);
           verifyNever(() => blessingBloc.add(any(that: isA<UnicornEvolved>())));
         },
       );
@@ -269,7 +270,7 @@ void main() {
           await game.background.ensureAdd(unicorn);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
-          unicorn.timesFed = EvolvingBehavior.timesThatMustBeFed;
+          unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
 
           // Setting happiness to above the threshold, but not full
           unicorn.enjoyment.value = 0.95;

@@ -22,7 +22,7 @@ class EnjoymentDecreasingBehavior extends Behavior<Unicorn> {
 
 extension on UnicornEvolutionStage {
   /// Percentage that of enjoyment lost every
-  /// [EnjoymentDecreasingBehavior.decreaseInterval].
+  /// [Config.enjoymentDecreaseInterval].
   double get enjoymentDecreaseFactor {
     switch (this) {
       case UnicornEvolutionStage.baby:

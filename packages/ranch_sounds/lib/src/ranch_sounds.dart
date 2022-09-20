@@ -9,7 +9,7 @@ import 'package:ranch_sounds/src/unprefixed_audiocache.dart';
 typedef BGMCreator = Bgm Function();
 
 /// A collection of sounds typical of any Unicorn ranch.
-enum RanchSounds {
+enum RanchSound {
   /// A [_RanchSound] of a cheerful music.
   startBackground,
 
@@ -18,7 +18,7 @@ enum RanchSounds {
 }
 
 /// {@template ranch_sounds}
-/// A helper class to load and maintain the [RanchSounds] in a shared
+/// A helper class to load and maintain the [RanchSound] in a shared
 /// [AudioCache].
 /// {@endtemplate}
 class RanchSoundPlayer {
@@ -33,18 +33,18 @@ class RanchSoundPlayer {
         };
 
     _sounds = {
-      RanchSounds.startBackground: _BackgroundSound._(
+      RanchSound.startBackground: _BackgroundSound._(
         Assets.music.startBackground,
         _createBGM(),
       ),
-      RanchSounds.gameBackground: _BackgroundSound._(
+      RanchSound.gameBackground: _BackgroundSound._(
         Assets.music.gameBackground,
         _createBGM(),
       ),
     };
   }
 
-  late final Map<RanchSounds, _RanchSound> _sounds;
+  late final Map<RanchSound, _RanchSound> _sounds;
 
   /// The [AudioCache] in wich the sounds are preloaded to.
   final UnprefixedAudioCache audioCache;
@@ -55,12 +55,20 @@ class RanchSoundPlayer {
   }
 
   /// Play a [ranchSound]
-  Future<void> play(RanchSounds ranchSound) async {
-    await _sounds[ranchSound]?.play();
+  Future<void> play(RanchSound ranchSound, {double volume = 1}) async {
+    await _sounds[ranchSound]?.play(volume);
+  }
+
+  /// Set the general volume of the [ranchSound]
+  Future<void> setVolume(
+    RanchSound ranchSound, {
+    required double volume,
+  }) async {
+    await _sounds[ranchSound]?.setVolume(volume);
   }
 
   /// Stop playing a [ranchSound]
-  Future<void> stop(RanchSounds ranchSound) async {
+  Future<void> stop(RanchSound ranchSound) async {
     await _sounds[ranchSound]?.stop();
   }
 
@@ -86,9 +94,11 @@ abstract class _RanchSound {
 
   Future<void> load();
 
-  Future<void> play();
+  Future<void> play(double volume);
 
   Future<void> stop();
+
+  Future<void> setVolume(double volume);
 
   void dispose();
 }
@@ -110,8 +120,13 @@ class _BackgroundSound extends _RanchSound {
   }
 
   @override
-  Future<void> play() async {
-    await bgm.play(path);
+  Future<void> play(double volume) async {
+    await bgm.play(path, volume: volume);
+  }
+
+  @override
+  Future<void> setVolume(double volume) async {
+    await bgm.audioPlayer.setVolume(volume);
   }
 
   @override

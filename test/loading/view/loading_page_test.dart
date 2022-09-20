@@ -42,9 +42,9 @@ void main() {
       ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
 
       when(sounds.preloadAssets).thenAnswer((Invocation invocation) async {});
-      when(() => sounds.play(RanchSounds.startBackground))
+      when(() => sounds.play(RanchSound.startBackground))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.stop(RanchSounds.startBackground))
+      when(() => sounds.stop(RanchSound.startBackground))
           .thenAnswer((Invocation invocation) async {});
     });
 

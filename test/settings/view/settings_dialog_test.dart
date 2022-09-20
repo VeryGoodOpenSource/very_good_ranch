@@ -36,14 +36,5 @@ void main() {
 
       verify(() => settingsBloc.add(const MusicVolumeChanged(0.5))).called(1);
     });
-
-    testWidgets('updates gameplay volume correctly', (tester) async {
-      await tester.pumpApp(SettingsDialog(), settingsBloc: settingsBloc);
-
-      await tester.tap(find.byKey(const Key('gameplayVolumeSlider')));
-
-      verify(() => settingsBloc.add(const GameplayVolumeChanged(0.5)))
-          .called(1);
-    });
   });
 }

@@ -84,7 +84,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.play(RanchSounds.startBackground);
+        await player.play(RanchSound.startBackground);
 
         verify(
           () => bgm
@@ -105,7 +105,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.stop(RanchSounds.startBackground);
+        await player.stop(RanchSound.startBackground);
 
         verify(bgm.stop).called(1);
       });
@@ -125,7 +125,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.play(RanchSounds.gameBackground);
+        await player.play(RanchSound.gameBackground);
 
         verify(
           () => bgm
@@ -146,7 +146,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.stop(RanchSounds.gameBackground);
+        await player.stop(RanchSound.gameBackground);
 
         verify(bgm.stop).called(1);
       });

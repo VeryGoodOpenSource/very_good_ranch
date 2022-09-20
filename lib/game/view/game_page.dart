@@ -6,6 +6,7 @@ import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/loading/loading.dart';
+import 'package:very_good_ranch/settings/bloc/bloc.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({
@@ -47,8 +48,9 @@ class _GamePageState extends State<GamePage> {
         );
 
     return BackgroundSoundWidget(
-      ranchSound: RanchSounds.gameBackground,
+      ranchSound: RanchSound.gameBackground,
       player: context.read<PreloadCubit>().sounds,
+      volume: context.watch<SettingsBloc>().state.musicVolume,
       child: GameViewport(
         child: Scaffold(
           body: DecoratedBox(

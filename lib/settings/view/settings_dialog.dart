@@ -35,14 +35,6 @@ class SettingsDialog extends StatelessWidget {
                     context.read<SettingsBloc>().add(MusicVolumeChanged(v));
                   },
                 ),
-                Text(l10n.gameplayVolume((state.gameplayVolume * 100).round())),
-                Slider(
-                  key: const Key('gameplayVolumeSlider'),
-                  value: state.gameplayVolume,
-                  onChanged: (v) {
-                    context.read<SettingsBloc>().add(GameplayVolumeChanged(v));
-                  },
-                ),
               ],
             );
           },

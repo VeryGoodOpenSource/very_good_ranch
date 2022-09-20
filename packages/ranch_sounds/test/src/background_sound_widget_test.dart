@@ -9,34 +9,36 @@ void main() {
   testWidgets('plays on mount', (tester) async {
     final player = MockRanchSoundPlayer();
 
-    when(() => player.play(RanchSounds.startBackground))
+    when(() => player.play(RanchSound.startBackground))
         .thenAnswer((Invocation invocation) async {});
-    when(() => player.stop(RanchSounds.startBackground))
+    when(() => player.stop(RanchSound.startBackground))
         .thenAnswer((Invocation invocation) async {});
 
     await tester.pumpWidget(
       BackgroundSoundWidget(
         player: player,
-        ranchSound: RanchSounds.startBackground,
+        ranchSound: RanchSound.startBackground,
+        volume: 1,
         child: const SizedBox.shrink(),
       ),
     );
 
-    verify(() => player.play(RanchSounds.startBackground)).called(1);
+    verify(() => player.play(RanchSound.startBackground)).called(1);
   });
 
   testWidgets('stops on unmount', (tester) async {
     final player = MockRanchSoundPlayer();
 
-    when(() => player.play(RanchSounds.startBackground))
+    when(() => player.play(RanchSound.startBackground))
         .thenAnswer((Invocation invocation) async {});
-    when(() => player.stop(RanchSounds.startBackground))
+    when(() => player.stop(RanchSound.startBackground))
         .thenAnswer((Invocation invocation) async {});
 
     await tester.pumpWidget(
       BackgroundSoundWidget(
         player: player,
-        ranchSound: RanchSounds.startBackground,
+        ranchSound: RanchSound.startBackground,
+        volume: 1,
         child: const SizedBox.shrink(),
       ),
     );
@@ -45,6 +47,6 @@ void main() {
       const SizedBox.shrink(),
     );
 
-    verify(() => player.stop(RanchSounds.startBackground)).called(1);
+    verify(() => player.stop(RanchSound.startBackground)).called(1);
   });
 }

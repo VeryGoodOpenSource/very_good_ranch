@@ -35,9 +35,9 @@ void main() {
       when(() => preloadCubit.sounds)
           .thenReturn(sounds = MockRanchSoundPlayer());
       when(sounds.preloadAssets).thenAnswer((Invocation invocation) async {});
-      when(() => sounds.play(RanchSounds.gameBackground))
+      when(() => sounds.play(RanchSound.gameBackground))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.stop(RanchSounds.gameBackground))
+      when(() => sounds.stop(RanchSound.gameBackground))
           .thenAnswer((Invocation invocation) async {});
     });
 

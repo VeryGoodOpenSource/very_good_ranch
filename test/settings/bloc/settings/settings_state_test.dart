@@ -24,6 +24,14 @@ void main() {
     });
 
     group('copyWith', () {
+      test('empty', () {
+        final state = SettingsState(musicVolume: 0.5);
+        expect(
+          state.copyWith(),
+          equals(SettingsState(musicVolume: 0.5)),
+        );
+      });
+
       test('returns a new instance with the given musicVolume', () {
         final state = SettingsState(musicVolume: 0.5);
         expect(

@@ -10,14 +10,16 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/widgets.dart' hide Image;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/loading/loading.dart';
+import 'package:very_good_ranch/settings/bloc/bloc.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -28,6 +30,7 @@ class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
 void main() {
   group('LoadingPage', () {
     late PreloadCubit preloadCubit;
+    late SettingsBloc settingsBloc;
     late MockUnprefixedImages images;
     late MockRanchSoundPlayer sounds;
 
@@ -35,6 +38,13 @@ void main() {
       preloadCubit = PreloadCubit(
         images = MockUnprefixedImages(),
         sounds = MockRanchSoundPlayer(),
+      );
+
+      settingsBloc = MockSettingsBloc();
+      whenListen(
+        settingsBloc,
+        const Stream<SettingsState>.empty(),
+        initialState: SettingsState(),
       );
 
       when(
@@ -52,6 +62,7 @@ void main() {
       await tester.pumpApp(
         LoadingPage(),
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
       );
 
       expect(
@@ -73,6 +84,7 @@ void main() {
       await tester.pumpApp(
         LoadingPage(),
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
       );
 
       expect(textWidgetFinder().data, 'Loading  ...');
@@ -97,6 +109,25 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('redirects after loading', (tester) async {});
+    testWidgets('redirects after loading', (tester) async {
+      final navigator = MockNavigator();
+      when(() => navigator.pushReplacement<void, void>(any()))
+          .thenAnswer((_) async {});
+
+      await tester.pumpApp(
+        LoadingPage(),
+        preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
+        navigator: navigator,
+      );
+
+      unawaited(preloadCubit.loadSequentially());
+
+      await tester.pump(const Duration(milliseconds: 800));
+
+      await tester.pumpAndSettle();
+
+      verify(() => navigator.pushReplacement<void, void>(any())).called(1);
+    });
   });
 }

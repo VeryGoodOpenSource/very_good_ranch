@@ -7,6 +7,7 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -14,6 +15,7 @@ import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/loading/loading.dart';
+import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -23,11 +25,19 @@ void main() {
   group('GamePage', () {
     late BlessingBloc blessingBloc;
     late PreloadCubit preloadCubit;
+    late SettingsBloc settingsBloc;
     late MockRanchSoundPlayer sounds;
 
     setUp(() {
       blessingBloc = MockBlessingBloc();
       when(() => blessingBloc.state).thenReturn(BlessingState.initial());
+
+      settingsBloc = MockSettingsBloc();
+      whenListen(
+        settingsBloc,
+        const Stream<SettingsState>.empty(),
+        initialState: SettingsState(),
+      );
 
       preloadCubit = MockPreloadCubit();
       when(() => preloadCubit.images).thenReturn(UnprefixedImages());
@@ -46,6 +56,7 @@ void main() {
         GamePage(),
         blessingBloc: blessingBloc,
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
       );
       expect(find.byType(GameView), findsOneWidget);
     });
@@ -65,6 +76,7 @@ void main() {
           ),
         ),
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
       );
 
       await tester.tap(find.text('Tap me'));
@@ -80,6 +92,7 @@ void main() {
       await tester.pumpApp(
         GamePage(),
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
       );
       final gameView =
           find.byType(GameView).evaluate().first.widget as GameView;

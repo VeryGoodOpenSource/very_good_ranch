@@ -18,15 +18,26 @@ class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
 void main() {
   group('TitlePage', () {
     late PreloadCubit preloadCubit;
+    late SettingsBloc settingsBloc;
     late MockRanchSoundPlayer sounds;
+
     setUp(() {
       sounds = MockRanchSoundPlayer();
+      settingsBloc = MockSettingsBloc();
       preloadCubit = MockPreloadCubit();
       when(() => preloadCubit.sounds).thenReturn(sounds);
       when(() => sounds.play(RanchSound.startBackground))
           .thenAnswer((Invocation invocation) async {});
+      when(() => sounds.setVolume(RanchSound.startBackground, any()))
+          .thenAnswer((Invocation invocation) async {});
       when(() => sounds.stop(RanchSound.startBackground))
           .thenAnswer((Invocation invocation) async {});
+
+      whenListen(
+        settingsBloc,
+        const Stream<SettingsState>.empty(),
+        initialState: SettingsState(),
+      );
     });
 
     testWidgets('render correctly', (tester) async {
@@ -34,6 +45,7 @@ void main() {
       await tester.pumpApp(
         TitlePage(),
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
       );
 
       expect(find.byType(TitlePageSky), findsOneWidget);
@@ -54,6 +66,7 @@ void main() {
       await tester.pumpApp(
         TitlePage(),
         preloadCubit: preloadCubit,
+        settingsBloc: settingsBloc,
         navigator: navigator,
       );
 

@@ -21,12 +21,11 @@ void main() {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
       await tester.pumpApp(SettingsDialog(), settingsBloc: settingsBloc);
 
-      expect(find.byType(Text), findsNWidgets(4));
-      expect(find.byType(Slider), findsNWidgets(2));
+      expect(find.byType(Text), findsNWidgets(3));
+      expect(find.byType(Slider), findsNWidgets(1));
       expect(find.text(l10n.settings), findsOneWidget);
       expect(find.text(l10n.audioSettings), findsOneWidget);
       expect(find.text(l10n.musicVolume(100)), findsOneWidget);
-      expect(find.text(l10n.gameplayVolume(100)), findsOneWidget);
     });
 
     testWidgets('updates music volume correctly', (tester) async {

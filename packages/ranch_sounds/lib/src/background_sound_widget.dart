@@ -48,7 +48,7 @@ class _BackgroundSoundWidgetState extends State<BackgroundSoundWidget> {
     }
 
     if (oldWidget.volume != widget.volume) {
-      widget.player.setVolume(widget.ranchSound, volume: widget.volume);
+      widget.player.setVolume(widget.ranchSound, widget.volume);
     }
   }
 

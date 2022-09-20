@@ -60,10 +60,7 @@ class RanchSoundPlayer {
   }
 
   /// Set the general volume of the [ranchSound]
-  Future<void> setVolume(
-    RanchSound ranchSound, {
-    required double volume,
-  }) async {
+  Future<void> setVolume(RanchSound ranchSound, double volume) async {
     await _sounds[ranchSound]?.setVolume(volume);
   }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 class Config {
-  Config._();
-
   /// Unicorn Spawn
   static const unicornSpawnThreshold = 50.0;
   static const unicornInitialSpawnThreshold = 30.0;

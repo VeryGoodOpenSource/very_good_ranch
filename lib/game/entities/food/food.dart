@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/food/behaviors/behaviors.dart';
 
@@ -46,7 +47,7 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.cake,
-          despawnTime: 60,
+          despawnTime: Config.cakeDespawnTime,
         );
 
   /// {@macro food_component}
@@ -57,18 +58,7 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.lollipop,
-          despawnTime: 40,
-        );
-
-  /// {@macro food_component}
-  ///
-  /// Constructs a pancake.
-  Food.pancake({
-    required Vector2 position,
-  }) : this(
-          position: position,
-          type: FoodType.pancake,
-          despawnTime: 20,
+          despawnTime: Config.lollipopDespawnTime,
         );
 
   /// {@macro food_component}
@@ -79,7 +69,18 @@ class Food extends Entity {
   }) : this(
           position: position,
           type: FoodType.iceCream,
-          despawnTime: 10,
+          despawnTime: Config.iceCreamDespawnTime,
+        );
+
+  /// {@macro food_component}
+  ///
+  /// Constructs a pancake.
+  Food.pancake({
+    required Vector2 position,
+  }) : this(
+          position: position,
+          type: FoodType.pancake,
+          despawnTime: Config.pancakeDespawnTime,
         );
 
   /// The amount of nutrition the food provides.

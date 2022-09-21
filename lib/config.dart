@@ -1,16 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class Config {
+  Config._();
+
   /// Unicorn Spawn
   static const unicornSpawnThreshold = 50.0;
   static const unicornInitialSpawnThreshold = 30.0;
   static const unicornVaryThresholdBy = 0.5;
 
   /// Food Spawn
-  static const foodSpawnThreshold = 5.0;
   static const foodInitialSpawnThreshold = 10.0;
+  static const foodSpawnThreshold = 4.0;
   static const foodVaryThresholdBy = 0.2;
-  static const foodSpawnDecayRate = 0.1;
+  static const foodSpawnDecayRateBaby = 0.1;
+  static const foodSpawnDecayRateChild = 0.15;
+  static const foodSpawnDecayRateTeen = 0.2;
+  static const foodSpawnDecayRateAdult = 0.35;
 
   /// Fullness
   static const fullnessDecreaseInterval = 0.5;
@@ -53,6 +58,12 @@ class Config {
   static const double circleDistance = 10;
   static const double maximumAngleDegree = 15;
   static const double startingAngleDegree = 0;
+
+  /// Despawn
+  static const double cakeDespawnTime = 20;
+  static const double lollipopDespawnTime = 15;
+  static const double iceCreamDespawnTime = 10;
+  static const double pancakeDespawnTime = 7.5;
 }
 
 @immutable

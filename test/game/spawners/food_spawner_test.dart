@@ -33,7 +33,7 @@ void main() {
         await game.ensureAdd(
           BackgroundComponent(
             children: [
-              FoodSpawner(seed: seed, countUnicorns: () => 0),
+              FoodSpawner(seed: seed, countUnicorns: (stage) => 0),
             ],
           ),
         );
@@ -56,7 +56,7 @@ void main() {
         await game.ensureAdd(
           BackgroundComponent(
             children: [
-              FoodSpawner(seed: seed, countUnicorns: () => 0),
+              FoodSpawner(seed: seed, countUnicorns: (stage) => 0),
             ],
           ),
         );
@@ -79,7 +79,7 @@ void main() {
         await game.ensureAdd(
           BackgroundComponent(
             children: [
-              FoodSpawner(seed: seed, countUnicorns: () => 0),
+              FoodSpawner(seed: seed, countUnicorns: (stage) => 0),
             ],
           ),
         );
@@ -103,7 +103,7 @@ void main() {
         await game.ensureAdd(
           BackgroundComponent(
             children: [
-              FoodSpawner(seed: seed, countUnicorns: () => 0),
+              FoodSpawner(seed: seed, countUnicorns: (stage) => 0),
             ],
           ),
         );
@@ -125,7 +125,7 @@ void main() {
         await game.ensureAdd(
           BackgroundComponent(
             children: [
-              FoodSpawner(seed: seed, countUnicorns: () => 0),
+              FoodSpawner(seed: seed, countUnicorns: (stage) => 0),
             ],
           ),
         );

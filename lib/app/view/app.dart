@@ -42,15 +42,20 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: RanchUITheme.themeData,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const LoadingPage(),
+    return BackgroundSoundWidget(
+      ranchSound: RanchSound.mitchelRanch,
+      player: context.read<PreloadCubit>().sounds,
+      volume: context.watch<SettingsBloc>().state.musicVolume,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: RanchUITheme.themeData,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: const LoadingPage(),
+      ),
     );
   }
 }

@@ -21,7 +21,7 @@ void main() {
     });
 
     group('preloadAssets', () {
-      test('preloads assets', () async {
+      test('preloads all assets', () async {
         final audioCache = _MockAudioCache();
         when(() => audioCache.load(any())).thenAnswer((_) async => _MockURI());
 
@@ -38,6 +38,30 @@ void main() {
         verify(
           () => audioCache.load(
             'packages/ranch_sounds/assets/music/start_background.wav',
+          ),
+        ).called(1);
+
+        verify(
+          () => audioCache.load(
+            'packages/ranch_sounds/assets/music/mitchel_ranch.mp3',
+          ),
+        ).called(1);
+
+        // no remaining calls
+        verifyNever(() => audioCache.load(any()));
+      });
+
+      test('preloads some assets', () async {
+        final audioCache = _MockAudioCache();
+        when(() => audioCache.load(any())).thenAnswer((_) async => _MockURI());
+
+        final player = RanchSoundPlayer(audioCache: audioCache);
+
+        await player.preloadAssets([RanchSound.mitchelRanch]);
+
+        verify(
+          () => audioCache.load(
+            'packages/ranch_sounds/assets/music/mitchel_ranch.mp3',
           ),
         ).called(1);
 
@@ -68,7 +92,7 @@ void main() {
         await player.dispose();
 
         verify(audioCache.clearAll).called(1);
-        verify(bgm.dispose).called(2);
+        verify(bgm.dispose).called(3);
       });
     });
 
@@ -79,6 +103,7 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
+        when(() => bgm.isPlaying).thenReturn(false);
         when(() => bgm.play(any())).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
@@ -92,6 +117,28 @@ void main() {
           () => bgm
               .play('packages/ranch_sounds/assets/music/start_background.wav'),
         ).called(1);
+      });
+
+      test('play when it is already playing', () async {
+        final audioCache = _MockAudioCache();
+        final bgm = _MockBgm();
+        final ap = AudioPlayer()..audioCache = audioCache;
+
+        when(() => bgm.audioPlayer).thenReturn(ap);
+        when(() => bgm.isPlaying).thenReturn(true);
+        when(() => bgm.play(any())).thenAnswer((_) async {});
+
+        final player = RanchSoundPlayer(
+          audioCache: audioCache,
+          createBGM: () => bgm,
+        );
+
+        await player.play(RanchSound.startBackground);
+
+        verifyNever(
+          () => bgm
+              .play('packages/ranch_sounds/assets/music/start_background.wav'),
+        );
       });
 
       test('setVolume', () async {
@@ -118,7 +165,8 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
-        when(bgm.stop).thenAnswer((_) async {});
+        when(() => bgm.isPlaying).thenReturn(false);
+        when(bgm.pause).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,
@@ -127,7 +175,7 @@ void main() {
 
         await player.stop(RanchSound.startBackground);
 
-        verify(bgm.stop).called(1);
+        verify(bgm.pause).called(1);
       });
     });
 
@@ -138,13 +186,14 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
+
         when(() => bgm.play(any())).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,
           createBGM: () => bgm,
         );
-
+        when(() => bgm.isPlaying).thenReturn(false);
         await player.play(RanchSound.gameBackground);
 
         verify(
@@ -159,16 +208,16 @@ void main() {
         final ap = AudioPlayer()..audioCache = audioCache;
 
         when(() => bgm.audioPlayer).thenReturn(ap);
-        when(bgm.stop).thenAnswer((_) async {});
+        when(bgm.pause).thenAnswer((_) async {});
 
         final player = RanchSoundPlayer(
           audioCache: audioCache,
           createBGM: () => bgm,
         );
 
-        await player.stop(RanchSound.gameBackground);
+        await player.stop(RanchSound.startBackground);
 
-        verify(bgm.stop).called(1);
+        verify(bgm.pause).called(1);
       });
     });
   });

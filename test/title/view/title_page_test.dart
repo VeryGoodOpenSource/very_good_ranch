@@ -13,8 +13,6 @@ import 'package:very_good_ranch/title/title.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockRanchSoundPlayer extends Mock implements RanchSoundPlayer {}
-
 void main() {
   group('TitlePage', () {
     late PreloadCubit preloadCubit;
@@ -26,11 +24,11 @@ void main() {
       settingsBloc = MockSettingsBloc();
       preloadCubit = MockPreloadCubit();
       when(() => preloadCubit.sounds).thenReturn(sounds);
-      when(() => sounds.play(RanchSound.startBackground))
+      when(() => sounds.play(RanchSound.mitchelRanch))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.setVolume(RanchSound.startBackground, any()))
+      when(() => sounds.setVolume(RanchSound.mitchelRanch, any()))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.stop(RanchSound.startBackground))
+      when(() => sounds.stop(RanchSound.mitchelRanch))
           .thenAnswer((Invocation invocation) async {});
 
       whenListen(

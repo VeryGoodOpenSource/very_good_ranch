@@ -60,10 +60,10 @@ class Config {
   static const double startingAngleDegree = 0;
 
   /// Despawn
-  static const double cakeDespawnTime = 20;
-  static const double lollipopDespawnTime = 15;
-  static const double iceCreamDespawnTime = 10;
-  static const double pancakeDespawnTime = 7.5;
+  static const double cakeDespawnTime = 30;
+  static const double lollipopDespawnTime = 20;
+  static const double iceCreamDespawnTime = 15;
+  static const double pancakeDespawnTime = 10;
 }
 
 @immutable

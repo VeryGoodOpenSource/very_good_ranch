@@ -109,7 +109,7 @@ void main() {
 
         await player.setVolume(RanchSound.startBackground, 1);
 
-        verify(() => ap.setVolume(1.0)).called(1);
+        verify(() => ap.setVolume(1)).called(1);
       });
 
       test('stop', () async {

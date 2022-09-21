@@ -15,6 +15,9 @@ enum RanchSound {
 
   /// A [_RanchSound] of a pretty music.
   gameBackground,
+
+  /// A [RanchSound] of a inspiring music
+  mitchelRanch,
 }
 
 /// {@template ranch_sounds}
@@ -41,6 +44,10 @@ class RanchSoundPlayer {
         Assets.music.gameBackground,
         _createBGM(),
       ),
+      RanchSound.mitchelRanch: _BackgroundSound._(
+        Assets.music.mitchelRanch,
+        _createBGM(),
+      ),
     };
   }
 
@@ -50,8 +57,12 @@ class RanchSoundPlayer {
   final UnprefixedAudioCache audioCache;
 
   /// Preload all sound assets into [audioCache].
-  Future<void> preloadAssets() {
-    return Future.wait(_sounds.values.map((e) => e.load()));
+  Future<void> preloadAssets([
+    Iterable<RanchSound> sounds = RanchSound.values,
+  ]) {
+    return Future.wait(
+      sounds.map((e) => _sounds[e]!).map((e) => e.load()),
+    );
   }
 
   /// Play a [ranchSound]
@@ -128,6 +139,6 @@ class _BackgroundSound extends _RanchSound {
 
   @override
   Future<void> stop() async {
-    await bgm.stop();
+    await bgm.pause();
   }
 }

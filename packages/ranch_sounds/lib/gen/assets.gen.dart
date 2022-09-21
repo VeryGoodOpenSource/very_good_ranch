@@ -15,6 +15,9 @@ class $AssetsMusicGen {
   /// File path: assets/music/game_background.wav
   String get gameBackground => 'assets/music/game_background.wav';
 
+  /// File path: assets/music/mitchel_ranch.mp3
+  String get mitchelRanch => 'assets/music/mitchel_ranch.mp3';
+
   /// File path: assets/music/start_background.wav
   String get startBackground => 'assets/music/start_background.wav';
 }

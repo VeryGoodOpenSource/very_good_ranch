@@ -48,7 +48,7 @@ class _GamePageState extends State<GamePage> {
         );
 
     return BackgroundSoundWidget(
-      ranchSound: RanchSound.gameBackground,
+      ranchSound: RanchSound.mitchelRanch,
       player: context.read<PreloadCubit>().sounds,
       volume: context.watch<SettingsBloc>().state.musicVolume,
       child: GameViewport(

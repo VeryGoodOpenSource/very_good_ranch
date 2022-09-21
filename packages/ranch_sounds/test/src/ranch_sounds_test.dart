@@ -21,7 +21,7 @@ void main() {
     });
 
     group('preloadAssets', () {
-      test('preloads assets', () async {
+      test('preloads all assets', () async {
         final audioCache = _MockAudioCache();
         when(() => audioCache.load(any())).thenAnswer((_) async => _MockURI());
 
@@ -38,6 +38,30 @@ void main() {
         verify(
           () => audioCache.load(
             'packages/ranch_sounds/assets/music/start_background.wav',
+          ),
+        ).called(1);
+
+        verify(
+          () => audioCache.load(
+            'packages/ranch_sounds/assets/music/mitchel_ranch.mp3',
+          ),
+        ).called(1);
+
+        // no remaining calls
+        verifyNever(() => audioCache.load(any()));
+      });
+
+      test('preloads some assets', () async {
+        final audioCache = _MockAudioCache();
+        when(() => audioCache.load(any())).thenAnswer((_) async => _MockURI());
+
+        final player = RanchSoundPlayer(audioCache: audioCache);
+
+        await player.preloadAssets([RanchSound.mitchelRanch]);
+
+        verify(
+          () => audioCache.load(
+            'packages/ranch_sounds/assets/music/mitchel_ranch.mp3',
           ),
         ).called(1);
 
@@ -68,7 +92,7 @@ void main() {
         await player.dispose();
 
         verify(audioCache.clearAll).called(1);
-        verify(bgm.dispose).called(2);
+        verify(bgm.dispose).called(3);
       });
     });
 

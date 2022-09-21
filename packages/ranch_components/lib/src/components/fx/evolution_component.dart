@@ -8,11 +8,12 @@ import 'package:ranch_components/ranch_components.dart';
 /// the component on [from] must be an in game component, meaning that
 /// it should already have a parent.
 /// {@endtemplate}
-class Evolution extends Component {
+class Evolution extends Component with ParentIsA<PositionComponent> {
   /// {@macro evolution}
   Evolution({
     required this.from,
     required this.to,
+    this.onFinish,
   }) : assert(
           from is HasPaint && to is HasPaint,
           'Evolution can only evolve components that is a HasPaint',
@@ -24,7 +25,9 @@ class Evolution extends Component {
   /// The component that will be evolved into.
   final PositionComponent to;
 
-  late final Component _target;
+  final VoidCallback? onFinish;
+
+  late final PositionComponent _target;
 
   @override
   Future<void> onLoad() async {
@@ -34,9 +37,17 @@ class Evolution extends Component {
       from.parent != null,
       'Evolution can only evolve components that has a parent',
     );
-    _target = from.parent!;
+    _target = parent;
 
     await _target.add(to);
+
+    to.position = from.size - to.size;
+    final originalPosition = to.position.clone();
+    final isFlipped = from.transform.scale.x < 0;
+    if (isFlipped) {
+      to.flipHorizontallyAroundCenter();
+    }
+
 
     await from.add(
       OpacityEffect.to(
@@ -62,12 +73,20 @@ class Evolution extends Component {
           4,
         ),
       )..onComplete = () {
+        _target.position += originalPosition;
+        to.position = isFlipped ? Vector2(to.size.x, 0) : Vector2.all(0);
+          _target.size = to.size.clone();
+          onFinish?.call();
+        
           removeFromParent();
 
           _target.add(
             ConfettiComponent(
               confettiSize: to.size.y / 10,
-            )..anchor = Anchor.center,
+            )..position = Vector2(
+              _target.size.x / 2,
+              _target.size.y,
+            ),
           );
         },
     );

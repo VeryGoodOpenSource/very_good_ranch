@@ -159,9 +159,19 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     void updateStage() {
       waitingCurrentAnimationToEvolve = false;
       _unicornComponent.removeFromParent();
-      add(_unicornComponent = evolutionStage.componentForEvolutionStage());
 
-      size = _unicornComponent.size;
+      final nextUnicorn = evolutionStage.componentForEvolutionStage();
+
+      _stopMoving();
+      add(
+        Evolution(
+          from: unicornComponent,
+          to: nextUnicorn,
+          onFinish: () {
+            _unicornComponent = nextUnicorn;
+          },
+        ),
+      );
 
       reset();
       completer.complete();

@@ -25,6 +25,9 @@ class MovingBehavior extends Behavior<Unicorn>
         parent.unicornComponent.isPlayingFiniteAnimation) {
       return;
     }
+    if (parent.firstChild<Evolution>() != null) {
+      return;
+    }
     if (gameRef.seed.nextDouble() < Config.probabilityToStartMoving) {
       parent.setUnicornState(UnicornState.walking);
     } else {

@@ -10,10 +10,10 @@ typedef BGMCreator = Bgm Function();
 
 /// A collection of sounds typical of any Unicorn ranch.
 enum RanchSound {
-  /// A [_RanchSound] of a cheerful music.
+  /// A [RanchSound] of a cheerful music.
   startBackground,
 
-  /// A [_RanchSound] of a pretty music.
+  /// A [RanchSound] of a pretty music.
   gameBackground,
 
   /// A [RanchSound] of a inspiring music

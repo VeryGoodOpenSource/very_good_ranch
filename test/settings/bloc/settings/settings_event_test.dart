@@ -17,18 +17,5 @@ void main() {
         );
       });
     });
-
-    group('GameplayVolumeChanged', () {
-      test('can be instantiated', () {
-        expect(GameplayVolumeChanged(0.5), isNotNull);
-      });
-
-      test('supports value equality', () {
-        expect(
-          GameplayVolumeChanged(0.5),
-          equals(GameplayVolumeChanged(0.5)),
-        );
-      });
-    });
   });
 }

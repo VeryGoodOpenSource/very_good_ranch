@@ -24,8 +24,9 @@ class TitlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundSoundWidget(
-      ranchSound: RanchSounds.startBackground,
+      ranchSound: RanchSound.startBackground,
       player: context.read<PreloadCubit>().sounds,
+      volume: context.watch<SettingsBloc>().state.musicVolume,
       child: GameViewport(
         child: Scaffold(
           body: Stack(

@@ -11,16 +11,20 @@ class BackgroundSoundWidget extends StatefulWidget {
     required this.ranchSound,
     required this.player,
     required this.child,
+    required this.volume,
   });
 
   /// The sound to be played
-  final RanchSounds ranchSound;
+  final RanchSound ranchSound;
 
   /// The [RanchSoundPlayer] responsible to manage the underlying sound cache.
   final RanchSoundPlayer player;
 
   /// This widget is supposed to wrap something.
   final Widget child;
+
+  /// The volume in which the sound is supposed to played at.
+  final double volume;
 
   @override
   State<BackgroundSoundWidget> createState() => _BackgroundSoundWidgetState();
@@ -30,7 +34,22 @@ class _BackgroundSoundWidgetState extends State<BackgroundSoundWidget> {
   @override
   void initState() {
     super.initState();
-    widget.player.play(widget.ranchSound);
+    widget.player.play(widget.ranchSound, volume: widget.volume);
+  }
+
+  @override
+  void didUpdateWidget(covariant BackgroundSoundWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.ranchSound != widget.ranchSound) {
+      widget.player.stop(oldWidget.ranchSound);
+      widget.player.play(widget.ranchSound, volume: widget.volume);
+      return;
+    }
+
+    if (oldWidget.volume != widget.volume) {
+      widget.player.setVolume(widget.ranchSound, widget.volume);
+    }
   }
 
   @override

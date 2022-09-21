@@ -10,6 +10,8 @@ class _MockBgm extends Mock implements Bgm {}
 
 class _MockURI extends Mock implements Uri {}
 
+class _MockAudioPlayer extends Mock implements AudioPlayer {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -84,12 +86,30 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.play(RanchSounds.startBackground);
+        await player.play(RanchSound.startBackground);
 
         verify(
           () => bgm
               .play('packages/ranch_sounds/assets/music/start_background.wav'),
         ).called(1);
+      });
+
+      test('setVolume', () async {
+        final audioCache = _MockAudioCache();
+        final bgm = _MockBgm();
+        final ap = _MockAudioPlayer();
+
+        when(() => bgm.audioPlayer).thenReturn(ap);
+        when(() => ap.setVolume(any())).thenAnswer((_) async {});
+
+        final player = RanchSoundPlayer(
+          audioCache: audioCache,
+          createBGM: () => bgm,
+        );
+
+        await player.setVolume(RanchSound.startBackground, 1);
+
+        verify(() => ap.setVolume(1)).called(1);
       });
 
       test('stop', () async {
@@ -105,7 +125,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.stop(RanchSounds.startBackground);
+        await player.stop(RanchSound.startBackground);
 
         verify(bgm.stop).called(1);
       });
@@ -125,7 +145,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.play(RanchSounds.gameBackground);
+        await player.play(RanchSound.gameBackground);
 
         verify(
           () => bgm
@@ -146,7 +166,7 @@ void main() {
           createBGM: () => bgm,
         );
 
-        await player.stop(RanchSounds.gameBackground);
+        await player.stop(RanchSound.gameBackground);
 
         verify(bgm.stop).called(1);
       });

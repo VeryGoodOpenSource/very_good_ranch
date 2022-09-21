@@ -31,17 +31,6 @@
             }
         }
     },
-    "gameplayVolume": "Gameplay Volume: {volume}%",
-    "@gameplayVolume": {
-        "description": "Text for the current Gameplay Volume",
-        "placeholders": {
-            "volume": {
-                "type": "int",
-                "example": "100%",
-                "description": "Volume of the gameplay"
-            }
-        }
-    },
     "inventory": "Inventory",
     "@inventory": {
         "description": "Text for Inventory title"

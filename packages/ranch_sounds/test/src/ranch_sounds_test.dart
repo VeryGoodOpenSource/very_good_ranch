@@ -10,6 +10,8 @@ class _MockBgm extends Mock implements Bgm {}
 
 class _MockURI extends Mock implements Uri {}
 
+class _MockAudioPlayer extends Mock implements AudioPlayer {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -90,6 +92,24 @@ void main() {
           () => bgm
               .play('packages/ranch_sounds/assets/music/start_background.wav'),
         ).called(1);
+      });
+
+      test('setVolume', () async {
+        final audioCache = _MockAudioCache();
+        final bgm = _MockBgm();
+        final ap = _MockAudioPlayer();
+
+        when(() => bgm.audioPlayer).thenReturn(ap);
+        when(() => ap.setVolume(any())).thenAnswer((_) async {});
+
+        final player = RanchSoundPlayer(
+          audioCache: audioCache,
+          createBGM: () => bgm,
+        );
+
+        await player.setVolume(RanchSound.startBackground, 1);
+
+        verify(() => ap.setVolume(1.0)).called(1);
       });
 
       test('stop', () async {

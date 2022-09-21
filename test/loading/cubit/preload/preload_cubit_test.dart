@@ -45,7 +45,8 @@ void main() {
         ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
 
         final sounds = MockRanchSoundPlayer();
-        when(sounds.preloadAssets).thenAnswer((Invocation invocation) async {});
+        when(() => sounds.preloadAssets([RanchSound.mitchelRanch]))
+            .thenAnswer((Invocation invocation) async {});
 
         final cubit = PreloadCubit(images, sounds);
 
@@ -54,7 +55,7 @@ void main() {
         // Each phase is called in the next tick, so we need to settle first.
         await tester.pumpAndSettle(const Duration(microseconds: 1));
 
-        verify(sounds.preloadAssets).called(1);
+        verify(() => sounds.preloadAssets([RanchSound.mitchelRanch])).called(1);
         expect(cubit.state.isComplete, false);
         expect(cubit.state.currentLabel, 'sounds');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));

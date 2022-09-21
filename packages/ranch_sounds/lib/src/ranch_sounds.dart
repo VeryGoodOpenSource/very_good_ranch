@@ -129,6 +129,9 @@ class _BackgroundSound extends _RanchSound {
 
   @override
   Future<void> play(double volume) async {
+    if (bgm.isPlaying) {
+      return;
+    }
     await bgm.play(path, volume: volume);
   }
 

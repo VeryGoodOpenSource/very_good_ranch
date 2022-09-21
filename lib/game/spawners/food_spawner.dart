@@ -2,12 +2,14 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ranch_components/ranch_components.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
+
+typedef UnicornCount = int Function(UnicornEvolutionStage stage);
 
 class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
   FoodSpawner({
@@ -30,7 +32,7 @@ class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
   final double initialSpawnThreshold;
   final double varyThresholdBy;
 
-  final ValueGetter<int> countUnicorns;
+  final UnicornCount countUnicorns;
 
   late Timer _timer;
 
@@ -50,13 +52,35 @@ class FoodSpawner extends Component with ParentIsA<BackgroundComponent> {
   /// [spawnThreshold] value to prevent the resulting value tending to zero.
   @visibleForTesting
   double get decayedSpawnThreshold {
-    final minimalThreshold = spawnThreshold * 0.2;
-    return exponentialDecay(
-          spawnThreshold - minimalThreshold,
-          Config.foodSpawnDecayRate,
-          countUnicorns(),
-        ) +
-        minimalThreshold;
+    final minimalThreshold = spawnThreshold * 0.15;
+
+    // Decay by baby unicorns
+
+    final decayedByBaby = exponentialDecay(
+      spawnThreshold - minimalThreshold,
+      Config.foodSpawnDecayRateBaby,
+      countUnicorns(UnicornEvolutionStage.baby),
+    );
+
+    final decayedByChild = exponentialDecay(
+      decayedByBaby,
+      Config.foodSpawnDecayRateChild,
+      countUnicorns(UnicornEvolutionStage.child),
+    );
+
+    final decayedByTeen = exponentialDecay(
+      decayedByChild,
+      Config.foodSpawnDecayRateTeen,
+      countUnicorns(UnicornEvolutionStage.teen),
+    );
+
+    final decayedByAdult = exponentialDecay(
+      decayedByTeen,
+      Config.foodSpawnDecayRateAdult,
+      countUnicorns(UnicornEvolutionStage.adult),
+    );
+
+    return decayedByAdult + minimalThreshold;
   }
 
   void _scheduleNextFood() {

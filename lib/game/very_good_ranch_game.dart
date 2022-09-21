@@ -70,9 +70,9 @@ class VeryGoodRanchGame extends FlameGame
             children: [
               FoodSpawner(
                 seed: seed,
-                countUnicorns: () {
-                  return background.children.whereType<Unicorn>().length;
-                },
+                countUnicorns: (stage) => background.children.where((e) {
+                  return e is Unicorn && e.evolutionStage == stage;
+                }).length,
               ),
               UnicornSpawner(seed: seed),
             ],

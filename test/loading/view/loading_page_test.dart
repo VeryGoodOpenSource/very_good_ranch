@@ -51,11 +51,11 @@ void main() {
         () => images.loadAll(any()),
       ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
 
-      when(() => sounds.preloadAssets([RanchSound.mitchelRanch]))
+      when(() => sounds.preloadAssets([RanchSound.sunsetMemory]))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.play(RanchSound.mitchelRanch))
+      when(() => sounds.play(RanchSound.sunsetMemory))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.stop(RanchSound.mitchelRanch))
+      when(() => sounds.stop(RanchSound.sunsetMemory))
           .thenAnswer((Invocation invocation) async {});
     });
 

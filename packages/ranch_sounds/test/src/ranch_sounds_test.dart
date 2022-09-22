@@ -57,7 +57,7 @@ void main() {
 
         final player = RanchSoundPlayer(audioCache: audioCache);
 
-        await player.preloadAssets([RanchSound.mitchelRanch]);
+        await player.preloadAssets([RanchSound.sunsetMemory]);
 
         verify(
           () => audioCache.load(

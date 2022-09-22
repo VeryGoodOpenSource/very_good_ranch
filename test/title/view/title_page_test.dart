@@ -24,11 +24,11 @@ void main() {
       settingsBloc = MockSettingsBloc();
       preloadCubit = MockPreloadCubit();
       when(() => preloadCubit.sounds).thenReturn(sounds);
-      when(() => sounds.play(RanchSound.mitchelRanch))
+      when(() => sounds.play(RanchSound.sunsetMemory))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.setVolume(RanchSound.mitchelRanch, any()))
+      when(() => sounds.setVolume(RanchSound.sunsetMemory, any()))
           .thenAnswer((Invocation invocation) async {});
-      when(() => sounds.stop(RanchSound.mitchelRanch))
+      when(() => sounds.stop(RanchSound.sunsetMemory))
           .thenAnswer((Invocation invocation) async {});
 
       whenListen(

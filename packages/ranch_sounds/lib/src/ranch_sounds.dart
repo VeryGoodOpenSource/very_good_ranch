@@ -16,8 +16,9 @@ enum RanchSound {
   /// A [RanchSound] of a pretty music.
   gameBackground,
 
-  /// A [RanchSound] of a inspiring music
-  mitchelRanch,
+  /// It conjures up an image of someone cycling back home after a lovely day,
+  /// and thinking about the time they had.
+  sunsetMemory,
 }
 
 /// {@template ranch_sounds}
@@ -44,8 +45,8 @@ class RanchSoundPlayer {
         Assets.music.gameBackground,
         _createBGM(),
       ),
-      RanchSound.mitchelRanch: _BackgroundSound._(
-        Assets.music.mitchelRanch,
+      RanchSound.sunsetMemory: _BackgroundSound._(
+        Assets.music.sunsetMemory,
         _createBGM(),
       ),
     };
@@ -129,9 +130,6 @@ class _BackgroundSound extends _RanchSound {
 
   @override
   Future<void> play(double volume) async {
-    if (bgm.isPlaying) {
-      return;
-    }
     await bgm.play(path, volume: volume);
   }
 

@@ -43,7 +43,7 @@ void main() {
 
         verify(
           () => audioCache.load(
-            'packages/ranch_sounds/assets/music/mitchel_ranch.mp3',
+            'packages/ranch_sounds/assets/music/sunset_memory.mp3',
           ),
         ).called(1);
 
@@ -57,11 +57,11 @@ void main() {
 
         final player = RanchSoundPlayer(audioCache: audioCache);
 
-        await player.preloadAssets([RanchSound.mitchelRanch]);
+        await player.preloadAssets([RanchSound.sunsetMemory]);
 
         verify(
           () => audioCache.load(
-            'packages/ranch_sounds/assets/music/mitchel_ranch.mp3',
+            'packages/ranch_sounds/assets/music/sunset_memory.mp3',
           ),
         ).called(1);
 
@@ -117,28 +117,6 @@ void main() {
           () => bgm
               .play('packages/ranch_sounds/assets/music/start_background.wav'),
         ).called(1);
-      });
-
-      test('play when it is already playing', () async {
-        final audioCache = _MockAudioCache();
-        final bgm = _MockBgm();
-        final ap = AudioPlayer()..audioCache = audioCache;
-
-        when(() => bgm.audioPlayer).thenReturn(ap);
-        when(() => bgm.isPlaying).thenReturn(true);
-        when(() => bgm.play(any())).thenAnswer((_) async {});
-
-        final player = RanchSoundPlayer(
-          audioCache: audioCache,
-          createBGM: () => bgm,
-        );
-
-        await player.play(RanchSound.startBackground);
-
-        verifyNever(
-          () => bgm
-              .play('packages/ranch_sounds/assets/music/start_background.wav'),
-        );
       });
 
       test('setVolume', () async {

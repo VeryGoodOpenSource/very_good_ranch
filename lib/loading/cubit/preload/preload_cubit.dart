@@ -16,7 +16,7 @@ class PreloadCubit extends Cubit<PreloadState> {
     final phases = <PreloadPhase>[
       PreloadPhase(
         'sounds',
-        () => sounds.preloadAssets([RanchSound.mitchelRanch]),
+        () => sounds.preloadAssets([RanchSound.sunsetMemory]),
       ),
       PreloadPhase(
         'environment',

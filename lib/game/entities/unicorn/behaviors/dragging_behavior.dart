@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/animation.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
@@ -74,7 +74,9 @@ class DraggingBehavior
   @override
   bool onReallyDragStart(DragStartInfo info) {
     anchorBefore = parent.anchor;
+
     parent
+      ..setUnicornState(UnicornState.idle)
       ..beingDragged = true
       ..anchor = Anchor.center;
 

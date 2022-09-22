@@ -14,10 +14,7 @@ class FoodCollidingBehavior extends CollisionBehavior<Food, Unicorn> {
     if (parent.isLeaving == true) {
       return;
     }
-    parent
-      ..feed(other)
-      ..stopWalking()
-      ..setUnicornState(UnicornState.eating);
+    parent.feed(other);
   }
 }
 

@@ -276,7 +276,7 @@ void main() {
         when(() => food.beingDragged).thenReturn(false);
         when(() => food.isRemoving).thenReturn(false);
         expect(unicorn.timesFed, 0);
-        unicorn.startWalking();
+        unicorn.setUnicornState(UnicornState.walking);
         await game.ready();
 
         expect(unicorn.state, UnicornState.walking);

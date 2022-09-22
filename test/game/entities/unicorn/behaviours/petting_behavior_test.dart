@@ -159,7 +159,7 @@ void main() {
         );
 
         await game.ensureAdd(unicorn);
-        unicorn.startWalking();
+        unicorn.setUnicornState(UnicornState.walking);
         await game.ready();
       },
       verify: (game, tester) async {

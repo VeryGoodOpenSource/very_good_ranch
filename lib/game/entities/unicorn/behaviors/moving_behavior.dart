@@ -21,13 +21,14 @@ class MovingBehavior extends Behavior<Unicorn>
   }
 
   void _onTick() {
-    if (parent.beingDragged) {
+    if (parent.beingDragged ||
+        parent.unicornComponent.isPlayingFiniteAnimation) {
       return;
     }
     if (gameRef.seed.nextDouble() < Config.probabilityToStartMoving) {
-      parent.startWalking();
+      parent.setUnicornState(UnicornState.walking);
     } else {
-      parent.stopWalking();
+      parent.setUnicornState(UnicornState.idle);
     }
   }
 
@@ -62,7 +63,7 @@ class MovingBehavior extends Behavior<Unicorn>
           (!goingRight && parentPosition.x == origin.x) ||
           (goingBottom && parentPosition.y == limit.y) ||
           (!goingBottom && parentPosition.y == origin.y)) {
-        parent.stopWalking();
+        parent.setUnicornState(UnicornState.idle);
       }
     }
 

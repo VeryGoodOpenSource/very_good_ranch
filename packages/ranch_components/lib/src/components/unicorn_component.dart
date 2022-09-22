@@ -281,7 +281,7 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
   /// The padding to be applied to the [spriteComponent].
   final EdgeInsets spritePadding;
 
-  TimerComponent? _afterAnimationTimer;
+  TimerComponent? _postAnimationCycleTimer;
 
   /// Indicates if the current unicorn animation does not loop
   bool get isPlayingFiniteAnimation => spriteComponent.animation?.loop == false;
@@ -289,29 +289,38 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
   /// Get the current [UnicornState] being played by [spriteComponent].
   UnicornState get state => spriteComponent.current!;
 
-  /// Schedules [onFinish] to be called after the current animation
+  final _currentOnFinishCallbacks = <VoidCallback>[];
+
+  /// Schedules [onFinishCallback] to be called after the current animation
   /// end its current cycle.
-  void addPostAnimationCycleCallback(VoidCallback onFinish) {
+  void addPostAnimationCycleCallback(VoidCallback onFinishCallback) {
+    _currentOnFinishCallbacks.add(onFinishCallback);
     final currentAnimation = spriteComponent.animation!;
-    final afterAnimationTimer = _afterAnimationTimer;
-    if (afterAnimationTimer != null) {
-      afterAnimationTimer.removeFromParent();
-      _afterAnimationTimer = null;
+    final afterAnimationTimer = _postAnimationCycleTimer;
+    if (afterAnimationTimer == null) {
+      add(
+        _postAnimationCycleTimer = TimerComponent(
+          period: currentAnimation.totalDuration() - currentAnimation.elapsed,
+          removeOnFinish: true,
+          onTick: () {
+            _postAnimationCycleTimer = null;
+            for (final element in _currentOnFinishCallbacks) {
+              element();
+            }
+            _currentOnFinishCallbacks.clear();
+          },
+        ),
+      );
     }
-    add(
-      _afterAnimationTimer = TimerComponent(
-        period: currentAnimation.totalDuration() - currentAnimation.elapsed,
-        removeOnFinish: true,
-        onTick: () {
-          onFinish.call();
-          _afterAnimationTimer = null;
-        },
-      ),
-    );
+  }
+
+  void cancelPostAnimationCycleCallbacks() {
+    _currentOnFinishCallbacks.clear();
   }
 
   /// Make [spriteComponent] play a sprite animation for the given [state].
   void playAnimation(UnicornState state) {
+    _currentOnFinishCallbacks.clear();
     spriteComponent.current = state;
     spriteComponent.animation!.reset();
   }

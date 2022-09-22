@@ -8,15 +8,14 @@ class EvolvingBehavior extends Behavior<Unicorn>
     with FlameBlocReader<BlessingBloc, BlessingState> {
   @override
   void update(double dt) {
-    if (!shouldEvolve) {
+    if (!shouldEvolve || parent.waitingToEvolve) {
       return;
     }
-    final nextEvolutionStage = getNextEvolutionStage();
-    parent
-      ..evolutionStage = nextEvolutionStage
-      ..reset();
 
-    bloc.add(UnicornEvolved(to: nextEvolutionStage));
+    final nextEvolutionStage = getNextEvolutionStage();
+    parent.setEvolutionStage(nextEvolutionStage).then((value) {
+      bloc.add(UnicornEvolved(to: nextEvolutionStage));
+    });
   }
 
   bool get shouldEvolve {

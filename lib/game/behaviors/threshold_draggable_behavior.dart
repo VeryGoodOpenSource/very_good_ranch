@@ -33,7 +33,7 @@ abstract class ThresholdDraggableBehavior<Parent extends Entity,
   DragStartInfo? _dragStartInfo;
   Vector2? _currentPos;
 
-  bool didBreakThreshold = false;
+  bool _didBreakThreshold = false;
 
   @override
   @nonVirtual
@@ -53,7 +53,7 @@ abstract class ThresholdDraggableBehavior<Parent extends Entity,
   @override
   @mustCallSuper
   bool onDragUpdate(DragUpdateInfo info) {
-    if (didBreakThreshold) {
+    if (_didBreakThreshold) {
       return onReallyDragUpdate(info);
     }
 
@@ -65,9 +65,9 @@ abstract class ThresholdDraggableBehavior<Parent extends Entity,
     final delta =
         _currentPos!.clone().distanceTo(dragStartInfo.eventPosition.viewport);
 
-    didBreakThreshold = delta > threshold;
+    _didBreakThreshold = delta > threshold;
 
-    if (didBreakThreshold) {
+    if (_didBreakThreshold) {
       onReallyDragStart(dragStartInfo);
 
       final offset = _currentPos!
@@ -89,7 +89,7 @@ abstract class ThresholdDraggableBehavior<Parent extends Entity,
   bool onDragEnd(DragEndInfo info) {
     _dragStartInfo = null;
     _currentPos = null;
-    didBreakThreshold = false;
+    _didBreakThreshold = false;
     return super.onDragEnd(info);
   }
 
@@ -98,7 +98,7 @@ abstract class ThresholdDraggableBehavior<Parent extends Entity,
   bool onDragCancel() {
     _dragStartInfo = null;
     _currentPos = null;
-    didBreakThreshold = false;
+    _didBreakThreshold = false;
     return super.onDragCancel();
   }
 }

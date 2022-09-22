@@ -14,7 +14,7 @@ class DraggingBehavior
   DraggingBehavior();
 
   @override
-  double get threshold => 30;
+  double get threshold => 40;
 
   Vector2? positionBefore;
   Anchor? anchorBefore;

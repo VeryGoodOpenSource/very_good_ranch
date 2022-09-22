@@ -4,12 +4,17 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:very_good_ranch/game/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/very_good_ranch_game.dart';
 
-class DraggingBehavior extends DraggableBehavior<Unicorn>
-    with HasGameRef<VeryGoodRanchGame> {
+class DraggingBehavior
+    extends ThresholdDraggableBehavior<Unicorn, VeryGoodRanchGame> {
   DraggingBehavior();
+
+  @override
+  double get threshold => 40;
 
   Vector2? positionBefore;
   Anchor? anchorBefore;
@@ -67,7 +72,7 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
   }
 
   @override
-  bool onDragStart(DragStartInfo info) {
+  bool onReallyDragStart(DragStartInfo info) {
     anchorBefore = parent.anchor;
     parent
       ..beingDragged = true
@@ -90,7 +95,7 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
   }
 
   @override
-  bool onDragUpdate(DragUpdateInfo info) {
+  bool onReallyDragUpdate(DragUpdateInfo info) {
     final delta = info.delta.game;
 
     if (delta.x < 0 && goingRight != true) {
@@ -109,12 +114,14 @@ class DraggingBehavior extends DraggableBehavior<Unicorn>
 
   @override
   bool onDragEnd(DragEndInfo info) {
+    super.onDragEnd(info);
     _finishDragging();
     return false;
   }
 
   @override
   bool onDragCancel() {
+    super.onDragCancel();
     _finishDragging();
     return false;
   }

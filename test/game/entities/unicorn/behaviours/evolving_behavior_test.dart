@@ -64,11 +64,14 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
         expect(unicorn.timesFed, 0);
-        verify(
-          () => blessingBloc.add(
-            const UnicornEvolved(to: UnicornEvolutionStage.child),
-          ),
-        ).called(1);
+
+        await Future.microtask(() {
+          verify(
+            () => blessingBloc.add(
+              const UnicornEvolved(to: UnicornEvolutionStage.child),
+            ),
+          ).called(1);
+        });
       });
 
       flameTester.test('from kid to teen', (game) async {
@@ -99,11 +102,14 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
         expect(unicorn.timesFed, 0);
-        verify(
-          () => blessingBloc.add(
-            const UnicornEvolved(to: UnicornEvolutionStage.teen),
-          ),
-        ).called(1);
+
+        await Future.microtask(() {
+          verify(
+            () => blessingBloc.add(
+              const UnicornEvolved(to: UnicornEvolutionStage.teen),
+            ),
+          ).called(1);
+        });
       });
 
       flameTester.test('from teen to adult', (game) async {
@@ -135,11 +141,14 @@ void main() {
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
         expect(unicorn.timesFed, 0);
-        verify(
-          () => blessingBloc.add(
-            const UnicornEvolved(to: UnicornEvolutionStage.adult),
-          ),
-        ).called(1);
+
+        await Future.microtask(() {
+          verify(
+            () => blessingBloc.add(
+              const UnicornEvolved(to: UnicornEvolutionStage.adult),
+            ),
+          ).called(1);
+        });
       });
 
       flameTester.test(

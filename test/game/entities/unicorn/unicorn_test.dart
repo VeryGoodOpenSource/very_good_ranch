@@ -334,25 +334,20 @@ void main() {
 
   group('componentForEvolutionStage', () {
     test('returns right component for each stage', () {
-      final babyComponent = UnicornEvolutionStage.baby
-          .componentForEvolutionStage(UnicornState.walking);
+      final babyComponent =
+          UnicornEvolutionStage.baby.componentForEvolutionStage();
       expect(babyComponent, isA<BabyUnicornComponent>());
-      expect(babyComponent.state, UnicornState.walking);
-
-      final childComponent = UnicornEvolutionStage.child
-          .componentForEvolutionStage(UnicornState.walking);
+      final childComponent =
+          UnicornEvolutionStage.child.componentForEvolutionStage();
       expect(childComponent, isA<ChildUnicornComponent>());
-      expect(childComponent.state, UnicornState.walking);
 
-      final teenComponent = UnicornEvolutionStage.teen
-          .componentForEvolutionStage(UnicornState.walking);
+      final teenComponent =
+          UnicornEvolutionStage.teen.componentForEvolutionStage();
       expect(teenComponent, isA<TeenUnicornComponent>());
-      expect(teenComponent.state, UnicornState.walking);
 
-      final adultComponent = UnicornEvolutionStage.adult
-          .componentForEvolutionStage(UnicornState.walking);
+      final adultComponent =
+          UnicornEvolutionStage.adult.componentForEvolutionStage();
       expect(adultComponent, isA<AdultUnicornComponent>());
-      expect(adultComponent.state, UnicornState.walking);
     });
   });
 }

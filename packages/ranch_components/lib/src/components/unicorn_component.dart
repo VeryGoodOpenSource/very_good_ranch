@@ -314,6 +314,7 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
     }
   }
 
+  ///
   void cancelPostAnimationCycleCallbacks() {
     _currentOnFinishCallbacks.clear();
   }

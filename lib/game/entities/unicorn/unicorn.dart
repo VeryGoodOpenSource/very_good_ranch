@@ -145,7 +145,7 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     return UnicornEvolutionStage.fromComponent(unicornComponent);
   }
 
-  var waitingToEvolve = false;
+  bool waitingToEvolve = false;
 
   Future<void> setEvolutionStage(UnicornEvolutionStage evolutionStage) {
     final completer = Completer<void>();

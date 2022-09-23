@@ -121,8 +121,7 @@ void main() {
             final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent:
-                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
+              unicornComponent: evolutionStage.componentForEvolutionStage(),
               behaviors: [
                 foodCollidingBehavior,
               ],
@@ -188,8 +187,7 @@ void main() {
             final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent:
-                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
+              unicornComponent: evolutionStage.componentForEvolutionStage(),
               behaviors: [
                 foodCollidingBehavior,
               ],

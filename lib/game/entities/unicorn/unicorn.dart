@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
@@ -143,36 +145,61 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     return UnicornEvolutionStage.fromComponent(unicornComponent);
   }
 
-  set evolutionStage(UnicornEvolutionStage evolutionStage) {
-    void updateStage() {
-      // preserve walking/idle animation
-      final currentState = state;
+  /// Indicates if [setEvolutionStage] scheduled a evolution to happen after
+  /// the current [unicornComponent] animation cycle finishes.
+  bool waitingCurrentAnimationToEvolve = false;
 
+  /// Evolve the unicorn by substituting [unicornComponent].
+  ///
+  /// Waits for any current "finite" animation, such as "eating" or "petted" to
+  /// finish.
+  Future<void> setEvolutionStage(UnicornEvolutionStage evolutionStage) {
+    final completer = Completer<void>();
+    waitingCurrentAnimationToEvolve = true;
+    void updateStage() {
+      waitingCurrentAnimationToEvolve = false;
       _unicornComponent.removeFromParent();
-      add(
-        _unicornComponent =
-            evolutionStage.componentForEvolutionStage(currentState),
-      );
+      add(_unicornComponent = evolutionStage.componentForEvolutionStage());
 
       size = _unicornComponent.size;
+
+      reset();
+      completer.complete();
     }
 
     // Finish eat/petted animations before evolving
     if (_unicornComponent.isPlayingFiniteAnimation) {
-      _unicornComponent.addPostAnimationCycleCallback(updateStage);
+      _unicornComponent
+        ..cancelPostAnimationCycleCallbacks()
+        ..addPostAnimationCycleCallback(updateStage);
     } else {
       updateStage();
     }
+
+    return completer.future;
   }
 
   UnicornState get state => _unicornComponent.state;
 
   void setUnicornState(UnicornState state) {
+    // While it is waiting to evolve, no new animations should be triggered
+    if (waitingCurrentAnimationToEvolve) {
+      return;
+    }
+
+    // Setting any state besides "walking" should stop the unicorn
+    if (state == UnicornState.walking) {
+      _startMoving();
+    } else {
+      _stopMoving();
+    }
+
     _unicornComponent.playAnimation(state);
 
     if (_unicornComponent.isPlayingFiniteAnimation) {
       _unicornComponent.addPostAnimationCycleCallback(
         () {
+          _stopMoving();
           _unicornComponent.playAnimation(UnicornState.idle);
         },
       );
@@ -234,20 +261,20 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     enjoyment.increaseBy(impactOnEnjoyment);
     timesFed++;
     food.removeFromParent();
+
+    setUnicornState(UnicornState.eating);
   }
 
-  void startWalking() {
-    setUnicornState(UnicornState.walking);
+  void _startMoving() {
     if (!hasBehavior<WanderBehavior>()) {
       add(_wanderBehavior);
     }
   }
 
-  void stopWalking() {
+  void _stopMoving() {
     if (hasBehavior<WanderBehavior>()) {
       _wanderBehavior.removeFromParent();
     }
-    setUnicornState(UnicornState.idle);
   }
 }
 
@@ -273,18 +300,16 @@ enum UnicornEvolutionStage {
 }
 
 extension UnicornEvolutionStageX on UnicornEvolutionStage {
-  UnicornComponent componentForEvolutionStage(
-    UnicornState initialState,
-  ) {
+  UnicornComponent componentForEvolutionStage() {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return BabyUnicornComponent(initialState: initialState);
+        return BabyUnicornComponent();
       case UnicornEvolutionStage.child:
-        return ChildUnicornComponent(initialState: initialState);
+        return ChildUnicornComponent();
       case UnicornEvolutionStage.teen:
-        return TeenUnicornComponent(initialState: initialState);
+        return TeenUnicornComponent();
       case UnicornEvolutionStage.adult:
-        return AdultUnicornComponent(initialState: initialState);
+        return AdultUnicornComponent();
     }
   }
 }

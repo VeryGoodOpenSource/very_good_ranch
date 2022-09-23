@@ -32,8 +32,7 @@ void main() {
             final pettingBehavior = PettingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent:
-                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
+              unicornComponent: evolutionStage.componentForEvolutionStage(),
               behaviors: [
                 pettingBehavior,
               ],
@@ -159,7 +158,7 @@ void main() {
         );
 
         await game.ensureAdd(unicorn);
-        unicorn.startWalking();
+        unicorn.setUnicornState(UnicornState.walking);
         await game.ready();
       },
       verify: (game, tester) async {

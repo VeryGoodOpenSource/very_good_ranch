@@ -29,7 +29,6 @@ class PettingBehavior extends TappableBehavior<Unicorn> {
 
     parent
       ..enjoyment.increaseBy(parent.evolutionStage.petEnjoymentIncrease)
-      ..stopWalking()
       ..setUnicornState(UnicornState.petted);
 
     return false;

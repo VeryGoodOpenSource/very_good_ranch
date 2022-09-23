@@ -121,8 +121,7 @@ void main() {
             final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent:
-                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
+              unicornComponent: evolutionStage.componentForEvolutionStage(),
               behaviors: [
                 foodCollidingBehavior,
               ],
@@ -188,8 +187,7 @@ void main() {
             final foodCollidingBehavior = FoodCollidingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent:
-                  evolutionStage.componentForEvolutionStage(UnicornState.idle),
+              unicornComponent: evolutionStage.componentForEvolutionStage(),
               behaviors: [
                 foodCollidingBehavior,
               ],
@@ -276,7 +274,7 @@ void main() {
         when(() => food.beingDragged).thenReturn(false);
         when(() => food.isRemoving).thenReturn(false);
         expect(unicorn.timesFed, 0);
-        unicorn.startWalking();
+        unicorn.setUnicornState(UnicornState.walking);
         await game.ready();
 
         expect(unicorn.state, UnicornState.walking);

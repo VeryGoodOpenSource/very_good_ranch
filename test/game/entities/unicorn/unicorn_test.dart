@@ -2,6 +2,7 @@
 
 import 'package:flame/extensions.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:flame_steering_behaviors/flame_steering_behaviors.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -77,9 +78,119 @@ void main() {
           expect(unicorn.state, UnicornState.idle);
         },
       );
-    });
 
-    group('setUnicornState', () {
+      flameTester.test(
+        'setting as walking should start moving',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          expect(unicorn.state, UnicornState.idle);
+
+          unicorn.setUnicornState(UnicornState.walking);
+
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
+          expect(unicorn.state, UnicornState.walking);
+        },
+      );
+      flameTester.test(
+        'setting to idle should stop moving',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          unicorn.setUnicornState(UnicornState.walking);
+          await game.ready();
+          unicorn.setUnicornState(UnicornState.idle);
+          await game.ready();
+
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.idle);
+        },
+      );
+      flameTester.test(
+        'setting as eating should stop moving and schedule idle',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          expect(unicorn.state, UnicornState.idle);
+
+          unicorn.setUnicornState(UnicornState.eating);
+
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.eating);
+
+          game.update(UnicornSpriteComponent.eatAnimationDuration);
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.idle);
+        },
+      );
+      flameTester.test(
+        'setting as petted should stop moving and schedule idle',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          expect(unicorn.state, UnicornState.idle);
+
+          unicorn.setUnicornState(UnicornState.petted);
+
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.petted);
+
+          game.update(UnicornSpriteComponent.pettedAnimationDuration);
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.idle);
+        },
+      );
+      flameTester.test(
+        'setting while evolving has no effect',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          expect(unicorn.state, UnicornState.idle);
+
+          unicorn.waitingCurrentAnimationToEvolve = true;
+          unicorn.setUnicornState(UnicornState.walking);
+
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.idle);
+        },
+      );
+
       flameTester.test(
         'When setting loop animation, sticks to it',
         (game) async {
@@ -163,16 +274,19 @@ void main() {
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
           unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
+          expect(unicorn.waitingCurrentAnimationToEvolve, isFalse);
 
           game.update(0);
 
           // still a baby
           expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
+          expect(unicorn.waitingCurrentAnimationToEvolve, isTrue);
 
           game.update(UnicornSpriteComponent.pettedAnimationDuration);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           expect(unicorn.size, ChildUnicornComponent().size);
+          expect(unicorn.waitingCurrentAnimationToEvolve, isFalse);
         },
       );
     });
@@ -334,25 +448,20 @@ void main() {
 
   group('componentForEvolutionStage', () {
     test('returns right component for each stage', () {
-      final babyComponent = UnicornEvolutionStage.baby
-          .componentForEvolutionStage(UnicornState.walking);
+      final babyComponent =
+          UnicornEvolutionStage.baby.componentForEvolutionStage();
       expect(babyComponent, isA<BabyUnicornComponent>());
-      expect(babyComponent.state, UnicornState.walking);
-
-      final childComponent = UnicornEvolutionStage.child
-          .componentForEvolutionStage(UnicornState.walking);
+      final childComponent =
+          UnicornEvolutionStage.child.componentForEvolutionStage();
       expect(childComponent, isA<ChildUnicornComponent>());
-      expect(childComponent.state, UnicornState.walking);
 
-      final teenComponent = UnicornEvolutionStage.teen
-          .componentForEvolutionStage(UnicornState.walking);
+      final teenComponent =
+          UnicornEvolutionStage.teen.componentForEvolutionStage();
       expect(teenComponent, isA<TeenUnicornComponent>());
-      expect(teenComponent.state, UnicornState.walking);
 
-      final adultComponent = UnicornEvolutionStage.adult
-          .componentForEvolutionStage(UnicornState.walking);
+      final adultComponent =
+          UnicornEvolutionStage.adult.componentForEvolutionStage();
       expect(adultComponent, isA<AdultUnicornComponent>());
-      expect(adultComponent.state, UnicornState.walking);
     });
   });
 }

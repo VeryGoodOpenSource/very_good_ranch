@@ -145,13 +145,19 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     return UnicornEvolutionStage.fromComponent(unicornComponent);
   }
 
-  bool waitingToEvolve = false;
+  /// Indicates if [setEvolutionStage] scheduled a evolution to happen after
+  /// the current [unicornComponent] animation cycle finishes.
+  bool waitingCurrentAnimationToEvolve = false;
 
+  /// Evolve the unicorn by substituting [unicornComponent].
+  ///
+  /// Waits for any current "finite" animation, such as "eating" or "petted" to
+  /// finish.
   Future<void> setEvolutionStage(UnicornEvolutionStage evolutionStage) {
     final completer = Completer<void>();
-    waitingToEvolve = true;
+    waitingCurrentAnimationToEvolve = true;
     void updateStage() {
-      waitingToEvolve = false;
+      waitingCurrentAnimationToEvolve = false;
       _unicornComponent.removeFromParent();
       add(_unicornComponent = evolutionStage.componentForEvolutionStage());
 
@@ -177,10 +183,11 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
 
   void setUnicornState(UnicornState state) {
     // While it is waiting to evolve, no new animations should be triggered
-    if (waitingToEvolve) {
+    if (waitingCurrentAnimationToEvolve) {
       return;
     }
 
+    // Setting any state besides "walking" should stop the unicorn
     if (state == UnicornState.walking) {
       _startMoving();
     } else {

@@ -217,41 +217,66 @@ void main() {
       expect(unicornSpriteComponent.paint, newPaint);
     });
 
-    flameTester.test(
-      'defines the correct animation',
-      (game) async {
-        final animationData = MockUnicornAnimationData();
-        final spriteAnimation = MockSpriteAnimation();
-        when(
-          () => animationData.createAnimation(
-            images: any(named: 'images'),
-            duration: any(named: 'duration'),
-            loop: any(named: 'loop'),
-          ),
-        ).thenAnswer(
-          (_) async => spriteAnimation,
-        );
+    group('playAnimation', () {
+      flameTester.test(
+        'defines the correct animation',
+        (game) async {
+          final animationData = MockUnicornAnimationData();
+          final spriteAnimation = MockSpriteAnimation();
+          when(
+            () => animationData.createAnimation(
+              images: any(named: 'images'),
+              duration: any(named: 'duration'),
+              loop: any(named: 'loop'),
+            ),
+          ).thenAnswer(
+            (_) async => spriteAnimation,
+          );
 
-        final unicornComponent = TestUnicornComponent(
-          spriteComponent: UnicornSpriteComponent(
-            eatAnimationData: animationData,
-            idleAnimationData: animationData,
-            pettedAnimationData: animationData,
-            walkAnimationData: animationData,
-          ),
-          spritePadding: EdgeInsets.zero,
-        );
+          final unicornComponent = TestUnicornComponent(
+            spriteComponent: UnicornSpriteComponent(
+              eatAnimationData: animationData,
+              idleAnimationData: animationData,
+              pettedAnimationData: animationData,
+              walkAnimationData: animationData,
+            ),
+            spritePadding: EdgeInsets.zero,
+          );
 
-        await game.ensureAdd(unicornComponent);
+          await game.ensureAdd(unicornComponent);
 
-        expect(unicornComponent.state, UnicornState.idle);
+          expect(unicornComponent.state, UnicornState.idle);
 
-        unicornComponent.playAnimation(UnicornState.walking);
+          unicornComponent.playAnimation(UnicornState.walking);
 
-        expect(unicornComponent.state, UnicornState.walking);
-        verify(spriteAnimation.reset).called(1);
-      },
-    );
+          expect(unicornComponent.state, UnicornState.walking);
+          verify(spriteAnimation.reset).called(1);
+        },
+      );
+
+      flameTester.test(
+        'cancels current post animation callbacks',
+        (game) async {
+          final unicornComponent = AdultUnicornComponent(
+            initialState: UnicornState.walking,
+          );
+
+          await game.ensureAdd(unicornComponent);
+
+          expect(unicornComponent.state, UnicornState.walking);
+
+          var called1 = false;
+          unicornComponent.addPostAnimationCycleCallback(() => called1 = true);
+
+          unicornComponent.playAnimation(UnicornState.idle);
+
+          game.update(UnicornSpriteComponent.walkAnimationDuration);
+
+          expect(called1, isFalse);
+          expect(unicornComponent.state, UnicornState.idle);
+        },
+      );
+    });
 
     group('addPostAnimationCycleCallback', () {
       flameTester.test(
@@ -275,7 +300,7 @@ void main() {
       );
 
       flameTester.test(
-        'cancels previous callbacks',
+        'maintains previous callbacks',
         (game) async {
           final unicornComponent = AdultUnicornComponent(
             initialState: UnicornState.walking,
@@ -291,15 +316,25 @@ void main() {
           game.update(UnicornSpriteComponent.walkAnimationDuration / 2);
 
           var called2 = false;
-          unicornComponent.addPostAnimationCycleCallback(() => called2 = true);
+          unicornComponent.addPostAnimationCycleCallback(() {
+            unicornComponent.playAnimation(UnicornState.idle);
+            called2 = true;
+          });
+
+          var called3 = false;
+          unicornComponent.addPostAnimationCycleCallback(() => called3 = true);
 
           expect(called1, isFalse);
           expect(called2, isFalse);
+          expect(called3, isFalse);
 
           game.update(UnicornSpriteComponent.walkAnimationDuration / 2);
 
-          expect(called1, isFalse);
+          expect(called1, isTrue);
           expect(called2, isTrue);
+          expect(called3, isTrue);
+
+          expect(unicornComponent.state, UnicornState.idle);
         },
       );
     });

@@ -7,6 +7,7 @@ import 'package:flame/particles.dart';
 import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:ranch_components/ranch_components.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/dragging_behavior.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
@@ -32,6 +33,33 @@ void main() {
       blessingBloc: MockBlessingBloc(),
     ),
   );
+
+  group('unicorn state', () {
+    flameTester.testGameWidget(
+      'set it to idle on drag start',
+      setUp: (game, tester) async {
+        final unicorn = Unicorn.test(
+          position: Vector2.all(0),
+          behaviors: [DraggingBehavior()],
+        );
+        await game.background.ensureAdd(unicorn);
+        await game.ready();
+
+        unicorn.setUnicornState(UnicornState.petted);
+
+        final gesture = await tester.createGesture();
+        await gesture.down(Offset.zero);
+        await tester.pump();
+        await gesture.moveTo(const Offset(210, 350));
+        await tester.pump();
+      },
+      verify: (game, tester) async {
+        final unicorn = game.descendants().whereType<Unicorn>().first;
+
+        expect(unicorn.state, UnicornState.idle);
+      },
+    );
+  });
 
   group('beingDragged', () {
     flameTester.testGameWidget(

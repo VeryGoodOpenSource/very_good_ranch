@@ -318,6 +318,9 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
     }
   }
 
+  /// Cancels any callback added via [addPostAnimationCycleCallback].
+  ///
+  /// Do not invoke this on a callback added to [addPostAnimationCycleCallback].
   void cancelPostAnimationCycleCallbacks() {
     assert(
       !_isFlushingPostAnimationCallbacks,
@@ -328,8 +331,10 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
 
   /// Make [spriteComponent] play a sprite animation for the given [state].
   void playAnimation(UnicornState state) {
+    // If "playAnimation" is called on a post animation callback, do not cancel
+    // existing callbacks.
     if (!_isFlushingPostAnimationCallbacks) {
-      _currentOnFinishCallbacks.clear();
+      cancelPostAnimationCycleCallbacks();
     }
 
     spriteComponent.current = state;

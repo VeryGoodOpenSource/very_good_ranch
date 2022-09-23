@@ -8,7 +8,7 @@ class EvolvingBehavior extends Behavior<Unicorn>
     with FlameBlocReader<BlessingBloc, BlessingState> {
   @override
   void update(double dt) {
-    if (!shouldEvolve || parent.waitingToEvolve) {
+    if (!shouldEvolve || parent.waitingCurrentAnimationToEvolve) {
       return;
     }
 

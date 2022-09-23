@@ -61,6 +61,10 @@ void main() {
         unicorn.fullness.value = 1;
 
         game.update(0);
+        await game.ready();
+
+        game.update(4.2);
+        await game.ready();
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
         expect(unicorn.timesFed, 0);
@@ -99,6 +103,10 @@ void main() {
         unicorn.fullness.value = 1;
 
         game.update(0);
+        await game.ready();
+
+        game.update(4.2);
+        await game.ready();
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
         expect(unicorn.timesFed, 0);
@@ -138,6 +146,10 @@ void main() {
         unicorn.fullness.value = 1;
 
         game.update(0);
+        await game.ready();
+
+        game.update(4.2);
+        await game.ready();
 
         expect(unicorn.evolutionStage, UnicornEvolutionStage.adult);
         expect(unicorn.timesFed, 0);
@@ -338,6 +350,10 @@ void main() {
           unicorn.fullness.value = 0.95;
 
           game.update(0);
+          await game.ready();
+
+          game.update(4.2);
+          await game.ready();
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.teen);
           expect(unicorn.timesFed, 0);

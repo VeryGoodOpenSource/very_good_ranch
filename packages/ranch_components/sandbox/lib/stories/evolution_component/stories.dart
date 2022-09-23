@@ -18,7 +18,7 @@ class EvolutionComponentExample extends FlameGame {
       PositionComponent(
         position: size / 2,
         children: [
-          BabyUnicornComponent()..anchor = Anchor.bottomCenter,
+          BabyUnicornComponent(),
         ],
       ),
     );
@@ -31,13 +31,13 @@ class EvolutionComponentExample extends FlameGame {
     late PositionComponent to;
 
     if (child is BabyUnicornComponent) {
-      to = ChildUnicornComponent()..anchor = Anchor.bottomCenter;
+      to = ChildUnicornComponent();
     } else if (child is ChildUnicornComponent) {
-      to = TeenUnicornComponent()..anchor = Anchor.bottomCenter;
+      to = TeenUnicornComponent();
     } else if (child is TeenUnicornComponent) {
-      to = AdultUnicornComponent()..anchor = Anchor.bottomCenter;
+      to = AdultUnicornComponent();
     } else if (child is AdultUnicornComponent) {
-      to = BabyUnicornComponent()..anchor = Anchor.bottomCenter;
+      to = BabyUnicornComponent();
     }
 
     entity.add(

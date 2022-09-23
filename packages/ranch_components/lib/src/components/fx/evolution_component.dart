@@ -48,7 +48,6 @@ class Evolution extends Component with ParentIsA<PositionComponent> {
       to.flipHorizontallyAroundCenter();
     }
 
-
     await from.add(
       OpacityEffect.to(
         0,
@@ -73,20 +72,20 @@ class Evolution extends Component with ParentIsA<PositionComponent> {
           4,
         ),
       )..onComplete = () {
-        _target.position += originalPosition;
-        to.position = isFlipped ? Vector2(to.size.x, 0) : Vector2.all(0);
+          _target.position += originalPosition;
+          to.position = isFlipped ? Vector2(to.size.x, 0) : Vector2.all(0);
           _target.size = to.size.clone();
           onFinish?.call();
-        
+
           removeFromParent();
 
           _target.add(
             ConfettiComponent(
               confettiSize: to.size.y / 10,
             )..position = Vector2(
-              _target.size.x / 2,
-              _target.size.y,
-            ),
+                _target.size.x / 2,
+                _target.size.y,
+              ),
           );
         },
     );

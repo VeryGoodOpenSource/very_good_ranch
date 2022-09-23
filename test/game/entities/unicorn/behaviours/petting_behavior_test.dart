@@ -32,8 +32,7 @@ void main() {
             final pettingBehavior = PettingBehavior();
             final unicorn = Unicorn.test(
               position: Vector2.zero(),
-              unicornComponent:
-                  evolutionStage.componentForEvolutionStage(),
+              unicornComponent: evolutionStage.componentForEvolutionStage(),
               behaviors: [
                 pettingBehavior,
               ],

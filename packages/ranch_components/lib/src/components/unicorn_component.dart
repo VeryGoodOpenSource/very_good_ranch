@@ -291,6 +291,8 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
 
   final _currentOnFinishCallbacks = <VoidCallback>[];
 
+  bool _isFlushingPostAnimationCallbacks = false;
+
   /// Schedules [onFinishCallback] to be called after the current animation
   /// end its current cycle.
   void addPostAnimationCycleCallback(VoidCallback onFinishCallback) {
@@ -304,9 +306,11 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
           removeOnFinish: true,
           onTick: () {
             _postAnimationCycleTimer = null;
+            _isFlushingPostAnimationCallbacks = true;
             for (final element in _currentOnFinishCallbacks) {
               element();
             }
+            _isFlushingPostAnimationCallbacks = false;
             _currentOnFinishCallbacks.clear();
           },
         ),
@@ -314,14 +318,20 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
     }
   }
 
-  ///
   void cancelPostAnimationCycleCallbacks() {
+    assert(
+      !_isFlushingPostAnimationCallbacks,
+      'Cannot cancel post animation callbacks while executing them',
+    );
     _currentOnFinishCallbacks.clear();
   }
 
   /// Make [spriteComponent] play a sprite animation for the given [state].
   void playAnimation(UnicornState state) {
-    _currentOnFinishCallbacks.clear();
+    if (!_isFlushingPostAnimationCallbacks) {
+      _currentOnFinishCallbacks.clear();
+    }
+
     spriteComponent.current = state;
     spriteComponent.animation!.reset();
   }

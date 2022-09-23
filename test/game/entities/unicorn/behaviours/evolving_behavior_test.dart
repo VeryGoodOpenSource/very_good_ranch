@@ -260,7 +260,7 @@ void main() {
           game.update(0);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
-          expect(unicorn.timesFed, 1);
+          expect(unicorn.timesFed, Config.timesThatMustBeFedToEvolve);
 
           await Future.microtask(() {
             verifyNever(

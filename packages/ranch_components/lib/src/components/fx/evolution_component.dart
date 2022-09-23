@@ -25,6 +25,7 @@ class Evolution extends Component with ParentIsA<PositionComponent> {
   /// The component that will be evolved into.
   final PositionComponent to;
 
+  /// Called when the evolution is finished.
   final VoidCallback? onFinish;
 
   late final PositionComponent _target;

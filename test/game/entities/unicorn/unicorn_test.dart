@@ -282,14 +282,15 @@ void main() {
           unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
           expect(unicorn.waitingCurrentAnimationToEvolve, isFalse);
 
-          game.update(4.2);
-          await game.ready();
+          game.update(0);
 
           // still a baby
           expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
           expect(unicorn.waitingCurrentAnimationToEvolve, isTrue);
 
           game.update(UnicornSpriteComponent.pettedAnimationDuration);
+          await game.ready();
+
           game.update(4.2);
           await game.ready();
 

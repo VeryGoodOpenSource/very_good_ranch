@@ -50,8 +50,6 @@ void main() {
       expect(getUnicownCounter(2).isActive, false);
       expect(getUnicownCounter(3).type, UnicornType.adult);
       expect(getUnicownCounter(3).isActive, false);
-
-      expect(find.byType(Expanded), findsOneWidget);
     });
   });
 }

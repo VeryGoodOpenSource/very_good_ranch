@@ -40,11 +40,11 @@ extension PetBehaviorIncreasePerStage on UnicornEvolutionStage {
   double get petEnjoymentIncrease {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return 0.2;
+        return 0.3;
       case UnicornEvolutionStage.child:
-        return 0.16;
+        return 0.2;
       case UnicornEvolutionStage.teen:
-        return 0.13;
+        return 0.15;
       case UnicornEvolutionStage.adult:
         return 0.1;
     }

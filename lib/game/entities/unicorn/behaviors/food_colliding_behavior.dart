@@ -38,13 +38,13 @@ extension PreferredFoodType on UnicornEvolutionStage {
   double get fullnessFeedFactor {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return Config.wrongFoodImpactOnEnjoyment.baby;
+        return Config.fullnessFeedFactor.baby;
       case UnicornEvolutionStage.child:
-        return Config.wrongFoodImpactOnEnjoyment.child;
+        return Config.fullnessFeedFactor.child;
       case UnicornEvolutionStage.teen:
-        return Config.wrongFoodImpactOnEnjoyment.teen;
+        return Config.fullnessFeedFactor.teen;
       case UnicornEvolutionStage.adult:
-        return Config.wrongFoodImpactOnEnjoyment.adult;
+        return Config.fullnessFeedFactor.adult;
     }
   }
 }

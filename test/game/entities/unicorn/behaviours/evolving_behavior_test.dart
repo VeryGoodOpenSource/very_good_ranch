@@ -302,7 +302,7 @@ void main() {
           game.update(0);
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
-          expect(unicorn.timesFed, 3);
+          expect(unicorn.timesFed, 5);
           verifyNever(() => blessingBloc.add(any(that: isA<UnicornEvolved>())));
         },
       );

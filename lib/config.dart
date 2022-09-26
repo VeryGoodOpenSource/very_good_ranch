@@ -43,6 +43,15 @@ class Config {
   static const double positiveImpactOnEnjoyment = 0.6;
   static const double negativeImpactOnEnjoyment = -0.01;
 
+  /// Petting
+  static const petEnjoymentIncrease = StageProperty(
+    baby: 0.3,
+    child: 0.2,
+    teen: 0.15,
+    adult: 0.1,
+  );
+  static const petThrottleDuration = 1.0;
+
   /// Evolving
   static const double happinessThresholdToEvolve = 0.6;
   static const int timesThatMustBeFedToEvolve = 5;

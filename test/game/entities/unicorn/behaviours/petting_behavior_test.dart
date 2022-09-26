@@ -7,6 +7,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 
@@ -120,16 +121,16 @@ void main() {
         verify: (game, tester) async {
           // Give it the first pet
           await tester.tapAt(Offset.zero);
-          verify(() => enjoyment.increaseBy(0.2)).called(1);
+          verify(() => enjoyment.increaseBy(0.3)).called(1);
 
           // Do not wait full throttle time, pet again
-          game.update(PettingBehavior.petThrottleDuration / 2);
+          game.update(Config.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
 
-          verifyNever(() => enjoyment.increaseBy(0.2));
+          verifyNever(() => enjoyment.increaseBy(0.3));
 
           // Await for the rest of the throttle time, pet again
-          game.update(PettingBehavior.petThrottleDuration / 2);
+          game.update(Config.petThrottleDuration / 2);
           await tester.tapAt(Offset.zero);
 
           /// Flush long press gesture timer

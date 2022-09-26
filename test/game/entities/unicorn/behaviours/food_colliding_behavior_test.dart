@@ -6,6 +6,7 @@ import 'package:flame_test/flame_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/food/food.dart';
 import 'package:very_good_ranch/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:very_good_ranch/game/entities/unicorn/unicorn.dart';
@@ -138,7 +139,9 @@ void main() {
 
             foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
-            verify(() => enjoyment.increaseBy(0.3)).called(1);
+            verify(
+              () => enjoyment.increaseBy(Config.positiveImpactOnEnjoyment),
+            ).called(1);
           });
         }
       });
@@ -166,17 +169,19 @@ void main() {
 
         foodCollidingBehavior.onCollision({Vector2.zero()}, food);
 
-        verify(() => enjoyment.increaseBy(-0.1)).called(1);
+        verify(
+          () => enjoyment.increaseBy(Config.negativeImpactOnEnjoyment),
+        ).called(1);
       });
     });
 
     group('feeding unicorn impacts fullness', () {
       group('in a positive way', () {
         for (final stageFullnessResult in {
-          UnicornEvolutionStage.baby: 0.3,
+          UnicornEvolutionStage.baby: 0.45,
           UnicornEvolutionStage.child: 0.25,
-          UnicornEvolutionStage.teen: 0.2,
-          UnicornEvolutionStage.adult: 0.15,
+          UnicornEvolutionStage.teen: 0.18,
+          UnicornEvolutionStage.adult: 0.25,
         }.entries) {
           flameTester.test('for ${stageFullnessResult.key.name}', (game) async {
             final evolutionStage = stageFullnessResult.key;

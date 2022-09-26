@@ -46,7 +46,7 @@ void main() {
 
         expect(unicorn.fullness.value, 1.0);
         game.update(Config.fullnessDecreaseInterval);
-        expect(unicorn.fullness.value, 0.99);
+        expect(unicorn.fullness.value, 0.99375);
       });
 
       flameTester.test('for a teen unicorn', (game) async {
@@ -62,7 +62,7 @@ void main() {
 
         expect(unicorn.fullness.value, 1.0);
         game.update(Config.fullnessDecreaseInterval);
-        expect(unicorn.fullness.value, 0.985);
+        expect(unicorn.fullness.value, 0.9917);
       });
 
       flameTester.test('for an adult unicorn', (game) async {
@@ -78,7 +78,7 @@ void main() {
 
         expect(unicorn.fullness.value, 1.0);
         game.update(Config.fullnessDecreaseInterval);
-        expect(unicorn.fullness.value, 0.98);
+        expect(unicorn.fullness.value, 0.9875);
       });
     });
   });

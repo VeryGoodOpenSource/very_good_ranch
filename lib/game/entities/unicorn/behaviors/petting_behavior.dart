@@ -2,18 +2,17 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ranch_components/ranch_components.dart';
+import 'package:very_good_ranch/config.dart';
 import 'package:very_good_ranch/game/entities/entities.dart';
 
 class PettingBehavior extends TappableBehavior<Unicorn> {
-  static const petThrottleDuration = 1.0;
-
   late final TimerComponent _throttlingTimer;
 
   @override
   Future<void> onLoad() async {
     await add(
       _throttlingTimer = TimerComponent(
-        period: petThrottleDuration,
+        period: Config.petThrottleDuration,
         autoStart: false,
       ),
     );
@@ -40,13 +39,13 @@ extension PetBehaviorIncreasePerStage on UnicornEvolutionStage {
   double get petEnjoymentIncrease {
     switch (this) {
       case UnicornEvolutionStage.baby:
-        return 0.2;
+        return Config.petEnjoymentIncrease.baby;
       case UnicornEvolutionStage.child:
-        return 0.16;
+        return Config.petEnjoymentIncrease.child;
       case UnicornEvolutionStage.teen:
-        return 0.13;
+        return Config.petEnjoymentIncrease.teen;
       case UnicornEvolutionStage.adult:
-        return 0.1;
+        return Config.petEnjoymentIncrease.adult;
     }
   }
 }

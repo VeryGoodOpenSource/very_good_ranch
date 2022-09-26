@@ -23,7 +23,7 @@ class FooterWidget extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             _UnicornCounter(type: UnicornType.baby),
             SizedBox(width: 16),
@@ -33,7 +33,6 @@ class FooterWidget extends StatelessWidget {
             SizedBox(width: 16),
             _UnicornCounter(type: UnicornType.adult),
             SizedBox(width: 16),
-            Expanded(child: SizedBox()),
           ],
         ),
       ),

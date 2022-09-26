@@ -89,9 +89,6 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   })  : _unicornComponent = unicornComponent,
         super(children: [unicornComponent]);
 
-  static const double positiveImpactOnEnjoyment = 0.3;
-  static const double negativeImpactOnEnjoyment = -0.1;
-
   @override
   double get maxVelocity => 10;
 
@@ -263,8 +260,8 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
 
     final preferredFoodType = currentStage.preferredFoodType;
     final impactOnEnjoyment = preferredFoodType == food.type
-        ? positiveImpactOnEnjoyment
-        : negativeImpactOnEnjoyment;
+        ? Config.positiveImpactOnEnjoyment
+        : Config.negativeImpactOnEnjoyment;
 
     enjoyment.increaseBy(impactOnEnjoyment);
     timesFed++;

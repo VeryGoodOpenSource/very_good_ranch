@@ -167,12 +167,12 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
           onFinish: () {
             waitingCurrentAnimationToEvolve = false;
             _unicornComponent = nextUnicorn;
+            completer.complete();
           },
         ),
       );
 
       reset();
-      completer.complete();
     }
 
     // Finish eat/petted animations before evolving

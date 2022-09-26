@@ -251,7 +251,13 @@ void main() {
           expect(unicorn.evolutionStage, UnicornEvolutionStage.baby);
           unicorn.timesFed = Config.timesThatMustBeFedToEvolve;
 
+          // First ensure that the evolution effect is added.
           game.update(0);
+          await game.ready();
+
+          // Then wait for the evolution effect to finish.
+          game.update(4.2);
+          await game.ready();
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           expect(unicorn.size, ChildUnicornComponent().size);
@@ -283,6 +289,10 @@ void main() {
           expect(unicorn.waitingCurrentAnimationToEvolve, isTrue);
 
           game.update(UnicornSpriteComponent.pettedAnimationDuration);
+          await game.ready();
+
+          game.update(4.2);
+          await game.ready();
 
           expect(unicorn.evolutionStage, UnicornEvolutionStage.child);
           expect(unicorn.size, ChildUnicornComponent().size);

@@ -76,6 +76,38 @@ void main() {
     );
 
     testWithFlameGame(
+      'replicates the horizontal transform of the to',
+      (game) async {
+        final parent = PositionComponent(
+          children: [
+            _MockChildUnicorn()..transform.scale.x = -1,
+          ],
+        );
+
+        await game.ensureAdd(parent);
+
+        await parent.ensureAdd(
+          Evolution(
+            from: parent.firstChild()!,
+            to: _MockTeenUnicorn(),
+          ),
+        );
+
+        game.updateTree(5);
+        await game.ready();
+
+        expect(
+          game
+              .descendants()
+              .whereType<_MockTeenUnicorn>()
+              .first
+              .isFlippedHorizontally,
+          isTrue,
+        );
+      },
+    );
+
+    testWithFlameGame(
       'adds a confetti upon completion',
       (game) async {
         final parent = PositionComponent(

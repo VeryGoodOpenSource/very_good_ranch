@@ -259,9 +259,19 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
     fullness.increaseBy(fullnessFeedFactor);
 
     final preferredFoodType = currentStage.preferredFoodType;
-    final impactOnEnjoyment = preferredFoodType == food.type
+    final isPreferredFood = food.type == preferredFoodType;
+    final impactOnEnjoyment = isPreferredFood
         ? Config.positiveImpactOnEnjoyment
         : Config.negativeImpactOnEnjoyment;
+
+    if (isPreferredFood) {
+      add(
+        StarBurstComponent(
+          position: Vector2(size.x / 2, 10),
+          starSize: 25,
+        ),
+      );
+    }
 
     enjoyment.increaseBy(impactOnEnjoyment);
     timesFed++;

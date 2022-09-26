@@ -142,6 +142,11 @@ void main() {
             verify(
               () => enjoyment.increaseBy(Config.positiveImpactOnEnjoyment),
             ).called(1);
+
+            game.update(0);
+            await game.ready();
+
+            expect(unicorn.firstChild<StarBurstComponent>(), isNotNull);
           });
         }
       });
@@ -172,6 +177,11 @@ void main() {
         verify(
           () => enjoyment.increaseBy(Config.negativeImpactOnEnjoyment),
         ).called(1);
+
+        game.update(0);
+        await game.ready();
+
+        expect(unicorn.firstChild<StarBurstComponent>(), isNull);
       });
     });
 

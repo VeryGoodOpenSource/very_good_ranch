@@ -100,6 +100,48 @@ void main() {
         },
       );
       flameTester.test(
+        'setting as walking in a sequence',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          expect(unicorn.state, UnicornState.idle);
+
+          unicorn.setUnicornState(UnicornState.walking);
+          unicorn.setUnicornState(UnicornState.walking);
+
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isTrue);
+          expect(unicorn.state, UnicornState.walking);
+        },
+      );
+      flameTester.test(
+        'setting as walking and then to idle in a sequence ',
+        (game) async {
+          final unicorn = Unicorn(
+            position: Vector2.all(1),
+            onMountGauge: (gauge) {},
+            onUnmountGauge: (gauge) {},
+          );
+          await game.ready();
+          await game.background.ensureAdd(unicorn);
+
+          expect(unicorn.state, UnicornState.idle);
+
+          unicorn.setUnicornState(UnicornState.walking);
+          unicorn.setUnicornState(UnicornState.idle);
+
+          await game.ready();
+          expect(unicorn.hasBehavior<WanderBehavior>(), isFalse);
+          expect(unicorn.state, UnicornState.idle);
+        },
+      );
+      flameTester.test(
         'setting to idle should stop moving',
         (game) async {
           final unicorn = Unicorn(

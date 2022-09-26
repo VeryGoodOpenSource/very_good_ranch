@@ -266,13 +266,13 @@ class Unicorn extends Entity with Steerable, HasGameRef<SeedGame> {
   }
 
   void _startMoving() {
-    if (!hasBehavior<WanderBehavior>()) {
-      add(_wanderBehavior);
+    if (!hasBehavior<WanderBehavior>() && !_wanderBehavior.isLoading) {
+      _wanderBehavior.addToParent(this);
     }
   }
 
   void _stopMoving() {
-    if (hasBehavior<WanderBehavior>()) {
+    if (hasBehavior<WanderBehavior>() || _wanderBehavior.isLoading) {
       _wanderBehavior.removeFromParent();
     }
   }

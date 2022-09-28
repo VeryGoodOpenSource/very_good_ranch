@@ -257,6 +257,6 @@ class HoverMaterialStateColor extends MaterialStateColor {
             states.contains(MaterialState.pressed))) {
       return hover;
     }
-    return this;
+    return Color(value);
   }
 }

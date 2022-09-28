@@ -74,9 +74,13 @@ class _ModalCard extends StatelessWidget {
   });
 
   final Widget head;
+
   final Widget body;
+
   final Widget footer;
+
   final bool showCloseButton;
+
   final ModalThemeData theme;
 
   @override
@@ -113,7 +117,7 @@ class _ModalCard extends StatelessWidget {
             ),
           ),
           if (showCloseButton)
-            _ModalCloseButton(
+            ModalCloseButton(
               onTap: () => Navigator.of(context).pop(),
               theme: theme,
             ),
@@ -123,16 +127,23 @@ class _ModalCard extends StatelessWidget {
   }
 }
 
-class _ModalCloseButton extends StatelessWidget {
-  const _ModalCloseButton({
+@visibleForTesting
+// ignore: public_member_api_docs
+class ModalCloseButton extends StatelessWidget {
+  // ignore: public_member_api_docs
+  const ModalCloseButton({
+    super.key,
     required this.onTap,
     required this.theme,
   });
 
+  // ignore: public_member_api_docs
   final VoidCallback onTap;
+
+  // ignore: public_member_api_docs
   final ModalThemeData theme;
 
-  void handleTapUp(TapUpDetails details) {
+  void _handleTapUp(TapUpDetails details) {
     onTap();
   }
 
@@ -144,7 +155,7 @@ class _ModalCloseButton extends StatelessWidget {
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
-          onTapUp: handleTapUp,
+          onTapUp: _handleTapUp,
           child: SizedBox.fromSize(
             size: const Size.square(40),
             child: DecoratedBox(
@@ -170,6 +181,7 @@ class _ModalTitle extends StatelessWidget {
   });
 
   final Widget child;
+
   final ModalThemeData theme;
 
   @override
@@ -195,6 +207,7 @@ class _ModalContent extends StatelessWidget {
   });
 
   final Widget child;
+
   final ModalThemeData theme;
 
   @override
@@ -218,6 +231,7 @@ class _ModalFooter extends StatelessWidget {
   });
 
   final Widget child;
+
   final ModalThemeData theme;
 
   @override

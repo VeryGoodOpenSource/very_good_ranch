@@ -32,6 +32,7 @@ class ExampleDialog extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return Modal(
+          // ignore: avoid_redundant_argument_values
           showCloseButton: true,
           title: const Text('A modal'),
           content: ClipRRect(

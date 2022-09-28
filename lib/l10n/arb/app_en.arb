@@ -12,13 +12,13 @@
     "@credits": {
         "description": "Text for Credits button"
     },
+    "help": "Help",
+    "@help": {
+      "description": "Text for Help button"
+    },
     "settings": "Settings",
     "@settings": {
         "description": "Text for Settings button"
-    },
-    "audioSettings": "Audio settings",
-    "@audioSettings": {
-        "description": "Text for Audio settings title"
     },
     "musicVolume": "Music Volume: {volume}%",
     "@musicVolume": {
@@ -30,10 +30,6 @@
                 "description": "Volume of the music"
             }
         }
-    },
-    "inventory": "Inventory",
-    "@inventory": {
-        "description": "Text for Inventory title"
     },
     "loading": "Loading {label}...",
     "@loading": {

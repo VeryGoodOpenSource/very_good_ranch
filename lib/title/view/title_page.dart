@@ -197,13 +197,6 @@ class _Buttons extends StatelessWidget {
     );
   }
 
-  void goSettings(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (_) => const SettingsDialog(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return OverflowBox(
@@ -224,7 +217,7 @@ class _Buttons extends StatelessWidget {
               child: BoardButton(
                 child: Text(context.l10n.settings),
                 onTap: () {
-                  goSettings(context);
+                  SettingsDialog.open(context);
                 },
               ),
             ),

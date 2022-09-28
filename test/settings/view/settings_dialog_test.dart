@@ -19,21 +19,102 @@ void main() {
 
     testWidgets('renders correctly', (tester) async {
       final l10n = await AppLocalizations.delegate.load(Locale('en'));
-      await tester.pumpApp(SettingsDialog(), settingsBloc: settingsBloc);
+      await tester.pumpApp(
+        SettingsDialog(
+          onTapCredits: () {},
+          onTapHelp: () {},
+        ),
+        settingsBloc: settingsBloc,
+      );
 
-      expect(find.byType(Text), findsNWidgets(3));
+      expect(find.byType(ElevatedButton), findsNWidgets(2));
       expect(find.byType(Slider), findsNWidgets(1));
       expect(find.text(l10n.settings), findsOneWidget);
-      expect(find.text(l10n.audioSettings), findsOneWidget);
       expect(find.text(l10n.musicVolume(100)), findsOneWidget);
     });
 
     testWidgets('updates music volume correctly', (tester) async {
-      await tester.pumpApp(SettingsDialog(), settingsBloc: settingsBloc);
+      await tester.pumpApp(
+        SettingsDialog(
+          onTapCredits: () {},
+          onTapHelp: () {},
+        ),
+        settingsBloc: settingsBloc,
+      );
 
-      await tester.tap(find.byKey(const Key('musicVolumeSlider')));
+      await tester.tap(find.byType(Slider));
 
       verify(() => settingsBloc.add(const MusicVolumeChanged(0.5))).called(1);
+    });
+
+    testWidgets('on tap help', (tester) async {
+      final l10n = await AppLocalizations.delegate.load(Locale('en'));
+
+      var wannaHelp = false;
+      await tester.pumpApp(
+        SettingsDialog(
+          onTapCredits: () {},
+          onTapHelp: () {
+            wannaHelp = true;
+          },
+        ),
+        settingsBloc: settingsBloc,
+      );
+
+      await tester.tap(find.text(l10n.help));
+
+      expect(wannaHelp, true);
+    });
+
+    testWidgets('on tap credits', (tester) async {
+      final l10n = await AppLocalizations.delegate.load(Locale('en'));
+
+      var wannaCredits = false;
+      await tester.pumpApp(
+        SettingsDialog(
+          onTapCredits: () {
+            wannaCredits = true;
+          },
+          onTapHelp: () {},
+        ),
+        settingsBloc: settingsBloc,
+      );
+
+      await tester.tap(find.text(l10n.credits));
+
+      expect(wannaCredits, true);
+    });
+
+    group('open', () {
+      testWidgets('using open emthod opens settings dialog', (tester) async {
+        final l10n = await AppLocalizations.delegate.load(Locale('en'));
+
+        await tester.pumpApp(
+          Builder(
+            builder: (context) {
+              return Center(
+                child: ElevatedButton(
+                  child: Text('Tap me daddy'),
+                  onPressed: () {
+                    SettingsDialog.open(context);
+                  },
+                ),
+              );
+            },
+          ),
+          settingsBloc: settingsBloc,
+        );
+
+        await tester.tap(find.byType(ElevatedButton));
+        await tester.pump();
+
+        expect(find.byType(SettingsDialog), findsOneWidget);
+
+        // nothing happens when tapping these buttons, for now
+        await tester.tap(find.text(l10n.credits));
+        await tester.tap(find.text(l10n.help));
+        expect(true, true);
+      });
     });
   });
 }

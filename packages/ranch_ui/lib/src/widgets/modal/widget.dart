@@ -3,7 +3,7 @@ import 'package:ranch_ui/src/theme/theme.dart';
 import 'package:ranch_ui/src/widgets/modal/theme.dart';
 
 /// {@template modal}
-/// A [Widget] that renders a modal that looks pretty.
+/// A [Widget] that renders a very good modal.
 /// {@endtemplate}
 class Modal extends StatelessWidget {
   /// {@macro modal}
@@ -143,10 +143,6 @@ class ModalCloseButton extends StatelessWidget {
   // ignore: public_member_api_docs
   final ModalThemeData theme;
 
-  void _handleTapUp(TapUpDetails details) {
-    onTap();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -155,7 +151,7 @@ class ModalCloseButton extends StatelessWidget {
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
-          onTapUp: _handleTapUp,
+          onTap: onTap,
           child: SizedBox.fromSize(
             size: const Size.square(40),
             child: DecoratedBox(

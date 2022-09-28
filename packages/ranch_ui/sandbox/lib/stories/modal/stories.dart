@@ -36,8 +36,6 @@ class _ExampleDialogState extends State<ExampleDialog> {
   @override
   Widget build(BuildContext context) {
     return Modal(
-      // ignore: avoid_redundant_argument_values
-      showCloseButton: true,
       title: const Text('A modal'),
       content: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(8)),

@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ranch_ui/gen/assets.gen.dart';
 import 'package:ranch_ui/src/widgets/board_button/theme.dart';
-import 'package:sprung/sprung.dart';
 
 /// {@template board_button}
 /// A [Widget] that renders a button that looks like a piece of wood.
@@ -140,9 +139,7 @@ class _BoardButtonRotateState extends State<_BoardButtonRotate> {
         onTapUp: handleTapUp,
         onTapCancel: handleTapCancel,
         child: AnimatedContainer(
-          curve: Sprung.custom(
-            damping: 60,
-          ),
+          curve: Curves.easeOut,
           duration: widget.duration,
           transform: transform,
           transformAlignment: Alignment.center,

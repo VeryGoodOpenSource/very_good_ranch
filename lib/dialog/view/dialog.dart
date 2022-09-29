@@ -13,7 +13,6 @@ typedef DialogMaxHeightSetter = void Function(double maxHeight);
 
 class Dialog extends StatefulWidget {
   const Dialog._({
-    super.key,
     this.initialRoute,
   });
 

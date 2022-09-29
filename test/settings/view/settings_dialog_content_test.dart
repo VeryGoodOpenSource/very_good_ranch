@@ -56,9 +56,9 @@ void main() {
 
       await tester.tap(find.text(l10n.help));
 
-      verify(() =>
-              navigator.pushReplacementNamed<void, void>(instructionsRoute))
-          .called(1);
+      verify(
+        () => navigator.pushReplacementNamed<void, void>(instructionsRoute),
+      ).called(1);
     });
 
     testWidgets('on tap credits', (tester) async {

@@ -54,7 +54,8 @@ class SettingsDialogPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed<void, void>(
-                            instructionsRoute);
+                          instructionsRoute,
+                        );
                       },
                       child: Text(l10n.help),
                     ),

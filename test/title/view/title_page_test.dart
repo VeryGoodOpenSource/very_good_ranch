@@ -1,14 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Dialog;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
+import 'package:very_good_ranch/dialog/dialog.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/loading/cubit/preload/preload_cubit.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 import 'package:very_good_ranch/title/title.dart';
 
 import '../../helpers/helpers.dart';
@@ -94,7 +94,7 @@ void main() {
         await tester.tap(find.widgetWithText(BoardButton, l10n.settings));
         await tester.pump();
 
-        expect(find.byType(SettingsDialog), findsOneWidget);
+        expect(find.byType(Dialog), findsOneWidget);
       },
     );
   });

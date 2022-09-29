@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Dialog;
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
+import 'package:very_good_ranch/dialog/dialog.dart';
 import 'package:very_good_ranch/game/game.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
 const _skyPercentageOnYAxis = 0.36;
 
@@ -217,7 +217,7 @@ class _Buttons extends StatelessWidget {
               child: BoardButton(
                 child: Text(context.l10n.settings),
                 onTap: () {
-                  SettingsDialog.open(context);
+                  Dialog.open(context);
                 },
               ),
             ),

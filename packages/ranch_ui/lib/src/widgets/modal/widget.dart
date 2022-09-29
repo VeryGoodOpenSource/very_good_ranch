@@ -10,22 +10,15 @@ class Modal extends StatelessWidget {
   const Modal({
     super.key,
     this.showCloseButton = true,
-    required this.title,
     required this.content,
-    required this.footer,
   });
 
   /// Either show or not show a close button
   final bool showCloseButton;
 
-  /// The title of the modal
-  final Widget title;
-
-  /// The contents of the modal
+  /// The content of the modal, usually a [ModalScaffold] or something wrapping
+  /// it.
   final Widget content;
-
-  /// The footer of the modal
-  final Widget footer;
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +36,7 @@ class Modal extends StatelessWidget {
               child: _ModalCard(
                 showCloseButton: showCloseButton,
                 theme: theme,
-                head: _ModalTitle(
-                  theme: theme,
-                  child: title,
-                ),
-                body: _ModalContent(
-                  theme: theme,
-                  child: content,
-                ),
-                footer: _ModalFooter(
-                  theme: theme,
-                  child: footer,
-                ),
+                content: content,
               ),
             ),
           ),
@@ -64,20 +46,60 @@ class Modal extends StatelessWidget {
   }
 }
 
-class _ModalCard extends StatelessWidget {
-  const _ModalCard({
-    required this.head,
+/// {@template modal_scaffold}
+/// A [Widget] to be rendered as content of a [Modal].
+/// {@endtemplate}
+class ModalScaffold extends StatelessWidget {
+  /// {@macro modal_scaffold}
+  const ModalScaffold({
+    super.key,
+    required this.title,
     required this.body,
     required this.footer,
+  });
+
+  /// The title of the modal
+  final Widget title;
+
+  /// The body of the modal
+  final Widget body;
+
+  /// The footer of the modal
+  final Widget footer;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ModalTheme.of(context);
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: ListBody(
+        children: [
+          _ModalTitle(
+            theme: theme,
+            child: title,
+          ),
+          _ModalContent(
+            theme: theme,
+            child: body,
+          ),
+          _ModalFooter(
+            theme: theme,
+            child: footer,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ModalCard extends StatelessWidget {
+  const _ModalCard({
+    required this.content,
     required this.theme,
     required this.showCloseButton,
   });
 
-  final Widget head;
-
-  final Widget body;
-
-  final Widget footer;
+  final Widget content;
 
   final bool showCloseButton;
 
@@ -85,8 +107,9 @@ class _ModalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
+    return AnimatedContainer(
       constraints: theme.sizeConstraints,
+      duration: theme.contentResizeDuration,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -103,14 +126,7 @@ class _ModalCard extends StatelessWidget {
                       left: theme.innerPadding.left,
                       right: theme.innerPadding.right,
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        head,
-                        Flexible(child: body),
-                        footer,
-                      ],
-                    ),
+                    child: content,
                   ),
                 ),
               ),

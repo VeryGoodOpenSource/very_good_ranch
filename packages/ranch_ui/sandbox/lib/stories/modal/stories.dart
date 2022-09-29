@@ -36,52 +36,54 @@ class _ExampleDialogState extends State<ExampleDialog> {
   @override
   Widget build(BuildContext context) {
     return Modal(
-      title: const Text('A modal'),
-      content: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          color: const Color(0x14000000),
-          child: Column(
-            children: [
-              const Text(
-                'Parararan',
-                style: TextStyle(
-                  color: Color(0xFF674FB2),
+      content: ModalScaffold(
+        title: const Text('A modal'),
+        body: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            color: const Color(0x14000000),
+            child: Column(
+              children: [
+                const Text(
+                  'Parararan',
+                  style: TextStyle(
+                    color: Color(0xFF674FB2),
+                  ),
                 ),
-              ),
-              Slider(
-                value: value,
-                max: 100,
-                onChanged: (value) {
-                  setState(() {
-                    value = value;
-                  });
-                },
-              ),
-            ],
+                Slider(
+                  value: value,
+                  max: 100,
+                  onChanged: (value) {
+                    setState(() {
+                      value = value;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      footer: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Help'),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Credits'),
-              ),
-            ],
-          ),
-        ],
+        footer: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Help'),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Credits'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

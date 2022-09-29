@@ -8,17 +8,25 @@
     "@play": {
         "description": "Text for Play button"
     },
-    "credits": "Credits",
-    "@credits": {
-        "description": "Text for Credits button"
-    },
     "help": "Help",
     "@help": {
       "description": "Text for Help button"
     },
     "settings": "Settings",
     "@settings": {
-        "description": "Text for Settings button"
+        "description": "Text for Settings button and dialog"
+    },
+    "instructions": "Instructions",
+    "@instructions": {
+       "description": "Text for Instructions dialog"
+    },
+    "credits": "Credits",
+    "@credits": {
+        "description": "Text for Credits dialog"
+    },
+    "ok": "Ok",
+    "@ok": {
+       "description": "Text that just agree with stuff"
     },
     "musicVolume": "Music Volume: {volume}%",
     "@musicVolume": {

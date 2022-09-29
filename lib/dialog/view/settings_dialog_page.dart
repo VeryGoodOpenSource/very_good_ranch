@@ -1,29 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_ui/ranch_ui.dart';
+import 'package:very_good_ranch/dialog/dialog.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
-class SettingsDialog extends StatelessWidget {
-  @visibleForTesting
-  const SettingsDialog({
+class SettingsDialogPage extends StatelessWidget {
+  const SettingsDialogPage({
     super.key,
-    required this.onTapCredits,
-    required this.onTapHelp,
   });
 
-  static void open(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (_) => SettingsDialog(
-        onTapCredits: () {},
-        onTapHelp: () {},
-      ),
-    );
-  }
-
-  final VoidCallback onTapCredits;
-  final VoidCallback onTapHelp;
+  static const height = 300.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +17,9 @@ class SettingsDialog extends StatelessWidget {
 
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
-        return Modal(
+        return ModalScaffold(
           title: Text(l10n.settings),
-          content: ClipRRect(
+          body: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             child: ColoredBox(
               color: const Color(0x14000000),
@@ -66,7 +52,10 @@ class SettingsDialog extends StatelessWidget {
                 children: [
                   Flexible(
                     child: ElevatedButton(
-                      onPressed: onTapHelp,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed<void, void>(
+                            instructionsRoute);
+                      },
                       child: Text(l10n.help),
                     ),
                   ),
@@ -74,7 +63,10 @@ class SettingsDialog extends StatelessWidget {
                     width: 16,
                   ),
                   ElevatedButton(
-                    onPressed: onTapCredits,
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed<void, void>(creditsRoute);
+                    },
                     child: Text(l10n.credits),
                   ),
                 ],

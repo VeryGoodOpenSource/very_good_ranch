@@ -1,7 +1,7 @@
 
 ![icon](https://user-images.githubusercontent.com/6718144/192282619-bc6ef592-b3f2-431d-8af8-e8688b0b7738.png)
 
-# Very Good Ranch ð
+# Very Good Ranch 🦄
 
 ![coverage][coverage_badge]
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]

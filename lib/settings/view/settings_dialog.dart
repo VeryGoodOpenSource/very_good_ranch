@@ -44,6 +44,7 @@ class SettingsDialog extends StatelessWidget {
                     Text(
                       l10n.musicVolume((state.musicVolume * 100).round()),
                       style: const TextStyle(
+                        fontSize: 18,
                         color: Color(0xFF674FB2),
                       ),
                     ),

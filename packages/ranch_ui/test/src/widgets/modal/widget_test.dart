@@ -9,12 +9,14 @@ void main() {
       testWidgets('should be true by default', (tester) async {
         await tester.pumpModal(
           Modal(
-            title: const Text('Title'),
-            content: Container(
-              padding: const EdgeInsets.all(12),
-              child: const Text('Content'),
+            content: ModalScaffold(
+              title: const Text('Title'),
+              body: Container(
+                padding: const EdgeInsets.all(12),
+                child: const Text('Content'),
+              ),
+              footer: const Text('Footer'),
             ),
-            footer: const Text('Footer'),
           ),
         );
 
@@ -25,12 +27,14 @@ void main() {
         await tester.pumpModal(
           Modal(
             showCloseButton: false,
-            title: const Text('Title'),
-            content: Container(
-              padding: const EdgeInsets.all(12),
-              child: const Text('Content'),
+            content: ModalScaffold(
+              title: const Text('Title'),
+              body: Container(
+                padding: const EdgeInsets.all(12),
+                child: const Text('Content'),
+              ),
+              footer: const Text('Footer'),
             ),
-            footer: const Text('Footer'),
           ),
         );
 
@@ -45,12 +49,14 @@ void main() {
         await tester.pumpModal(
           navigator: navigator,
           Modal(
-            title: const Text('Title'),
-            content: Container(
-              padding: const EdgeInsets.all(12),
-              child: const Text('Content'),
+            content: ModalScaffold(
+              title: const Text('Title'),
+              body: Container(
+                padding: const EdgeInsets.all(12),
+                child: const Text('Content'),
+              ),
+              footer: const Text('Footer'),
             ),
-            footer: const Text('Footer'),
           ),
         );
 
@@ -65,30 +71,32 @@ void main() {
         'should scroll when there is a huge content',
         (tester) async {
           late double maxScrollExtent;
-          late double viewportDimension;
 
           await tester.pumpModal(
             NotificationListener<ScrollMetricsNotification>(
               onNotification: (notification) {
-                maxScrollExtent = notification.metrics.maxScrollExtent;
-                viewportDimension = notification.metrics.viewportDimension;
+                if (notification.depth == 1) {
+                  maxScrollExtent = notification.metrics.maxScrollExtent;
+                }
                 return true;
               },
               child: Modal(
-                title: const Text('Title'),
-                content: Container(
-                  height: 400000000,
-                  padding: const EdgeInsets.all(12),
-                  child: const Text('Content'),
+                content: ModalScaffold(
+                  title: const Text('Title'),
+                  body: Container(
+                    height: 1000,
+                    padding: const EdgeInsets.all(12),
+                    child: const Text('Content'),
+                  ),
+                  footer: const Text('Footer'),
                 ),
-                footer: const Text('Footer'),
               ),
             ),
           );
 
           expect(
-            maxScrollExtent + viewportDimension,
-            moreOrLessEquals(400000000), //  the size of the content
+            maxScrollExtent,
+            moreOrLessEquals(566), //  the size of the content - viewport
           );
           expect(maxScrollExtent, greaterThan(0.0));
         },
@@ -102,16 +110,20 @@ void main() {
           await tester.pumpModal(
             NotificationListener<ScrollMetricsNotification>(
               onNotification: (notification) {
-                maxScrollExtent = notification.metrics.maxScrollExtent;
+                if (notification.depth == 1) {
+                  maxScrollExtent = notification.metrics.maxScrollExtent;
+                }
                 return true;
               },
               child: const Modal(
-                title: Text('Title'),
-                content: SizedBox(
-                  height: 10,
-                  child: Text('Content'),
+                content: ModalScaffold(
+                  title: Text('Title'),
+                  body: SizedBox(
+                    height: 10,
+                    child: Text('Content'),
+                  ),
+                  footer: Text('Footer'),
                 ),
-                footer: Text('Footer'),
               ),
             ),
           );
@@ -128,17 +140,19 @@ void main() {
           late DividerThemeData dividerThemeData;
           await tester.pumpModal(
             Modal(
-              title: const Text('Title'),
-              content: Builder(
-                builder: (context) {
-                  dividerThemeData = DividerTheme.of(context);
-                  return Container(
-                    padding: const EdgeInsets.all(12),
-                    child: const Text('Content'),
-                  );
-                },
+              content: ModalScaffold(
+                title: const Text('Title'),
+                body: Builder(
+                  builder: (context) {
+                    dividerThemeData = DividerTheme.of(context);
+                    return Container(
+                      padding: const EdgeInsets.all(12),
+                      child: const Text('Content'),
+                    );
+                  },
+                ),
+                footer: const Text('Footer'),
               ),
-              footer: const Text('Footer'),
             ),
           );
 
@@ -152,17 +166,19 @@ void main() {
           late ElevatedButtonThemeData elevatedButtonThemeData;
           await tester.pumpModal(
             Modal(
-              title: const Text('Title'),
-              content: Builder(
-                builder: (context) {
-                  elevatedButtonThemeData = ElevatedButtonTheme.of(context);
-                  return Container(
-                    padding: const EdgeInsets.all(12),
-                    child: const Text('Content'),
-                  );
-                },
+              content: ModalScaffold(
+                title: const Text('Title'),
+                body: Builder(
+                  builder: (context) {
+                    elevatedButtonThemeData = ElevatedButtonTheme.of(context);
+                    return Container(
+                      padding: const EdgeInsets.all(12),
+                      child: const Text('Content'),
+                    );
+                  },
+                ),
+                footer: const Text('Footer'),
               ),
-              footer: const Text('Footer'),
             ),
           );
 
@@ -179,17 +195,19 @@ void main() {
           late SliderThemeData sliderThemeData;
           await tester.pumpModal(
             Modal(
-              title: const Text('Title'),
-              content: Builder(
-                builder: (context) {
-                  sliderThemeData = SliderTheme.of(context);
-                  return Container(
-                    padding: const EdgeInsets.all(12),
-                    child: const Text('Content'),
-                  );
-                },
+              content: ModalScaffold(
+                title: const Text('Title'),
+                body: Builder(
+                  builder: (context) {
+                    sliderThemeData = SliderTheme.of(context);
+                    return Container(
+                      padding: const EdgeInsets.all(12),
+                      child: const Text('Content'),
+                    );
+                  },
+                ),
+                footer: const Text('Footer'),
               ),
-              footer: const Text('Footer'),
             ),
           );
 
@@ -230,17 +248,19 @@ void main() {
             titleTextAlign: ModalTheme.defaultTheme.titleTextAlign,
           ),
           child: Modal(
-            title: const Text('Title'),
             content: Builder(
               builder: (context) {
                 themeDataFound = ModalTheme.of(context);
-                return Container(
-                  padding: const EdgeInsets.all(12),
-                  child: const Text('Content'),
+                return ModalScaffold(
+                  title: const Text('Title'),
+                  body: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: const Text('Content'),
+                  ),
+                  footer: const Text('Footer'),
                 );
               },
             ),
-            footer: const Text('Footer'),
           ),
         ),
       );
@@ -273,17 +293,19 @@ void main() {
             titleTextAlign: ModalTheme.defaultTheme.titleTextAlign,
           ),
           child: Modal(
-            title: const Text('Title'),
             content: Builder(
               builder: (context) {
                 themeDataFound = ModalTheme.of(context);
-                return Container(
-                  padding: const EdgeInsets.all(12),
-                  child: const Text('Content'),
+                return ModalScaffold(
+                  title: const Text('Title'),
+                  body: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: const Text('Content'),
+                  ),
+                  footer: const Text('Footer'),
                 );
               },
             ),
-            footer: const Text('Footer'),
           ),
         ),
       );

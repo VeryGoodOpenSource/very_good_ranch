@@ -12,9 +12,9 @@ import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 import 'package:very_good_ranch/loading/loading.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

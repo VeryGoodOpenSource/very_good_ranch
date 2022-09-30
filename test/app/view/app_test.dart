@@ -14,8 +14,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/app.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
 import 'package:very_good_ranch/loading/loading.dart';
-import 'package:very_good_ranch/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/mocks.dart';

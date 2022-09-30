@@ -6,8 +6,8 @@ import 'package:very_good_ranch/l10n/l10n.dart';
 class CreditsDialogPage extends StatelessWidget {
   const CreditsDialogPage({super.key});
 
-  static const width = 400.0;
-  static const height = 600.0;
+  static const maxDialogWidth = 400.0;
+  static const maxDialogHeight = 600.0;
 
   @override
   Widget build(BuildContext context) {

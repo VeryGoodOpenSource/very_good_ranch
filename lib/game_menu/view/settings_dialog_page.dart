@@ -9,7 +9,7 @@ class SettingsDialogPage extends StatelessWidget {
     super.key,
   });
 
-  static const height = 300.0;
+  static const maxDialogHeight = 300.0;
 
   @override
   Widget build(BuildContext context) {

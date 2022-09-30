@@ -6,8 +6,8 @@ import 'package:very_good_ranch/l10n/l10n.dart';
 class InstructionsDialogPage extends StatelessWidget {
   const InstructionsDialogPage({super.key});
 
-  static const width = 400.0;
-  static const height = 800.0;
+  static const maxDialogWidth = 400.0;
+  static const maxDialogHeight = 800.0;
 
   @override
   Widget build(BuildContext context) {

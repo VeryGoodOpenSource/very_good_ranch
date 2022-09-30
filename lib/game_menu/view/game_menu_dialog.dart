@@ -45,8 +45,8 @@ class _GameMenuDialogState extends State<GameMenuDialog> {
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) {
         late Widget page;
-        double? maxHeight;
         double? maxWidth;
+        double? maxHeight;
 
         final route = GameMenuRoute.values.firstWhere(
           (element) {
@@ -57,17 +57,19 @@ class _GameMenuDialogState extends State<GameMenuDialog> {
         switch (route) {
           case GameMenuRoute.settings:
             page = const SettingsDialogPage();
-            maxHeight = SettingsDialogPage.height;
+            maxHeight = SettingsDialogPage.maxDialogHeight;
             break;
           case GameMenuRoute.instructions:
             page = const InstructionsDialogPage();
-            maxHeight = InstructionsDialogPage.height;
-            maxWidth = InstructionsDialogPage.width;
+            maxWidth = InstructionsDialogPage.maxDialogWidth;
+            maxHeight = InstructionsDialogPage.maxDialogHeight;
+
             break;
           case GameMenuRoute.credits:
             page = const CreditsDialogPage();
-            maxHeight = CreditsDialogPage.height;
-            maxWidth = CreditsDialogPage.width;
+            maxWidth = CreditsDialogPage.maxDialogWidth;
+            maxHeight = CreditsDialogPage.maxDialogHeight;
+
             break;
         }
 
@@ -76,8 +78,8 @@ class _GameMenuDialogState extends State<GameMenuDialog> {
             () {
               modalConstraints =
                   ModalTheme.defaultTheme.sizeConstraints.copyWith(
-                maxHeight: maxHeight,
                 maxWidth: maxWidth,
+                maxHeight: maxHeight,
               );
             },
           );

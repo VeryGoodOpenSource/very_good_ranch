@@ -240,10 +240,13 @@ class _ModalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Material(
-        color: Colors.transparent,
-        child: child,
+    return Material(
+      color: Colors.transparent,
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: SingleChildScrollView(
+          child: child,
+        ),
       ),
     );
   }

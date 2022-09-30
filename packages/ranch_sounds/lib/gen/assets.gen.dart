@@ -20,6 +20,9 @@ class $AssetsMusicGen {
 
   /// File path: assets/music/sunset_memory.mp3
   String get sunsetMemory => 'assets/music/sunset_memory.mp3';
+
+  /// File path: assets/music/sunset_memory_license.txt
+  String get sunsetMemoryLicense => 'assets/music/sunset_memory_license.txt';
 }
 
 class Assets {

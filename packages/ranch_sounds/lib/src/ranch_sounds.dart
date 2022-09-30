@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame_audio/bgm.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:ranch_sounds/gen/assets.gen.dart';
 import 'package:ranch_sounds/src/unprefixed_audiocache.dart';
 
@@ -26,6 +28,16 @@ enum RanchSound {
 /// [AudioCache].
 /// {@endtemplate}
 class RanchSoundPlayer {
+  /// Set up music license into [LicenseRegistry]
+  static void setupMusicLicenses() {
+    LicenseRegistry.addLicense(() async* {
+      final sunsetMemoryLicense = await rootBundle.loadString(
+        'packages/ranch_sounds/${Assets.music.sunsetMemoryLicense}',
+      );
+      yield LicenseEntryWithLineBreaks(['ranch_sounds'], sunsetMemoryLicense);
+    });
+  }
+
   /// {@macro ranch_sounds}
   RanchSoundPlayer({
     UnprefixedAudioCache? audioCache,

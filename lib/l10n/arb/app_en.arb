@@ -1,60 +1,64 @@
 {
-    "@@locale": "en",
-    "gameTitle": "Very Good Ranch",
-    "@gameTitle": {
-        "description": "Title of the game"
-    },
-    "play": "Play",
-    "@play": {
-        "description": "Text for Play button"
-    },
-    "help": "Help",
-    "@help": {
-      "description": "Text for Help button"
-    },
-    "settings": "Settings",
-    "@settings": {
-        "description": "Text for Settings button and dialog"
-    },
-    "instructions": "Instructions",
-    "@instructions": {
-       "description": "Text for Instructions dialog"
-    },
-    "credits": "Credits",
-    "@credits": {
-        "description": "Text for Credits dialog"
-    },
-    "ok": "Ok",
-    "@ok": {
-       "description": "Text that just agree with stuff"
-    },
-    "musicVolume": "Music Volume: {volume}%",
-    "@musicVolume": {
-        "description": "Text for the current Music Volume",
-        "placeholders": {
-            "volume": {
-                "type": "int",
-                "example": "100%",
-                "description": "Volume of the music"
-            }
-        }
-    },
-    "loading": "Loading {label}...",
-    "@loading": {
-      "description": "Text for the loading page",
-      "placeholders": {
-        "label": {
-          "type": "String",
-          "example": "Stuff",
-          "description": "Label for what is being loaded"
-        }
-      }
-    },
-    "loadingPhaseLabel": "{loadingPhase, select, sounds{Delightful music} environment{Farmhouse} food{Snacks} unicorns{Unicorns} other{ }}",
-    "@loadingPhaseLabel": {
-      "description": "Loading phases",
-      "placeholders": {
-        "loadingPhase": {}
+  "@@locale": "en",
+  "gameTitle": "Very Good Ranch",
+  "@gameTitle": {
+    "description": "Title of the game"
+  },
+  "play": "Play",
+  "@play": {
+    "description": "Text for Play button"
+  },
+  "help": "Help",
+  "@help": {
+    "description": "Text for Help button"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Text for Settings button and dialog"
+  },
+  "instructions": "Instructions",
+  "@instructions": {
+    "description": "Text for Instructions dialog"
+  },
+  "credits": "Credits",
+  "@credits": {
+    "description": "Text for Credits dialog"
+  },
+  "ok": "Ok",
+  "@ok": {
+    "description": "Text that just agree with stuff"
+  },
+  "musicVolume": "Music Volume: {volume}%",
+  "@musicVolume": {
+    "description": "Text for the current Music Volume",
+    "placeholders": {
+      "volume": {
+        "type": "int",
+        "example": "100%",
+        "description": "Volume of the music"
       }
     }
+  },
+  "loading": "Loading {label}...",
+  "@loading": {
+    "description": "Text for the loading page",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "Stuff",
+        "description": "Label for what is being loaded"
+      }
+    }
+  },
+  "loadingPhaseLabel": "{loadingPhase, select, sounds{Delightful music} environment{Farmhouse} food{Snacks} unicorns{Unicorns} other{ }}",
+  "@loadingPhaseLabel": {
+    "description": "Loading phases",
+    "placeholders": {
+      "loadingPhase": {}
+    }
+  },
+  "instructionsText": "Make unicorn friends at the Very Good Ranch!\n\nUnicorns need two things to keep their magic strong: yummy treats and cuddles from their friends. Drag food to your unicorns to feed them. Tap on your unicorns to pet them.\n\nKeep your unicorns happy with the right food and enough love and watch them grow. If you don't, they might fly away!",
+  "@instructionsText": {
+    "description": "Content for the instructions dialog"
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame_audio/bgm.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
@@ -197,6 +198,14 @@ void main() {
 
         verify(bgm.pause).called(1);
       });
+    });
+
+    test('setupMusicLicenses', () async {
+      RanchSoundPlayer.setupMusicLicenses();
+
+      // load licenses
+      final licenses = await LicenseRegistry.licenses.toList();
+      expect(licenses.length, 1);
     });
   });
 }

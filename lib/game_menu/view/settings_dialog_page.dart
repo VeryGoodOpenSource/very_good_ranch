@@ -9,7 +9,7 @@ class SettingsDialogPage extends StatelessWidget {
     super.key,
   });
 
-  static const maxDialogHeight = 300.0;
+  static const maxDialogHeight = 310.0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,28 +19,32 @@ class SettingsDialogPage extends StatelessWidget {
       builder: (context, state) {
         return ModalScaffold(
           title: Text(l10n.settings),
-          body: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            child: ColoredBox(
-              color: const Color(0x14000000),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    Text(
-                      l10n.musicVolume((state.musicVolume * 100).round()),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFF674FB2),
+          body: SizedBox(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              child: ColoredBox(
+                color: const Color(0x14000000),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    children: [
+                      Text(
+                        l10n.musicVolume((state.musicVolume * 100).round()),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF674FB2),
+                        ),
                       ),
-                    ),
-                    Slider(
-                      value: state.musicVolume,
-                      onChanged: (v) {
-                        context.read<SettingsBloc>().add(MusicVolumeChanged(v));
-                      },
-                    ),
-                  ],
+                      Slider(
+                        value: state.musicVolume,
+                        onChanged: (v) {
+                          context
+                              .read<SettingsBloc>()
+                              .add(MusicVolumeChanged(v));
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -51,6 +55,7 @@ class SettingsDialogPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
+                    flex: 2,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed<void, void>(
@@ -63,13 +68,16 @@ class SettingsDialogPage extends StatelessWidget {
                   const SizedBox(
                     width: 16,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed<void, void>(
-                        GameMenuRoute.credits.name,
-                      );
-                    },
-                    child: Text(l10n.credits),
+                  Flexible(
+                    flex: 3,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed<void, void>(
+                          GameMenuRoute.credits.name,
+                        );
+                      },
+                      child: Text(l10n.credits),
+                    ),
                   ),
                 ],
               ),

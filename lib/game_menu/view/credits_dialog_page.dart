@@ -15,9 +15,7 @@ class CreditsDialogPage extends StatelessWidget {
 
     return ModalScaffold(
       title: Text(l10n.credits),
-      body: Container(
-        height: 400,
-      ),
+      body: const SizedBox.shrink(),
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

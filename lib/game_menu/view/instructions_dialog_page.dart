@@ -15,9 +15,7 @@ class InstructionsDialogPage extends StatelessWidget {
 
     return ModalScaffold(
       title: Text(l10n.instructions),
-      body: Container(
-        height: 600,
-      ),
+      body: const SizedBox.shrink(),
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -37,53 +37,52 @@ class GameMenuDialog extends StatefulWidget {
 class _GameMenuDialogState extends State<GameMenuDialog> {
   BoxConstraints modalConstraints =
       ModalTheme.defaultTheme.sizeConstraints.copyWith(
-    maxHeight: 100,
+    maxHeight: 300,
   );
 
   Route<void> onGenerateRoute(RouteSettings settings) {
+    late Widget page;
+    double? maxWidth;
+    double? maxHeight;
+
+    final route = GameMenuRoute.values.firstWhere(
+      (element) {
+        return element.name == settings.name;
+      },
+    );
+
+    switch (route) {
+      case GameMenuRoute.settings:
+        page = const SettingsDialogPage();
+        maxHeight = SettingsDialogPage.maxDialogHeight;
+        break;
+      case GameMenuRoute.instructions:
+        page = const InstructionsDialogPage();
+        maxWidth = InstructionsDialogPage.maxDialogWidth;
+        maxHeight = InstructionsDialogPage.maxDialogHeight;
+
+        break;
+      case GameMenuRoute.credits:
+        page = const CreditsDialogPage();
+        maxWidth = CreditsDialogPage.maxDialogWidth;
+        maxHeight = CreditsDialogPage.maxDialogHeight;
+
+        break;
+    }
+
+    SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+      setState(
+        () {
+          modalConstraints = ModalTheme.defaultTheme.sizeConstraints.copyWith(
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+          );
+        },
+      );
+    });
     return PageRouteBuilder(
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) {
-        late Widget page;
-        double? maxWidth;
-        double? maxHeight;
-
-        final route = GameMenuRoute.values.firstWhere(
-          (element) {
-            return element.name == settings.name;
-          },
-        );
-
-        switch (route) {
-          case GameMenuRoute.settings:
-            page = const SettingsDialogPage();
-            maxHeight = SettingsDialogPage.maxDialogHeight;
-            break;
-          case GameMenuRoute.instructions:
-            page = const InstructionsDialogPage();
-            maxWidth = InstructionsDialogPage.maxDialogWidth;
-            maxHeight = InstructionsDialogPage.maxDialogHeight;
-
-            break;
-          case GameMenuRoute.credits:
-            page = const CreditsDialogPage();
-            maxWidth = CreditsDialogPage.maxDialogWidth;
-            maxHeight = CreditsDialogPage.maxDialogHeight;
-
-            break;
-        }
-
-        SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
-          setState(
-            () {
-              modalConstraints =
-                  ModalTheme.defaultTheme.sizeConstraints.copyWith(
-                maxWidth: maxWidth,
-                maxHeight: maxHeight,
-              );
-            },
-          );
-        });
         return page;
       },
       transitionDuration: Duration.zero,

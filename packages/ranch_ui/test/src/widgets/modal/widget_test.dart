@@ -75,7 +75,9 @@ void main() {
           await tester.pumpModal(
             NotificationListener<ScrollMetricsNotification>(
               onNotification: (notification) {
-                maxScrollExtent = notification.metrics.maxScrollExtent;
+                if (notification.depth == 1) {
+                  maxScrollExtent = notification.metrics.maxScrollExtent;
+                }
                 return true;
               },
               child: Modal(
@@ -108,7 +110,9 @@ void main() {
           await tester.pumpModal(
             NotificationListener<ScrollMetricsNotification>(
               onNotification: (notification) {
-                maxScrollExtent = notification.metrics.maxScrollExtent;
+                if (notification.depth == 1) {
+                  maxScrollExtent = notification.metrics.maxScrollExtent;
+                }
                 return true;
               },
               child: const Modal(

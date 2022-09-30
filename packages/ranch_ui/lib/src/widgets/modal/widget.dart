@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ranch_ui/src/theme/theme.dart';
 import 'package:ranch_ui/src/widgets/modal/theme.dart';
@@ -70,24 +72,38 @@ class ModalScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ModalTheme.of(context);
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: ListBody(
-        children: [
-          _ModalTitle(
-            theme: theme,
-            child: title,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxHeight = constraints.maxHeight;
+        return SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: ConstrainedBox(
+            constraints: constraints
+                .copyWith(
+                  minHeight: max(maxHeight, 200),
+                )
+                .normalize(),
+            child: Column(
+              children: [
+                _ModalTitle(
+                  theme: theme,
+                  child: title,
+                ),
+                Expanded(
+                  child: _ModalContent(
+                    theme: theme,
+                    child: body,
+                  ),
+                ),
+                _ModalFooter(
+                  theme: theme,
+                  child: footer,
+                ),
+              ],
+            ),
           ),
-          _ModalContent(
-            theme: theme,
-            child: body,
-          ),
-          _ModalFooter(
-            theme: theme,
-            child: footer,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -225,12 +241,9 @@ class _ModalContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: AnimatedSize(
-        duration: theme.contentResizeDuration,
-        child: Material(
-          color: Colors.transparent,
-          child: child,
-        ),
+      child: Material(
+        color: Colors.transparent,
+        child: child,
       ),
     );
   }

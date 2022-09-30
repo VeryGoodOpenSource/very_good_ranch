@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:very_good_ranch/dialog/dialog.dart';
-import 'package:very_good_ranch/dialog/view/settings_dialog_page.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
+import 'package:very_good_ranch/game_menu/view/settings_dialog_page.dart';
+
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 import '../../helpers/helpers.dart';
@@ -57,7 +58,8 @@ void main() {
       await tester.tap(find.text(l10n.help));
 
       verify(
-        () => navigator.pushReplacementNamed<void, void>(instructionsRoute),
+        () => navigator
+            .pushReplacementNamed<void, void>(GameMenuRoute.instructions.name),
       ).called(1);
     });
 
@@ -77,8 +79,11 @@ void main() {
 
       await tester.tap(find.text(l10n.credits));
 
-      verify(() => navigator.pushReplacementNamed<void, void>(creditsRoute))
-          .called(1);
+      verify(
+        () => navigator.pushReplacementNamed<void, void>(
+          GameMenuRoute.credits.name,
+        ),
+      ).called(1);
     });
   });
 }

@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/view/game_viewport.dart';
-import 'package:very_good_ranch/dialog/bloc/bloc.dart';
 import 'package:very_good_ranch/game/game.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 
 class GamePage extends StatefulWidget {

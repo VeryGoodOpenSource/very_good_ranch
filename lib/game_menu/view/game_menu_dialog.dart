@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:ranch_ui/ranch_ui.dart';
-import 'package:very_good_ranch/dialog/view/credits_dialog_page.dart';
-import 'package:very_good_ranch/dialog/view/instructions_dialog_page.dart';
-import 'package:very_good_ranch/dialog/view/settings_dialog_page.dart';
+import 'package:very_good_ranch/game_menu/view/credits_dialog_page.dart';
+import 'package:very_good_ranch/game_menu/view/instructions_dialog_page.dart';
+import 'package:very_good_ranch/game_menu/view/settings_dialog_page.dart';
 
-const settingsRoute = 'settings';
-const instructionsRoute = 'instructions';
-const creditsRoute = 'credits';
+enum GameMenuRoute {
+  settings,
+  instructions,
+  credits;
+}
 
-typedef DialogMaxHeightSetter = void Function(double maxHeight);
-
-class Dialog extends StatefulWidget {
-  const Dialog._({
+class GameMenuDialog extends StatefulWidget {
+  const GameMenuDialog._({
     this.initialRoute,
   });
 
-  final String? initialRoute;
+  final GameMenuRoute? initialRoute;
 
   static Future<void> open(
     BuildContext context, {
-    String? initialRoute,
+    GameMenuRoute? initialRoute,
   }) {
     return showDialog<void>(
       context: context,
-      builder: (_) => Dialog._(
+      builder: (_) => GameMenuDialog._(
         initialRoute: initialRoute,
       ),
     );
   }
 
   @override
-  State<Dialog> createState() => _DialogState();
+  State<GameMenuDialog> createState() => _GameMenuDialogState();
 }
 
-class _DialogState extends State<Dialog> {
+class _GameMenuDialogState extends State<GameMenuDialog> {
   BoxConstraints modalConstraints =
       ModalTheme.defaultTheme.sizeConstraints.copyWith(
     maxHeight: 100,
@@ -44,17 +44,21 @@ class _DialogState extends State<Dialog> {
     late Widget page;
     double? maxHeight;
     double? maxWidth;
-    switch (settings.name) {
-      case settingsRoute:
+
+    final route = GameMenuRoute.values
+        .firstWhere((element) => element.name == settings.name);
+
+    switch (route) {
+      case GameMenuRoute.settings:
         page = const SettingsDialogPage();
         maxHeight = SettingsDialogPage.height;
         break;
-      case instructionsRoute:
+      case GameMenuRoute.instructions:
         page = const InstructionsDialogPage();
         maxHeight = InstructionsDialogPage.height;
         maxWidth = InstructionsDialogPage.width;
         break;
-      case creditsRoute:
+      case GameMenuRoute.credits:
         page = const CreditsDialogPage();
         maxHeight = CreditsDialogPage.height;
         maxWidth = CreditsDialogPage.width;
@@ -87,7 +91,7 @@ class _DialogState extends State<Dialog> {
       ),
       child: Modal(
         content: Navigator(
-          initialRoute: widget.initialRoute ?? settingsRoute,
+          initialRoute: (widget.initialRoute ?? GameMenuRoute.settings).name,
           onGenerateRoute: onGenerateRoute,
         ),
       ),

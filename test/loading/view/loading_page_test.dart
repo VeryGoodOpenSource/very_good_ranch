@@ -17,7 +17,7 @@ import 'package:mockingjay/mockingjay.dart';
 import 'package:ranch_flame/ranch_flame.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
-import 'package:very_good_ranch/dialog/dialog.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
 import 'package:very_good_ranch/gen/assets.gen.dart';
 import 'package:very_good_ranch/loading/loading.dart';
 

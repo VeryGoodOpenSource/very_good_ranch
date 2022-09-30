@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ranch_ui/ranch_ui.dart';
-import 'package:very_good_ranch/dialog/dialog.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class SettingsDialogPage extends StatelessWidget {
@@ -54,7 +54,7 @@ class SettingsDialogPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed<void, void>(
-                          instructionsRoute,
+                          GameMenuRoute.instructions.name,
                         );
                       },
                       child: Text(l10n.help),
@@ -65,8 +65,9 @@ class SettingsDialogPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed<void, void>(creditsRoute);
+                      Navigator.of(context).pushReplacementNamed<void, void>(
+                        GameMenuRoute.credits.name,
+                      );
                     },
                     child: Text(l10n.credits),
                   ),

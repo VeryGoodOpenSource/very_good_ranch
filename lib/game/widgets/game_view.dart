@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart' hide Dialog;
-import 'package:very_good_ranch/dialog/view/dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:very_good_ranch/game_menu/game_menu.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
 
 class GameView<GameType extends FlameGame> extends StatelessWidget {
@@ -35,7 +35,7 @@ class GameView<GameType extends FlameGame> extends StatelessWidget {
                   ),
                   onPressed: () async {
                     game.pauseEngine();
-                    await Dialog.open(context);
+                    await GameMenuDialog.open(context);
                     game.resumeEngine();
                   },
                 ),

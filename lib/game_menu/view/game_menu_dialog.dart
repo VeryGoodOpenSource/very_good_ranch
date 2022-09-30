@@ -45,8 +45,11 @@ class _GameMenuDialogState extends State<GameMenuDialog> {
     double? maxHeight;
     double? maxWidth;
 
-    final route = GameMenuRoute.values
-        .firstWhere((element) => element.name == settings.name);
+    final route = GameMenuRoute.values.firstWhere(
+      (element) {
+        return element.name == settings.name;
+      },
+    );
 
     switch (route) {
       case GameMenuRoute.settings:

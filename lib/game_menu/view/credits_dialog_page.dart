@@ -98,7 +98,7 @@ class _CreditsContent extends StatelessWidget {
             names: [
               'Erick Zanardo',
               'Felix Angelov',
-              'Jochum Van Der Ploeg',
+              'Jochum van der Ploeg',
               'Renan Araujo',
             ],
           ),

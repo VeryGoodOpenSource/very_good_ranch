@@ -10,6 +10,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -32,6 +33,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   RanchUITheme.setupFonts();
+  RanchSoundPlayer.setupMusicLicenses();
 
   await runZonedGuarded(
     () async {

@@ -21,28 +21,36 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     MockNavigator? navigator,
+    MockNavigator? rootNavigator,
     SettingsBloc? settingsBloc,
     BlessingBloc? blessingBloc,
     PreloadCubit? preloadCubit,
   }) async {
-    return pumpWidget(
-      MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: settingsBloc ?? MockSettingsBloc()),
-          BlocProvider.value(value: blessingBloc ?? BlessingBloc()),
-          BlocProvider.value(value: preloadCubit ?? MockPreloadCubit()),
+    final content = MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: settingsBloc ?? MockSettingsBloc()),
+        BlocProvider.value(value: blessingBloc ?? BlessingBloc()),
+        BlocProvider.value(value: preloadCubit ?? MockPreloadCubit()),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
         ],
-        child: MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: navigator != null
-              ? MockNavigatorProvider(navigator: navigator, child: widget)
-              : widget,
-        ),
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: navigator != null
+            ? MockNavigatorProvider(navigator: navigator, child: widget)
+            : widget,
       ),
+    );
+
+    return pumpWidget(
+      rootNavigator != null
+          ? MockNavigatorProvider(
+              navigator: rootNavigator,
+              child: content,
+            )
+          : content,
     );
   }
 }

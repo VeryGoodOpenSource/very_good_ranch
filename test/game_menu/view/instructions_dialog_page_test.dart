@@ -16,8 +16,11 @@ void main() {
       );
 
       expect(find.text(l10n.instructions), findsOneWidget);
-      expect(find.byType(ElevatedButton), findsNWidgets(1));
-      expect(find.text(l10n.ok), findsNWidgets(1));
+      expect(find.byType(ElevatedButton), findsOneWidget);
+      expect(find.text(l10n.ok), findsOneWidget);
+
+      // instructions content
+      expect(find.text(l10n.instructionsText), findsOneWidget);
     });
 
     group('Action button', () {

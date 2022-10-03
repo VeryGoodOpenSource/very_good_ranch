@@ -24,7 +24,8 @@ void main() {
       expect(find.text(l10n.byVGV), findsOneWidget);
       expect(find.text(l10n.programming), findsOneWidget);
       expect(find.text(l10n.music), findsOneWidget);
-      expect(find.text(l10n.artAndUICredits), findsOneWidget);
+      expect(find.text(l10n.artCredits), findsOneWidget);
+      expect(find.text(l10n.uIDesign), findsOneWidget);
       expect(find.text(l10n.librariesCredits), findsOneWidget);
       expect(find.text(l10n.showLicensesPage), findsOneWidget);
       expect(find.text(l10n.noCrueltyDisclaimer), findsOneWidget);

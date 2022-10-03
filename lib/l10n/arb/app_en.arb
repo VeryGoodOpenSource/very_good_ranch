@@ -73,9 +73,13 @@
   "@music": {
     "description": "What musicians do"
   },
-  "artAndUICredits": "Art and UI design",
-  "@artAndUICredits": {
-    "description": "What the role designers had in the making of this game"
+  "artCredits": "Art",
+  "@artCredits": {
+    "description": "What artists do"
+  },
+  "uIDesign": "UI Design",
+  "@uIDesign": {
+    "description": "What UI designers do"
   },
   "librariesCredits": "Libraries and OSS resources",
   "@librariesCredits": {

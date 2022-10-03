@@ -109,10 +109,15 @@ class _CreditsContent extends StatelessWidget {
             ],
           ),
           ...creditsSection(
-            title: l10n.artAndUICredits,
+            title: l10n.artCredits,
             names: [
-              'Very Good Ventures Design Team',
               'HOPR',
+            ],
+          ),
+          ...creditsSection(
+            title: l10n.uIDesign,
+            names: [
+              'Murphy O’Rourke',
             ],
           ),
           const SizedBox(

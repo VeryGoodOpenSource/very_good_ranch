@@ -28,6 +28,7 @@ void main() {
       await tester.pumpAndSettle(Duration(seconds: 1));
       expect(find.byType(AppView), findsOneWidget);
     });
+
     testWidgets('renders MaterialApp', (tester) async {
       await tester.pumpWidget(App());
       await tester.pumpAndSettle(Duration(seconds: 1));

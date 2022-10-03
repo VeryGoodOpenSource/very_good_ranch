@@ -8,6 +8,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -26,6 +27,14 @@ void main() {
       await tester.pumpWidget(App());
       await tester.pumpAndSettle(Duration(seconds: 1));
       expect(find.byType(AppView), findsOneWidget);
+    });
+
+    testWidgets('renders MaterialApp', (tester) async {
+      await tester.pumpWidget(App());
+      await tester.pumpAndSettle(Duration(seconds: 1));
+      expect(find.byType(MaterialApp), findsOneWidget);
+      final title = find.byType(Title).evaluate().first.widget as Title;
+      expect(title.title, 'Very Good Ranch');
     });
   });
 

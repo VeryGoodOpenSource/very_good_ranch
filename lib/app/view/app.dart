@@ -48,6 +48,7 @@ class AppView extends StatelessWidget {
       volume: context.watch<SettingsBloc>().state.musicVolume,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        onGenerateTitle: (context) => context.l10n.gameTitle,
         theme: RanchUITheme.themeData,
         localizationsDelegates: const [
           AppLocalizations.delegate,

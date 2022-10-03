@@ -28,16 +28,6 @@ enum RanchSound {
 /// [AudioCache].
 /// {@endtemplate}
 class RanchSoundPlayer {
-  /// Set up music license into [LicenseRegistry]
-  static void setupMusicLicenses() {
-    LicenseRegistry.addLicense(() async* {
-      final sunsetMemoryLicense = await rootBundle.loadString(
-        'packages/ranch_sounds/${Assets.music.sunsetMemoryLicense}',
-      );
-      yield LicenseEntryWithLineBreaks(['ranch_sounds'], sunsetMemoryLicense);
-    });
-  }
-
   /// {@macro ranch_sounds}
   RanchSoundPlayer({
     UnprefixedAudioCache? audioCache,
@@ -62,6 +52,16 @@ class RanchSoundPlayer {
         _createBGM(),
       ),
     };
+  }
+
+  /// Set up music license into [LicenseRegistry]
+  static void setupMusicLicenses() {
+    LicenseRegistry.addLicense(() async* {
+      final sunsetMemoryLicense = await rootBundle.loadString(
+        'packages/ranch_sounds/${Assets.music.sunsetMemoryLicense}',
+      );
+      yield LicenseEntryWithLineBreaks(['ranch_sounds'], sunsetMemoryLicense);
+    });
   }
 
   late final Map<RanchSound, _RanchSound> _sounds;

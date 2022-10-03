@@ -4,6 +4,10 @@
   "@gameTitle": {
     "description": "Title of the game"
   },
+  "byVGV": "By Very Good Ventures",
+  "@byVGV": {
+    "description": "Credit VGV"
+  },
   "play": "Play",
   "@play": {
     "description": "Text for Play button"
@@ -60,5 +64,29 @@
   "instructionsText": "Make unicorn friends at the Very Good Ranch!\n\nUnicorns need two things to keep their magic strong: yummy treats and cuddles from their friends. Drag food to your unicorns to feed them. Tap on your unicorns to pet them.\n\nKeep your unicorns happy with the right food and enough love and watch them grow. If you don't, they might fly away!",
   "@instructionsText": {
     "description": "Content for the instructions dialog"
+  },
+  "programming": "Programming",
+  "@programming": {
+    "description": "What programmers do"
+  },
+  "music": "Music",
+  "@music": {
+    "description": "What musicians do"
+  },
+  "artAndUICredits": "Art and UI design",
+  "@artAndUICredits": {
+    "description": "What the role designers had in the making of this game"
+  },
+  "librariesCredits": "Libraries and OSS resources",
+  "@librariesCredits": {
+    "description": "Credits fot the libs and oss resources used"
+  },
+  "showLicensesPage": "Show open source licenses",
+  "@showLicensesPage": {
+    "description": "Text for the button that shows open source licenses"
+  },
+  "noCrueltyDisclaimer": "No Unicorns were harmed in the making of this game.",
+  "@noCrueltyDisclaimer": {
+    "description": "Explain that we did not harm any unicorns."
   }
 }

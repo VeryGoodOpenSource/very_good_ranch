@@ -25,7 +25,7 @@ void main() {
       );
 
       expect(find.byType(ElevatedButton), findsNWidgets(2));
-      expect(find.byType(Slider), findsNWidgets(1));
+      expect(find.byType(Slider), findsOneWidget);
       expect(find.text(l10n.settings), findsOneWidget);
       expect(find.text(l10n.musicVolume(100)), findsOneWidget);
     });

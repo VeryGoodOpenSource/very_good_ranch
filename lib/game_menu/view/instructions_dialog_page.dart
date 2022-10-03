@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ranch_ui/ranch_ui.dart';
 import 'package:very_good_ranch/game_menu/view/game_menu_dialog.dart';
 import 'package:very_good_ranch/l10n/l10n.dart';
@@ -35,7 +34,7 @@ class InstructionsDialogPage extends StatelessWidget {
 }
 
 class _InstructionsContent extends StatelessWidget {
-  const _InstructionsContent({super.key});
+  const _InstructionsContent();
 
   @override
   Widget build(BuildContext context) {

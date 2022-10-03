@@ -34,7 +34,7 @@ class CreditsDialogPage extends StatelessWidget {
 }
 
 class _CreditsContent extends StatelessWidget {
-  const _CreditsContent({Key? key}) : super(key: key);
+  const _CreditsContent();
 
   List<Widget> creditsSection({
     required String title,
@@ -75,17 +75,17 @@ class _CreditsContent extends StatelessWidget {
       ),
       child: ListBody(
         children: [
-          const Text(
-            'Very Good Ranch',
-            style: TextStyle(
+          Text(
+            l10n.gameTitle,
+            style: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w700,
               height: 1.4,
             ),
           ),
-          const Text(
-            'By Very Good Ventures',
-            style: TextStyle(
+          Text(
+            l10n.byVGV,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
@@ -94,7 +94,7 @@ class _CreditsContent extends StatelessWidget {
             height: 18,
           ),
           ...creditsSection(
-            title: 'Programming',
+            title: l10n.programming,
             names: [
               'Erick Zanardo',
               'Felix Angelov',
@@ -103,13 +103,13 @@ class _CreditsContent extends StatelessWidget {
             ],
           ),
           ...creditsSection(
-            title: 'Music',
+            title: l10n.music,
             names: [
-              '"Sunset Memory" by Beatrice Mitchell',
+              '"Sunset Memory" - Beatrice Mitchell',
             ],
           ),
           ...creditsSection(
-            title: 'Art and UI design',
+            title: l10n.artAndUICredits,
             names: [
               'Very Good Ventures Design Team',
               'HOPR',
@@ -118,9 +118,9 @@ class _CreditsContent extends StatelessWidget {
           const SizedBox(
             height: 9,
           ),
-          const Text(
-            'Libraries',
-            style: TextStyle(
+          Text(
+            l10n.librariesCredits,
+            style: const TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w700,
               height: 1.6,
@@ -134,7 +134,7 @@ class _CreditsContent extends StatelessWidget {
               );
             },
             child: Text(
-              'Show open source licenses',
+              l10n.showLicensesPage,
               style: RanchUITheme.minorFontTextStyle.copyWith(
                 color: const Color(0xFF46B2A0),
                 fontSize: 19,
@@ -146,9 +146,9 @@ class _CreditsContent extends StatelessWidget {
           const SizedBox(
             height: 32,
           ),
-          const Text(
-            'No Unicorns were harmed in the making of this game',
-            style: TextStyle(
+          Text(
+            l10n.noCrueltyDisclaimer,
+            style: const TextStyle(
               fontWeight: FontWeight.w400,
             ),
           ),

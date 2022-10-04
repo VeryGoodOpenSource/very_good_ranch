@@ -9,7 +9,7 @@ part 'blessing_state.dart';
 
 /// Blessing is a collective noun for unicorns.
 ///
-/// This [Bloc] keeps count of how many unicorns ts there in the ranch.
+/// This [Bloc] keeps count of how many unicorns are in the ranch.
 class BlessingBloc extends Bloc<BlessingEvent, BlessingState> {
   BlessingBloc() : super(BlessingState.initial()) {
     on<UnicornSpawned>(_onUnicornSpawned);

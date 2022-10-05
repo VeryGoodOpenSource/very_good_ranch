@@ -1,4 +1,3 @@
-
 ![icon](https://github.com/VeryGoodOpenSource/very_good_ranch/blob/main/web/img/share_image.png)
 
 # Very Good Ranch 🦄
@@ -7,13 +6,19 @@
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
-Very Good Ranch is a game built with Flutter and Flame. Developed with 💙 by Very Good Ventures 🦄
+Very Good Ranch is a demo game built with Flutter and Flame.
 
-Make unicorn friends at the Very Good Ranch! Keep your unicorns happy with the right food and enough love, and watch them grow.
+After a few initial explorations into game development, we wanted to push our skills further and figure out how we at VGV might standardize and approach game development in a way that mirrors our “boring” approach to app development. Very Good Ranch is the result of this effort!
 
-[**Play Very Good Ranch**][ranch]
+**How to play**: Make unicorn friends at the Very Good Ranch! Keep your unicorns happy with the right food and enough love, and watch them grow.
 
-[**Read about how we built it**][blog]
+Developed with 💙 by Very Good Ventures 🦄
+
+🕹 [**Play Very Good Ranch**][ranch]
+
+📚 [**Read about how we built it**][blog]
+
+![Demo Video](https://github.com/VGVentures/very_good_blog_assets/raw/main/very_good_ranch/very_good_ranch_start.mp4)
 
 ---
 
@@ -170,4 +175,5 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
 [ranch]: https://ranch.vgv.dev/#/
-[blog]: https://verygood.ventures/blog
+[blog]: https://verygood.ventures/blog/very-good-ranch-game
+[demo_video]: https://github.com/VGVentures/very_good_blog_assets/raw/main/very_good_ranch/scribblecorn_mechanics.mp4

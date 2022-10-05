@@ -18,6 +18,8 @@ Developed with 💙 by Very Good Ventures 🦄
 
 📚 [**Read about how we built it**][blog]
 
+<img src="art/demo.gif" alt="Demo video" width="250">
+
 ---
 
 ## Getting Started 🚀

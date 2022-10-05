@@ -18,7 +18,9 @@ Developed with 💙 by Very Good Ventures 🦄
 
 📚 [**Read about how we built it**][blog]
 
-![Demo Video](https://github.com/VGVentures/very_good_blog_assets/raw/main/very_good_ranch/very_good_ranch_start.mp4)
+<video autoplay loop muted playsinline>
+    <source src=“https://github.com/VGVentures/very_good_blog_assets/raw/main/very_good_ranch/scribblecorn_mechanics.mp4” type=“video/mp4”>
+</video>
 
 ---
 
@@ -176,4 +178,3 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
 [ranch]: https://ranch.vgv.dev/#/
 [blog]: https://verygood.ventures/blog/very-good-ranch-game
-[demo_video]: https://github.com/VGVentures/very_good_blog_assets/raw/main/very_good_ranch/scribblecorn_mechanics.mp4

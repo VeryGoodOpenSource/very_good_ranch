@@ -18,10 +18,6 @@ Developed with 💙 by Very Good Ventures 🦄
 
 📚 [**Read about how we built it**][blog]
 
-<video autoplay loop muted playsinline>
-    <source src=“https://github.com/VGVentures/very_good_blog_assets/raw/main/very_good_ranch/scribblecorn_mechanics.mp4” type=“video/mp4”>
-</video>
-
 ---
 
 ## Getting Started 🚀

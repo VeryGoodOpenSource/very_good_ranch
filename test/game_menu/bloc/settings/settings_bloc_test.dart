@@ -36,7 +36,7 @@ void main() {
       );
     });
 
-    group('json stuff', () {
+    group('json (de)serialization', () {
       test('fromJson converts from json to state', () {
         final settingsBloc = SettingsBloc();
         final result = settingsBloc.fromJson({'musicVolume': 0.5});

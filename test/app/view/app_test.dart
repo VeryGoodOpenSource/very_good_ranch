@@ -11,6 +11,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ranch_sounds/ranch_sounds.dart';
 import 'package:very_good_ranch/app/app.dart';
@@ -21,7 +22,13 @@ import 'package:very_good_ranch/loading/loading.dart';
 import '../../helpers/helpers.dart';
 import '../../helpers/mocks.dart';
 
+class MockStorage extends Mock implements Storage {}
+
 void main() {
+  setUp(() {
+    HydratedBloc.storage = MockStorage();
+  });
+
   group('App', () {
     testWidgets('renders AppView', (tester) async {
       await tester.pumpWidget(App());

@@ -154,41 +154,6 @@ void main() {
   });
 
   group('UnicornComponent', () {
-    group('preloadAssets', () {
-      testWidgets('preloads assets', (tester) async {
-        final images = MockImages();
-
-        when(
-          () => images.loadAll(any()),
-        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
-
-        await UnicornComponent.preloadAssets(images);
-
-        verify(
-          () => images.loadAll(
-            [
-              Assets.animations.adultEat.keyName,
-              Assets.animations.adultIdle.keyName,
-              Assets.animations.adultPetted.keyName,
-              Assets.animations.adultWalkCycle.keyName,
-              Assets.animations.teenEat.keyName,
-              Assets.animations.teenIdle.keyName,
-              Assets.animations.teenPetted.keyName,
-              Assets.animations.teenWalkCycle.keyName,
-              Assets.animations.childEat.keyName,
-              Assets.animations.childIdle.keyName,
-              Assets.animations.childPetted.keyName,
-              Assets.animations.childWalkCycle.keyName,
-              Assets.animations.babyEat.keyName,
-              Assets.animations.babyIdle.keyName,
-              Assets.animations.babyPetted.keyName,
-              Assets.animations.babyWalkCycle.keyName,
-            ],
-          ),
-        ).called(1);
-      });
-    });
-
     test('assumes the right size', () {
       final unicornComponent = TestUnicornComponent(
         spriteComponent: MockUnicornSpriteComponent(),
@@ -374,6 +339,29 @@ void main() {
   });
 
   group('BabyUnicornComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await BabyUnicornComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.animations.babyEat.keyName,
+              Assets.animations.babyIdle.keyName,
+              Assets.animations.babyPetted.keyName,
+              Assets.animations.babyWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     flameTester.testGameWidget(
       'idle animation',
       setUp: (game, tester) async {
@@ -497,6 +485,29 @@ void main() {
   });
 
   group('ChildUnicornComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await ChildUnicornComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.animations.childEat.keyName,
+              Assets.animations.childIdle.keyName,
+              Assets.animations.childPetted.keyName,
+              Assets.animations.childWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     flameTester.testGameWidget(
       'idle animation',
       setUp: (game, tester) async {
@@ -619,6 +630,29 @@ void main() {
   });
 
   group('TeenUnicornComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await TeenUnicornComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.animations.teenEat.keyName,
+              Assets.animations.teenIdle.keyName,
+              Assets.animations.teenPetted.keyName,
+              Assets.animations.teenWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     flameTester.testGameWidget(
       'idle animation',
       setUp: (game, tester) async {
@@ -740,6 +774,29 @@ void main() {
   });
 
   group('AdultUnicornComponent', () {
+    group('preloadAssets', () {
+      testWidgets('preloads assets', (tester) async {
+        final images = MockImages();
+
+        when(
+          () => images.loadAll(any()),
+        ).thenAnswer((Invocation invocation) => Future.value(<Image>[]));
+
+        await AdultUnicornComponent.preloadAssets(images);
+
+        verify(
+          () => images.loadAll(
+            [
+              Assets.animations.adultEat.keyName,
+              Assets.animations.adultIdle.keyName,
+              Assets.animations.adultPetted.keyName,
+              Assets.animations.adultWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+      });
+    });
+
     flameTester.testGameWidget(
       'idle animation',
       setUp: (game, tester) async {

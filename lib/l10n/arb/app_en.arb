@@ -54,7 +54,7 @@
       }
     }
   },
-  "loadingPhaseLabel": "{loadingPhase, select, sounds{Delightful music} environment{Farmhouse} food{Snacks} unicorns{Unicorns} other{ }}",
+  "loadingPhaseLabel": "{loadingPhase, select, sounds{Delightful music} environment{Farmhouse} food{Snacks} baby_unicorns{Baby unicorns} child_unicorns{Child unicorns} teen_unicorns{Teen unicorns} adult_unicorns{Handsome unicorns} other{ }}",
   "@loadingPhaseLabel": {
     "description": "Loading phases",
     "placeholders": {

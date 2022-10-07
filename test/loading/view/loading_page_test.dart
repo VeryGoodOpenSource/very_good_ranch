@@ -103,7 +103,16 @@ void main() {
       expect(textWidgetFinder().data, 'Loading Snacks...');
       await tester.pump(const Duration(milliseconds: 200));
 
-      expect(textWidgetFinder().data, 'Loading Unicorns...');
+      expect(textWidgetFinder().data, 'Loading Baby unicorns...');
+      await tester.pump(const Duration(milliseconds: 200));
+
+      expect(textWidgetFinder().data, 'Loading Child unicorns...');
+      await tester.pump(const Duration(milliseconds: 200));
+
+      expect(textWidgetFinder().data, 'Loading Teen unicorns...');
+      await tester.pump(const Duration(milliseconds: 200));
+
+      expect(textWidgetFinder().data, 'Loading Handsome unicorns...');
       await tester.pump(const Duration(milliseconds: 200));
 
       /// flush animation timers

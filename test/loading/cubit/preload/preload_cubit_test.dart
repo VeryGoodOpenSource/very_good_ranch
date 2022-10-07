@@ -99,18 +99,6 @@ void main() {
         verify(
           () => images.loadAll(
             [
-              components_assets.Assets.animations.adultEat.keyName,
-              components_assets.Assets.animations.adultIdle.keyName,
-              components_assets.Assets.animations.adultPetted.keyName,
-              components_assets.Assets.animations.adultWalkCycle.keyName,
-              components_assets.Assets.animations.teenEat.keyName,
-              components_assets.Assets.animations.teenIdle.keyName,
-              components_assets.Assets.animations.teenPetted.keyName,
-              components_assets.Assets.animations.teenWalkCycle.keyName,
-              components_assets.Assets.animations.childEat.keyName,
-              components_assets.Assets.animations.childIdle.keyName,
-              components_assets.Assets.animations.childPetted.keyName,
-              components_assets.Assets.animations.childWalkCycle.keyName,
               components_assets.Assets.animations.babyEat.keyName,
               components_assets.Assets.animations.babyIdle.keyName,
               components_assets.Assets.animations.babyPetted.keyName,
@@ -119,7 +107,49 @@ void main() {
           ),
         ).called(1);
         expect(cubit.state.isComplete, false);
-        expect(cubit.state.currentLabel, 'unicorns');
+        expect(cubit.state.currentLabel, 'baby_unicorns');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        verify(
+          () => images.loadAll(
+            [
+              components_assets.Assets.animations.childEat.keyName,
+              components_assets.Assets.animations.childIdle.keyName,
+              components_assets.Assets.animations.childPetted.keyName,
+              components_assets.Assets.animations.childWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+        expect(cubit.state.isComplete, false);
+        expect(cubit.state.currentLabel, 'child_unicorns');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        verify(
+          () => images.loadAll(
+            [
+              components_assets.Assets.animations.teenEat.keyName,
+              components_assets.Assets.animations.teenIdle.keyName,
+              components_assets.Assets.animations.teenPetted.keyName,
+              components_assets.Assets.animations.teenWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+        expect(cubit.state.isComplete, false);
+        expect(cubit.state.currentLabel, 'teen_unicorns');
+        await tester.pumpAndSettle(const Duration(milliseconds: 200));
+
+        verify(
+          () => images.loadAll(
+            [
+              components_assets.Assets.animations.adultEat.keyName,
+              components_assets.Assets.animations.adultIdle.keyName,
+              components_assets.Assets.animations.adultPetted.keyName,
+              components_assets.Assets.animations.adultWalkCycle.keyName,
+            ],
+          ),
+        ).called(1);
+        expect(cubit.state.isComplete, false);
+        expect(cubit.state.currentLabel, 'adult_unicorns');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         await future;

@@ -59,6 +59,17 @@ class BabyUnicornComponent extends UnicornComponent {
             ),
           ),
         );
+
+  /// Preload all unicorn assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      // Baby
+      Assets.animations.babyEat.keyName,
+      Assets.animations.babyIdle.keyName,
+      Assets.animations.babyPetted.keyName,
+      Assets.animations.babyWalkCycle.keyName,
+    ]);
+  }
 }
 
 /// {@template child_unicorn_component}
@@ -99,6 +110,17 @@ class ChildUnicornComponent extends UnicornComponent {
             ),
           ),
         );
+
+  /// Preload all unicorn assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      // Child
+      Assets.animations.childEat.keyName,
+      Assets.animations.childIdle.keyName,
+      Assets.animations.childPetted.keyName,
+      Assets.animations.childWalkCycle.keyName,
+    ]);
+  }
 }
 
 /// {@template teen_unicorn_component}
@@ -139,6 +161,17 @@ class TeenUnicornComponent extends UnicornComponent {
             ),
           ),
         );
+
+  /// Preload all unicorn assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      // Teen
+      Assets.animations.teenEat.keyName,
+      Assets.animations.teenIdle.keyName,
+      Assets.animations.teenPetted.keyName,
+      Assets.animations.teenWalkCycle.keyName,
+    ]);
+  }
 }
 
 /// {@template adult_unicorn_component}
@@ -179,6 +212,17 @@ class AdultUnicornComponent extends UnicornComponent {
             ),
           ),
         );
+
+  /// Preload all unicorn assets into [images].
+  static Future<void> preloadAssets(Images images) async {
+    await images.loadAll([
+      // Adult
+      Assets.animations.adultEat.keyName,
+      Assets.animations.adultIdle.keyName,
+      Assets.animations.adultPetted.keyName,
+      Assets.animations.adultWalkCycle.keyName,
+    ]);
+  }
 }
 
 /// {@template unicorn_animation_data}
@@ -244,35 +288,6 @@ abstract class UnicornComponent extends PositionComponent with HasPaint {
     size = _paddedRect.toVector2();
     // The padded offset is negatively appleid to the sprite component
     spriteComponent.position = _paddedRect.topLeft.toVector2() * -1;
-  }
-
-  /// Preload all unicorn assets into [images].
-  static Future<void> preloadAssets(Images images) async {
-    await images.loadAll([
-      // Adult
-      Assets.animations.adultEat.keyName,
-      Assets.animations.adultIdle.keyName,
-      Assets.animations.adultPetted.keyName,
-      Assets.animations.adultWalkCycle.keyName,
-
-      // Teen
-      Assets.animations.teenEat.keyName,
-      Assets.animations.teenIdle.keyName,
-      Assets.animations.teenPetted.keyName,
-      Assets.animations.teenWalkCycle.keyName,
-
-      // Child
-      Assets.animations.childEat.keyName,
-      Assets.animations.childIdle.keyName,
-      Assets.animations.childPetted.keyName,
-      Assets.animations.childWalkCycle.keyName,
-
-      // Baby
-      Assets.animations.babyEat.keyName,
-      Assets.animations.babyIdle.keyName,
-      Assets.animations.babyPetted.keyName,
-      Assets.animations.babyWalkCycle.keyName,
-    ]);
   }
 
   /// The contained [UnicornSpriteComponent] that should be padded off.

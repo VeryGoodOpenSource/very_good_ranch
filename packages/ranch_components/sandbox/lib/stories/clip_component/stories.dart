@@ -6,7 +6,6 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart' hide Gradient;
-import 'package:ranch_components/ranch_components.dart';
 
 class _Rectangle extends RectangleComponent {
   _Rectangle()

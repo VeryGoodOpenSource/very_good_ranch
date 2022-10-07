@@ -24,19 +24,19 @@ class PreloadCubit extends Cubit<PreloadState> {
       ),
       PreloadPhase('food', () => FoodComponent.preloadAssets(images)),
       PreloadPhase(
-        'unicorns',
+        'baby_unicorns',
         () => BabyUnicornComponent.preloadAssets(images),
       ),
       PreloadPhase(
-        'unicorns',
+        'child_unicorns',
         () => ChildUnicornComponent.preloadAssets(images),
       ),
       PreloadPhase(
-        'unicorns',
+        'teen_unicorns',
         () => TeenUnicornComponent.preloadAssets(images),
       ),
       PreloadPhase(
-        'unicorns',
+        'adult_unicorns',
         () => AdultUnicornComponent.preloadAssets(images),
       ),
     ];

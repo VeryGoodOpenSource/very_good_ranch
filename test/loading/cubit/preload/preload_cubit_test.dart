@@ -107,7 +107,7 @@ void main() {
           ),
         ).called(1);
         expect(cubit.state.isComplete, false);
-        expect(cubit.state.currentLabel, 'unicorns');
+        expect(cubit.state.currentLabel, 'baby_unicorns');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         verify(
@@ -121,7 +121,7 @@ void main() {
           ),
         ).called(1);
         expect(cubit.state.isComplete, false);
-        expect(cubit.state.currentLabel, 'unicorns');
+        expect(cubit.state.currentLabel, 'child_unicorns');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         verify(
@@ -135,7 +135,7 @@ void main() {
           ),
         ).called(1);
         expect(cubit.state.isComplete, false);
-        expect(cubit.state.currentLabel, 'unicorns');
+        expect(cubit.state.currentLabel, 'teen_unicorns');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         verify(
@@ -149,7 +149,7 @@ void main() {
           ),
         ).called(1);
         expect(cubit.state.isComplete, false);
-        expect(cubit.state.currentLabel, 'unicorns');
+        expect(cubit.state.currentLabel, 'adult_unicorns');
         await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
         await future;

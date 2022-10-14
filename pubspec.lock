@@ -203,7 +203,7 @@ packages:
       name: flame_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0"
+    version: "1.7.0"
   flame_steering_behaviors:
     dependency: "direct main"
     description:

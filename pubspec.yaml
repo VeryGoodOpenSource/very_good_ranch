@@ -16,7 +16,7 @@ dependencies:
     git: https://github.com/VeryGoodOpenSource/flame_steering_behaviors.git
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
   hydrated_bloc: 9.0.0-dev.3

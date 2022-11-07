@@ -302,7 +302,7 @@ packages:
       name: hydrated_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.0-dev.3"
+    version: "9.0.0"
   intl:
     dependency: "direct main"
     description:

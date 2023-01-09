@@ -1,3 +1,5 @@
+<p align="center"><b>⚠️ Attention: This repository has been archived and is now read-only!</b></p>
+
 ![icon](https://github.com/VeryGoodOpenSource/very_good_ranch/blob/main/web/img/share_image.png)
 
 # Very Good Ranch 🦄
